@@ -1,0 +1,172 @@
+<!doctype html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>agent-ready — pitch deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: dark;
+  --bg:#0a0c10; --card:#12151b; --inset:#0d1014; --line:#232833;
+  --ink:#e8edf2; --ink2:#9aa5b1; --ink3:#5f6a76;
+  --good:#46d17a; --lime:#b3d13b; --amber:#d9a13b; --orange:#e07b39; --bad:#e5544b;
+  --link:#4cc2d9;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+}
+* { box-sizing:border-box; margin:0; }
+html,body { height:100%; }
+body {
+  background:
+    radial-gradient(1200px 500px at 50% -180px, rgba(70,209,122,.08), transparent 65%),
+    radial-gradient(rgba(255,255,255,.045) 1px, transparent 1px) 0 0 / 26px 26px,
+    var(--bg);
+  color:var(--ink); font:clamp(15px,1.6vw,20px)/1.55 var(--sans); overflow:hidden;
+}
+.slide { position:absolute; inset:0; display:none; flex-direction:column; justify-content:center;
+         padding:6vh 8vw; }
+.slide.on { display:flex; animation:fade .45s ease both; }
+@keyframes fade { from { opacity:0; transform:translateY(10px); } }
+.kicker { font-family:var(--mono); font-size:.7em; letter-spacing:.14em; text-transform:uppercase;
+          color:var(--good); margin-bottom:1.1em; }
+h1 { font-family:var(--mono); font-weight:600; letter-spacing:-.03em; font-size:2.6em; line-height:1.15; }
+h2 { font-family:var(--mono); font-weight:600; letter-spacing:-.02em; font-size:1.9em; margin-bottom:.7em; }
+.cursor { display:inline-block; width:.5em; height:.95em; background:var(--good);
+          vertical-align:baseline; margin-left:.1em; animation:blink 1.15s steps(1) infinite; }
+@keyframes blink { 50% { opacity:0; } }
+.sub { color:var(--ink2); font-size:1.1em; max-width:34em; margin-top:.8em; }
+.statstrip { display:flex; gap:2.5em; margin-top:2.2em; font-family:var(--mono); font-size:.65em;
+             color:var(--ink3); text-transform:uppercase; letter-spacing:.1em; }
+.statstrip b { display:block; color:var(--ink); font-size:1.9em; letter-spacing:0; }
+.big { font-size:1.25em; max-width:30em; }
+.big li { margin:.55em 0; color:var(--ink2); }
+.big li b { color:var(--ink); }
+ul { padding-left:1.1em; }
+.flow { display:flex; flex-wrap:wrap; align-items:center; gap:.8em; margin-top:1.2em;
+        font-family:var(--mono); font-size:.8em; }
+.node { background:var(--card); border:1px solid var(--line); border-radius:10px;
+        padding:.7em 1em; text-align:center; }
+.node small { display:block; color:var(--ink3); font-size:.75em; margin-top:.2em; }
+.arrow { color:var(--ink3); }
+.board { width:100%; border-collapse:collapse; margin-top:.5em; font-size:.95em; }
+.board td { padding:.55em .4em; border-bottom:1px solid var(--line); vertical-align:top; }
+.board .s { font-family:var(--mono); font-weight:600; font-size:1.6em; width:2.6em; }
+.board .n { font-family:var(--mono); font-weight:600; width:7em; }
+.board .f { color:var(--ink2); font-size:.85em; }
+.g { color:var(--good); } .l { color:var(--lime); } .a { color:var(--amber); }
+.o { color:var(--orange); } .r { color:var(--bad); }
+.spkrow { display:flex; gap:4em; margin-top:1.6em; flex-wrap:wrap; }
+.spk { font-family:var(--mono); font-size:.8em; color:var(--ink2); }
+.quote { border-left:3px solid var(--good); padding:.6em 1.2em; margin-top:1.6em;
+         color:var(--ink); font-size:1.15em; max-width:32em; background:rgba(70,209,122,.05); }
+.foot { position:fixed; bottom:2.2vh; left:8vw; right:8vw; display:flex; justify-content:space-between;
+        font-family:var(--mono); font-size:.65rem; color:var(--ink3); }
+.bar { position:fixed; top:0; left:0; height:2px; background:var(--good); transition:width .3s; }
+@media (prefers-reduced-motion:reduce){ .slide.on,.cursor{animation:none!important;} }
+</style></head><body>
+
+<section class="slide">
+  <p class="kicker">Daytona HackSprint w/ Braintrust · SF · July 2026</p>
+  <h1>agent-ready<span class="cursor"></span></h1>
+  <p class="sub">Can a clean agent finish your quickstart?</p>
+  <div class="statstrip">
+    <span>SDKs graded today<b>04</b></span>
+    <span>runs logged<b>10+</b></span>
+    <span>real bugs found<b>03</b></span>
+    <span>built by<b>1 + AI</b></span>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="kicker">The problem</p>
+  <h2>Onboarding dies quietly.</h2>
+  <ul class="big">
+    <li><b>Every SDK team believes their quickstart works.</b> Almost nobody re-tests it from a truly clean machine.</li>
+    <li>The next developer to hit your docs is increasingly <b>an AI agent in a sandbox</b> — no tribal knowledge, no second tab, no patience.</li>
+    <li>Today you learn your quickstart is broken from <b>churned signups</b>. That's the most expensive possible telemetry.</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <p class="kicker">How it works</p>
+  <h2>Clean room. Real agent. Scored evidence.</h2>
+  <div class="flow">
+    <span class="node">target.yaml<small>quickstart URL + promised outcome</small></span>
+    <span class="arrow">→</span>
+    <span class="node">Daytona<small>pristine sandbox per run</small></span>
+    <span class="arrow">→</span>
+    <span class="node">agent<small>Fireworks · Kimi K2.6</small></span>
+    <span class="arrow">→</span>
+    <span class="node">judge<small>evidence-strict checkpoints</small></span>
+    <span class="arrow">→</span>
+    <span class="node">Braintrust<small>scored eval, every run</small></span>
+    <span class="arrow">→</span>
+    <span class="node">score + badge<small>0–100, live on Pages</small></span>
+  </div>
+  <p class="sub">A checkpoint passes only on real command output. Deviations from the docs
+  must be declared. Secrets are redacted. The sandbox is destroyed after every run.</p>
+</section>
+
+<section class="slide">
+  <p class="kicker">Results — today, live</p>
+  <h2>The metric discriminates.</h2>
+  <table class="board">
+    <tr><td class="s g">100</td><td class="n">elevenlabs</td>
+        <td class="f">Perfect, twice. Copy-paste-true samples + an /llms.txt agent index. Agent-ready by design.</td></tr>
+    <tr><td class="s l">75</td><td class="n">fireworks</td>
+        <td class="f">Documented example model no longer exists → first call 404s. Agent recovered by writing its own model-discovery script. Both runs.</td></tr>
+    <tr><td class="s l">70</td><td class="n">daytona</td>
+        <td class="f">Quickstart samples call renamed SDK methods (Process.execute → exec). The meta-run still created a sandbox inside a sandbox.</td></tr>
+    <tr><td class="s r">30</td><td class="n">braintrust</td>
+        <td class="f">API unreachable from inside agent sandboxes; the offline flag is undocumented. Score volatility (75→0→30) is itself the finding.</td></tr>
+  </table>
+</section>
+
+<section class="slide">
+  <p class="kicker">Why history matters</p>
+  <h2>Single runs lie. Tracked history doesn't.</h2>
+  <div class="spkrow">
+    <div class="spk">daytona · 70 → 45 → 70<br>
+      <svg width="300" height="70" viewBox="0 0 300 70">
+        <polyline points="20,22 150,45 280,22" fill="none" stroke="#b3d13b" stroke-width="3"/>
+        <circle cx="20" cy="22" r="6" fill="#b3d13b" stroke="#0a0c10" stroke-width="3"/>
+        <circle cx="150" cy="45" r="6" fill="#e07b39" stroke="#0a0c10" stroke-width="3"/>
+        <circle cx="280" cy="22" r="6" fill="#b3d13b" stroke="#0a0c10" stroke-width="3"/>
+      </svg><br>dip = our account quota, not their docs.<br>Caught by history · attributed by transcript · reproduced after cleanup.</div>
+    <div class="spk">braintrust · 75 → 0 → 30<br>
+      <svg width="300" height="70" viewBox="0 0 300 70">
+        <polyline points="20,18 150,62 280,44" fill="none" stroke="#e5544b" stroke-width="3"/>
+        <circle cx="20" cy="18" r="6" fill="#b3d13b" stroke="#0a0c10" stroke-width="3"/>
+        <circle cx="150" cy="62" r="6" fill="#e5544b" stroke="#0a0c10" stroke-width="3"/>
+        <circle cx="280" cy="44" r="6" fill="#e07b39" stroke="#0a0c10" stroke-width="3"/>
+      </svg><br>volatility = a hard dependency on network egress<br>+ an undocumented workaround. The instability is the finding.</div>
+  </div>
+  <p class="quote">Every point is a scored Braintrust eval. A nightly GitHub Actions sweep
+  re-grades every SDK — the board updates itself. Docs-regression CI, shipped.</p>
+</section>
+
+<section class="slide">
+  <p class="kicker">The ask</p>
+  <h2>Your next user might not be human.</h2>
+  <ul class="big">
+    <li><b>Live:</b> zhannur.github.io/agent-ready — scoreboard, readable logs, badges with one-click embed</li>
+    <li><b>Shipped today:</b> nightly docs-regression CI · on-demand runs · append-only history · measurement-integrity discipline</li>
+    <li><b>Next:</b> model matrix · environment matrix · signed vendor-neutral reports</li>
+    <li><b>Be the 100.</b> ElevenLabs proved it's possible.</li>
+  </ul>
+</section>
+
+<div class="bar" id="bar"></div>
+<div class="foot"><span>agent-ready</span><span id="ctr"></span></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+function show(n){i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,j)=>s.classList.toggle('on',j===i));
+  document.getElementById('ctr').textContent=(i+1)+' / '+slides.length;
+  document.getElementById('bar').style.width=((i+1)/slides.length*100)+'%';}
+addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))show(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))show(i-1);});
+addEventListener('click',e=>{e.clientX>innerWidth/2?show(i+1):show(i-1);});
+show(0);
+</script>
+</body></html>
