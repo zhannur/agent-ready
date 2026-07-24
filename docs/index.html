@@ -35,6 +35,19 @@ agent + Braintrust-scored checkpoints. No pretending — every pass is backed by
         <section class="card">
           <div class="head">
             <span class="rank">#1</span>
+            <h2>braintrust</h2>
+            <span class="score s-green">75<small>/100</small></span>
+          </div>
+          <p class="url"><a href="https://www.braintrust.dev/docs/start">https://www.braintrust.dev/docs/start</a></p>
+          <div class="pills"><span class="pill ok" title="The toolchain the quickstart needs was installed/ready (runtime, package manager)">env_ready</span><span class="pill ok" title="The vendor's SDK or CLI was installed successfully">installed</span><span class="pill ok" title="Credentials/config were wired the way the quickstart instructs">configured</span><span class="pill no" title="The first API call or core action succeeded">first_call</span><span class="pill ok" title="The quickstart's promised output was produced and verified">verified</span></div>
+          <p class="summary"><b>stuck</b> — run ended without finish()</p>
+          <ul class="friction"><li><b>Braintrust API unreachable from sandbox</b>: curl: (35) Recv failure: Connection reset by peer on every HTTPS attempt to www.braintrust.dev and api.braintrust.dev</li><li><b>Default eval command requires live API connection for log shipping</b>: First braintrust eval tutorial_eval.py fails with urllib3 SSL handshake traceback because the CLI attempts to connect to Braintrust even for a local quickstart</li><li><b>Workaround flag --no-send-logs is not in quickstart docs</b>: The README quickstart only documents BRAINTRUST_API_KEY=<YOUR_API_KEY> braintrust eval tutorial_eval.py, but the agent had to discover and use braintrust eval --no-send-logs tutorial_eval.py to get the eval to run offline</li><li><b>Documentation path fragmentation</b>: Agent tried multiple doc URLs ([fetch_url] args={"url": "https://www.braintrust.dev/docs/start/eval"}, /docs/evaluate/quickstart, /docs/start/evaluation-quickstart) before locating the correct quickstart content on GitHub</li><li><b>CLI filename convention warning</b>: WARNING [braintrust.eval]: Reading tutorial_eval.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory</li></ul>
+          <p class="meta">40 steps · 169.2s · badge:
+             <code>badge-braintrust.json</code></p>
+        </section>
+        <section class="card">
+          <div class="head">
+            <span class="rank">#2</span>
             <h2>fireworks</h2>
             <span class="score s-green">75<small>/100</small></span>
           </div>
@@ -44,5 +57,18 @@ agent + Braintrust-scored checkpoints. No pretending — every pass is backed by
           <ul class="friction"><li><b>Quickstart model name</b>: The docs specify `accounts/fireworks/models/deepseek-v3p1` which immediately 404s: `openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed'`</li><li><b>Blind model guessing</b>: Two follow-up guesses (`llama-v3p1-8b-instruct` and `llama-v3-8b-instruct`) also return the same 404: `openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed'`</li><li><b>Missing troubleshooting guidance</b>: The quickstart offers no way to discover valid models, forcing the agent to write a separate script: `wrote /home/daytona/list_models.py` ... `models = client.models.list()`</li><li><b>Unhelpful 404 error message</b>: The API returns `'message': 'Model not found, inaccessible, and/or not deployed'` without listing available or suggested model IDs.</li></ul>
           <p class="meta">14 steps · 78.3s · badge:
              <code>badge-fireworks.json</code></p>
+        </section>
+        <section class="card">
+          <div class="head">
+            <span class="rank">#3</span>
+            <h2>daytona</h2>
+            <span class="score s-green">70<small>/100</small></span>
+          </div>
+          <p class="url"><a href="https://www.daytona.io/docs/getting-started/">https://www.daytona.io/docs/getting-started/</a></p>
+          <div class="pills"><span class="pill ok" title="The toolchain the quickstart needs was installed/ready (runtime, package manager)">env_ready</span><span class="pill ok" title="The vendor's SDK or CLI was installed successfully">installed</span><span class="pill ok" title="Credentials/config were wired the way the quickstart instructs">configured</span><span class="pill ok" title="The first API call or core action succeeded">first_call</span><span class="pill no" title="The quickstart's promised output was produced and verified">verified</span></div>
+          <p class="summary"><b>stuck</b> — run ended without finish()</p>
+          <ul class="friction"><li><b>Quickstart snippet uses Process.execute instead of exec</b>: AttributeError: 'Process' object has no attribute 'execute'</li><li><b>Quickstart snippet uses CodeInterpreter.run instead of run_code</b>: code_interpreter failed: AttributeError: 'CodeInterpreter' object has no attribute 'run'</li><li><b>Sandbox toolbox unreachable despite state STARTED</b>: Attempt 10 failed: DaytonaError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))</li><li><b>SDK docs say DAYTONA_API_URL is required but it is absent from env</b>: - 'DAYTONA_API_URL': Required api URL</li><li><b>No guidance on retry/backoff for toolbox readiness</b>: All attempts failed</li></ul>
+          <p class="meta">40 steps · 436.7s · badge:
+             <code>badge-daytona.json</code></p>
         </section>
 </body></html>

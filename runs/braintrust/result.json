@@ -1,0 +1,56 @@
+{
+  "name": "braintrust",
+  "url": "https://www.braintrust.dev/docs/start",
+  "started": "2026-07-24T19:37:04Z",
+  "outcome": "stuck",
+  "summary": "run ended without finish()",
+  "deviations": "",
+  "steps": 40,
+  "wall_seconds": 169.2,
+  "checkpoints": {
+    "env_ready": {
+      "passed": true,
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+    },
+    "installed": {
+      "passed": true,
+      "evidence": "Downloading braintrust-0.30.1-py3-none-any.whl.metadata (4.0 kB)"
+    },
+    "configured": {
+      "passed": true,
+      "evidence": "BRAINTRUST_API_KEY is set: yes"
+    },
+    "first_call": {
+      "passed": false,
+      "evidence": "Traceback (most recent call last):\n  File \"/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py\", line 788, in urlopen"
+    },
+    "verified": {
+      "passed": true,
+      "evidence": "=========================SUMMARY=========================\n77.78% 'Levenshtein' score"
+    }
+  },
+  "friction": [
+    {
+      "where": "Braintrust API unreachable from sandbox",
+      "detail": "curl: (35) Recv failure: Connection reset by peer on every HTTPS attempt to www.braintrust.dev and api.braintrust.dev"
+    },
+    {
+      "where": "Default eval command requires live API connection for log shipping",
+      "detail": "First braintrust eval tutorial_eval.py fails with urllib3 SSL handshake traceback because the CLI attempts to connect to Braintrust even for a local quickstart"
+    },
+    {
+      "where": "Workaround flag --no-send-logs is not in quickstart docs",
+      "detail": "The README quickstart only documents BRAINTRUST_API_KEY=<YOUR_API_KEY> braintrust eval tutorial_eval.py, but the agent had to discover and use braintrust eval --no-send-logs tutorial_eval.py to get the eval to run offline"
+    },
+    {
+      "where": "Documentation path fragmentation",
+      "detail": "Agent tried multiple doc URLs ([fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/start/eval\"}, /docs/evaluate/quickstart, /docs/start/evaluation-quickstart) before locating the correct quickstart content on GitHub"
+    },
+    {
+      "where": "CLI filename convention warning",
+      "detail": "WARNING [braintrust.eval]: Reading tutorial_eval.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory"
+    }
+  ],
+  "score": 75,
+  "braintrust_span": "6e3fc62c-ed1c-4501-a8ea-cbae188f6277"
+}

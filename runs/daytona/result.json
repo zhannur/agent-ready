@@ -1,0 +1,56 @@
+{
+  "name": "daytona",
+  "url": "https://www.daytona.io/docs/getting-started/",
+  "started": "2026-07-24T19:32:23Z",
+  "outcome": "stuck",
+  "summary": "run ended without finish()",
+  "deviations": "",
+  "steps": 40,
+  "wall_seconds": 436.7,
+  "checkpoints": {
+    "env_ready": {
+      "passed": true,
+      "evidence": "cd /home/daytona && python3 test_daytona.py"
+    },
+    "installed": {
+      "passed": true,
+      "evidence": "from daytona import Daytona"
+    },
+    "configured": {
+      "passed": true,
+      "evidence": "DAYTONA_API_KEY is set: yes"
+    },
+    "first_call": {
+      "passed": true,
+      "evidence": "Sandbox created with ID: 9e733144-42b6-4d66-905a-ea1d2579366d"
+    },
+    "verified": {
+      "passed": false,
+      "evidence": "Attempt 10 failed: DaytonaError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    }
+  },
+  "friction": [
+    {
+      "where": "Quickstart snippet uses Process.execute instead of exec",
+      "detail": "AttributeError: 'Process' object has no attribute 'execute'"
+    },
+    {
+      "where": "Quickstart snippet uses CodeInterpreter.run instead of run_code",
+      "detail": "code_interpreter failed: AttributeError: 'CodeInterpreter' object has no attribute 'run'"
+    },
+    {
+      "where": "Sandbox toolbox unreachable despite state STARTED",
+      "detail": "Attempt 10 failed: DaytonaError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+      "where": "SDK docs say DAYTONA_API_URL is required but it is absent from env",
+      "detail": "- 'DAYTONA_API_URL': Required api URL"
+    },
+    {
+      "where": "No guidance on retry/backoff for toolbox readiness",
+      "detail": "All attempts failed"
+    }
+  ],
+  "score": 70,
+  "braintrust_span": "7300d6e5-a2f3-4222-9969-eea85d1598ee"
+}

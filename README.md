@@ -2,6 +2,10 @@
 
 **Can a clean agent finish your quickstart?**
 
+[![fireworks](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-fireworks.json&label=fireworks)](https://zhannur.github.io/agent-ready/)
+[![daytona](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-daytona.json&label=daytona)](https://zhannur.github.io/agent-ready/)
+[![braintrust](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-braintrust.json&label=braintrust)](https://zhannur.github.io/agent-ready/)
+
 Every SDK team believes their quickstart works. `agent-ready` checks: it boots a pristine
 sandbox with nothing installed, drops an autonomous agent in it with only your public
 quickstart URL, and lets it try to reach the quickstart's promised outcome — exactly the
