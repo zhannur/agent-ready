@@ -6,7 +6,7 @@ from pathlib import Path
 
 from .checkpoints import CHECKPOINTS, WEIGHTS
 
-SITE = Path("site")
+SITE = Path("docs")
 RUNS = Path("runs")
 
 
@@ -103,4 +103,4 @@ def build_site() -> None:
     results = load_results()
     write_badges(results)
     render_index(results)
-    print(f"site/index.html built with {len(results)} run(s)")
+    print(f"{SITE}/index.html built with {len(results)} run(s)")

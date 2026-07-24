@@ -48,10 +48,10 @@ def cmd_run(target_path: str, keep_sandbox: bool) -> None:
     run_dir.mkdir(parents=True, exist_ok=True)
     (run_dir / "transcript.jsonl").write_text("")
 
-    print(f"== {name}: creating pristine sandbox")
     sandbox = LabSandbox(inject_env=inject)
-    sandbox.create()
     try:
+        print(f"== {name}: creating pristine sandbox")
+        sandbox.create()
         print(f"== {name}: agent attempting {url}")
         outcome = run_agent(name, url, promised, sandbox, inject, run_dir)
     finally:

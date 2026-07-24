@@ -40,7 +40,7 @@ flowchart LR
 
 The weighted total is the **Agent-Ready score** (0–100), served as a shields.io badge:
 
-`![agent-ready](https://img.shields.io/endpoint?url=<your-pages-url>/badge-yoursdk.json)`
+`![agent-ready](https://img.shields.io/endpoint?url=https://zhannur.github.io/agent-ready/badge-fireworks.json)`
 
 ## Run it
 
@@ -48,7 +48,7 @@ The weighted total is the **Agent-Ready score** (0–100), served as a shields.i
 uv sync
 cp .env.example .env   # fill in keys
 uv run python -m lab.cli run targets/fireworks.yaml
-uv run python -m lab.cli site   # builds site/index.html scoreboard
+uv run python -m lab.cli site   # builds docs/index.html (served via GitHub Pages)
 ```
 
 A run only uses **public docs + credentials a new signup would have**. No fabricated

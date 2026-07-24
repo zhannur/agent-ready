@@ -9,8 +9,6 @@ import os
 
 from daytona import Daytona, DaytonaConfig
 
-ENV_FILE = "/root/.lab_env"
-
 
 class LabSandbox:
     """One pristine sandbox per acceptance run."""
@@ -19,16 +17,22 @@ class LabSandbox:
         self._daytona = Daytona(DaytonaConfig(api_key=os.environ["DAYTONA_API_KEY"]))
         self._sandbox = None
         self._env = inject_env or {}
+        self._env_file = None
 
     def create(self) -> None:
         self._sandbox = self._daytona.create()
+        try:
+            home = self._sandbox.get_user_home_dir() or "/home/daytona"
+        except Exception:
+            home = "/home/daytona"
+        self._env_file = f"{home.rstrip('/')}/.lab_env"
         if self._env:
             exports = "\n".join(f"export {k}={v!r}" for k, v in self._env.items())
-            self.write_file(ENV_FILE, exports + "\n")
+            self.write_file(self._env_file, exports + "\n")
 
     def run(self, command: str, timeout: int = 240) -> tuple[int | None, str]:
         """Run a shell command; returns (exit_code, output). Injected env is sourced first."""
-        wrapped = f". {ENV_FILE} 2>/dev/null || true; {command}"
+        wrapped = f". {self._env_file} 2>/dev/null || true; {command}"
         proc = self._sandbox.process
         if hasattr(proc, "exec"):
             resp = proc.exec(wrapped, env=self._env or None, timeout=timeout)
