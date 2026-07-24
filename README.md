@@ -2,6 +2,7 @@
 
 **Can a clean agent finish your quickstart?**
 
+[![elevenlabs](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-elevenlabs.json&label=elevenlabs)](https://zhannur.github.io/agent-ready/)
 [![fireworks](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-fireworks.json&label=fireworks)](https://zhannur.github.io/agent-ready/)
 [![daytona](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-daytona.json&label=daytona)](https://zhannur.github.io/agent-ready/)
 [![braintrust](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-braintrust.json&label=braintrust)](https://zhannur.github.io/agent-ready/)
