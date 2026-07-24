@@ -33,7 +33,7 @@ churned signups; agent-ready makes them a CI metric.
 | daytona | 70/100 | 70, 45, 70 | Quickstart samples call renamed SDK methods (`Process.execute`→`exec`, `CodeInterpreter.run`→`run_code`); nested sandbox creation itself worked |
 | braintrust | 30/100 | 75, 0, 30 | `api.braintrust.dev` is unreachable from inside agent sandboxes and the offline workaround (`--no-send-logs`) is undocumented — the score depends on the agent rediscovering it, and that instability is itself the finding |
 
-**Measurement integrity, demonstrated live:** when two scores dipped between rounds, the
+**We catch our own bad measurements — demonstrated live:** when two scores dipped between rounds, the
 append-only history caught it, the transcripts attributed it — our account's disk quota
 had been saturated by nested sandboxes the runs themselves created, not a docs change —
 `lab cleanup` remediated it, and re-measurement reproduced daytona's baseline exactly
