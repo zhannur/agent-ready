@@ -32,6 +32,8 @@
   .copybtn { background: #21262d; color: #8b949e; border: 1px solid #30363d;
              border-radius: 6px; font-size: .75rem; padding: .15rem .6rem; cursor: pointer; }
   .copybtn:hover { color: #e6edf3; border-color: #8b949e; }
+  .hist { margin-left: auto; display: flex; align-items: center; gap: .45rem;
+          color: #8b949e; font-size: .75rem; }
   code { background: #21262d; padding: .1rem .35rem; border-radius: 6px; }
 </style></head><body>
 <h1>agent-ready</h1>
@@ -50,11 +52,13 @@ agent + Braintrust-scored checkpoints. No pretending — every pass is backed by
           <ul class="friction"><li><b>Fetched quickstart page</b>: ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt... Sign up Overview ElevenCreative...</li><li><b>Quickstart play() example</b>: from elevenlabs.play import play requires headless rewrite to save, shown by agent adding '# Save to file to verify audio generation'</li><li><b>API key setup</b>: api_key=os.getenv("ELEVENLABS_API_KEY") with no prior step showing how to set it, only a later check 'API key is set: yes'</li><li><b>Silent first run</b>: cd /home/daytona && python example.py returned exit=0 with no stdout/stderr, giving no feedback that audio was generated</li><li><b>Missing dotenv prerequisite</b>: pip install elevenlabs python-dotenv shows the agent had to manually include python-dotenv, implying the quickstart did not clearly list it</li></ul>
           <p class="meta">agent: <code>kimi-k2p6</code>
              · 9 steps · 48.2s · 2026-07-24
-             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/elevenlabs/transcript.jsonl">full transcript</a>
+             · <a href="log-elevenlabs.html">readable log</a>
+             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/elevenlabs/transcript.jsonl">raw transcript</a>
              · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/elevenlabs/result.json">result.json</a></p>
           <div class="badgebar">
             <a href="https://zhannur.github.io/agent-ready/badge-elevenlabs.json"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-elevenlabs.json&label=elevenlabs" alt="agent-ready badge for elevenlabs"></a>
             <button class="copybtn" data-md="[![agent-ready: elevenlabs](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-elevenlabs.json&label=elevenlabs)](https://zhannur.github.io/agent-ready/)">copy badge markdown</button>
+            <span class="hist"><svg class="spark" width="120" height="28" viewBox="0 0 120 28" role="img" aria-label="score history for this SDK"><circle cx="60" cy="4" r="3" fill="#3fb950" stroke="#161b22" stroke-width="2"><title>2026-07-24 20:19Z — 100/100</title></circle></svg>1 run(s)</span>
           </div>
         </section>
         <section class="card">
@@ -69,11 +73,13 @@ agent + Braintrust-scored checkpoints. No pretending — every pass is backed by
           <ul class="friction"><li><b>Braintrust API unreachable from sandbox</b>: curl: (35) Recv failure: Connection reset by peer on every HTTPS attempt to www.braintrust.dev and api.braintrust.dev</li><li><b>Default eval command requires live API connection for log shipping</b>: First braintrust eval tutorial_eval.py fails with urllib3 SSL handshake traceback because the CLI attempts to connect to Braintrust even for a local quickstart</li><li><b>Workaround flag --no-send-logs is not in quickstart docs</b>: The README quickstart only documents BRAINTRUST_API_KEY=<YOUR_API_KEY> braintrust eval tutorial_eval.py, but the agent had to discover and use braintrust eval --no-send-logs tutorial_eval.py to get the eval to run offline</li><li><b>Documentation path fragmentation</b>: Agent tried multiple doc URLs ([fetch_url] args={"url": "https://www.braintrust.dev/docs/start/eval"}, /docs/evaluate/quickstart, /docs/start/evaluation-quickstart) before locating the correct quickstart content on GitHub</li><li><b>CLI filename convention warning</b>: WARNING [braintrust.eval]: Reading tutorial_eval.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory</li></ul>
           <p class="meta">agent: <code>kimi-k2p6</code>
              · 40 steps · 169.2s · 2026-07-24
-             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/braintrust/transcript.jsonl">full transcript</a>
+             · <a href="log-braintrust.html">readable log</a>
+             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/braintrust/transcript.jsonl">raw transcript</a>
              · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/braintrust/result.json">result.json</a></p>
           <div class="badgebar">
             <a href="https://zhannur.github.io/agent-ready/badge-braintrust.json"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-braintrust.json&label=braintrust" alt="agent-ready badge for braintrust"></a>
             <button class="copybtn" data-md="[![agent-ready: braintrust](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-braintrust.json&label=braintrust)](https://zhannur.github.io/agent-ready/)">copy badge markdown</button>
+            <span class="hist"><svg class="spark" width="120" height="28" viewBox="0 0 120 28" role="img" aria-label="score history for this SDK"><circle cx="60" cy="9" r="3" fill="#3fb950" stroke="#161b22" stroke-width="2"><title>2026-07-24 19:37Z — 75/100</title></circle></svg>1 run(s)</span>
           </div>
         </section>
         <section class="card">
@@ -88,11 +94,13 @@ agent + Braintrust-scored checkpoints. No pretending — every pass is backed by
           <ul class="friction"><li><b>Quickstart model name</b>: The docs specify `accounts/fireworks/models/deepseek-v3p1` which immediately 404s: `openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed'`</li><li><b>Blind model guessing</b>: Two follow-up guesses (`llama-v3p1-8b-instruct` and `llama-v3-8b-instruct`) also return the same 404: `openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed'`</li><li><b>Missing troubleshooting guidance</b>: The quickstart offers no way to discover valid models, forcing the agent to write a separate script: `wrote /home/daytona/list_models.py` ... `models = client.models.list()`</li><li><b>Unhelpful 404 error message</b>: The API returns `'message': 'Model not found, inaccessible, and/or not deployed'` without listing available or suggested model IDs.</li></ul>
           <p class="meta">agent: <code>kimi-k2p6</code>
              · 14 steps · 78.3s · 2026-07-24
-             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/fireworks/transcript.jsonl">full transcript</a>
+             · <a href="log-fireworks.html">readable log</a>
+             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/fireworks/transcript.jsonl">raw transcript</a>
              · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/fireworks/result.json">result.json</a></p>
           <div class="badgebar">
             <a href="https://zhannur.github.io/agent-ready/badge-fireworks.json"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-fireworks.json&label=fireworks" alt="agent-ready badge for fireworks"></a>
             <button class="copybtn" data-md="[![agent-ready: fireworks](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-fireworks.json&label=fireworks)](https://zhannur.github.io/agent-ready/)">copy badge markdown</button>
+            <span class="hist"><svg class="spark" width="120" height="28" viewBox="0 0 120 28" role="img" aria-label="score history for this SDK"><circle cx="60" cy="9" r="3" fill="#3fb950" stroke="#161b22" stroke-width="2"><title>2026-07-24 19:23Z — 75/100</title></circle></svg>1 run(s)</span>
           </div>
         </section>
         <section class="card">
@@ -107,11 +115,13 @@ agent + Braintrust-scored checkpoints. No pretending — every pass is backed by
           <ul class="friction"><li><b>Quickstart snippet uses Process.execute instead of exec</b>: AttributeError: 'Process' object has no attribute 'execute'</li><li><b>Quickstart snippet uses CodeInterpreter.run instead of run_code</b>: code_interpreter failed: AttributeError: 'CodeInterpreter' object has no attribute 'run'</li><li><b>Sandbox toolbox unreachable despite state STARTED</b>: Attempt 10 failed: DaytonaError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))</li><li><b>SDK docs say DAYTONA_API_URL is required but it is absent from env</b>: - 'DAYTONA_API_URL': Required api URL</li><li><b>No guidance on retry/backoff for toolbox readiness</b>: All attempts failed</li></ul>
           <p class="meta">agent: <code>kimi-k2p6</code>
              · 40 steps · 436.7s · 2026-07-24
-             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/daytona/transcript.jsonl">full transcript</a>
+             · <a href="log-daytona.html">readable log</a>
+             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/daytona/transcript.jsonl">raw transcript</a>
              · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/daytona/result.json">result.json</a></p>
           <div class="badgebar">
             <a href="https://zhannur.github.io/agent-ready/badge-daytona.json"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-daytona.json&label=daytona" alt="agent-ready badge for daytona"></a>
             <button class="copybtn" data-md="[![agent-ready: daytona](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-daytona.json&label=daytona)](https://zhannur.github.io/agent-ready/)">copy badge markdown</button>
+            <span class="hist"><svg class="spark" width="120" height="28" viewBox="0 0 120 28" role="img" aria-label="score history for this SDK"><circle cx="60" cy="10" r="3" fill="#3fb950" stroke="#161b22" stroke-width="2"><title>2026-07-24 19:32Z — 70/100</title></circle></svg>1 run(s)</span>
           </div>
         </section>
 <script>

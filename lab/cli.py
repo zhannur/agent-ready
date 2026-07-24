@@ -75,6 +75,12 @@ def cmd_run(target_path: str, keep_sandbox: bool) -> None:
               "friction": verdict["friction_points"], "score": total,
               "braintrust_span": span_id}
     (run_dir / "result.json").write_text(json.dumps(result, indent=2))
+    with (Path("runs") / "history.jsonl").open("a") as f:
+        f.write(json.dumps({"name": name, "started": result["started"], "score": total,
+                            "outcome": result["outcome"], "steps": result["steps"],
+                            "wall_seconds": result["wall_seconds"],
+                            "agent_model": result["agent_model"],
+                            "braintrust_span": span_id}) + "\n")
     print(f"== {name}: agent-ready score {total}/100 → {run_dir}/result.json")
 
 

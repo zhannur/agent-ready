@@ -1,0 +1,88 @@
+<!doctype html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>agent-ready — elevenlabs run log</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0 auto; max-width: 880px; padding: 2rem 1rem 4rem;
+         background: #0d1117; color: #e6edf3;
+         font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, sans-serif; }
+  h1 { font-size: 1.4rem; } h1 a { color: #58a6ff; text-decoration: none; }
+  .sub { color: #8b949e; }
+  .step { background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+          padding: .5rem .8rem; margin: .6rem 0; }
+  .step summary { cursor: pointer; }
+  .note { color: #d29922; font-style: italic; margin: .6rem 0; padding: .5rem .8rem;
+          border-left: 3px solid #d29922; }
+  pre { background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+        padding: .7rem; overflow-x: auto; font-size: .8rem; white-space: pre-wrap; }
+  code { background: #21262d; padding: .1rem .35rem; border-radius: 6px; font-size: .85em; }
+</style></head><body>
+<h1><a href="index.html">agent-ready</a> · elevenlabs — 100/100</h1>
+<p class="sub">9 steps · 48.2s ·
+agent <code>kimi-k2p6</code> ·
+<a href="https://github.com/zhannur/agent-ready/blob/main/runs/elevenlabs/transcript.jsonl" style="color:#58a6ff">raw JSONL</a></p>
+<details class="step" open><summary>#1 <b>fetch_url</b> <code>https://elevenlabs.io/docs/quickstart</code></summary><pre> ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page. Search / Connect Blog Help Center API Pricing Sign up Overview ElevenCreative ElevenAgents ElevenAPI Reception.ai API reference Changelog Help Center Login Overview ElevenCreative ElevenAgents ElevenAPI Reception.ai API reference Changelog Help Center Get started Quickstart Agents Quickstart Choosing the right model Tutorials 
+
+ Text to Speech 
+
+ Speech to Text 
+
+ Speech Engine Music 
+
+ Text to Dialogue 
+
+ Voice Changer Voice Isolator Dubbing Sound effects 
+
+ Forced Alignment Concepts Understanding audio streaming Understanding latency Voice cloning How-to guides 
+
+ Text to Speech 
+
+ Speech to Text Music Voices WebSockets 
+
+ Speech Engine Best Practices Reference Libraries &amp;amp; SDKs Errors Agent tooling Webhooks IP allowlisting Zero Retention Mode Breaking changes policy UI components Example projects Next.js template Showcase Private deployment Overview Quickstart Choosing the right model Text to Speech Speech to Text Speech Engine Music Text to Dialogue Voice Changer Voice Isolator Dubbing Sound effects Forced Alignment Understanding audio streaming Understanding latency Voice cloning ElevenProductions API lifecycle Streaming Request stitching Pronunciation dictionaries Streaming and caching with Supabase Twilio Multichannel transcription Webhooks Keyterm prompting Entity detection Telegram bot Vercel AI SDK Client-side streaming Server-side streaming Transcripts and commit strategies Event reference Streaming Composition plans Inpainting Instant voice cloning Professional voice cloning Voice design Remix a voice Placing an order Realtime Text to Speech Realtime Text to Dialogue TTS vs TTD WebSockets Multi-context WebSocket LiveKit integration Pipecat integration Latency optimization Security Libraries &amp;amp; SDKs JavaScript SDK reference React SDK reference JavaScript SDK reference Python SDK reference Errors Agent tooling Webhooks IP allowlisting Zero Retention Mode Breaking changes policy Overview AWS - TTS AWS - ASR V2 Batch AWS - ASR V2 Realtime AWS - Agents GCP - TTS Connect Blog Help Center API Pricing Sign up Light On this page Using the Text to Speech API Next steps Scroll to top Get started ElevenAPI quickstart Copy page Learn how to make your first ElevenLabs API request. By the end of this guide you will have a working script that sends a text string to the ElevenLabs API and plays the returned audio through your speakers. You will learn how to authenticate with an API key, install the SDK, and make your first text-to-speech request. 
+
+ For guides covering other capabilities — streaming, voice cloning, speech-to-text — see the Tutorials section. 
+ Use the ElevenLabs text-to-speech skill to generate speech from your AI coding assistant: $ npx skills add elevenlabs/skills --skill text-to-speech 
+ Using the Text to Speech API 
+ 1 Create an API key Create an API key in the dashboard here , which you’ll use to securely access the API . Store the key as a managed secret and pass it to the SDKs either as a environment variable via an .env file, or directly in your app’s configuration depending on your preference. .env 1 ELEVENLABS_API_KEY = &amp;lt; your_api_key_here &amp;gt; 2 Install the SDK We’ll also use the dotenv library to load our API key from an environment variable. Python TypeScript 1 pip install elevenlabs 2 pip install python - dotenv To play the audio through your speakers, you may be prompted to install MPV 
+and/or ffmpeg . 3 Make your first request Create a new file named example.py or example.mts , depending on your language of choice and add the following code: Python TypeScript 1 from dotenv import load_dotenv 2 from elevenlabs . client import ElevenLabs 3 from elevenlabs . play import play 4 import os 5 6 load_dotenv () 7 8 elevenlabs = ElevenLabs ( 9 api_key = os . getenv ( &amp;quot; ELEVENLABS_API_KEY &amp;quot; ), 10 ) 11 12 audio = elevenlabs . text_to_speech . convert ( 13 text = &amp;quot; The first move is what sets everything in motion. &amp;quot; , 14 voice_id = &amp;quot; JBFqnCBsd6RMkjVDRZzb &amp;quot; , # &amp;quot;George&amp;quot; - browse voices at elevenlabs.io/app/voice-library 15 model_id = &amp;quot; eleven_v3 &amp;quot; , 16 output_format = &amp;quot; mp3_44100_128 &amp;quot; , 17 ) 18 19 play ( audio ) 4 Run the code Python TypeScript 1 python example . py You should hear the audio play through your speakers. 
+ Next steps 
+
+ Stream audio Reduce latency by streaming audio as it generates rather than waiting for the complete file Browse voices Explore 10,000+ voices and swap the example voice ID for one that fits your use case Clone a voice Create a custom voice from a short audio recording Was this page helpful? Yes No How to choose the right model This guide shows you how to choose the right ElevenLabs model for your use case. Next Built with Login </pre></details><details class="step" open><summary>#2 <b>bash</b> <code>cd /home/daytona &amp;&amp; pip install elevenlabs python-dotenv</code></summary><pre>exit=0
+Defaulting to user installation because normal site-packages is not writeable
+Collecting elevenlabs
+  Downloading elevenlabs-2.59.0-py3-none-any.whl.metadata (15 kB)
+Requirement already satisfied: python-dotenv in /usr/local/lib/python3.14/site-packages (1.2.2)
+Requirement already satisfied: httpx&gt;=0.21.2 in /usr/local/lib/python3.14/site-packages (from elevenlabs) (0.28.1)
+Requirement already satisfied: pydantic&gt;=1.9.2 in /usr/local/lib/python3.14/site-packages (from elevenlabs) (2.13.4)
+Requirement already satisfied: pydantic-core&gt;=2.18.2 in /usr/local/lib/python3.14/site-packages (from elevenlabs) (2.46.4)
+Requirement already satisfied: requests&gt;=2.20 in /usr/local/lib/python3.14/site-packages (from elevenlabs) (2.32.5)
+Requirement already satisfied: typing_extensions&gt;=4.0.0 in /usr/local/lib/python3.14/site-packages (from elevenlabs) (4.15.0)
+Requirement already satisfied: websockets&gt;=13.0 in /usr/local/lib/python3.14/site-packages (from elevenlabs) (15.0.1)
+Requirement already satisfied: anyio in /usr/local/lib/python3.14/site-packages (from httpx&gt;=0.21.2-&gt;elevenlabs) (4.13.0)
+Requirement already satisfied: certifi in /usr/local/lib/python3.14/site-packages (from httpx&gt;=0.21.2-&gt;elevenlabs) (2026.4.22)
+Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.14/site-packages (from httpx&gt;=0.21.2-&gt;elevenlabs) (1.0.9)
+Requirement already satisfied: idna in /usr/local/lib/python3.14/site-packages (from httpx&gt;=0.21.2-&gt;elevenlabs) (3.15)
+Requirement already satisfied: h11&gt;=0.16 in /usr/local/lib/python3.14/site-packages (from httpcore==1.*-&gt;httpx&gt;=0.21.2-&gt;elevenlabs) (0.16.0)
+Requirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/python3.14/site-packages (from pydantic&gt;=1.9.2-&gt;elevenlabs) (0.7.0)
+Requirement already satisfied: typing-inspection&gt;=0.4.2 in /usr/local/lib/python3.14/site-packages (from pydantic&gt;=1.9.2-&gt;elevenlabs) (0.4.2)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.14/site-packages (from requests&gt;=2.20-&gt;elevenlabs) (3.4.7)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.14/site-packages (from requests&gt;=2.20-&gt;elevenlabs) (2.7.0)
+Downloading elevenlabs-2.59.0-py3-none-any.whl (1.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 157.5 MB/s  0:00:00
+Installing collected packages: elevenlabs
+Successfully installed elevenlabs-2.59.0
+
+[notice] A new release of pip is available: 26.0.1 -&gt; 26.1.2
+[notice] To update, run: pip install --upgrade pip
+</pre></details><details class="step" open><summary>#3 <b>write_file</b> <code>/home/daytona/example.py</code></summary><pre>wrote /home/daytona/example.py (485 bytes)</pre></details><details class="step" open><summary>#4 <b>bash</b> <code>cd /home/daytona &amp;&amp; echo &quot;API key is set: ${ELEVENLABS_API_KEY:+yes}&quot;</code></summary><pre>exit=0
+API key is set: yes
+</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>cd /home/daytona &amp;&amp; python example.py</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#6 <b>write_file</b> <code>/home/daytona/example_save.py</code></summary><pre>wrote /home/daytona/example_save.py (640 bytes)</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>cd /home/daytona &amp;&amp; python example_save.py</code></summary><pre>exit=0
+Audio saved to /home/daytona/output.mp3
+File size: 41839 bytes
+</pre></details><details class="step" open><summary>#8 <b>bash</b> <code>cd /home/daytona &amp;&amp; file output.mp3 &amp;&amp; ls -la output.mp3</code></summary><pre>exit=0
+output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural
+-rw-r--r-- 1 daytona daytona 41839 Jul 24 20:17 output.mp3
+</pre></details><details class="step" open><summary>#9 <b>finish</b> <code></code></summary><pre>run finished</pre></details>
+</body></html>
