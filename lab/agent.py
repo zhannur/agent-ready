@@ -13,7 +13,7 @@ from openai import OpenAI
 from .sandbox import LabSandbox
 
 FIREWORKS_BASE_URL = "https://api.fireworks.ai/inference/v1"
-DEFAULT_MODEL = "accounts/fireworks/models/kimi-k2-instruct"
+DEFAULT_MODEL = "accounts/fireworks/models/kimi-k2p6"
 MAX_STEPS = 40
 WALL_LIMIT_S = 1500
 TOOL_OUTPUT_CAP = 6000
