@@ -175,6 +175,9 @@ def render_index(results: list[dict], hist: dict[str, list[dict]]) -> None:
          font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, sans-serif; }}
   h1 {{ font-size: 1.9rem; margin-bottom: .2rem; }}
   .sub {{ color: #8b949e; margin-top: 0; }}
+  .cta a {{ display: inline-block; color: #e6edf3; background: #1f6feb22; border: 1px solid #1f6feb;
+           border-radius: 8px; padding: .4rem .9rem; text-decoration: none; font-size: .9rem; }}
+  .cta a:hover {{ background: #1f6feb44; }}
   .card {{ background: #161b22; border: 1px solid #30363d; border-radius: 12px;
           padding: 1.1rem 1.3rem; margin: 1.1rem 0; }}
   .head {{ display: flex; align-items: baseline; gap: .8rem; }}
@@ -206,6 +209,8 @@ def render_index(results: list[dict], hist: dict[str, list[dict]]) -> None:
 <h1>agent-ready</h1>
 <p class="sub">Can a clean agent finish your quickstart? Fresh Daytona sandbox + autonomous
 agent + Braintrust-scored checkpoints. No pretending — every pass is backed by command output.</p>
+<p class="cta"><a href="{REPO}/issues/new?title=Run%20request%3A%20%3Cyour%20SDK%3E&body=Quickstart%20URL%3A%20%0APromised%20outcome%3A%20%0AAnything%20we%20should%20know%3A%20">
+Want your SDK on this board? Request a run →</a></p>
 {''.join(rows) if rows else '<p>No runs yet.</p>'}
 <script>
 document.querySelectorAll('.copybtn').forEach(b => b.addEventListener('click', async () => {{

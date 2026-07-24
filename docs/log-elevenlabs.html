@@ -48,7 +48,10 @@ agent <code>kimi-k2p6</code> ·
 and/or ffmpeg . 3 Make your first request Create a new file named example.py or example.mts , depending on your language of choice and add the following code: Python TypeScript 1 from dotenv import load_dotenv 2 from elevenlabs . client import ElevenLabs 3 from elevenlabs . play import play 4 import os 5 6 load_dotenv () 7 8 elevenlabs = ElevenLabs ( 9 api_key = os . getenv ( &amp;quot; ELEVENLABS_API_KEY &amp;quot; ), 10 ) 11 12 audio = elevenlabs . text_to_speech . convert ( 13 text = &amp;quot; The first move is what sets everything in motion. &amp;quot; , 14 voice_id = &amp;quot; JBFqnCBsd6RMkjVDRZzb &amp;quot; , # &amp;quot;George&amp;quot; - browse voices at elevenlabs.io/app/voice-library 15 model_id = &amp;quot; eleven_v3 &amp;quot; , 16 output_format = &amp;quot; mp3_44100_128 &amp;quot; , 17 ) 18 19 play ( audio ) 4 Run the code Python TypeScript 1 python example . py You should hear the audio play through your speakers. 
  Next steps 
 
- Stream audio Reduce latency by streaming audio as it generates rather than waiting for the complete file Browse voices Explore 10,000+ voices and swap the example voice ID for one that fits your use case Clone a voice Create a custom voice from a short audio recording Was this page helpful? Yes No How to choose the right model This guide shows you how to choose the right ElevenLabs model for your use case. Next Built with Login </pre></details><details class="step" open><summary>#2 <b>bash</b> <code>cd /home/daytona &amp;&amp; pip install elevenlabs python-dotenv</code></summary><pre>exit=0
+ Stream audio Reduce latency by streaming audio as it generates rather than waiting for the complete file Browse voices Explore 10,000+ voices and swap the example voice ID for one that fits your use case Clone a voice Create a custom voice from a short audio recording Was this page helpful? Yes No How to choose the right model This guide shows you how to choose the right ElevenLabs model for your use case. Next Built with Login </pre></details><details class="step" open><summary>#2 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 --version &amp;&amp; pip3 --version</code></summary><pre>exit=0
+Python 3.14.4
+pip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)
+</pre></details><details class="step" open><summary>#3 <b>bash</b> <code>cd /home/daytona &amp;&amp; pip install elevenlabs python-dotenv</code></summary><pre>exit=0
 Defaulting to user installation because normal site-packages is not writeable
 Collecting elevenlabs
   Downloading elevenlabs-2.59.0-py3-none-any.whl.metadata (15 kB)
@@ -69,20 +72,38 @@ Requirement already satisfied: typing-inspection&gt;=0.4.2 in /usr/local/lib/pyt
 Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.14/site-packages (from requests&gt;=2.20-&gt;elevenlabs) (3.4.7)
 Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.14/site-packages (from requests&gt;=2.20-&gt;elevenlabs) (2.7.0)
 Downloading elevenlabs-2.59.0-py3-none-any.whl (1.9 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 157.5 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 61.0 MB/s  0:00:00
 Installing collected packages: elevenlabs
 Successfully installed elevenlabs-2.59.0
 
 [notice] A new release of pip is available: 26.0.1 -&gt; 26.1.2
 [notice] To update, run: pip install --upgrade pip
-</pre></details><details class="step" open><summary>#3 <b>write_file</b> <code>/home/daytona/example.py</code></summary><pre>wrote /home/daytona/example.py (485 bytes)</pre></details><details class="step" open><summary>#4 <b>bash</b> <code>cd /home/daytona &amp;&amp; echo &quot;API key is set: ${ELEVENLABS_API_KEY:+yes}&quot;</code></summary><pre>exit=0
-API key is set: yes
-</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>cd /home/daytona &amp;&amp; python example.py</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#6 <b>write_file</b> <code>/home/daytona/example_save.py</code></summary><pre>wrote /home/daytona/example_save.py (640 bytes)</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>cd /home/daytona &amp;&amp; python example_save.py</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#4 <b>bash</b> <code>cd /home/daytona &amp;&amp; echo &quot;ELEVENLABS_API_KEY is set: $([ -n &quot;$ELEVENLABS_API_KEY&quot; ] &amp;&amp; echo yes || echo no)&quot;</code></summary><pre>exit=0
+ELEVENLABS_API_KEY is set: yes
+</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>which mpv ffmpeg</code></summary><pre>exit=1
+mpv not found
+/usr/bin/ffmpeg
+</pre></details><details class="step" open><summary>#6 <b>write_file</b> <code>/home/daytona/example.py</code></summary><pre>wrote /home/daytona/example.py (617 bytes)</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>cd /home/daytona &amp;&amp; python example.py</code></summary><pre>exit=0
 Audio saved to /home/daytona/output.mp3
-File size: 41839 bytes
-</pre></details><details class="step" open><summary>#8 <b>bash</b> <code>cd /home/daytona &amp;&amp; file output.mp3 &amp;&amp; ls -la output.mp3</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#8 <b>bash</b> <code>cd /home/daytona &amp;&amp; ls -lh output.mp3 &amp;&amp; file output.mp3 &amp;&amp; ffmpeg -i output.mp3 2&gt;&amp;1 | head -20</code></summary><pre>exit=0
+-rw-r--r-- 1 daytona daytona 43K Jul 24 20:51 output.mp3
 output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural
--rw-r--r-- 1 daytona daytona 41839 Jul 24 20:17 output.mp3
+ffmpeg version 7.1.3-0+deb13u1 Copyright (c) 2000-2025 the FFmpeg developers
+  built with gcc 14 (Debian 14.2.0-19)
+  configuration: --prefix=/usr --extra-version=0+deb13u1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --disable-libmfx --disable-omx --enable-gnutls --enable-libaom --enable-libass --enable-libbs2b --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libglslang --enable-libgme --enable-libgsm --enable-libharfbuzz --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-openal --enable-opencl --enable-opengl --disable-sndio --enable-libvpl --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-ladspa --enable-libbluray --enable-libcaca --enable-libdvdnav --enable-libdvdread --enable-libjack --enable-libpulse --enable-librabbitmq --enable-librist --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libx264 --enable-libzmq --enable-libzvbi --enable-lv2 --enable-sdl2 --enable-libplacebo --enable-librav1e --enable-pocketsphinx --enable-librsvg --enable-libjxl --enable-shared
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+Input #0, mp3, from &#x27;output.mp3&#x27;:
+  Metadata:
+    encoder         : Lavf60.16.101
+  Duration: 00:00:02.69, start: 0.025057, bitrate: 129 kb/s
+  Stream #0:0: Audio: mp3 (mp3float), 44100 Hz, mono, fltp, 128 kb/s
+At least one output file must be specified
 </pre></details><details class="step" open><summary>#9 <b>finish</b> <code></code></summary><pre>run finished</pre></details>
 </body></html>

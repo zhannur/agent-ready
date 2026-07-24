@@ -1,0 +1,67 @@
+name: acceptance-run
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "existing target file, e.g. targets/fireworks.yaml (leave empty for custom)"
+        required: false
+      name:
+        description: "custom SDK name"
+        required: false
+      quickstart_url:
+        description: "custom quickstart URL"
+        required: false
+      promised_output:
+        description: "custom promised outcome to verify"
+        required: false
+  schedule:
+    - cron: "17 9 * * *"   # nightly docs-regression sweep over all targets
+
+permissions:
+  contents: write
+
+concurrency:
+  group: acceptance-run
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync
+
+      - name: Run acceptance target(s)
+        env:
+          DAYTONA_API_KEY: ${{ secrets.DAYTONA_API_KEY }}
+          FIREWORKS_API_KEY: ${{ secrets.FIREWORKS_API_KEY }}
+          BRAINTRUST_API_KEY: ${{ secrets.BRAINTRUST_API_KEY }}
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          IN_TARGET: ${{ inputs.target }}
+          IN_NAME: ${{ inputs.name }}
+          IN_URL: ${{ inputs.quickstart_url }}
+          IN_PROMISED: ${{ inputs.promised_output }}
+        run: |
+          if [ -n "$IN_URL" ]; then
+            printf 'name: %s\nquickstart_url: %s\npromised_output: "%s"\n' \
+              "${IN_NAME:-custom}" "$IN_URL" "$IN_PROMISED" > targets/_custom.yaml
+            uv run python -m lab.cli run targets/_custom.yaml
+          elif [ -n "$IN_TARGET" ]; then
+            uv run python -m lab.cli run "$IN_TARGET"
+          else
+            for t in targets/*.yaml; do uv run python -m lab.cli run "$t" || true; done
+          fi
+          uv run python -m lab.cli site
+
+      - name: Commit results
+        run: |
+          git config user.name "agent-ready-bot"
+          git config user.email "agent-ready-bot@users.noreply.github.com"
+          git add runs docs targets/_custom.yaml 2>/dev/null || git add runs docs
+          git diff --cached --quiet && exit 0
+          git commit -m "ci: acceptance run ($GITHUB_EVENT_NAME)"
+          git pull --rebase origin main
+          git push
