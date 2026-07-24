@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import urllib.parse
 from pathlib import Path
 
 from .checkpoints import CHECKPOINTS, WEIGHTS
@@ -9,6 +10,7 @@ from .checkpoints import CHECKPOINTS, WEIGHTS
 SITE = Path("docs")
 RUNS = Path("runs")
 REPO = "https://github.com/zhannur/agent-ready"
+PAGES = "https://zhannur.github.io/agent-ready"
 
 
 def badge_color(total: int) -> str:
@@ -46,6 +48,9 @@ def render_index(results: list[dict]) -> None:
             for name, desc in CHECKPOINTS)
         friction = "".join(f"<li><b>{f.get('where', '')}</b>: {f.get('detail', '')}</li>"
                            for f in r.get("friction", []))
+        endpoint = urllib.parse.quote(f"{PAGES}/badge-{r['name']}.json", safe="")
+        shield = f"https://img.shields.io/endpoint?url={endpoint}&label={r['name']}"
+        md = f"[![agent-ready: {r['name']}]({shield})]({PAGES}/)"
         rows.append(f"""
         <section class="card">
           <div class="head">
@@ -60,8 +65,11 @@ def render_index(results: list[dict]) -> None:
           <p class="meta">agent: <code>{(r.get('agent_model') or 'unknown').split('/')[-1]}</code>
              · {r.get('steps', '?')} steps · {r.get('wall_seconds', '?')}s · {r.get('started', '')[:10]}
              · <a href="{REPO}/blob/main/runs/{r['name']}/transcript.jsonl">full transcript</a>
-             · <a href="{REPO}/blob/main/runs/{r['name']}/result.json">result.json</a>
-             · badge: <code>badge-{r['name']}.json</code></p>
+             · <a href="{REPO}/blob/main/runs/{r['name']}/result.json">result.json</a></p>
+          <div class="badgebar">
+            <a href="{PAGES}/badge-{r['name']}.json"><img src="{shield}" alt="agent-ready badge for {r['name']}"></a>
+            <button class="copybtn" data-md="{md}">copy badge markdown</button>
+          </div>
         </section>""")
 
     html = f"""<!doctype html><html><head><meta charset="utf-8">
@@ -93,12 +101,24 @@ def render_index(results: list[dict]) -> None:
   .friction {{ color: #d29922; font-size: .9rem; margin: .3rem 0 .4rem; padding-left: 1.2rem; }}
   .meta {{ color: #8b949e; font-size: .8rem; margin: 0; }}
   .meta a {{ color: #58a6ff; text-decoration: none; }}
+  .badgebar {{ display: flex; align-items: center; gap: .7rem; margin-top: .55rem; }}
+  .badgebar img {{ height: 20px; display: block; }}
+  .copybtn {{ background: #21262d; color: #8b949e; border: 1px solid #30363d;
+             border-radius: 6px; font-size: .75rem; padding: .15rem .6rem; cursor: pointer; }}
+  .copybtn:hover {{ color: #e6edf3; border-color: #8b949e; }}
   code {{ background: #21262d; padding: .1rem .35rem; border-radius: 6px; }}
 </style></head><body>
 <h1>agent-ready</h1>
 <p class="sub">Can a clean agent finish your quickstart? Fresh Daytona sandbox + autonomous
 agent + Braintrust-scored checkpoints. No pretending — every pass is backed by command output.</p>
 {''.join(rows) if rows else '<p>No runs yet.</p>'}
+<script>
+document.querySelectorAll('.copybtn').forEach(b => b.addEventListener('click', async () => {{
+  try {{ await navigator.clipboard.writeText(b.dataset.md); }} catch (e) {{}}
+  const t = b.textContent; b.textContent = 'copied!';
+  setTimeout(() => b.textContent = t, 1200);
+}}));
+</script>
 </body></html>"""
     (SITE / "index.html").write_text(html)
 
