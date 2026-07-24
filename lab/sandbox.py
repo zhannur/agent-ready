@@ -18,14 +18,15 @@ class LabSandbox:
         self._sandbox = None
         self._env = inject_env or {}
         self._env_file = None
+        self.home = None
 
     def create(self) -> None:
         self._sandbox = self._daytona.create()
         try:
-            home = self._sandbox.get_user_home_dir() or "/home/daytona"
+            self.home = self._sandbox.get_user_home_dir() or "/home/daytona"
         except Exception:
-            home = "/home/daytona"
-        self._env_file = f"{home.rstrip('/')}/.lab_env"
+            self.home = "/home/daytona"
+        self._env_file = f"{self.home.rstrip('/')}/.lab_env"
         if self._env:
             exports = "\n".join(f"export {k}={v!r}" for k, v in self._env.items())
             self.write_file(self._env_file, exports + "\n")

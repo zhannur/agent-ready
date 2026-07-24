@@ -29,6 +29,8 @@ Ground rules:
   finish() anywhere you had to deviate from the docs to make things work.
 - Everything happens inside the sandbox via bash/write_file. No pretending: a step only
   counts when real command output proves it ran.
+- Your home/working directory in the sandbox is {home_dir} — create your files there
+  (other locations may be read-only).
 - Credentials already exported in the sandbox environment: {env_names}. Use them where
   the quickstart asks for keys. Never print their values.
 - When the promised outcome is verified — or you are honestly stuck — call finish() with
@@ -115,6 +117,7 @@ def run_agent(name: str, quickstart_url: str, promised_output: str,
     messages: list[dict] = [
         {"role": "system", "content": SYSTEM_PROMPT.format(
             promised_output=promised_output,
+            home_dir=sandbox.home or "~",
             env_names=", ".join(inject_env) or "(none needed)")},
         {"role": "user", "content": f"Quickstart URL: {quickstart_url}\n"
                                     f"Promised outcome to verify: {promised_output}\nBegin."},
@@ -151,25 +154,26 @@ def run_agent(name: str, quickstart_url: str, promised_output: str,
                 args = {}
             tool = tc.function.name
 
-            if tool == "bash":
-                code, out = sandbox.run(args.get("command", ""), timeout=240)
-                result = f"exit={code}\n{out}"
-            elif tool == "write_file":
-                sandbox.write_file(args.get("path", "/tmp/unnamed"), args.get("content", ""))
-                result = f"wrote {args.get('path')} ({len(args.get('content', ''))} bytes)"
-            elif tool == "fetch_url":
-                try:
+            try:
+                if tool == "bash":
+                    code, out = sandbox.run(args.get("command", ""), timeout=240)
+                    result = f"exit={code}\n{out}"
+                elif tool == "write_file":
+                    sandbox.write_file(args.get("path", "/tmp/unnamed"), args.get("content", ""))
+                    result = f"wrote {args.get('path')} ({len(args.get('content', ''))} bytes)"
+                elif tool == "fetch_url":
                     result = fetch_readable(args.get("url", ""))
-                except Exception as e:
-                    result = f"fetch failed: {e}"
-            elif tool == "finish":
-                outcome = {"outcome": args.get("outcome", "stuck"),
-                           "summary": args.get("summary", ""),
-                           "deviations": args.get("deviations", "")}
-                result = "run finished"
-                finished = True
-            else:
-                result = f"unknown tool {tool}"
+                elif tool == "finish":
+                    outcome = {"outcome": args.get("outcome", "stuck"),
+                               "summary": args.get("summary", ""),
+                               "deviations": args.get("deviations", "")}
+                    result = "run finished"
+                    finished = True
+                else:
+                    result = f"unknown tool {tool}"
+            except Exception as e:
+                # a failing tool is information for the agent, never a crashed run
+                result = f"tool error: {e}"
 
             result = redact(str(result))
             record("tool", step=step, tool=tool,
