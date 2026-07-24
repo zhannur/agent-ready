@@ -1,20 +1,22 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-07-24T19:32:23Z",
+  "started": "2026-07-24T21:15:39Z",
+  "agent_model": "accounts/fireworks/models/kimi-k2p6",
+  "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I successfully installed the Daytona Python SDK and demonstrated that sandbox creation via the SDK works: the output shows `Sandbox created: [UUID]` with state `SandboxState.STARTED`, and `d.list()` returned `Total: 10` sandboxes with full metadata. However, I could not demonstrate code running inside a sandbox because `sandbox.process.exec(\"echo 'Hello, World!'\")` consistently failed with `ConnectionResetError: [Errno 104] Connection reset by peer` when connecting to `proxy.app.daytona.io:443`. I also hit a `Total CPU limit exceeded. Maximum allowed: 10` error after creating multiple sandboxes during debugging, which prevented further attempts. The core blocker is a network connectivity issue between the sandbox environment and Daytona's proxy endpoint for executing commands.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 436.7,
+  "wall_seconds": 282.7,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "cd /home/daytona && python3 test_daytona.py"
+      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     },
     "installed": {
       "passed": true,
-      "evidence": "from daytona import Daytona"
+      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     },
     "configured": {
       "passed": true,
@@ -22,37 +24,35 @@
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: 9e733144-42b6-4d66-905a-ea1d2579366d"
+      "evidence": "Sandbox created: d8d80e82-93cb-4b0a-993d-3ccf239490c2"
     },
     "verified": {
       "passed": false,
-      "evidence": "Attempt 10 failed: DaytonaError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "evidence": "ConnectionResetError: [Errno 104] Connection reset by peer"
     }
   },
   "friction": [
     {
-      "where": "Quickstart snippet uses Process.execute instead of exec",
-      "detail": "AttributeError: 'Process' object has no attribute 'execute'"
+      "where": "SDK API naming drift",
+      "detail": "ImportError: cannot import name 'CreateSandboxParams' from 'daytona' ... Did you mean: 'CreateSandboxBaseParams'?"
     },
     {
-      "where": "Quickstart snippet uses CodeInterpreter.run instead of run_code",
-      "detail": "code_interpreter failed: AttributeError: 'CodeInterpreter' object has no attribute 'run'"
+      "where": "Sandbox proxy network connectivity",
+      "detail": "ConnectionResetError: [Errno 104] Connection reset by peer"
     },
     {
-      "where": "Sandbox toolbox unreachable despite state STARTED",
-      "detail": "Attempt 10 failed: DaytonaError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "where": "Organization resource limits",
+      "detail": "Failed to create sandbox: Total CPU limit exceeded. Maximum allowed: 10."
     },
     {
-      "where": "SDK docs say DAYTONA_API_URL is required but it is absent from env",
-      "detail": "- 'DAYTONA_API_URL': Required api URL"
+      "where": "Documentation links return 404",
+      "detail": "404 The page you're looking for doesn't exist or has been moved."
     },
     {
-      "where": "No guidance on retry/backoff for toolbox readiness",
-      "detail": "All attempts failed"
+      "where": "CLI installation",
+      "detail": "npm error 404 Not Found - GET https://registry.npmjs.org/@daytona%2fcli"
     }
   ],
   "score": 70,
-  "braintrust_span": "7300d6e5-a2f3-4222-9969-eea85d1598ee",
-  "agent_model": "accounts/fireworks/models/kimi-k2p6",
-  "judge_model": "accounts/fireworks/models/kimi-k2p6"
+  "braintrust_span": "f2a6fb41-2327-45d9-85c3-87d882ebdf46"
 }

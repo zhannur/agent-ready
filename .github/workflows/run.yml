@@ -54,6 +54,7 @@ jobs:
           else
             for t in targets/*.yaml; do uv run python -m lab.cli run "$t" || true; done
           fi
+          uv run python -m lab.cli cleanup || true
           uv run python -m lab.cli site
 
       - name: Commit results

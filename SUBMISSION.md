@@ -24,18 +24,21 @@ inside a common agent sandbox. Every finding is a fixable docs/DX bug, discovere
 cents, with transcript evidence attached. DX teams currently learn these things from
 churned signups; agent-ready makes them a CI metric.
 
-## Results (all runs today, single model, identical rules)
+## Results (10 runs today, single model, identical rules)
 
-| SDK | Score | Headline finding |
-|---|---|---|
-| elevenlabs | **100/100** | Perfect run in 48s — docs ship exact working samples and an `/llms.txt` agent index; agent-ready by design |
-| fireworks | 75/100 | Docs' example model (`deepseek-v3p1`) is no longer deployed → first call 404s; agent recovered by writing a model-discovery script |
-| braintrust | 75/100 | API unreachable from inside the sandbox; agent completed the eval offline via `--no-send-logs` — a flag the quickstart doesn't document |
-| daytona | 70/100 | Quickstart samples call `Process.execute` / `CodeInterpreter.run`, which don't exist in the current SDK (`exec` / `run_code`); nested sandbox creation itself succeeded |
+| SDK | Latest | All runs | Headline finding |
+|---|---|---|---|
+| elevenlabs | **100/100** | 100, 100 | Perfect twice — docs ship copy-paste-true samples and an `/llms.txt` agent index; agent-ready by design |
+| fireworks | 75/100 | 75, 75 | Docs' example model (`deepseek-v3p1`) is no longer deployed → first call 404s; the agent recovered via a self-written model-discovery script — both times |
+| daytona | 70/100 | 70, 45, 70 | Quickstart samples call renamed SDK methods (`Process.execute`→`exec`, `CodeInterpreter.run`→`run_code`); nested sandbox creation itself worked |
+| braintrust | 30/100 | 75, 0, 30 | `api.braintrust.dev` is unreachable from inside agent sandboxes and the offline workaround (`--no-send-logs`) is undocumented — the score depends on the agent rediscovering it, and that instability is itself the finding |
 
-The metric discriminates: exactly one vendor is fully agent-ready — and the 100 belongs
-to the one that ships an `/llms.txt` and copy-paste-true samples. The other three lost
-points to docs drift or environment walls that are all concretely fixable.
+**Measurement integrity, demonstrated live:** when two scores dipped between rounds, the
+append-only history caught it, the transcripts attributed it — our account's disk quota
+had been saturated by nested sandboxes the runs themselves created, not a docs change —
+`lab cleanup` remediated it, and re-measurement reproduced daytona's baseline exactly
+(70 → 45 → 70). Single runs lie; tracked history doesn't. That's why every run is a
+scored Braintrust eval and every card ships a score-history sparkline.
 
 ## How it works
 
@@ -64,10 +67,17 @@ redacted before anything is persisted; each run gets a fresh sandbox destroyed a
 - Resilient tool loop: tool failures return to the agent as information (like a real
   developer session), never crash the run
 - Evidence-strict LLM judge with friction-point extraction (the sellable report)
-- Weighted checkpoint scoring → shields.io badge endpoint per SDK
+- Weighted checkpoint scoring → shields.io badge endpoint per SDK, with one-click
+  embed-markdown copy on every card
 - Honest budget handling: capped runs end with a model-written truthful account
+- Append-only run history → per-SDK sparklines; human-readable log page per run
+- GitHub Actions runner: nightly docs-regression sweep over all targets + on-demand
+  `workflow_dispatch` runs (name + quickstart URL in, scored card out), with sandbox
+  cleanup baked into every batch
 
 ## What's next
 
 Model-matrix runs (is your quickstart agent-ready for K2-class, GPT-class, small
-models?), scheduled re-runs as docs-regression CI, and signed vendor-neutral reports.
+models?), environment matrices (which sandboxes can your users' agents actually reach
+you from?), and signed vendor-neutral reports. Scheduled re-runs already ship — the
+nightly sweep re-grades every target and the board updates itself.

@@ -89,6 +89,24 @@ def cmd_site() -> None:
     build_site()
 
 
+def cmd_cleanup() -> None:
+    """Delete ALL sandboxes on the account (runs' agents may create nested ones).
+
+    Never run while a lab run is in flight."""
+    import os
+    from daytona import Daytona, DaytonaConfig
+    d = Daytona(DaytonaConfig(api_key=os.environ["DAYTONA_API_KEY"]))
+    n = 0
+    for sb in d.list():
+        print(f"deleting sandbox {getattr(sb, 'id', '?')} (state={getattr(sb, 'state', '?')})")
+        try:
+            sb.delete()
+            n += 1
+        except Exception as e:
+            print(f"  ! {e}")
+    print(f"deleted {n} sandbox(es)")
+
+
 def cmd_all(keep_sandbox: bool) -> None:
     for target in sorted(Path("targets").glob("*.yaml")):
         try:
@@ -108,6 +126,7 @@ def main() -> None:
     p_run.add_argument("--keep-sandbox", action="store_true")
 
     sub.add_parser("site", help="build the scoreboard site from runs/")
+    sub.add_parser("cleanup", help="delete ALL account sandboxes (never mid-run)")
 
     p_all = sub.add_parser("all", help="run every target then build the site")
     p_all.add_argument("--keep-sandbox", action="store_true")
@@ -117,6 +136,8 @@ def main() -> None:
         cmd_run(args.target, args.keep_sandbox)
     elif args.cmd == "site":
         cmd_site()
+    elif args.cmd == "cleanup":
+        cmd_cleanup()
     elif args.cmd == "all":
         cmd_all(args.keep_sandbox)
 

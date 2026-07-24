@@ -1,134 +1,243 @@
 <!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>agent-ready — can a clean agent finish your quickstart?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root { color-scheme: dark; }
-  body { margin: 0 auto; max-width: 880px; padding: 2rem 1rem 4rem;
-         background: #0d1117; color: #e6edf3;
-         font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, sans-serif; }
-  h1 { font-size: 1.9rem; margin-bottom: .2rem; }
-  .sub { color: #8b949e; margin-top: 0; }
-  .cta a { display: inline-block; color: #e6edf3; background: #1f6feb22; border: 1px solid #1f6feb;
-           border-radius: 8px; padding: .4rem .9rem; text-decoration: none; font-size: .9rem; }
-  .cta a:hover { background: #1f6feb44; }
-  .card { background: #161b22; border: 1px solid #30363d; border-radius: 12px;
-          padding: 1.1rem 1.3rem; margin: 1.1rem 0; }
-  .head { display: flex; align-items: baseline; gap: .8rem; }
-  .head h2 { margin: 0; font-size: 1.25rem; flex: 1; }
-  .rank { color: #8b949e; }
-  .score { font-size: 1.5rem; font-weight: 700; }
-  .score small { color: #8b949e; font-size: .9rem; }
-  .s-brightgreen, .s-green { color: #3fb950; }
-  .s-yellow { color: #d29922; } .s-orange { color: #f0883e; } .s-red { color: #f85149; }
-  .pills { margin: .5rem 0; }
-  .pill { display: inline-block; margin: 0 .35rem .35rem 0; padding: .12rem .6rem;
-          border-radius: 999px; font-size: .78rem; border: 1px solid #30363d; }
-  .pill.ok { background: #12261e; color: #3fb950; border-color: #238636; }
-  .pill.no { background: #2b1214; color: #f85149; border-color: #da3633; }
-  .url a { color: #58a6ff; text-decoration: none; font-size: .85rem; }
-  .summary { margin: .4rem 0; }
-  .friction { color: #d29922; font-size: .9rem; margin: .3rem 0 .4rem; padding-left: 1.2rem; }
-  .meta { color: #8b949e; font-size: .8rem; margin: 0; }
-  .meta a { color: #58a6ff; text-decoration: none; }
-  .badgebar { display: flex; align-items: center; gap: .7rem; margin-top: .55rem; }
-  .badgebar img { height: 20px; display: block; }
-  .copybtn { background: #21262d; color: #8b949e; border: 1px solid #30363d;
-             border-radius: 6px; font-size: .75rem; padding: .15rem .6rem; cursor: pointer; }
-  .copybtn:hover { color: #e6edf3; border-color: #8b949e; }
-  .hist { margin-left: auto; display: flex; align-items: center; gap: .45rem;
-          color: #8b949e; font-size: .75rem; }
-  code { background: #21262d; padding: .1rem .35rem; border-radius: 6px; }
+:root {
+  color-scheme: dark;
+  --bg: #0a0c10; --card: #12151b; --inset: #0d1014; --line: #232833; --line2: #2e3542;
+  --ink: #e8edf2; --ink2: #9aa5b1; --ink3: #5f6a76;
+  --good: #46d17a; --lime: #b3d13b; --amber: #d9a13b; --orange: #e07b39; --bad: #e5544b;
+  --link: #4cc2d9;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0 auto; max-width: 920px; padding: 3.2rem 1.2rem 4rem;
+  background:
+    radial-gradient(1100px 420px at 50% -160px, rgba(70, 209, 122, .07), transparent 65%),
+    radial-gradient(rgba(255,255,255,.045) 1px, transparent 1px) 0 0 / 26px 26px,
+    var(--bg);
+  color: var(--ink); font: 15px/1.6 var(--sans);
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font-family: var(--mono); font-size: .86em; background: var(--inset);
+       border: 1px solid var(--line); padding: .08rem .38rem; border-radius: 5px; }
+.wordmark { font-family: var(--mono); font-weight: 600; font-size: 2rem;
+            letter-spacing: -.03em; margin: 0; }
+.wordmark .cursor { display: inline-block; width: .55em; height: 1.05em; margin-left: .12em;
+                    background: var(--good); vertical-align: text-bottom;
+                    animation: blink 1.15s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.tagline { color: var(--ink2); margin: .5rem 0 0; max-width: 640px; }
+.statstrip { display: flex; flex-wrap: wrap; gap: 1.6rem; margin: 1.6rem 0 0;
+             font-family: var(--mono); font-size: .74rem; color: var(--ink3);
+             text-transform: uppercase; letter-spacing: .08em; }
+.statstrip b { display: block; color: var(--ink); font-size: 1.15rem; letter-spacing: 0; }
+.cta { margin: 1.5rem 0 0; }
+.cta a { display: inline-block; font-family: var(--mono); font-size: .8rem;
+         color: var(--good); border: 1px solid rgba(70,209,122,.45); border-radius: 7px;
+         padding: .45rem 1rem; background: rgba(70,209,122,.07); }
+.cta a:hover { background: rgba(70,209,122,.16); text-decoration: none; }
+.card { position: relative; overflow: hidden; background: var(--card);
+        border: 1px solid var(--line); border-radius: 14px;
+        padding: 1.4rem 1.5rem 1.25rem; margin: 1.4rem 0;
+        display: grid; grid-template-columns: 96px 1fr; gap: 1.3rem;
+        animation: rise .55s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+.ghostrank { position: absolute; top: -.55rem; right: .4rem; font-family: var(--mono);
+             font-weight: 600; font-size: 3.6rem; color: rgba(255,255,255,.05);
+             user-select: none; }
+.gaugewrap { display: flex; flex-direction: column; align-items: center; gap: .45rem; }
+.gaugelabel { font-family: var(--mono); font-size: .62rem; letter-spacing: .12em;
+              color: var(--ink3); text-transform: uppercase; }
+.gauge text { font-family: var(--mono); font-weight: 600; }
+.arc { animation: arc 1s .25s cubic-bezier(.3,.8,.3,1) both; }
+@keyframes arc { from { stroke-dashoffset: var(--c); } to { stroke-dashoffset: var(--o); } }
+.sdk { margin: 0; font-family: var(--mono); font-weight: 600; font-size: 1.3rem;
+       letter-spacing: -.02em; }
+.url { margin: .15rem 0 .7rem; font-size: .8rem; font-family: var(--mono); }
+.cps { display: flex; flex-wrap: wrap; align-items: center; margin: 0 0 .8rem; }
+.cpseg { font-family: var(--mono); font-size: .72rem; padding: .16rem .55rem;
+         border-radius: 6px; border: 1px solid; white-space: nowrap; }
+.cpseg.ok { color: var(--good); border-color: rgba(70,209,122,.4); background: rgba(70,209,122,.07); }
+.cpseg.no { color: var(--bad); border-color: rgba(229,84,75,.45); background: rgba(229,84,75,.08); }
+.cx { width: 12px; height: 1px; background: var(--line2); }
+.summary { margin: 0 0 .75rem; color: var(--ink); }
+.summary b { font-family: var(--mono); font-size: .82em; text-transform: uppercase;
+             letter-spacing: .06em; }
+.frictionhead { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em;
+                text-transform: uppercase; color: var(--amber); margin: 0 0 .3rem; }
+.friction { margin: 0 0 .8rem; padding: 0; list-style: none; }
+.friction li { position: relative; padding: .18rem 0 .18rem 1.15rem; font-size: .86rem;
+               color: var(--ink2); }
+.friction li::before { content: "▸"; position: absolute; left: 0; color: var(--amber); }
+.friction b { color: var(--ink); font-weight: 500; }
+.meta { color: var(--ink3); font-size: .76rem; font-family: var(--mono); margin: 0; }
+.badgebar { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin-top: .65rem; }
+.badgebar img { height: 20px; display: block; }
+.copybtn { font-family: var(--mono); background: var(--inset); color: var(--ink2);
+           border: 1px solid var(--line); border-radius: 6px; font-size: .72rem;
+           padding: .18rem .6rem; cursor: pointer; }
+.copybtn:hover { color: var(--ink); border-color: var(--ink3); }
+.hist { margin-left: auto; display: flex; align-items: center; gap: .5rem;
+        color: var(--ink3); font-size: .72rem; font-family: var(--mono); }
+footer { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--line);
+         font-family: var(--mono); font-size: .72rem; color: var(--ink3); line-height: 2; }
+.note { color: var(--amber); font-style: italic; margin: .6rem 0; padding: .5rem .8rem;
+        border-left: 2px solid var(--amber); background: rgba(217,161,59,.05); }
+.step { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+        padding: .55rem .85rem; margin: .6rem 0; }
+.step summary { cursor: pointer; font-family: var(--mono); font-size: .84rem; }
+pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8px;
+      padding: .7rem; overflow-x: auto; font: .78rem/1.5 var(--mono); white-space: pre-wrap; }
+@media (max-width: 640px) {
+  .card { grid-template-columns: 1fr; }
+  .gaugewrap { flex-direction: row; }
+  .hist { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card, .arc, .cursor { animation: none !important; }
+}
 </style></head><body>
-<h1>agent-ready</h1>
-<p class="sub">Can a clean agent finish your quickstart? Fresh Daytona sandbox + autonomous
-agent + Braintrust-scored checkpoints. No pretending — every pass is backed by command output.</p>
+<h1 class="wordmark">agent-ready<span class="cursor"></span></h1>
+<p class="tagline">Can a clean agent finish your quickstart? A pristine Daytona sandbox, an
+autonomous agent, and Braintrust-scored checkpoints. No pretending — every pass is backed
+by command output.</p>
+<div class="statstrip">
+  <span>SDKs tested<b>04</b></span>
+  <span>runs logged<b>10</b></span>
+  <span>median score<b>72</b></span>
+  <span>updated<b>2026-07-24</b></span>
+</div>
 <p class="cta"><a href="https://github.com/zhannur/agent-ready/issues/new?title=Run%20request%3A%20%3Cyour%20SDK%3E&body=Quickstart%20URL%3A%20%0APromised%20outcome%3A%20%0AAnything%20we%20should%20know%3A%20">
 Want your SDK on this board? Request a run →</a></p>
 
-        <section class="card">
-          <div class="head">
-            <span class="rank">#1</span>
-            <h2>elevenlabs</h2>
-            <span class="score s-brightgreen">100<small>/100</small></span>
-          </div>
-          <p class="url"><a href="https://elevenlabs.io/docs/quickstart">https://elevenlabs.io/docs/quickstart</a></p>
-          <div class="pills"><span class="pill ok" title="The toolchain the quickstart needs was installed/ready (runtime, package manager)">env_ready</span><span class="pill ok" title="The vendor's SDK or CLI was installed successfully">installed</span><span class="pill ok" title="Credentials/config were wired the way the quickstart instructs">configured</span><span class="pill ok" title="The first API call or core action succeeded">first_call</span><span class="pill ok" title="The quickstart's promised output was produced and verified">verified</span></div>
-          <p class="summary"><b>verified</b> — Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example script, and ran it. The API call succeeded and generated a valid 43KB MP3 audio file (44.1kHz, 128kbps, mono, ~2.69s duration) from the text "The first move is what sets everything in motion." The file was verified with both the `file` command and `ffmpeg`.</p>
-          <ul class="friction"><li><b>Quickstart default code assumes local audio playback</b>: The sample uses play(audio) which requires mpv, but mpv is not found in the sandbox, forcing a rewrite to save().</li><li><b>Documentation fetch returns heavy HTML</b>: Fetching the quickstart URL returns raw HTML with navigation menus rather than a clean markdown/code view, making it harder to extract the exact snippet.</li></ul>
-          <p class="meta">agent: <code>kimi-k2p6</code>
-             · 9 steps · 60.2s · 2026-07-24
-             · <a href="log-elevenlabs.html">readable log</a>
-             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/elevenlabs/transcript.jsonl">raw transcript</a>
-             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/elevenlabs/result.json">result.json</a></p>
-          <div class="badgebar">
-            <a href="https://zhannur.github.io/agent-ready/badge-elevenlabs.json"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-elevenlabs.json&label=elevenlabs" alt="agent-ready badge for elevenlabs"></a>
-            <button class="copybtn" data-md="[![agent-ready: elevenlabs](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-elevenlabs.json&label=elevenlabs)](https://zhannur.github.io/agent-ready/)">copy badge markdown</button>
-            <span class="hist"><svg class="spark" width="120" height="28" viewBox="0 0 120 28" role="img" aria-label="score history for this SDK"><polyline points="4,4 116,4" fill="none" stroke="#3fb950" stroke-width="2"/><circle cx="4" cy="4" r="3" fill="#3fb950" stroke="#161b22" stroke-width="2"><title>2026-07-24 20:19Z — 100/100</title></circle><circle cx="116" cy="4" r="3" fill="#3fb950" stroke="#161b22" stroke-width="2"><title>2026-07-24 20:55Z — 100/100</title></circle></svg>2 run(s)</span>
-          </div>
-        </section>
-        <section class="card">
-          <div class="head">
-            <span class="rank">#2</span>
-            <h2>braintrust</h2>
-            <span class="score s-green">75<small>/100</small></span>
-          </div>
-          <p class="url"><a href="https://www.braintrust.dev/docs/start">https://www.braintrust.dev/docs/start</a></p>
-          <div class="pills"><span class="pill ok" title="The toolchain the quickstart needs was installed/ready (runtime, package manager)">env_ready</span><span class="pill ok" title="The vendor's SDK or CLI was installed successfully">installed</span><span class="pill ok" title="Credentials/config were wired the way the quickstart instructs">configured</span><span class="pill no" title="The first API call or core action succeeded">first_call</span><span class="pill ok" title="The quickstart's promised output was produced and verified">verified</span></div>
-          <p class="summary"><b>stuck</b> — run ended without finish()</p>
-          <ul class="friction"><li><b>Braintrust API unreachable from sandbox</b>: curl: (35) Recv failure: Connection reset by peer on every HTTPS attempt to www.braintrust.dev and api.braintrust.dev</li><li><b>Default eval command requires live API connection for log shipping</b>: First braintrust eval tutorial_eval.py fails with urllib3 SSL handshake traceback because the CLI attempts to connect to Braintrust even for a local quickstart</li><li><b>Workaround flag --no-send-logs is not in quickstart docs</b>: The README quickstart only documents BRAINTRUST_API_KEY=<YOUR_API_KEY> braintrust eval tutorial_eval.py, but the agent had to discover and use braintrust eval --no-send-logs tutorial_eval.py to get the eval to run offline</li><li><b>Documentation path fragmentation</b>: Agent tried multiple doc URLs ([fetch_url] args={"url": "https://www.braintrust.dev/docs/start/eval"}, /docs/evaluate/quickstart, /docs/start/evaluation-quickstart) before locating the correct quickstart content on GitHub</li><li><b>CLI filename convention warning</b>: WARNING [braintrust.eval]: Reading tutorial_eval.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory</li></ul>
-          <p class="meta">agent: <code>kimi-k2p6</code>
-             · 40 steps · 169.2s · 2026-07-24
-             · <a href="log-braintrust.html">readable log</a>
-             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/braintrust/transcript.jsonl">raw transcript</a>
-             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/braintrust/result.json">result.json</a></p>
-          <div class="badgebar">
-            <a href="https://zhannur.github.io/agent-ready/badge-braintrust.json"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-braintrust.json&label=braintrust" alt="agent-ready badge for braintrust"></a>
-            <button class="copybtn" data-md="[![agent-ready: braintrust](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-braintrust.json&label=braintrust)](https://zhannur.github.io/agent-ready/)">copy badge markdown</button>
-            <span class="hist"><svg class="spark" width="120" height="28" viewBox="0 0 120 28" role="img" aria-label="score history for this SDK"><circle cx="60" cy="9" r="3" fill="#3fb950" stroke="#161b22" stroke-width="2"><title>2026-07-24 19:37Z — 75/100</title></circle></svg>1 run(s)</span>
+        <section class="card" style="animation-delay:80ms">
+          <span class="ghostrank">01</span>
+          <div class="gaugewrap"><svg class="gauge" width="96" height="96" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="40" fill="none" stroke="#1b202a" stroke-width="6"/>
+  <circle class="arc" cx="48" cy="48" r="40" fill="none" stroke="#46d17a" stroke-width="6"
+    stroke-linecap="round" stroke-dasharray="251.3" stroke-dashoffset="0.0"
+    style="--c:251.3;--o:0.0" transform="rotate(-90 48 48)"/>
+  <text x="48" y="46" text-anchor="middle" font-size="24" fill="#46d17a">100</text>
+  <text x="48" y="63" text-anchor="middle" font-size="10" fill="#5f6a76">/100</text>
+</svg><span class="gaugelabel">agent-ready</span></div>
+          <div>
+            <h2 class="sdk">elevenlabs</h2>
+            <p class="url"><a href="https://elevenlabs.io/docs/quickstart">https://elevenlabs.io/docs/quickstart</a></p>
+            <div class="cps"><span class="cpseg ok" title="The toolchain the quickstart needs was installed/ready (runtime, package manager) (weight 10)">✓ env_ready</span><i class="cx"></i><span class="cpseg ok" title="The vendor&#x27;s SDK or CLI was installed successfully (weight 20)">✓ installed</span><i class="cx"></i><span class="cpseg ok" title="Credentials/config were wired the way the quickstart instructs (weight 15)">✓ configured</span><i class="cx"></i><span class="cpseg ok" title="The first API call or core action succeeded (weight 25)">✓ first_call</span><i class="cx"></i><span class="cpseg ok" title="The quickstart&#x27;s promised output was produced and verified (weight 30)">✓ verified</span></div>
+            <p class="summary"><b>verified</b> — Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example script, and ran it. The API call succeeded and generated a valid 43KB MP3 audio file (44.1kHz, 128kbps, mono, ~2.69s duration) from the text &quot;The first move is what sets everything in motion.&quot; The file was verified with both the `file` command and `ffmpeg`.</p>
+            <p class="frictionhead">friction report</p>
+            <ul class="friction"><li><b>Quickstart default code assumes local audio playback</b>: The sample uses play(audio) which requires mpv, but mpv is not found in the sandbox, forcing a rewrite to save().</li><li><b>Documentation fetch returns heavy HTML</b>: Fetching the quickstart URL returns raw HTML with navigation menus rather than a clean markdown/code view, making it harder to extract the exact snippet.</li></ul>
+            <p class="meta">agent <code>kimi-k2p6</code>
+               · 9 steps · 60.2s · 2026-07-24
+               · <a href="log-elevenlabs.html">readable log</a>
+               · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/elevenlabs/transcript.jsonl">raw transcript</a>
+               · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/elevenlabs/result.json">result.json</a></p>
+            <div class="badgebar">
+              <a href="https://zhannur.github.io/agent-ready/badge-elevenlabs.json"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-elevenlabs.json&label=elevenlabs" alt="agent-ready badge for elevenlabs"></a>
+              <button class="copybtn" data-md="[![agent-ready: elevenlabs](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-elevenlabs.json&label=elevenlabs)](https://zhannur.github.io/agent-ready/)">copy badge markdown</button>
+              <span class="hist"><svg class="spark" width="120" height="28" viewBox="0 0 120 28" role="img" aria-label="score history for this SDK"><polyline points="4,4 116,4" fill="none" stroke="#46d17a" stroke-width="2"/><circle cx="4" cy="4" r="3" fill="#46d17a" stroke="#12151b" stroke-width="2"><title>2026-07-24 20:19Z — 100/100</title></circle><circle cx="116" cy="4" r="3" fill="#46d17a" stroke="#12151b" stroke-width="2"><title>2026-07-24 20:55Z — 100/100</title></circle></svg>2 run(s)</span>
+            </div>
           </div>
         </section>
-        <section class="card">
-          <div class="head">
-            <span class="rank">#3</span>
-            <h2>fireworks</h2>
-            <span class="score s-green">75<small>/100</small></span>
-          </div>
-          <p class="url"><a href="https://docs.fireworks.ai/getting-started/quickstart">https://docs.fireworks.ai/getting-started/quickstart</a></p>
-          <div class="pills"><span class="pill ok" title="The toolchain the quickstart needs was installed/ready (runtime, package manager)">env_ready</span><span class="pill ok" title="The vendor's SDK or CLI was installed successfully">installed</span><span class="pill ok" title="Credentials/config were wired the way the quickstart instructs">configured</span><span class="pill no" title="The first API call or core action succeeded">first_call</span><span class="pill ok" title="The quickstart's promised output was produced and verified">verified</span></div>
-          <p class="summary"><b>verified</b> — Successfully completed the Fireworks AI Serverless Quickstart. I followed the vendor's instructions: the FIREWORKS_API_KEY was already exported in the environment, the OpenAI Python SDK was already installed, and I created a Python script using the OpenAI SDK pattern from the quickstart. The model `accounts/fireworks/models/deepseek-v3p1` specified in the quickstart returned a 404 NOT_FOUND error, so I queried the available models endpoint (`https://api.fireworks.ai/inference/v1/models`) and used `accounts/fireworks/models/gpt-oss-120b` instead. The script ran successfully and returned a chat completion: "¡Hola!"</p>
-          <ul class="friction"><li><b>Quickstart model reference</b>: The script using model accounts/fireworks/models/deepseek-v3p1 crashes with openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed', 'param': 'model', 'code': 'NOT_FOUND', 'type': 'error'}.</li><li><b>Alternative model guesses</b>: Trying accounts/fireworks/models/llama-v3p1-8b-instruct also yields openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed', 'param': 'model', 'code': 'NOT_FOUND', 'type': 'error'}.</li><li><b>Model discovery step</b>: Agent had to run curl -s -H "Authorization: Bearer $FIREWORKS_API_KEY" https://api.fireworks.ai/inference/v1/models | python3 -m json.tool | head -100 to discover a working model name not shown in the quickstart.</li><li><b>Package installation path</b>: pip3 install openai prints Defaulting to user installation because normal site-packages is not writeable, which may confuse first-time users about whether the SDK is correctly installed.</li></ul>
-          <p class="meta">agent: <code>kimi-k2p6</code>
-             · 13 steps · 56.2s · 2026-07-24
-             · <a href="log-fireworks.html">readable log</a>
-             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/fireworks/transcript.jsonl">raw transcript</a>
-             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/fireworks/result.json">result.json</a></p>
-          <div class="badgebar">
-            <a href="https://zhannur.github.io/agent-ready/badge-fireworks.json"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-fireworks.json&label=fireworks" alt="agent-ready badge for fireworks"></a>
-            <button class="copybtn" data-md="[![agent-ready: fireworks](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-fireworks.json&label=fireworks)](https://zhannur.github.io/agent-ready/)">copy badge markdown</button>
-            <span class="hist"><svg class="spark" width="120" height="28" viewBox="0 0 120 28" role="img" aria-label="score history for this SDK"><polyline points="4,9 116,9" fill="none" stroke="#3fb950" stroke-width="2"/><circle cx="4" cy="9" r="3" fill="#3fb950" stroke="#161b22" stroke-width="2"><title>2026-07-24 19:23Z — 75/100</title></circle><circle cx="116" cy="9" r="3" fill="#3fb950" stroke="#161b22" stroke-width="2"><title>2026-07-24 20:58Z — 75/100</title></circle></svg>2 run(s)</span>
-          </div>
-        </section>
-        <section class="card">
-          <div class="head">
-            <span class="rank">#4</span>
-            <h2>daytona</h2>
-            <span class="score s-green">70<small>/100</small></span>
-          </div>
-          <p class="url"><a href="https://www.daytona.io/docs/getting-started/">https://www.daytona.io/docs/getting-started/</a></p>
-          <div class="pills"><span class="pill ok" title="The toolchain the quickstart needs was installed/ready (runtime, package manager)">env_ready</span><span class="pill ok" title="The vendor's SDK or CLI was installed successfully">installed</span><span class="pill ok" title="Credentials/config were wired the way the quickstart instructs">configured</span><span class="pill ok" title="The first API call or core action succeeded">first_call</span><span class="pill no" title="The quickstart's promised output was produced and verified">verified</span></div>
-          <p class="summary"><b>stuck</b> — run ended without finish()</p>
-          <ul class="friction"><li><b>Quickstart snippet uses Process.execute instead of exec</b>: AttributeError: 'Process' object has no attribute 'execute'</li><li><b>Quickstart snippet uses CodeInterpreter.run instead of run_code</b>: code_interpreter failed: AttributeError: 'CodeInterpreter' object has no attribute 'run'</li><li><b>Sandbox toolbox unreachable despite state STARTED</b>: Attempt 10 failed: DaytonaError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))</li><li><b>SDK docs say DAYTONA_API_URL is required but it is absent from env</b>: - 'DAYTONA_API_URL': Required api URL</li><li><b>No guidance on retry/backoff for toolbox readiness</b>: All attempts failed</li></ul>
-          <p class="meta">agent: <code>kimi-k2p6</code>
-             · 40 steps · 436.7s · 2026-07-24
-             · <a href="log-daytona.html">readable log</a>
-             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/daytona/transcript.jsonl">raw transcript</a>
-             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/daytona/result.json">result.json</a></p>
-          <div class="badgebar">
-            <a href="https://zhannur.github.io/agent-ready/badge-daytona.json"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-daytona.json&label=daytona" alt="agent-ready badge for daytona"></a>
-            <button class="copybtn" data-md="[![agent-ready: daytona](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-daytona.json&label=daytona)](https://zhannur.github.io/agent-ready/)">copy badge markdown</button>
-            <span class="hist"><svg class="spark" width="120" height="28" viewBox="0 0 120 28" role="img" aria-label="score history for this SDK"><circle cx="60" cy="10" r="3" fill="#3fb950" stroke="#161b22" stroke-width="2"><title>2026-07-24 19:32Z — 70/100</title></circle></svg>1 run(s)</span>
+        <section class="card" style="animation-delay:160ms">
+          <span class="ghostrank">02</span>
+          <div class="gaugewrap"><svg class="gauge" width="96" height="96" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="40" fill="none" stroke="#1b202a" stroke-width="6"/>
+  <circle class="arc" cx="48" cy="48" r="40" fill="none" stroke="#b3d13b" stroke-width="6"
+    stroke-linecap="round" stroke-dasharray="251.3" stroke-dashoffset="62.8"
+    style="--c:251.3;--o:62.8" transform="rotate(-90 48 48)"/>
+  <text x="48" y="46" text-anchor="middle" font-size="24" fill="#b3d13b">75</text>
+  <text x="48" y="63" text-anchor="middle" font-size="10" fill="#5f6a76">/100</text>
+</svg><span class="gaugelabel">agent-ready</span></div>
+          <div>
+            <h2 class="sdk">fireworks</h2>
+            <p class="url"><a href="https://docs.fireworks.ai/getting-started/quickstart">https://docs.fireworks.ai/getting-started/quickstart</a></p>
+            <div class="cps"><span class="cpseg ok" title="The toolchain the quickstart needs was installed/ready (runtime, package manager) (weight 10)">✓ env_ready</span><i class="cx"></i><span class="cpseg ok" title="The vendor&#x27;s SDK or CLI was installed successfully (weight 20)">✓ installed</span><i class="cx"></i><span class="cpseg ok" title="Credentials/config were wired the way the quickstart instructs (weight 15)">✓ configured</span><i class="cx"></i><span class="cpseg no" title="The first API call or core action succeeded (weight 25)">✕ first_call</span><i class="cx"></i><span class="cpseg ok" title="The quickstart&#x27;s promised output was produced and verified (weight 30)">✓ verified</span></div>
+            <p class="summary"><b>verified</b> — Successfully completed the Fireworks AI Serverless Quickstart. I followed the vendor&#x27;s instructions: the FIREWORKS_API_KEY was already exported in the environment, the OpenAI Python SDK was already installed, and I created a Python script using the OpenAI SDK pattern from the quickstart. The model `accounts/fireworks/models/deepseek-v3p1` specified in the quickstart returned a 404 NOT_FOUND error, so I queried the available models endpoint (`https://api.fireworks.ai/inference/v1/models`) and used `accounts/fireworks/models/gpt-oss-120b` instead. The script ran successfully and returned a chat completion: &quot;¡Hola!&quot;</p>
+            <p class="frictionhead">friction report</p>
+            <ul class="friction"><li><b>Quickstart model reference</b>: The script using model accounts/fireworks/models/deepseek-v3p1 crashes with openai.NotFoundError: Error code: 404 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Model not found, inaccessible, and/or not deployed&#x27;, &#x27;param&#x27;: &#x27;model&#x27;, &#x27;code&#x27;: &#x27;NOT_FOUND&#x27;, &#x27;type&#x27;: &#x27;error&#x27;}.</li><li><b>Alternative model guesses</b>: Trying accounts/fireworks/models/llama-v3p1-8b-instruct also yields openai.NotFoundError: Error code: 404 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Model not found, inaccessible, and/or not deployed&#x27;, &#x27;param&#x27;: &#x27;model&#x27;, &#x27;code&#x27;: &#x27;NOT_FOUND&#x27;, &#x27;type&#x27;: &#x27;error&#x27;}.</li><li><b>Model discovery step</b>: Agent had to run curl -s -H &quot;Authorization: Bearer $FIREWORKS_API_KEY&quot; https://api.fireworks.ai/inference/v1/models | python3 -m json.tool | head -100 to discover a working model name not shown in the quickstart.</li><li><b>Package installation path</b>: pip3 install openai prints Defaulting to user installation because normal site-packages is not writeable, which may confuse first-time users about whether the SDK is correctly installed.</li></ul>
+            <p class="meta">agent <code>kimi-k2p6</code>
+               · 13 steps · 56.2s · 2026-07-24
+               · <a href="log-fireworks.html">readable log</a>
+               · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/fireworks/transcript.jsonl">raw transcript</a>
+               · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/fireworks/result.json">result.json</a></p>
+            <div class="badgebar">
+              <a href="https://zhannur.github.io/agent-ready/badge-fireworks.json"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-fireworks.json&label=fireworks" alt="agent-ready badge for fireworks"></a>
+              <button class="copybtn" data-md="[![agent-ready: fireworks](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-fireworks.json&label=fireworks)](https://zhannur.github.io/agent-ready/)">copy badge markdown</button>
+              <span class="hist"><svg class="spark" width="120" height="28" viewBox="0 0 120 28" role="img" aria-label="score history for this SDK"><polyline points="4,9 116,9" fill="none" stroke="#46d17a" stroke-width="2"/><circle cx="4" cy="9" r="3" fill="#46d17a" stroke="#12151b" stroke-width="2"><title>2026-07-24 19:23Z — 75/100</title></circle><circle cx="116" cy="9" r="3" fill="#46d17a" stroke="#12151b" stroke-width="2"><title>2026-07-24 20:58Z — 75/100</title></circle></svg>2 run(s)</span>
+            </div>
           </div>
         </section>
+        <section class="card" style="animation-delay:240ms">
+          <span class="ghostrank">03</span>
+          <div class="gaugewrap"><svg class="gauge" width="96" height="96" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="40" fill="none" stroke="#1b202a" stroke-width="6"/>
+  <circle class="arc" cx="48" cy="48" r="40" fill="none" stroke="#b3d13b" stroke-width="6"
+    stroke-linecap="round" stroke-dasharray="251.3" stroke-dashoffset="75.4"
+    style="--c:251.3;--o:75.4" transform="rotate(-90 48 48)"/>
+  <text x="48" y="46" text-anchor="middle" font-size="24" fill="#b3d13b">70</text>
+  <text x="48" y="63" text-anchor="middle" font-size="10" fill="#5f6a76">/100</text>
+</svg><span class="gaugelabel">agent-ready</span></div>
+          <div>
+            <h2 class="sdk">daytona</h2>
+            <p class="url"><a href="https://www.daytona.io/docs/getting-started/">https://www.daytona.io/docs/getting-started/</a></p>
+            <div class="cps"><span class="cpseg ok" title="The toolchain the quickstart needs was installed/ready (runtime, package manager) (weight 10)">✓ env_ready</span><i class="cx"></i><span class="cpseg ok" title="The vendor&#x27;s SDK or CLI was installed successfully (weight 20)">✓ installed</span><i class="cx"></i><span class="cpseg ok" title="Credentials/config were wired the way the quickstart instructs (weight 15)">✓ configured</span><i class="cx"></i><span class="cpseg ok" title="The first API call or core action succeeded (weight 25)">✓ first_call</span><i class="cx"></i><span class="cpseg no" title="The quickstart&#x27;s promised output was produced and verified (weight 30)">✕ verified</span></div>
+            <p class="summary"><b>stuck</b> — I successfully installed the Daytona Python SDK and demonstrated that sandbox creation via the SDK works: the output shows `Sandbox created: [UUID]` with state `SandboxState.STARTED`, and `d.list()` returned `Total: 10` sandboxes with full metadata. However, I could not demonstrate code running inside a sandbox because `sandbox.process.exec(&quot;echo &#x27;Hello, World!&#x27;&quot;)` consistently failed with `ConnectionResetError: [Errno 104] Connection reset by peer` when connecting to `proxy.app.daytona.io:443`. I also hit a `Total CPU limit exceeded. Maximum allowed: 10` error after creating multiple sandboxes during debugging, which prevented further attempts. The core blocker is a network connectivity issue between the sandbox environment and Daytona&#x27;s proxy endpoint for executing commands.</p>
+            <p class="frictionhead">friction report</p>
+            <ul class="friction"><li><b>SDK API naming drift</b>: ImportError: cannot import name &#x27;CreateSandboxParams&#x27; from &#x27;daytona&#x27; ... Did you mean: &#x27;CreateSandboxBaseParams&#x27;?</li><li><b>Sandbox proxy network connectivity</b>: ConnectionResetError: [Errno 104] Connection reset by peer</li><li><b>Organization resource limits</b>: Failed to create sandbox: Total CPU limit exceeded. Maximum allowed: 10.</li><li><b>Documentation links return 404</b>: 404 The page you&#x27;re looking for doesn&#x27;t exist or has been moved.</li><li><b>CLI installation</b>: npm error 404 Not Found - GET https://registry.npmjs.org/@daytona%2fcli</li></ul>
+            <p class="meta">agent <code>kimi-k2p6</code>
+               · 40 steps · 282.7s · 2026-07-24
+               · <a href="log-daytona.html">readable log</a>
+               · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/daytona/transcript.jsonl">raw transcript</a>
+               · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/daytona/result.json">result.json</a></p>
+            <div class="badgebar">
+              <a href="https://zhannur.github.io/agent-ready/badge-daytona.json"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-daytona.json&label=daytona" alt="agent-ready badge for daytona"></a>
+              <button class="copybtn" data-md="[![agent-ready: daytona](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-daytona.json&label=daytona)](https://zhannur.github.io/agent-ready/)">copy badge markdown</button>
+              <span class="hist"><svg class="spark" width="120" height="28" viewBox="0 0 120 28" role="img" aria-label="score history for this SDK"><polyline points="4,10 60,15 116,10" fill="none" stroke="#46d17a" stroke-width="2"/><circle cx="4" cy="10" r="3" fill="#46d17a" stroke="#12151b" stroke-width="2"><title>2026-07-24 19:32Z — 70/100</title></circle><circle cx="60" cy="15" r="3" fill="#46d17a" stroke="#12151b" stroke-width="2"><title>2026-07-24 21:04Z — 45/100</title></circle><circle cx="116" cy="10" r="3" fill="#46d17a" stroke="#12151b" stroke-width="2"><title>2026-07-24 21:15Z — 70/100</title></circle></svg>3 run(s)</span>
+            </div>
+          </div>
+        </section>
+        <section class="card" style="animation-delay:320ms">
+          <span class="ghostrank">04</span>
+          <div class="gaugewrap"><svg class="gauge" width="96" height="96" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="40" fill="none" stroke="#1b202a" stroke-width="6"/>
+  <circle class="arc" cx="48" cy="48" r="40" fill="none" stroke="#e07b39" stroke-width="6"
+    stroke-linecap="round" stroke-dasharray="251.3" stroke-dashoffset="175.9"
+    style="--c:251.3;--o:175.9" transform="rotate(-90 48 48)"/>
+  <text x="48" y="46" text-anchor="middle" font-size="24" fill="#e07b39">30</text>
+  <text x="48" y="63" text-anchor="middle" font-size="10" fill="#5f6a76">/100</text>
+</svg><span class="gaugelabel">agent-ready</span></div>
+          <div>
+            <h2 class="sdk">braintrust</h2>
+            <p class="url"><a href="https://www.braintrust.dev/docs/start">https://www.braintrust.dev/docs/start</a></p>
+            <div class="cps"><span class="cpseg ok" title="The toolchain the quickstart needs was installed/ready (runtime, package manager) (weight 10)">✓ env_ready</span><i class="cx"></i><span class="cpseg ok" title="The vendor&#x27;s SDK or CLI was installed successfully (weight 20)">✓ installed</span><i class="cx"></i><span class="cpseg no" title="Credentials/config were wired the way the quickstart instructs (weight 15)">✕ configured</span><i class="cx"></i><span class="cpseg no" title="The first API call or core action succeeded (weight 25)">✕ first_call</span><i class="cx"></i><span class="cpseg no" title="The quickstart&#x27;s promised output was produced and verified (weight 30)">✕ verified</span></div>
+            <p class="summary"><b>stuck</b> — I successfully installed the Braintrust SDK (`braintrust` 0.30.1), `autoevals` (0.3.0), and `openai` via pip, and created the `tutorial_eval.py` file with the exact quickstart code from the vendor&#x27;s README. The pip install completed successfully and the `braintrust` binary is present at `/home/daytona/.local/bin/braintrust`. What blocked me was that the pip-installed CLI was not on the `PATH` (pip warned about this), so the `braintrust eval` command was not found when I tried to run it. I located the binary but the run ended before I could execute it with the full path or add `.local/bin` to `PATH` to run the eval and verify the scores.</p>
+            <p class="frictionhead">friction report</p>
+            <ul class="friction"><li><b>pip install warns CLI scripts are off-PATH but agent still tries direct invocation</b>: WARNING: The script braintrust is installed in &#x27;/home/daytona/.local/bin&#x27; which is not on PATH.</li><li><b>Quickstart requires BRAINTRUST_API_KEY but agent never exports it</b>: BRAINTRUST_API_KEY=&lt;YOUR_API_KEY&gt; braintrust eval tutorial_eval.py</li><li><b>curl hits TLS connection reset when fetching documentation</b>: OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443</li><li><b>Agent must manually find the pip-installed binary after PATH failure</b>: find /home/daytona/.local -name &quot;braintrust&quot; -type f 2&gt;/dev/null</li><li><b>Docs URLs are inconsistent, forcing repeated guesses to locate quickstart</b>: [fetch_url] args={&quot;url&quot;: &quot;https://www.braintrust.dev/docs/start/eval&quot;}</li></ul>
+            <p class="meta">agent <code>kimi-k2p6</code>
+               · 40 steps · 148.3s · 2026-07-24
+               · <a href="log-braintrust.html">readable log</a>
+               · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/braintrust/transcript.jsonl">raw transcript</a>
+               · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/braintrust/result.json">result.json</a></p>
+            <div class="badgebar">
+              <a href="https://zhannur.github.io/agent-ready/badge-braintrust.json"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-braintrust.json&label=braintrust" alt="agent-ready badge for braintrust"></a>
+              <button class="copybtn" data-md="[![agent-ready: braintrust](https://img.shields.io/endpoint?url=https%3A%2F%2Fzhannur.github.io%2Fagent-ready%2Fbadge-braintrust.json&label=braintrust)](https://zhannur.github.io/agent-ready/)">copy badge markdown</button>
+              <span class="hist"><svg class="spark" width="120" height="28" viewBox="0 0 120 28" role="img" aria-label="score history for this SDK"><polyline points="4,9 60,24 116,18" fill="none" stroke="#46d17a" stroke-width="2"/><circle cx="4" cy="9" r="3" fill="#46d17a" stroke="#12151b" stroke-width="2"><title>2026-07-24 19:37Z — 75/100</title></circle><circle cx="60" cy="24" r="3" fill="#46d17a" stroke="#12151b" stroke-width="2"><title>2026-07-24 21:08Z — 0/100</title></circle><circle cx="116" cy="18" r="3" fill="#46d17a" stroke="#12151b" stroke-width="2"><title>2026-07-24 21:19Z — 30/100</title></circle></svg>3 run(s)</span>
+            </div>
+          </div>
+        </section>
+<footer>
+  checkpoints: env_ready 10 · installed 20 · configured 15 · first_call 25 · verified 30
+  <br>every run = one fresh sandbox + one scored Braintrust eval · history is append-only
+  <br><a href="https://github.com/zhannur/agent-ready">github.com/zhannur/agent-ready</a> · built solo at Daytona HackSprint w/ Braintrust · SF · July 2026
+</footer>
 <script>
 document.querySelectorAll('.copybtn').forEach(b => b.addEventListener('click', async () => {
   try { await navigator.clipboard.writeText(b.dataset.md); } catch (e) {}
