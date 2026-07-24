@@ -125,6 +125,7 @@ def run_agent(name: str, quickstart_url: str, promised_output: str,
 
     started = time.time()
     outcome = {"outcome": "stuck", "summary": "run ended without finish()", "deviations": ""}
+    ran_to_finish = False
 
     for step in range(1, MAX_STEPS + 1):
         if time.time() - started > WALL_LIMIT_S:
@@ -169,6 +170,7 @@ def run_agent(name: str, quickstart_url: str, promised_output: str,
                                "deviations": args.get("deviations", "")}
                     result = "run finished"
                     finished = True
+                    ran_to_finish = True
                 else:
                     result = f"unknown tool {tool}"
             except Exception as e:
@@ -182,6 +184,23 @@ def run_agent(name: str, quickstart_url: str, promised_output: str,
                              "content": result[:TOOL_OUTPUT_CAP]})
         if finished:
             break
+
+    if not ran_to_finish:
+        # budget ran out mid-run — get an honest closing account instead of a stock message
+        messages.append({"role": "user", "content":
+                         "The run is out of budget and is ending now. Do not call tools. "
+                         "In 3-4 sentences, state honestly how far you got, what demonstrably "
+                         "works (cite real output), and what blocked you."})
+        try:
+            resp = client.chat.completions.create(
+                model=model_name(), messages=messages,
+                tools=TOOLS, tool_choice="none", temperature=0.2)
+            closing = redact(resp.choices[0].message.content or "")
+            if closing:
+                outcome["summary"] = closing[:1200]
+                record("assistant", text=closing)
+        except Exception:
+            pass
 
     outcome["steps"] = len([e for e in events if e["kind"] == "tool"])
     outcome["wall_seconds"] = round(time.time() - started, 1)
