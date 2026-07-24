@@ -26,6 +26,7 @@
   .summary { margin: .4rem 0; }
   .friction { color: #d29922; font-size: .9rem; margin: .3rem 0 .4rem; padding-left: 1.2rem; }
   .meta { color: #8b949e; font-size: .8rem; margin: 0; }
+  .meta a { color: #58a6ff; text-decoration: none; }
   code { background: #21262d; padding: .1rem .35rem; border-radius: 6px; }
 </style></head><body>
 <h1>agent-ready</h1>
@@ -42,8 +43,11 @@ agent + Braintrust-scored checkpoints. No pretending — every pass is backed by
           <div class="pills"><span class="pill ok" title="The toolchain the quickstart needs was installed/ready (runtime, package manager)">env_ready</span><span class="pill ok" title="The vendor's SDK or CLI was installed successfully">installed</span><span class="pill ok" title="Credentials/config were wired the way the quickstart instructs">configured</span><span class="pill ok" title="The first API call or core action succeeded">first_call</span><span class="pill ok" title="The quickstart's promised output was produced and verified">verified</span></div>
           <p class="summary"><b>verified</b> — Completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example script exactly as documented, and successfully generated a valid MP3 audio file from text using the ElevenLabs API. The output file (/home/daytona/output.mp3) is 41,839 bytes and confirmed by the `file` command as a proper MPEG ADTS layer III MP3 at 128 kbps, 44.1 kHz, matching the requested mp3_44100_128 output format.</p>
           <ul class="friction"><li><b>Fetched quickstart page</b>: ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt... Sign up Overview ElevenCreative...</li><li><b>Quickstart play() example</b>: from elevenlabs.play import play requires headless rewrite to save, shown by agent adding '# Save to file to verify audio generation'</li><li><b>API key setup</b>: api_key=os.getenv("ELEVENLABS_API_KEY") with no prior step showing how to set it, only a later check 'API key is set: yes'</li><li><b>Silent first run</b>: cd /home/daytona && python example.py returned exit=0 with no stdout/stderr, giving no feedback that audio was generated</li><li><b>Missing dotenv prerequisite</b>: pip install elevenlabs python-dotenv shows the agent had to manually include python-dotenv, implying the quickstart did not clearly list it</li></ul>
-          <p class="meta">9 steps · 48.2s · badge:
-             <code>badge-elevenlabs.json</code></p>
+          <p class="meta">agent: <code>kimi-k2p6</code>
+             · 9 steps · 48.2s · 2026-07-24
+             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/elevenlabs/transcript.jsonl">full transcript</a>
+             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/elevenlabs/result.json">result.json</a>
+             · badge: <code>badge-elevenlabs.json</code></p>
         </section>
         <section class="card">
           <div class="head">
@@ -55,8 +59,11 @@ agent + Braintrust-scored checkpoints. No pretending — every pass is backed by
           <div class="pills"><span class="pill ok" title="The toolchain the quickstart needs was installed/ready (runtime, package manager)">env_ready</span><span class="pill ok" title="The vendor's SDK or CLI was installed successfully">installed</span><span class="pill ok" title="Credentials/config were wired the way the quickstart instructs">configured</span><span class="pill no" title="The first API call or core action succeeded">first_call</span><span class="pill ok" title="The quickstart's promised output was produced and verified">verified</span></div>
           <p class="summary"><b>stuck</b> — run ended without finish()</p>
           <ul class="friction"><li><b>Braintrust API unreachable from sandbox</b>: curl: (35) Recv failure: Connection reset by peer on every HTTPS attempt to www.braintrust.dev and api.braintrust.dev</li><li><b>Default eval command requires live API connection for log shipping</b>: First braintrust eval tutorial_eval.py fails with urllib3 SSL handshake traceback because the CLI attempts to connect to Braintrust even for a local quickstart</li><li><b>Workaround flag --no-send-logs is not in quickstart docs</b>: The README quickstart only documents BRAINTRUST_API_KEY=<YOUR_API_KEY> braintrust eval tutorial_eval.py, but the agent had to discover and use braintrust eval --no-send-logs tutorial_eval.py to get the eval to run offline</li><li><b>Documentation path fragmentation</b>: Agent tried multiple doc URLs ([fetch_url] args={"url": "https://www.braintrust.dev/docs/start/eval"}, /docs/evaluate/quickstart, /docs/start/evaluation-quickstart) before locating the correct quickstart content on GitHub</li><li><b>CLI filename convention warning</b>: WARNING [braintrust.eval]: Reading tutorial_eval.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory</li></ul>
-          <p class="meta">40 steps · 169.2s · badge:
-             <code>badge-braintrust.json</code></p>
+          <p class="meta">agent: <code>kimi-k2p6</code>
+             · 40 steps · 169.2s · 2026-07-24
+             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/braintrust/transcript.jsonl">full transcript</a>
+             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/braintrust/result.json">result.json</a>
+             · badge: <code>badge-braintrust.json</code></p>
         </section>
         <section class="card">
           <div class="head">
@@ -68,8 +75,11 @@ agent + Braintrust-scored checkpoints. No pretending — every pass is backed by
           <div class="pills"><span class="pill ok" title="The toolchain the quickstart needs was installed/ready (runtime, package manager)">env_ready</span><span class="pill ok" title="The vendor's SDK or CLI was installed successfully">installed</span><span class="pill ok" title="Credentials/config were wired the way the quickstart instructs">configured</span><span class="pill no" title="The first API call or core action succeeded">first_call</span><span class="pill ok" title="The quickstart's promised output was produced and verified">verified</span></div>
           <p class="summary"><b>verified</b> — Successfully completed the Fireworks AI Serverless Quickstart. Installed the OpenAI Python SDK (already present), wrote the quickstart script, and obtained a chat completion response: "Hola". The API call worked end-to-end using the provided FIREWORKS_API_KEY.</p>
           <ul class="friction"><li><b>Quickstart model name</b>: The docs specify `accounts/fireworks/models/deepseek-v3p1` which immediately 404s: `openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed'`</li><li><b>Blind model guessing</b>: Two follow-up guesses (`llama-v3p1-8b-instruct` and `llama-v3-8b-instruct`) also return the same 404: `openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed'`</li><li><b>Missing troubleshooting guidance</b>: The quickstart offers no way to discover valid models, forcing the agent to write a separate script: `wrote /home/daytona/list_models.py` ... `models = client.models.list()`</li><li><b>Unhelpful 404 error message</b>: The API returns `'message': 'Model not found, inaccessible, and/or not deployed'` without listing available or suggested model IDs.</li></ul>
-          <p class="meta">14 steps · 78.3s · badge:
-             <code>badge-fireworks.json</code></p>
+          <p class="meta">agent: <code>kimi-k2p6</code>
+             · 14 steps · 78.3s · 2026-07-24
+             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/fireworks/transcript.jsonl">full transcript</a>
+             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/fireworks/result.json">result.json</a>
+             · badge: <code>badge-fireworks.json</code></p>
         </section>
         <section class="card">
           <div class="head">
@@ -81,7 +91,10 @@ agent + Braintrust-scored checkpoints. No pretending — every pass is backed by
           <div class="pills"><span class="pill ok" title="The toolchain the quickstart needs was installed/ready (runtime, package manager)">env_ready</span><span class="pill ok" title="The vendor's SDK or CLI was installed successfully">installed</span><span class="pill ok" title="Credentials/config were wired the way the quickstart instructs">configured</span><span class="pill ok" title="The first API call or core action succeeded">first_call</span><span class="pill no" title="The quickstart's promised output was produced and verified">verified</span></div>
           <p class="summary"><b>stuck</b> — run ended without finish()</p>
           <ul class="friction"><li><b>Quickstart snippet uses Process.execute instead of exec</b>: AttributeError: 'Process' object has no attribute 'execute'</li><li><b>Quickstart snippet uses CodeInterpreter.run instead of run_code</b>: code_interpreter failed: AttributeError: 'CodeInterpreter' object has no attribute 'run'</li><li><b>Sandbox toolbox unreachable despite state STARTED</b>: Attempt 10 failed: DaytonaError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))</li><li><b>SDK docs say DAYTONA_API_URL is required but it is absent from env</b>: - 'DAYTONA_API_URL': Required api URL</li><li><b>No guidance on retry/backoff for toolbox readiness</b>: All attempts failed</li></ul>
-          <p class="meta">40 steps · 436.7s · badge:
-             <code>badge-daytona.json</code></p>
+          <p class="meta">agent: <code>kimi-k2p6</code>
+             · 40 steps · 436.7s · 2026-07-24
+             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/daytona/transcript.jsonl">full transcript</a>
+             · <a href="https://github.com/zhannur/agent-ready/blob/main/runs/daytona/result.json">result.json</a>
+             · badge: <code>badge-daytona.json</code></p>
         </section>
 </body></html>

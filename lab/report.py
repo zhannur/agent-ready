@@ -8,6 +8,7 @@ from .checkpoints import CHECKPOINTS, WEIGHTS
 
 SITE = Path("docs")
 RUNS = Path("runs")
+REPO = "https://github.com/zhannur/agent-ready"
 
 
 def badge_color(total: int) -> str:
@@ -56,8 +57,11 @@ def render_index(results: list[dict]) -> None:
           <div class="pills">{pills}</div>
           <p class="summary"><b>{r['outcome']}</b> — {r['summary']}</p>
           <ul class="friction">{friction}</ul>
-          <p class="meta">{r.get('steps', '?')} steps · {r.get('wall_seconds', '?')}s · badge:
-             <code>badge-{r['name']}.json</code></p>
+          <p class="meta">agent: <code>{(r.get('agent_model') or 'unknown').split('/')[-1]}</code>
+             · {r.get('steps', '?')} steps · {r.get('wall_seconds', '?')}s · {r.get('started', '')[:10]}
+             · <a href="{REPO}/blob/main/runs/{r['name']}/transcript.jsonl">full transcript</a>
+             · <a href="{REPO}/blob/main/runs/{r['name']}/result.json">result.json</a>
+             · badge: <code>badge-{r['name']}.json</code></p>
         </section>""")
 
     html = f"""<!doctype html><html><head><meta charset="utf-8">
@@ -88,6 +92,7 @@ def render_index(results: list[dict]) -> None:
   .summary {{ margin: .4rem 0; }}
   .friction {{ color: #d29922; font-size: .9rem; margin: .3rem 0 .4rem; padding-left: 1.2rem; }}
   .meta {{ color: #8b949e; font-size: .8rem; margin: 0; }}
+  .meta a {{ color: #58a6ff; text-decoration: none; }}
   code {{ background: #21262d; padding: .1rem .35rem; border-radius: 6px; }}
 </style></head><body>
 <h1>agent-ready</h1>

@@ -66,7 +66,9 @@ def cmd_run(target_path: str, keep_sandbox: bool) -> None:
     span_id = log_to_braintrust(name, url, outcome, verdict["checkpoints"],
                                 verdict["friction_points"], total)
 
+    from .agent import model_name
     result = {"name": name, "url": url, "started": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+              "agent_model": model_name(), "judge_model": model_name(),
               "outcome": outcome["outcome"], "summary": outcome["summary"],
               "deviations": outcome.get("deviations", ""), "steps": outcome["steps"],
               "wall_seconds": outcome["wall_seconds"], "checkpoints": verdict["checkpoints"],
