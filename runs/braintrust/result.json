@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-07-24T21:19:08Z",
+  "started": "2026-07-25T10:44:30Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Braintrust SDK (`braintrust` 0.30.1), `autoevals` (0.3.0), and `openai` via pip, and created the `tutorial_eval.py` file with the exact quickstart code from the vendor's README. The pip install completed successfully and the `braintrust` binary is present at `/home/daytona/.local/bin/braintrust`. What blocked me was that the pip-installed CLI was not on the `PATH` (pip warned about this), so the `braintrust eval` command was not found when I tried to run it. I located the binary but the run ended before I could execute it with the full path or add `.local/bin` to `PATH` to run the eval and verify the scores.",
+  "summary": "I got stuck at the documentation discovery phase and never reached the promised outcome. I successfully fetched the main Braintrust docs start page (`https://www.braintrust.dev/docs/start`) and the `llms.txt` index, which confirmed an \"Evaluation quickstart\" exists, but I could not locate the actual quickstart instructions\u2014every URL pattern I tried for the evaluation quickstart returned empty responses. Because I never found the vendor's step-by-step instructions, I did not install the SDK, write any eval code, or execute a run. The `BRAINTRUST_API_KEY` environment variable is available in the sandbox, but I never reached the point of using it.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 148.3,
+  "wall_seconds": 52.2,
   "checkpoints": {
     "env_ready": {
-      "passed": true,
-      "evidence": "Successfully installed GitPython-3.1.55 braintrust-0.30.1 chevron-0.14.0 python-slugify-8.0.4 sseclient-py-1.9.0 text-unidecode-1.3"
+      "passed": false,
+      "evidence": "Because I never found the vendor's step-by-step instructions, I did not install the SDK, write any eval code, or execute a run."
     },
     "installed": {
-      "passed": true,
-      "evidence": "Successfully installed GitPython-3.1.55 braintrust-0.30.1 chevron-0.14.0 python-slugify-8.0.4 sseclient-py-1.9.0 text-unidecode-1.3"
+      "passed": false,
+      "evidence": "I did not install the SDK"
     },
     "configured": {
       "passed": false,
-      "evidence": "cd /home/daytona && braintrust eval tutorial_eval.py 2>&1 (no BRAINTRUST_API_KEY exported in transcript)"
+      "evidence": "I never reached the point of using it"
     },
     "first_call": {
       "passed": false,
-      "evidence": "zsh: command not found: braintrust"
+      "evidence": "I got stuck at the documentation discovery phase and never reached the promised outcome"
     },
     "verified": {
       "passed": false,
-      "evidence": "the run ended before I could execute it with the full path or add .local/bin to PATH to run the eval and verify the scores"
+      "evidence": "I did not install the SDK, write any eval code, or execute a run"
     }
   },
   "friction": [
     {
-      "where": "pip install warns CLI scripts are off-PATH but agent still tries direct invocation",
-      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
+      "where": "Evaluation quickstart URL routing",
+      "detail": "every URL pattern I tried for the evaluation quickstart returned empty responses"
     },
     {
-      "where": "Quickstart requires BRAINTRUST_API_KEY but agent never exports it",
-      "detail": "BRAINTRUST_API_KEY=<YOUR_API_KEY> braintrust eval tutorial_eval.py"
+      "where": "Start page quickstart link",
+      "detail": "I successfully fetched the main Braintrust docs start page... but I could not locate the actual quickstart instructions"
     },
     {
-      "where": "curl hits TLS connection reset when fetching documentation",
-      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
+      "where": "Documentation index (llms.txt)",
+      "detail": "I successfully fetched... the llms.txt index... but I could not locate the actual quickstart instructions"
     },
     {
-      "where": "Agent must manually find the pip-installed binary after PATH failure",
-      "detail": "find /home/daytona/.local -name \"braintrust\" -type f 2>/dev/null"
+      "where": "SDK installation step",
+      "detail": "I did not install the SDK, write any eval code, or execute a run"
     },
     {
-      "where": "Docs URLs are inconsistent, forcing repeated guesses to locate quickstart",
-      "detail": "[fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/start/eval\"}"
+      "where": "API key configuration",
+      "detail": "The BRAINTRUST_API_KEY environment variable is available... but I never reached the point of using it"
     }
   ],
-  "score": 30,
-  "braintrust_span": "6b126a03-b0be-483d-99d6-1c722cc268ec"
+  "score": 0,
+  "braintrust_span": "dfd330fb-5477-486e-b6bc-43d0461c8d75"
 }

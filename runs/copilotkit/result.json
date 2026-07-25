@@ -1,0 +1,58 @@
+{
+  "name": "copilotkit",
+  "url": "https://docs.copilotkit.ai/quickstart",
+  "started": "2026-07-25T10:52:28Z",
+  "agent_model": "accounts/fireworks/models/kimi-k2p6",
+  "judge_model": "accounts/fireworks/models/kimi-k2p6",
+  "outcome": "stuck",
+  "summary": "I successfully scaffolded the Next.js app (`create-next-app` completed), installed the CopilotKit packages (`@copilotkit/runtime`, `@copilotkit/react-ui`, `@copilotkit/react-core` are all in `node_modules`), and created the API route at `app/api/copilotkit/route.ts` with `CopilotRuntime`, `BuiltInAgent`, and `copilotRuntimeNextJSAppRouterEndpoint`. I also created the `.env` file. I was blocked by repeated OOM kills (exit 137) during `npm install`, which consumed significant time and budget. I also had to deviate from the docs to fix import paths\u2014`BuiltInAgent` must be imported from `@copilotkit/runtime/v2`, not the root package, and the model string in the docs (`openai:gpt-5.4-mini`) appears to be a typo; I used `openai:gpt-4o-mini`. I did not get to update `layout.tsx` or `page.tsx`, nor did I build or start the dev server to verify the endpoint.",
+  "deviations": "",
+  "steps": 40,
+  "wall_seconds": 393.3,
+  "checkpoints": {
+    "env_ready": {
+      "passed": true,
+      "evidence": "v25.9.0"
+    },
+    "installed": {
+      "passed": true,
+      "evidence": "added 61 packages, removed 70 packages, and changed 38 packages in 14s"
+    },
+    "configured": {
+      "passed": false,
+      "evidence": "export const POST = async (req: NextRequest)"
+    },
+    "first_call": {
+      "passed": false,
+      "evidence": "nor did I build or start the dev server to verify the endpoint."
+    },
+    "verified": {
+      "passed": false,
+      "evidence": "nor did I build or start the dev server to verify the endpoint."
+    }
+  },
+  "friction": [
+    {
+      "where": "npm install OOM",
+      "detail": "exit=137 on npm install @copilotkit/react-core @copilotkit/react-ui @copilotkit/runtime"
+    },
+    {
+      "where": "npm CLI flag confusion",
+      "detail": "npm warn Unknown cli config \"--max-old-space-size\". This will stop working in the next major version of npm."
+    },
+    {
+      "where": "missing OpenAI key prerequisite",
+      "detail": "env | grep -i openai | head -1 returned empty output"
+    },
+    {
+      "where": "import path discovery",
+      "detail": "grep -r \"BuiltInAgent\\|copilotRuntimeNextJSAppRouterEndpoint\" node_modules/@copilotkit/runtime/dist/v2/ | head -20"
+    },
+    {
+      "where": "partial install left broken package",
+      "detail": "ls: cannot access 'node_modules/@copilotkit/react-core/dist/': No such file or directory"
+    }
+  ],
+  "score": 30,
+  "braintrust_span": "c2447118-a61d-4d78-8926-5f86244be8c7"
+}

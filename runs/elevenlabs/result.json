@@ -1,18 +1,18 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-07-24T21:23:55Z",
+  "started": "2026-07-25T10:58:45Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Steps completed: (1) Installed the SDK with `pip install elevenlabs python-dotenv`, (2) Created `example.py` with the exact code from the quickstart, (3) Ran the script successfully. To verify the promised outcome (generating an audio file from text), I also created a second script that saves the audio stream to `output.mp3`. The file was generated successfully \u2014 43,511 bytes \u2014 and `file` confirms it is a valid MP3 (MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural). The API key was picked up automatically from the `ELEVENLABS_API_KEY` environment variable.",
-  "deviations": "The quickstart's `play(audio)` function ran without error but cannot audibly play in a headless sandbox. To verify the promised outcome, I created a second script that writes the audio stream to `output.mp3` and confirmed the file is a valid MP3. This is a verification enhancement, not a deviation from the quickstart's instructions.",
+  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example script, and successfully generated a valid MP3 audio file from text using the ElevenLabs Text-to-Speech API. The output file (output.mp3) is 40,586 bytes and confirmed by the `file` command to be a valid MPEG ADTS layer III audio file at 128 kbps, 44.1 kHz, Monaural.",
+  "deviations": "The quickstart's example.py uses `play(audio)` to play audio through speakers. Since the sandbox has no audio output device, I created a modified script (example_save.py) that writes the audio stream to a file and verifies it. This was a necessary environment adaptation \u2014 the core API call and text-to-speech generation followed the quickstart exactly.",
   "steps": 8,
-  "wall_seconds": 55.2,
+  "wall_seconds": 32.1,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "pip install elevenlabs python-dotenv ... exit=0"
+      "evidence": "Defaulting to user installation because normal site-packages is not writeable\nCollecting elevenlabs\n  Downloading elevenlabs-2.59.0-py3-none-any.whl.metadata (15 kB)"
     },
     "installed": {
       "passed": true,
@@ -20,11 +20,11 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "Audio saved to output.mp3"
+      "evidence": "ELEVENLABS_API_KEY=***REDACTED***"
     },
     "first_call": {
       "passed": true,
-      "evidence": "cd /home/daytona && python example.py ... exit=0"
+      "evidence": "[bash] args={\"command\": \"cd /home/daytona && python example.py\"}\nexit=0"
     },
     "verified": {
       "passed": true,
@@ -33,26 +33,26 @@
   },
   "friction": [
     {
-      "where": "Quickstart default uses play() instead of file output",
-      "detail": "The snippet imports `from elevenlabs.play import play` and the first run `python example.py` produced no visible artifact or stdout, forcing the agent to write a second save-to-file script to verify success."
+      "where": "Quickstart playback example requires mpv",
+      "detail": "The default example uses play(audio) but the sandbox lacks mpv ('mpv not found'), forcing a deviation to save-to-file."
     },
     {
-      "where": "Implicit authentication setup",
-      "detail": "The code uses `load_dotenv()` and `api_key=os.getenv(\"ELEVENLABS_API_KEY\")` but the transcript never shows creating a `.env` file or exporting the key, which could confuse first-time users."
+      "where": "Documentation served as noisy HTML",
+      "detail": "The fetched quickstart page is HTML navigation soup ('Search / Connect Blog Help Center API Pricing Sign up Overview...') rather than clean instructions."
     },
     {
-      "where": "Silent first execution",
-      "detail": "Running the exact quickstart code returned `exit=0` with completely empty output, giving a first-time developer no confirmation that the API call succeeded."
+      "where": "Voice ID requires browsing external library",
+      "detail": "The quickstart hardcodes a voice_id and tells the user to browse the voice library ('voice_id=\\\"JBFqnCBsd6RMkjVDRZzb\\\",  # \\\"George\\\" - browse voices at elevenlabs.io/app/voice-library'), adding a manual step."
     },
     {
-      "where": "Hardcoded voice and model IDs",
-      "detail": "The snippet uses `voice_id=\"JBFqnCBsd6RMkjVDRZzb\"` and `model_id=\"eleven_v3\"` without clarifying whether these are universal defaults or require user-specific library access."
+      "where": "First script produces no console output",
+      "detail": "Running the quickstart example yields no stdout ('[bash] args={\\\"command\\\": \\\"cd /home/daytona && python example.py\\\"}\\nexit=0' with nothing in between), so success is invisible without code changes."
     },
     {
-      "where": "Pip user-site fallback",
-      "detail": "`Defaulting to user installation because normal site-packages is not writeable` indicates a potential environment permission friction that could trip up beginners about package availability."
+      "where": "Saving audio requires extra parameters",
+      "detail": "The agent had to supply model_id and output_format ('output_format=\\\"mp3_44100_128\\\"') to save a file, which the quickstart snippet does not demonstrate."
     }
   ],
   "score": 100,
-  "braintrust_span": "38e28642-c554-4f0a-b212-363b6b3f1a1f"
+  "braintrust_span": "96a2af84-5b5e-4ce7-8c71-a18565cf1cac"
 }
