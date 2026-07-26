@@ -106,8 +106,8 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 </style></head><body>
 <h1 class="wordmark"><a href="index.html" style="color:inherit">agent-ready</a> · elevenlabs
 <span style="color:#46d17a">100/100</span></h1>
-<p class="meta" style="margin:.6rem 0 1.4rem">8 steps ·
-32.1s · agent <code>kimi-k2p6</code> ·
+<p class="meta" style="margin:.6rem 0 1.4rem">12 steps ·
+38.8s · agent <code>kimi-k2p6</code> ·
 <a href="https://github.com/zhannur/agent-ready/blob/main/runs/elevenlabs/transcript.jsonl">raw JSONL</a></p>
 <details class="step" open><summary>#1 <b>fetch_url</b> <code>https://elevenlabs.io/docs/quickstart</code></summary><pre> ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page. Search / Connect Blog Help Center API Pricing Sign up Overview ElevenCreative ElevenAgents ElevenAPI Reception.ai API reference Changelog Help Center Login Overview ElevenCreative ElevenAgents ElevenAPI Reception.ai API reference Changelog Help Center Get started Quickstart Agents Quickstart Choosing the right model Tutorials 
 
@@ -157,21 +157,90 @@ Requirement already satisfied: typing-inspection&gt;=0.4.2 in /usr/local/lib/pyt
 Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.14/site-packages (from requests&gt;=2.20-&gt;elevenlabs) (3.4.7)
 Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.14/site-packages (from requests&gt;=2.20-&gt;elevenlabs) (2.7.0)
 Downloading elevenlabs-2.59.0-py3-none-any.whl (1.9 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 255.7 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 81.2 MB/s  0:00:00
 Installing collected packages: elevenlabs
 Successfully installed elevenlabs-2.59.0
 
 [notice] A new release of pip is available: 26.0.1 -&gt; 26.1.2
 [notice] To update, run: pip install --upgrade pip
-</pre></details><details class="step" open><summary>#3 <b>bash</b> <code>which mpv ffmpeg; echo &quot;---&quot;; env | grep -i elevenlabs</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#3 <b>bash</b> <code>python -c &quot;from elevenlabs.play import play; print(&#x27;play module exists&#x27;)&quot; 2&gt;&amp;1</code></summary><pre>exit=0
+play module exists
+</pre></details><details class="step" open><summary>#4 <b>bash</b> <code>echo &quot;API key present: $([ -n &quot;$ELEVENLABS_API_KEY&quot; ] &amp;&amp; echo yes || echo no)&quot;</code></summary><pre>exit=0
+API key present: yes
+</pre></details><details class="step" open><summary>#5 <b>write_file</b> <code>/home/daytona/example.py</code></summary><pre>wrote /home/daytona/example.py (485 bytes)</pre></details><details class="step" open><summary>#6 <b>bash</b> <code>which mpv; which ffmpeg</code></summary><pre>exit=0
 mpv not found
 /usr/bin/ffmpeg
----
-ELEVENLABS_API_KEY=***REDACTED***
-</pre></details><details class="step" open><summary>#4 <b>write_file</b> <code>/home/daytona/example.py</code></summary><pre>wrote /home/daytona/example.py (485 bytes)</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>cd /home/daytona &amp;&amp; python example.py</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#6 <b>write_file</b> <code>/home/daytona/example_save.py</code></summary><pre>wrote /home/daytona/example_save.py (788 bytes)</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>cd /home/daytona &amp;&amp; python example_save.py</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>apt-get update &amp;&amp; apt-get install -y mpv 2&gt;&amp;1 | tail -5</code></summary><pre>exit=100
+Reading package lists...
+E: List directory /var/lib/apt/lists/partial is missing. - Acquire (13: Permission denied)
+</pre></details><details class="step" open><summary>#8 <b>write_file</b> <code>/home/daytona/example.py</code></summary><pre>wrote /home/daytona/example.py (624 bytes)</pre></details><details class="step" open><summary>#9 <b>bash</b> <code>cd /home/daytona &amp;&amp; python example.py</code></summary><pre>exit=0
 Audio saved to output.mp3
-File size: 40586 bytes
+</pre></details><details class="step" open><summary>#10 <b>bash</b> <code>cd /home/daytona &amp;&amp; ls -lh output.mp3 &amp;&amp; file output.mp3</code></summary><pre>exit=0
+-rw-r--r-- 1 daytona daytona 44K Jul 26 11:10 output.mp3
 output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural
-</pre></details><details class="step" open><summary>#8 <b>finish</b> <code></code></summary><pre>run finished</pre></details>
+</pre></details><details class="step" open><summary>#11 <b>bash</b> <code>cd /home/daytona &amp;&amp; ffprobe -v quiet -print_format json -show_format -show_streams output.mp3</code></summary><pre>exit=0
+{
+    &quot;streams&quot;: [
+        {
+            &quot;index&quot;: 0,
+            &quot;codec_name&quot;: &quot;mp3&quot;,
+            &quot;codec_long_name&quot;: &quot;MP3 (MPEG audio layer 3)&quot;,
+            &quot;codec_type&quot;: &quot;audio&quot;,
+            &quot;codec_tag_string&quot;: &quot;[0][0][0][0]&quot;,
+            &quot;codec_tag&quot;: &quot;0x0000&quot;,
+            &quot;sample_fmt&quot;: &quot;fltp&quot;,
+            &quot;sample_rate&quot;: &quot;44100&quot;,
+            &quot;channels&quot;: 1,
+            &quot;channel_layout&quot;: &quot;mono&quot;,
+            &quot;bits_per_sample&quot;: 0,
+            &quot;initial_padding&quot;: 0,
+            &quot;r_frame_rate&quot;: &quot;0/0&quot;,
+            &quot;avg_frame_rate&quot;: &quot;0/0&quot;,
+            &quot;time_base&quot;: &quot;1/14112000&quot;,
+            &quot;start_pts&quot;: 353600,
+            &quot;start_time&quot;: &quot;0.025057&quot;,
+            &quot;duration_ts&quot;: 39075840,
+            &quot;duration&quot;: &quot;2.768980&quot;,
+            &quot;bit_rate&quot;: &quot;128000&quot;,
+            &quot;disposition&quot;: {
+                &quot;default&quot;: 0,
+                &quot;dub&quot;: 0,
+                &quot;original&quot;: 0,
+                &quot;comment&quot;: 0,
+                &quot;lyrics&quot;: 0,
+                &quot;karaoke&quot;: 0,
+                &quot;forced&quot;: 0,
+                &quot;hearing_impaired&quot;: 0,
+                &quot;visual_impaired&quot;: 0,
+                &quot;clean_effects&quot;: 0,
+                &quot;attached_pic&quot;: 0,
+                &quot;timed_thumbnails&quot;: 0,
+                &quot;non_diegetic&quot;: 0,
+                &quot;captions&quot;: 0,
+                &quot;descriptions&quot;: 0,
+                &quot;metadata&quot;: 0,
+                &quot;dependent&quot;: 0,
+                &quot;still_image&quot;: 0,
+                &quot;multilayer&quot;: 0
+            }
+        }
+    ],
+    &quot;format&quot;: {
+        &quot;filename&quot;: &quot;output.mp3&quot;,
+        &quot;nb_streams&quot;: 1,
+        &quot;nb_programs&quot;: 0,
+        &quot;nb_stream_groups&quot;: 0,
+        &quot;format_name&quot;: &quot;mp3&quot;,
+        &quot;format_long_name&quot;: &quot;MP2/3 (MPEG audio layer 2/3)&quot;,
+        &quot;start_time&quot;: &quot;0.025057&quot;,
+        &quot;duration&quot;: &quot;2.768980&quot;,
+        &quot;size&quot;: &quot;44765&quot;,
+        &quot;bit_rate&quot;: &quot;129332&quot;,
+        &quot;probe_score&quot;: 51,
+        &quot;tags&quot;: {
+            &quot;encoder&quot;: &quot;Lavf60.16.101&quot;
+        }
+    }
+}
+</pre></details><details class="step" open><summary>#12 <b>finish</b> <code></code></summary><pre>run finished</pre></details>
 </body></html>

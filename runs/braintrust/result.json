@@ -1,58 +1,54 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-07-25T10:44:30Z",
+  "started": "2026-07-26T10:55:50Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I got stuck at the documentation discovery phase and never reached the promised outcome. I successfully fetched the main Braintrust docs start page (`https://www.braintrust.dev/docs/start`) and the `llms.txt` index, which confirmed an \"Evaluation quickstart\" exists, but I could not locate the actual quickstart instructions\u2014every URL pattern I tried for the evaluation quickstart returned empty responses. Because I never found the vendor's step-by-step instructions, I did not install the SDK, write any eval code, or execute a run. The `BRAINTRUST_API_KEY` environment variable is available in the sandbox, but I never reached the point of using it.",
+  "summary": "I only got as far as the documentation-discovery phase. I successfully fetched the main Braintrust start page (`/docs/start`) and the general evaluation docs (`/docs/evaluate/run-evaluations.md`), which returned real HTML/Markdown content including Python/TypeScript code snippets for running evals. However, I never executed a single command in the sandbox\u2014no SDK was installed, no code was written, and no eval was run. The blocker was that every evaluation-quickstart URL variant I tried (`/start/eval`, `/start/eval-quickstart`, `/start/evaluation-quickstart`) returned empty or 404 responses, so I burned the entire budget hunting for the correct quickstart path instead of proceeding to `pip install` and `bt eval`.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 52.2,
+  "wall_seconds": 96.9,
   "checkpoints": {
     "env_ready": {
       "passed": false,
-      "evidence": "Because I never found the vendor's step-by-step instructions, I did not install the SDK, write any eval code, or execute a run."
+      "evidence": "I never executed a single command in the sandbox\u2014no SDK was installed, no code was written, and no eval was run."
     },
     "installed": {
       "passed": false,
-      "evidence": "I did not install the SDK"
+      "evidence": "no SDK was installed"
     },
     "configured": {
       "passed": false,
-      "evidence": "I never reached the point of using it"
+      "evidence": "no code was written, and no eval was run"
     },
     "first_call": {
       "passed": false,
-      "evidence": "I got stuck at the documentation discovery phase and never reached the promised outcome"
+      "evidence": "I never executed a single command in the sandbox"
     },
     "verified": {
       "passed": false,
-      "evidence": "I did not install the SDK, write any eval code, or execute a run"
+      "evidence": "no eval was run"
     }
   },
   "friction": [
     {
-      "where": "Evaluation quickstart URL routing",
-      "detail": "every URL pattern I tried for the evaluation quickstart returned empty responses"
+      "where": "Evaluation quickstart URLs",
+      "detail": "every evaluation-quickstart URL variant I tried (`/start/eval`, `/start/eval-quickstart`, `/start/evaluation-quickstart`) returned empty or 404 responses"
     },
     {
-      "where": "Start page quickstart link",
-      "detail": "I successfully fetched the main Braintrust docs start page... but I could not locate the actual quickstart instructions"
+      "where": "Documentation index",
+      "detail": "Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further"
     },
     {
-      "where": "Documentation index (llms.txt)",
-      "detail": "I successfully fetched... the llms.txt index... but I could not locate the actual quickstart instructions"
+      "where": "Eval snippet prerequisites",
+      "detail": "data: initDataset(\"My Project\", { dataset: \"My dataset\" })"
     },
     {
-      "where": "SDK installation step",
-      "detail": "I did not install the SDK, write any eval code, or execute a run"
-    },
-    {
-      "where": "API key configuration",
-      "detail": "The BRAINTRUST_API_KEY environment variable is available... but I never reached the point of using it"
+      "where": "Quickstart discovery",
+      "detail": "burned the entire budget hunting for the correct quickstart path instead of proceeding to `pip install` and `bt eval`"
     }
   ],
   "score": 0,
-  "braintrust_span": "dfd330fb-5477-486e-b6bc-43d0461c8d75"
+  "braintrust_span": "45f33ba8-b208-481e-ab53-db87647206d7"
 }

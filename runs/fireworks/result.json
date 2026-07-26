@@ -1,18 +1,18 @@
 {
   "name": "fireworks",
   "url": "https://docs.fireworks.ai/getting-started/quickstart",
-  "started": "2026-07-25T11:00:37Z",
+  "started": "2026-07-26T11:12:08Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the Fireworks AI Serverless Quickstart. A chat completion was returned from a Fireworks-hosted model via the API. The response \"\u00a1Hola! That's the most common way to say hello in Spanish...\" was printed, confirming the API call works end-to-end.",
-  "deviations": "The quickstart docs specify model `accounts/fireworks/models/deepseek-v3p1`, but that model returned a 404 NOT_FOUND error. I had to query the `/v1/models` endpoint to discover available models and substituted `accounts/fireworks/models/kimi-k2p6` (a chat-capable model that was available). Everything else followed the docs exactly: used the OpenAI Python SDK, the same base_url, same message format, and the pre-exported FIREWORKS_API_KEY environment variable.",
-  "steps": 13,
-  "wall_seconds": 48.3,
+  "summary": "Successfully completed the Fireworks Serverless Quickstart end-to-end. Installed the OpenAI Python SDK (already present), set the API key from the sandbox environment variable, and made a chat completions API call to Fireworks using the OpenAI-compatible endpoint. The response \"Hello in Spanish is **\u00a1Hola!**\" was returned from a Fireworks-hosted model.",
+  "deviations": "The quickstart docs specify model `accounts/fireworks/models/deepseek-v3p1`, which returned a 404 NOT_FOUND error. I deviated by querying the `/v1/models` endpoint to discover available models and substituted `accounts/fireworks/models/glm-5p1`, which succeeded. All other steps (OpenAI SDK, base_url, env var auth, code structure) followed the docs exactly.",
+  "steps": 14,
+  "wall_seconds": 35.3,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Requirement already satisfied: openai in /usr/local/lib/python3.14/site-packages (2.33.0)"
+      "evidence": "Python 3.14.4"
     },
     "installed": {
       "passed": true,
@@ -20,31 +20,35 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "FIREWORKS_API_KEY is set: yes"
+      "evidence": "API key set: yes / Length: 25"
     },
     "first_call": {
       "passed": false,
-      "evidence": "openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed', 'param': 'model', 'code': 'NOT_FOUND', 'type': 'error'}, 'request_id': 'chatcmpl-00372b82caf044afb798e7705569ad25'}"
+      "evidence": "openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed', 'param': 'model', 'code': 'NOT_FOUND', 'type': 'error'}, 'request_id': 'chatcmpl-ece4b037f5194acea1f4943d510a3fea'}"
     },
     "verified": {
       "passed": true,
-      "evidence": "That's the most common way to say hello in Spanish."
+      "evidence": "Hello in Spanish is **\u00a1Hola!**"
     }
   },
   "friction": [
     {
       "where": "Quickstart model string",
-      "detail": "Docs specify `accounts/fireworks/models/deepseek-v3p1` but it returns 404: `openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed'...`"
+      "detail": "Docs specify model accounts/fireworks/models/deepseek-v3p1 which returns 404: 'Model not found, inaccessible, and/or not deployed'"
     },
     {
-      "where": "Fallback model guesses",
-      "detail": "Attempted `accounts/fireworks/models/llama-v3p1-70b-instruct` also failed: `openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed'...`"
+      "where": "Model discovery",
+      "detail": "Agent had to query the models endpoint (curl -s -H \"Authorization: Bearer $FIREWORKS_API_KEY\" https://api.fireworks.ai/inference/v1/models) to find a valid ID"
     },
     {
-      "where": "Model discovery step",
-      "detail": "Agent had to manually call `curl -s \"https://api.fireworks.ai/inference/v1/models\" -H \"Authorization: Bearer $FIREWORKS_API_KEY\"` to find a valid model, which is not part of the quickstart instructions."
+      "where": "Documentation format",
+      "detail": "Fetched docs are raw HTML with encoded entities like API &amp; SDK Reference rather than clean text"
+    },
+    {
+      "where": "Guesswork on fallback models",
+      "detail": "Agent tried guessed strings accounts/fireworks/models/llama-v3p1-8b-instruct and llama-v3-8b-instruct, both failing with 404"
     }
   ],
   "score": 75,
-  "braintrust_span": "3bf04a1c-3153-40c3-8cd8-1aee610e4a39"
+  "braintrust_span": "d8199b11-63c6-42dd-ae79-0e6e36b21b88"
 }

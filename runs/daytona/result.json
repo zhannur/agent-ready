@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-07-24T21:15:39Z",
+  "started": "2026-07-26T11:09:32Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Daytona Python SDK and demonstrated that sandbox creation via the SDK works: the output shows `Sandbox created: [UUID]` with state `SandboxState.STARTED`, and `d.list()` returned `Total: 10` sandboxes with full metadata. However, I could not demonstrate code running inside a sandbox because `sandbox.process.exec(\"echo 'Hello, World!'\")` consistently failed with `ConnectionResetError: [Errno 104] Connection reset by peer` when connecting to `proxy.app.daytona.io:443`. I also hit a `Total CPU limit exceeded. Maximum allowed: 10` error after creating multiple sandboxes during debugging, which prevented further attempts. The core blocker is a network connectivity issue between the sandbox environment and Daytona's proxy endpoint for executing commands.",
+  "summary": "I successfully created Daytona sandboxes via the Python SDK\u2014real output showed multiple sandbox IDs like `2bd5804c-462a-4a65-adfa-8fac74fdf4bc` and the sandboxes reached the `started` state (\"Sandbox is ready!\"). However, I could not execute code inside any sandbox because the SDK's connection to the toolbox proxy endpoint (`https://proxy.app.daytona.io/toolbox`) was consistently reset during the TLS handshake with `ConnectionResetError: [Errno 104] Connection reset by peer`. I verified this was a network-level failure by reproducing the same error with direct `curl` to the proxy URL, indicating the Daytona proxy infrastructure was unreachable from the sandbox environment.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 282.7,
+  "wall_seconds": 210.6,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
+      "evidence": "[bash] args={\"command\": \"python3 -c \\\"from daytona import Sandbox; help(Sandbox)\\\" 2>&1 | head -120\"}\nexit=0"
     },
     "installed": {
       "passed": true,
-      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
+      "evidence": "cat /usr/local/lib/python3.14/site-packages/daytona/_sync/sandbox.py | head -120"
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY is set: yes"
+      "evidence": "DAYTONA_API_KEY=dtn_760a95ce8ee059bdc9e5de3edc9fc66f6491d6879fcd41..."
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created: d8d80e82-93cb-4b0a-993d-3ccf239490c2"
+      "evidence": "Sandbox created with ID: 2bd5804c-462a-4a65-adfa-8fac74fdf4bc\nSandbox is ready!"
     },
     "verified": {
       "passed": false,
-      "evidence": "ConnectionResetError: [Errno 104] Connection reset by peer"
+      "evidence": "Attempt 3 failed: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   },
   "friction": [
     {
-      "where": "SDK API naming drift",
-      "detail": "ImportError: cannot import name 'CreateSandboxParams' from 'daytona' ... Did you mean: 'CreateSandboxBaseParams'?"
+      "where": "Toolbox proxy endpoint unreachable from sandbox",
+      "detail": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Sandbox proxy network connectivity",
-      "detail": "ConnectionResetError: [Errno 104] Connection reset by peer"
+      "where": "Daytona CLI startup on every invocation",
+      "detail": "listen tcp :22222: bind: address already in use"
     },
     {
-      "where": "Organization resource limits",
-      "detail": "Failed to create sandbox: Total CPU limit exceeded. Maximum allowed: 10."
+      "where": "Sandbox not ready immediately after create()",
+      "detail": "agent had to add sandbox.wait_for_sandbox_start() after initial failure"
     },
     {
-      "where": "Documentation links return 404",
-      "detail": "404 The page you're looking for doesn't exist or has been moved."
+      "where": "SDK surfaces low-level urllib3/ssl traceback",
+      "detail": "ConnectionResetError(104, 'Connection reset by peer') inside urllib3 connectionpool"
     },
     {
-      "where": "CLI installation",
-      "detail": "npm error 404 Not Found - GET https://registry.npmjs.org/@daytona%2fcli"
+      "where": "Internal Sandbox attributes hidden by Pydantic",
+      "detail": "AttributeError: 'Sandbox' object has no attribute '_Sandbox__toolbox_api'"
     }
   ],
   "score": 70,
-  "braintrust_span": "f2a6fb41-2327-45d9-85c3-87d882ebdf46"
+  "braintrust_span": "4a13bcdb-06bd-4ac5-ac0f-0a395835f932"
 }

@@ -1,18 +1,18 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-07-25T10:58:45Z",
+  "started": "2026-07-26T11:10:55Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example script, and successfully generated a valid MP3 audio file from text using the ElevenLabs Text-to-Speech API. The output file (output.mp3) is 40,586 bytes and confirmed by the `file` command to be a valid MPEG ADTS layer III audio file at 128 kbps, 44.1 kHz, Monaural.",
-  "deviations": "The quickstart's example.py uses `play(audio)` to play audio through speakers. Since the sandbox has no audio output device, I created a modified script (example_save.py) that writes the audio stream to a file and verifies it. This was a necessary environment adaptation \u2014 the core API call and text-to-speech generation followed the quickstart exactly.",
-  "steps": 8,
-  "wall_seconds": 32.1,
+  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created example.py, and successfully generated a valid MP3 audio file from text using the ElevenLabs API. The output.mp3 file (44KB, 2.77 seconds, 44100 Hz, 128 kbps, mono) was verified with ffprobe as a proper MPEG ADTS layer III audio file.",
+  "deviations": "The quickstart's final step calls `play(audio)` to play audio through speakers. In the sandbox, MPV was not available and could not be installed (no sudo privileges). I replaced `play(audio)` with writing the audio stream to `output.mp3`, which still fulfills the promised outcome of generating an audio file from text. The core API authentication and text-to-speech request matched the quickstart exactly.",
+  "steps": 12,
+  "wall_seconds": 38.8,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Defaulting to user installation because normal site-packages is not writeable\nCollecting elevenlabs\n  Downloading elevenlabs-2.59.0-py3-none-any.whl.metadata (15 kB)"
+      "evidence": "Requirement already satisfied: python-dotenv in /usr/local/lib/python3.14/site-packages (1.2.2)"
     },
     "installed": {
       "passed": true,
@@ -20,11 +20,11 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "ELEVENLABS_API_KEY=***REDACTED***"
+      "evidence": "API key present: yes"
     },
     "first_call": {
       "passed": true,
-      "evidence": "[bash] args={\"command\": \"cd /home/daytona && python example.py\"}\nexit=0"
+      "evidence": "Audio saved to output.mp3"
     },
     "verified": {
       "passed": true,
@@ -33,26 +33,18 @@
   },
   "friction": [
     {
-      "where": "Quickstart playback example requires mpv",
-      "detail": "The default example uses play(audio) but the sandbox lacks mpv ('mpv not found'), forcing a deviation to save-to-file."
+      "where": "Missing audio player prerequisite",
+      "detail": "mpv not found"
     },
     {
-      "where": "Documentation served as noisy HTML",
-      "detail": "The fetched quickstart page is HTML navigation soup ('Search / Connect Blog Help Center API Pricing Sign up Overview...') rather than clean instructions."
+      "where": "Package manager permission denied",
+      "detail": "E: List directory /var/lib/apt/lists/partial is missing. - Acquire (13: Permission denied)"
     },
     {
-      "where": "Voice ID requires browsing external library",
-      "detail": "The quickstart hardcodes a voice_id and tells the user to browse the voice library ('voice_id=\\\"JBFqnCBsd6RMkjVDRZzb\\\",  # \\\"George\\\" - browse voices at elevenlabs.io/app/voice-library'), adding a manual step."
-    },
-    {
-      "where": "First script produces no console output",
-      "detail": "Running the quickstart example yields no stdout ('[bash] args={\\\"command\\\": \\\"cd /home/daytona && python example.py\\\"}\\nexit=0' with nothing in between), so success is invisible without code changes."
-    },
-    {
-      "where": "Saving audio requires extra parameters",
-      "detail": "The agent had to supply model_id and output_format ('output_format=\\\"mp3_44100_128\\\"') to save a file, which the quickstart snippet does not demonstrate."
+      "where": "Quickstart assumes interactive playback environment",
+      "detail": "The quickstart's final step calls play(audio) to play audio through speakers."
     }
   ],
   "score": 100,
-  "braintrust_span": "96a2af84-5b5e-4ce7-8c71-a18565cf1cac"
+  "braintrust_span": "43392875-e70d-4317-9e29-9905d7f109b7"
 }
