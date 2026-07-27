@@ -1,18 +1,18 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-07-26T11:10:55Z",
+  "started": "2026-07-27T12:52:50Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created example.py, and successfully generated a valid MP3 audio file from text using the ElevenLabs API. The output.mp3 file (44KB, 2.77 seconds, 44100 Hz, 128 kbps, mono) was verified with ffprobe as a proper MPEG ADTS layer III audio file.",
-  "deviations": "The quickstart's final step calls `play(audio)` to play audio through speakers. In the sandbox, MPV was not available and could not be installed (no sudo privileges). I replaced `play(audio)` with writing the audio stream to `output.mp3`, which still fulfills the promised outcome of generating an audio file from text. The core API authentication and text-to-speech request matched the quickstart exactly.",
-  "steps": 12,
-  "wall_seconds": 38.8,
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs SDK and python-dotenv, created the example.py script, and ran it. The text-to-speech API generated a valid MP3 audio file (output.mp3, 41839 bytes) from the text \"The first move is what sets everything in motion.\" The file was verified as a proper MPEG ADTS layer III audio file at 128 kbps, 44.1 kHz, monaural.",
+  "deviations": "The quickstart's example code uses `play(audio)` to play audio through speakers. Since the sandbox has no audio output capability, I modified the script to save the audio bytes to a file (output.mp3) instead. This deviation was necessary to verify the promised outcome (generating an audio file) in a headless environment.",
+  "steps": 6,
+  "wall_seconds": 30.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Requirement already satisfied: python-dotenv in /usr/local/lib/python3.14/site-packages (1.2.2)"
+      "evidence": "cd /home/daytona && pip install elevenlabs python-dotenv"
     },
     "installed": {
       "passed": true,
@@ -20,11 +20,11 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "API key present: yes"
+      "evidence": "api_key=os.getenv(\"ELEVENLABS_API_KEY\")"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to output.mp3"
+      "evidence": "Audio file generated: output.mp3 (41839 bytes)"
     },
     "verified": {
       "passed": true,
@@ -33,18 +33,22 @@
   },
   "friction": [
     {
-      "where": "Missing audio player prerequisite",
-      "detail": "mpv not found"
+      "where": "Quickstart example code",
+      "detail": "The quickstart's example code uses `play(audio)` which is not suitable for headless/file verification; the agent had to deviate to save output. Quote: 'The quickstart\\'s example code uses `play(audio)`'"
     },
     {
-      "where": "Package manager permission denied",
-      "detail": "E: List directory /var/lib/apt/lists/partial is missing. - Acquire (13: Permission denied)"
+      "where": "Documentation fetch",
+      "detail": "Fetched page is HTML-heavy navigation noise rather than clean instructions; developer must discover .md or /llms.txt alternative. Quote: 'ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page.'"
     },
     {
-      "where": "Quickstart assumes interactive playback environment",
-      "detail": "The quickstart's final step calls play(audio) to play audio through speakers."
+      "where": "Audio file persistence",
+      "detail": "The written script ends with a comment '# Save audio' without showing save logic, implying the quickstart may not demonstrate how to persist the stream to disk. Quote: '# Save audio'"
+    },
+    {
+      "where": "Voice and model selection",
+      "detail": "Hardcoded voice_id and model_id strings are required but not explained in the shown quickstart excerpt. Quote: 'voice_id=\\\"JBFqnCBsd6RMkjVDRZzb\\\", model_id=\\\"eleven_v3\\\"'"
     }
   ],
   "score": 100,
-  "braintrust_span": "43392875-e70d-4317-9e29-9905d7f109b7"
+  "braintrust_span": "a5c7901a-0967-4b74-8bcc-e98c48757d18"
 }
