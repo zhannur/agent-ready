@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-07-26T11:09:32Z",
+  "started": "2026-07-28T11:52:08Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully created Daytona sandboxes via the Python SDK\u2014real output showed multiple sandbox IDs like `2bd5804c-462a-4a65-adfa-8fac74fdf4bc` and the sandboxes reached the `started` state (\"Sandbox is ready!\"). However, I could not execute code inside any sandbox because the SDK's connection to the toolbox proxy endpoint (`https://proxy.app.daytona.io/toolbox`) was consistently reset during the TLS handshake with `ConnectionResetError: [Errno 104] Connection reset by peer`. I verified this was a network-level failure by reproducing the same error with direct `curl` to the proxy URL, indicating the Daytona proxy infrastructure was unreachable from the sandbox environment.",
+  "summary": "I successfully completed the first half of the quickstart: the Daytona Python SDK (v0.201.0) is installed and sandbox creation via the SDK demonstrably works. Real output proves this: `Sandbox created with ID: d3e51a4f-3b3c-4598-baf5-d1d7718b2f24` and `Sandbox state: SandboxState.STARTED`. I also verified sandbox listing works, showing `total=2` sandboxes in the `STARTED` state.\n\nHowever, I was blocked on the final step of running code inside the sandbox. Both `sandbox.process.exec(\"echo 'Hello, World!'\")` and `sandbox.process.code_run('print(\"Hello World\")')` fail with a persistent `ConnectionResetError: [Errno 104] Connection reset by peer` when connecting to `https://proxy.app.daytona.io/toolbox`. The same error occurs with direct `curl` to that endpoint, indicating a network-level block preventing the toolbox proxy from being reached. No code execution inside the sandbox could be demonstrated.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 210.6,
+  "wall_seconds": 410.6,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "[bash] args={\"command\": \"python3 -c \\\"from daytona import Sandbox; help(Sandbox)\\\" 2>&1 | head -120\"}\nexit=0"
+      "evidence": "pip install --upgrade daytona exit=0"
     },
     "installed": {
       "passed": true,
-      "evidence": "cat /usr/local/lib/python3.14/site-packages/daytona/_sync/sandbox.py | head -120"
+      "evidence": "pip show daytona | grep Version -> Version: 0.201.0"
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY=dtn_760a95ce8ee059bdc9e5de3edc9fc66f6491d6879fcd41..."
+      "evidence": "curl -s -H \"Authorization: Bearer $DAYTONA_API_KEY\" https://app.daytona.io/api/sandbox returns JSON sandbox list"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: 2bd5804c-462a-4a65-adfa-8fac74fdf4bc\nSandbox is ready!"
+      "evidence": "Sandbox created with ID: d3e51a4f-3b3c-4598-baf5-d1d7718b2f24"
     },
     "verified": {
       "passed": false,
-      "evidence": "Attempt 3 failed: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "evidence": "Error: DaytonaError Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   },
   "friction": [
     {
-      "where": "Toolbox proxy endpoint unreachable from sandbox",
-      "detail": "curl: (35) Recv failure: Connection reset by peer"
+      "where": "sandbox.process.exec / code_run",
+      "detail": "DaytonaError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     },
     {
-      "where": "Daytona CLI startup on every invocation",
-      "detail": "listen tcp :22222: bind: address already in use"
+      "where": "daytona --version CLI",
+      "detail": "Error occurred error=\"listen tcp :22222: bind: address already in use\""
     },
     {
-      "where": "Sandbox not ready immediately after create()",
-      "detail": "agent had to add sandbox.wait_for_sandbox_start() after initial failure"
+      "where": "docs CLI page",
+      "detail": "404 The page you're looking for doesn't exist or has been moved."
     },
     {
-      "where": "SDK surfaces low-level urllib3/ssl traceback",
-      "detail": "ConnectionResetError(104, 'Connection reset by peer') inside urllib3 connectionpool"
+      "where": "toolbox proxy HTTPS endpoint",
+      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443"
     },
     {
-      "where": "Internal Sandbox attributes hidden by Pydantic",
-      "detail": "AttributeError: 'Sandbox' object has no attribute '_Sandbox__toolbox_api'"
+      "where": "pre-installed SDK version",
+      "detail": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     }
   ],
   "score": 70,
-  "braintrust_span": "4a13bcdb-06bd-4ac5-ac0f-0a395835f932"
+  "braintrust_span": "550f8027-7ba3-4eaa-a81d-273b546bd2fa"
 }

@@ -1,54 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-07-26T10:55:50Z",
+  "started": "2026-07-28T11:32:10Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I only got as far as the documentation-discovery phase. I successfully fetched the main Braintrust start page (`/docs/start`) and the general evaluation docs (`/docs/evaluate/run-evaluations.md`), which returned real HTML/Markdown content including Python/TypeScript code snippets for running evals. However, I never executed a single command in the sandbox\u2014no SDK was installed, no code was written, and no eval was run. The blocker was that every evaluation-quickstart URL variant I tried (`/start/eval`, `/start/eval-quickstart`, `/start/evaluation-quickstart`) returned empty or 404 responses, so I burned the entire budget hunting for the correct quickstart path instead of proceeding to `pip install` and `bt eval`.",
+  "summary": "I successfully installed the Braintrust SDK (v0.30.1) and created the quickstart's `tutorial_eval.py` exactly as documented. The eval ran successfully via both the CLI (`braintrust eval --no-send-logs tutorial_eval.py`) and direct Python execution, producing the promised score report: `50.00% 'is_equal' score` with per-result breakdowns (Result 0: `is_equal: True`, Result 1: `is_equal: False`). What blocked full completion was a sandbox-level TLS connectivity issue to `www.braintrust.dev:443`\u2014all HTTPS connections to Braintrust's API were reset during the SSL handshake, so I could not run the eval with `no_send_logs=False` to upload results to the cloud. I had to deviate from the docs by adding `--no-send-logs` to make the evaluation execute locally.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 96.9,
+  "wall_seconds": 226.0,
   "checkpoints": {
     "env_ready": {
-      "passed": false,
-      "evidence": "I never executed a single command in the sandbox\u2014no SDK was installed, no code was written, and no eval was run."
+      "passed": true,
+      "evidence": "pip install braintrust succeeded: 'Collecting braintrust\\n  Downloading braintrust-0.30.1-py3-none-any.whl.metadata (4.0 kB)'"
     },
     "installed": {
-      "passed": false,
-      "evidence": "no SDK was installed"
+      "passed": true,
+      "evidence": "python3 -c \"import braintrust; print(braintrust.__file__)\" output: '/home/daytona/.local/lib/python3.14/site-packages/braintrust/__init__.py'"
     },
     "configured": {
-      "passed": false,
-      "evidence": "no code was written, and no eval was run"
+      "passed": true,
+      "evidence": "Agent exported BRAINTRUST_API_KEY and verified it was set: 'API key length: 51'"
     },
     "first_call": {
-      "passed": false,
-      "evidence": "I never executed a single command in the sandbox"
+      "passed": true,
+      "evidence": "braintrust eval --no-send-logs tutorial_eval.py produced task progress and '=========================SUMMARY========================='"
     },
     "verified": {
-      "passed": false,
-      "evidence": "no eval was run"
+      "passed": true,
+      "evidence": "Eval output reported scores: '50.00% 'is_equal' score' and per-result breakdown 'Result 0: input=Foo, output=Hi Foo, expected=Hi Foo\\n  Score is_equal: True'"
     }
   },
   "friction": [
     {
-      "where": "Evaluation quickstart URLs",
-      "detail": "every evaluation-quickstart URL variant I tried (`/start/eval`, `/start/eval-quickstart`, `/start/evaluation-quickstart`) returned empty or 404 responses"
+      "where": "Fetching quickstart documentation",
+      "detail": "curl to https://www.braintrust.dev/docs/start/eval returned 'HTTP_CODE: 000' and 'Recv failure: Connection reset by peer' during TLS handshake"
     },
     {
-      "where": "Documentation index",
-      "detail": "Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further"
+      "where": "Running eval without --no-send-logs",
+      "detail": "Default command from docs crashes with SSL error: 'OpenSSL SSL_connect: Connection reset by peer in connection to braintrust.dev:443'"
     },
     {
-      "where": "Eval snippet prerequisites",
-      "detail": "data: initDataset(\"My Project\", { dataset: \"My dataset\" })"
+      "where": "CLI filename convention",
+      "detail": "WARNING [braintrust.eval]: Reading tutorial_eval.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory."
     },
     {
-      "where": "Quickstart discovery",
-      "detail": "burned the entire budget hunting for the correct quickstart path instead of proceeding to `pip install` and `bt eval`"
+      "where": "Discovering offline eval option",
+      "detail": "Agent had to inspect 'braintrust eval --help' to find '--no-send-logs' after repeated connection failures"
+    },
+    {
+      "where": "PyPI quickstart instructions",
+      "detail": "PyPI README only shows 'BRAINTRUST_API_KEY=<YOUR_API_KEY> braintrust eval tutorial_eval.py' with no mention of --no-send-logs for offline/local execution"
     }
   ],
-  "score": 0,
-  "braintrust_span": "45f33ba8-b208-481e-ab53-db87647206d7"
+  "score": 100,
+  "braintrust_span": "5493d417-3ec4-4ec6-ab80-e1adea917752"
 }

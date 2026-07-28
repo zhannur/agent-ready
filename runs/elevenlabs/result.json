@@ -1,18 +1,18 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-07-27T12:52:50Z",
+  "started": "2026-07-28T11:54:59Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs SDK and python-dotenv, created the example.py script, and ran it. The text-to-speech API generated a valid MP3 audio file (output.mp3, 41839 bytes) from the text \"The first move is what sets everything in motion.\" The file was verified as a proper MPEG ADTS layer III audio file at 128 kbps, 44.1 kHz, monaural.",
-  "deviations": "The quickstart's example code uses `play(audio)` to play audio through speakers. Since the sandbox has no audio output capability, I modified the script to save the audio bytes to a file (output.mp3) instead. This deviation was necessary to verify the promised outcome (generating an audio file) in a headless environment.",
-  "steps": 6,
-  "wall_seconds": 30.0,
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs SDK and python-dotenv, created the example script, and generated an audio file from text using the Text-to-Speech API. The output.mp3 file (44,765 bytes) was created and verified as a valid MPEG ADTS Layer III MP3 at 128 kbps, 44.1 kHz.",
+  "deviations": "The quickstart instructs using `play(audio)` to play audio through speakers. Since the sandbox is a headless environment with no audio output capability, I deviated by saving the generated audio to a file (`output.mp3`) instead. This was necessary to verify the promised outcome (generating an audio file from text) in this environment. The core API call and text-to-speech generation followed the quickstart exactly.",
+  "steps": 8,
+  "wall_seconds": 50.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "cd /home/daytona && pip install elevenlabs python-dotenv"
+      "evidence": "Defaulting to user installation because normal site-packages is not writeable"
     },
     "installed": {
       "passed": true,
@@ -20,11 +20,11 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "api_key=os.getenv(\"ELEVENLABS_API_KEY\")"
+      "evidence": "Audio saved to output.mp3"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio file generated: output.mp3 (41839 bytes)"
+      "evidence": "[bash] args={\"command\": \"cd /home/daytona && python example.py\"} exit=0"
     },
     "verified": {
       "passed": true,
@@ -33,22 +33,22 @@
   },
   "friction": [
     {
-      "where": "Quickstart example code",
-      "detail": "The quickstart's example code uses `play(audio)` which is not suitable for headless/file verification; the agent had to deviate to save output. Quote: 'The quickstart\\'s example code uses `play(audio)`'"
+      "where": "Quickstart playback step",
+      "detail": "The quickstart instructs using `play(audio)` to play audio through speakers. Since the sandbox is a headless environment wit"
+    },
+    {
+      "where": "API key configuration",
+      "detail": "Script references `api_key=os.getenv(\"ELEVENLABS_API_KEY\")` but transcript shows no command setting the variable or creating a .env file"
     },
     {
       "where": "Documentation fetch",
-      "detail": "Fetched page is HTML-heavy navigation noise rather than clean instructions; developer must discover .md or /llms.txt alternative. Quote: 'ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page.'"
+      "detail": "Fetched page is a navigation-heavy HTML blob: ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt..."
     },
     {
-      "where": "Audio file persistence",
-      "detail": "The written script ends with a comment '# Save audio' without showing save logic, implying the quickstart may not demonstrate how to persist the stream to disk. Quote: '# Save audio'"
-    },
-    {
-      "where": "Voice and model selection",
-      "detail": "Hardcoded voice_id and model_id strings are required but not explained in the shown quickstart excerpt. Quote: 'voice_id=\\\"JBFqnCBsd6RMkjVDRZzb\\\", model_id=\\\"eleven_v3\\\"'"
+      "where": "First script verification",
+      "detail": "Running `python example.py` returns exit=0 with no visible output, offering no way to verify the API call produced audio in a headless environment"
     }
   ],
   "score": 100,
-  "braintrust_span": "a5c7901a-0967-4b74-8bcc-e98c48757d18"
+  "braintrust_span": "49c3d187-d37e-465c-8950-4e0b5a4a3bb8"
 }
