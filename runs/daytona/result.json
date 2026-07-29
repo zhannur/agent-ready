@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-07-28T11:52:08Z",
+  "started": "2026-07-29T12:10:43Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully completed the first half of the quickstart: the Daytona Python SDK (v0.201.0) is installed and sandbox creation via the SDK demonstrably works. Real output proves this: `Sandbox created with ID: d3e51a4f-3b3c-4598-baf5-d1d7718b2f24` and `Sandbox state: SandboxState.STARTED`. I also verified sandbox listing works, showing `total=2` sandboxes in the `STARTED` state.\n\nHowever, I was blocked on the final step of running code inside the sandbox. Both `sandbox.process.exec(\"echo 'Hello, World!'\")` and `sandbox.process.code_run('print(\"Hello World\")')` fail with a persistent `ConnectionResetError: [Errno 104] Connection reset by peer` when connecting to `https://proxy.app.daytona.io/toolbox`. The same error occurs with direct `curl` to that endpoint, indicating a network-level block preventing the toolbox proxy from being reached. No code execution inside the sandbox could be demonstrated.",
+  "summary": "I successfully installed the Daytona Python SDK (v0.201.0) and demonstrably created sandboxes via the SDK\u2014multiple sandboxes were created and reached `SandboxState.STARTED` (e.g., IDs `b86b7470-071c-4335-92e7-85c85748a0dc`, `8f560846-8ad3-4150-89b8-76393b1ff821`). However, I could **not** get code to run inside any sandbox because all attempts to interact with the sandbox toolbox (`process.exec`, `process.code_run`, `fs.list_files`) failed with a persistent `ConnectionResetError: [Errno 104] Connection reset by peer` when connecting to `proxy.app.daytona.io:443`. I also verified this was not an SDK-specific issue by confirming `curl` to the same endpoint failed with `TLS connect error: Connection reset by peer`. The blocker appears to be a network/TLS connectivity issue between the sandbox environment and Daytona's toolbox proxy infrastructure, preventing any code execution inside the created sandboxes.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 410.6,
+  "wall_seconds": 513.3,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "pip install --upgrade daytona exit=0"
+      "evidence": "pip show daytona | grep Version returned Version: 0.134.0 with exit=0, confirming the Python/pip toolchain is functional."
     },
     "installed": {
       "passed": true,
-      "evidence": "pip show daytona | grep Version -> Version: 0.201.0"
+      "evidence": "pip install --upgrade daytona completed successfully and pip show daytona | grep Version subsequently returned Version: 0.201.0."
     },
     "configured": {
       "passed": true,
-      "evidence": "curl -s -H \"Authorization: Bearer $DAYTONA_API_KEY\" https://app.daytona.io/api/sandbox returns JSON sandbox list"
+      "evidence": "env | grep -i daytona revealed DAYTONA_API_KEY=***REDACTED*** and DAYTONA_ORGANIZATION_ID=4f5b4668-e9ee-4dd1-b306-c18dcb5ebcca, showing credentials were wired via environment variables."
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: d3e51a4f-3b3c-4598-baf5-d1d7718b2f24"
+      "evidence": "The first python quickstart.py run printed Sandbox created with ID: f84cb2eb-abc3-4c93-8d2e-24278990a7a9, proving the initial create API call succeeded."
     },
     "verified": {
       "passed": false,
-      "evidence": "Error: DaytonaError Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "evidence": "Every attempt to execute code inside a sandbox failed with Error: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), so the promised Hello World output was never produced."
     }
   },
   "friction": [
     {
-      "where": "sandbox.process.exec / code_run",
-      "detail": "DaytonaError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "where": "SDK version pre-installed in sandbox image",
+      "detail": "The image shipped daytona v0.134.0 while the quickstart requires v0.201.0, forcing an unexpected upgrade: Version: 0.134.0 followed by Downloading daytona-0.201.0."
     },
     {
-      "where": "daytona --version CLI",
-      "detail": "Error occurred error=\"listen tcp :22222: bind: address already in use\""
+      "where": "Toolbox proxy TLS/network path from sandbox",
+      "detail": "All sandbox interactions (process.exec, fs.list_files) and even raw curl to proxy.app.daytona.io:443 fail with Connection reset by peer, blocking any code execution: curl: (35) Recv failure: Connection reset by peer."
     },
     {
-      "where": "docs CLI page",
-      "detail": "404 The page you're looking for doesn't exist or has been moved."
+      "where": "Daytona CLI inside the sandbox environment",
+      "detail": "Running daytona --version or --help fails to bind its internal SSH/terminal servers because ports are already in use: listen tcp :22220: bind: address already in use."
     },
     {
-      "where": "toolbox proxy HTTPS endpoint",
-      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443"
+      "where": "Sandbox state reporting",
+      "detail": "The API returns SandboxState.STARTED while the toolbox proxy is clearly unreachable, misleading developers into thinking the sandbox is ready: Sandbox state: SandboxState.STARTED immediately followed by connection errors."
     },
     {
-      "where": "pre-installed SDK version",
-      "detail": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
+      "where": "Pydantic model introspection warnings",
+      "detail": "Accessing sandbox attributes for debugging emits deprecation warnings about model_computed_fields and model_fields: PydanticDeprecatedSince211: Accessing the 'model_computed_fields' attribute on the instance is deprecated."
     }
   ],
   "score": 70,
-  "braintrust_span": "550f8027-7ba3-4eaa-a81d-273b546bd2fa"
+  "braintrust_span": "e9e8cf7c-373d-46cb-baea-a6f3a8540d79"
 }

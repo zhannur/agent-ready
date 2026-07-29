@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-07-28T11:32:10Z",
+  "started": "2026-07-29T11:37:38Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Braintrust SDK (v0.30.1) and created the quickstart's `tutorial_eval.py` exactly as documented. The eval ran successfully via both the CLI (`braintrust eval --no-send-logs tutorial_eval.py`) and direct Python execution, producing the promised score report: `50.00% 'is_equal' score` with per-result breakdowns (Result 0: `is_equal: True`, Result 1: `is_equal: False`). What blocked full completion was a sandbox-level TLS connectivity issue to `www.braintrust.dev:443`\u2014all HTTPS connections to Braintrust's API were reset during the SSL handshake, so I could not run the eval with `no_send_logs=False` to upload results to the cloud. I had to deviate from the docs by adding `--no-send-logs` to make the evaluation execute locally.",
+  "summary": "I successfully completed the quickstart steps from the Braintrust SDK README: installed `braintrust` and `autoevals` via npm, created `tutorial.eval.ts` exactly as documented, and executed the eval. The eval demonstrably runs and reports scores locally, producing output: `\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 Say Hi Bot 100% 2/2 0s` and `Levenshtein 77.78%`. However, the sandbox has network restrictions that block TLS connections to `api.braintrust.dev` (connection reset during handshake), so the default mode that uploads results to Braintrust fails. I had to deviate by adding `--no-send-logs` to make the eval execute at all. The promised outcome of an eval run executing and scores being reported is achieved locally, but the cloud upload step is blocked by the sandbox environment.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 226.0,
+  "wall_seconds": 143.4,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "pip install braintrust succeeded: 'Collecting braintrust\\n  Downloading braintrust-0.30.1-py3-none-any.whl.metadata (4.0 kB)'"
+      "evidence": "v25.9.0 / 11.12.1"
     },
     "installed": {
       "passed": true,
-      "evidence": "python3 -c \"import braintrust; print(braintrust.__file__)\" output: '/home/daytona/.local/lib/python3.14/site-packages/braintrust/__init__.py'"
+      "evidence": "added 145 packages in 19s"
     },
     "configured": {
       "passed": true,
-      "evidence": "Agent exported BRAINTRUST_API_KEY and verified it was set: 'API key length: 51'"
+      "evidence": "API key set: yes"
     },
     "first_call": {
-      "passed": true,
-      "evidence": "braintrust eval --no-send-logs tutorial_eval.py produced task progress and '=========================SUMMARY========================='"
+      "passed": false,
+      "evidence": "TypeError: fetch failed"
     },
     "verified": {
       "passed": true,
-      "evidence": "Eval output reported scores: '50.00% 'is_equal' score' and per-result breakdown 'Result 0: input=Foo, output=Hi Foo, expected=Hi Foo\\n  Score is_equal: True'"
+      "evidence": "Levenshtein 77.78%"
     }
   },
   "friction": [
     {
-      "where": "Fetching quickstart documentation",
-      "detail": "curl to https://www.braintrust.dev/docs/start/eval returned 'HTTP_CODE: 000' and 'Recv failure: Connection reset by peer' during TLS handshake"
+      "where": "Braintrust docs site TLS reset",
+      "detail": "* OpenSSL SSL_connect: Connection reset by peer in connection to braintrust.dev:443"
     },
     {
-      "where": "Running eval without --no-send-logs",
-      "detail": "Default command from docs crashes with SSL error: 'OpenSSL SSL_connect: Connection reset by peer in connection to braintrust.dev:443'"
+      "where": "Default eval crashes without network",
+      "detail": "[TypeError: fetch failed] { [cause]: Error: read ECONNRESET }"
     },
     {
-      "where": "CLI filename convention",
-      "detail": "WARNING [braintrust.eval]: Reading tutorial_eval.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory."
+      "where": "Deprecated --verbose warning",
+      "detail": "Warning: --verbose is deprecated and will be removed in a future version of braintrust. Use --debug-logging debug to see full stack traces and troubleshooting details."
     },
     {
-      "where": "Discovering offline eval option",
-      "detail": "Agent had to inspect 'braintrust eval --help' to find '--no-send-logs' after repeated connection failures"
+      "where": "Quickstart omits offline flag",
+      "detail": "BRAINTRUST_API_KEY=<YOUR_API_KEY> npx braintrust eval tutorial.eval.ts"
     },
     {
-      "where": "PyPI quickstart instructions",
-      "detail": "PyPI README only shows 'BRAINTRUST_API_KEY=<YOUR_API_KEY> braintrust eval tutorial_eval.py' with no mention of --no-send-logs for offline/local execution"
+      "where": "IPv6 unreachable noise in curl",
+      "detail": "Immediate connect fail for 2600:9000:2211:0:e:a922:ae40:93a1: Network is unreachable"
     }
   ],
-  "score": 100,
-  "braintrust_span": "5493d417-3ec4-4ec6-ab80-e1adea917752"
+  "score": 75,
+  "braintrust_span": "0f07add3-733a-4ec8-bb14-80a6446c702e"
 }
