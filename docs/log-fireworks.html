@@ -106,8 +106,8 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 </style></head><body>
 <h1 class="wordmark"><a href="index.html" style="color:inherit">agent-ready</a> · fireworks
 <span style="color:#b3d13b">75/100</span></h1>
-<p class="meta" style="margin:.6rem 0 1.4rem">12 steps ·
-46.4s · agent <code>kimi-k2p6</code> ·
+<p class="meta" style="margin:.6rem 0 1.4rem">13 steps ·
+84.2s · agent <code>kimi-k2p6</code> ·
 <a href="https://github.com/zhannur/agent-ready/blob/main/runs/fireworks/transcript.jsonl">raw JSONL</a></p>
 <details class="step" open><summary>#1 <b>fetch_url</b> <code>https://docs.fireworks.ai/getting-started/quickstart</code></summary><pre> Serverless Quickstart - Fireworks AI Docs Documentation Index Fetch the complete documentation index at: /llms.txt Use this file to discover all available pages before exploring further. Skip to main content Fireworks AI Docs home page Documentation API &amp;amp; SDK Reference CLI Reference Demos Changelog Resources Community Status Dashboard Dashboard Search... Navigation Get Started Serverless Quickstart Search... ⌘ K Get Started Overview Serverless Quickstart Deployments Quickstart Which model should I use? Concepts Serverless Serverless Overview Serverless Serving Paths Serverless Pricing Serverless Rate Limits US-only Serverless Deployments Deployments Overview Autoscaling Custom models Quantization Advanced Models &amp;amp; Inference Text Models Vision Models Embeddings &amp;amp; Reranking Tool Calling Reasoning Reliability and Error Handling Batch API Kimi K2 family Advanced Training Training Overview Choose a Training Path Agent Skills Managed Fine-Tuning Bring Your Own Trainer Training API (Tinker compatible) Secure Training Deploying Fine Tuned Models Understanding LoRA performance Fire Pass Fire Pass Setup Fireworks Nexus Per-User Usage Limits FireRouter Overview Quickstart Claude Code (manual setup) LiteLLM Authentication Routing preferences FireConnect Overview Guides Harness guides Administration Managing users Custom SSO Service Accounts Account quotas Exporting Billing Metrics Usage &amp;amp; Cost Breakdown Security &amp;amp; Compliance Data Security &amp;amp; Privacy Zero Data Retention Audit &amp;amp; Access Logs Integrations Microsoft Foundry LiteLLM Bring Your Own Cluster Development Setup with Fireworks Docs MCP Agent Frameworks MLOps &amp;amp; Observability Reference Glossary On this page Step 1: Create and export an API key Step 2: Make your first Serverless API call Common use cases Streaming responses Function calling Structured outputs (JSON mode) Reasoning Vision models Learn more about Serverless Next steps Get Started Serverless Quickstart Copy page Copy page Make your first Serverless API call in minutes Copy page Copy page Serverless is the fastest way to get started with using open models. This quickstart will help you make your first API call in minutes. 
  ​ Step 1: Create and export an API key 
@@ -209,8 +209,9 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
  }); 
 
  console . log ( response . content [ 0 ]. text ); 
- curl https://api.fireworks.ai/inference/v1/chat/</pre></details><details class="step" open><summary>#2 <b>bash</b> <code>echo &quot;Checking FIREWORKS_API_KEY is set: $([ -n &quot;$FIREWORKS_API_KEY&quot; ] &amp;&amp; echo &#x27;YES&#x27; || echo &#x27;NO&#x27;)&quot;</code></summary><pre>exit=0
-Checking FIREWORKS_API_KEY is set: YES
+ curl https://api.fireworks.ai/inference/v1/chat/</pre></details><details class="step" open><summary>#2 <b>bash</b> <code>echo &quot;API key present: ${FIREWORKS_API_KEY:+yes}&quot; &amp;&amp; echo &quot;API key length: ${#FIREWORKS_API_KEY}&quot;</code></summary><pre>exit=0
+API key present: yes
+API key length: 25
 </pre></details><details class="step" open><summary>#3 <b>bash</b> <code>cd /home/daytona &amp;&amp; pip install openai</code></summary><pre>exit=0
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: openai in /usr/local/lib/python3.14/site-packages (2.33.0)
@@ -230,11 +231,11 @@ Requirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/pytho
 Requirement already satisfied: pydantic-core==2.46.4 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;3,&gt;=1.9.0-&gt;openai) (2.46.4)
 Requirement already satisfied: typing-inspection&gt;=0.4.2 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;3,&gt;=1.9.0-&gt;openai) (0.4.2)
 
-[notice] A new release of pip is available: 26.0.1 -&gt; 26.1.2
+[notice] A new release of pip is available: 26.0.1 -&gt; 26.2
 [notice] To update, run: pip install --upgrade pip
-</pre></details><details class="step" open><summary>#4 <b>write_file</b> <code>/home/daytona/fireworks_quickstart.py</code></summary><pre>wrote /home/daytona/fireworks_quickstart.py (392 bytes)</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>cd /home/daytona &amp;&amp; python fireworks_quickstart.py</code></summary><pre>exit=1
+</pre></details><details class="step" open><summary>#4 <b>write_file</b> <code>/home/daytona/quickstart.py</code></summary><pre>wrote /home/daytona/quickstart.py (392 bytes)</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>cd /home/daytona &amp;&amp; python quickstart.py</code></summary><pre>exit=1
 Traceback (most recent call last):
-  File &quot;/home/daytona/fireworks_quickstart.py&quot;, line 9, in &lt;module&gt;
+  File &quot;/home/daytona/quickstart.py&quot;, line 9, in &lt;module&gt;
     response = client.chat.completions.create(
         model=&quot;accounts/fireworks/models/deepseek-v3p1&quot;,
     ...&lt;3 lines&gt;...
@@ -257,10 +258,10 @@ Traceback (most recent call last):
                            ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File &quot;/usr/local/lib/python3.14/site-packages/openai/_base_client.py&quot;, line 1087, in request
     raise self._make_status_error_from_response(err.response) from None
-openai.NotFoundError: Error code: 404 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Model not found, inaccessible, and/or not deployed&#x27;, &#x27;param&#x27;: &#x27;model&#x27;, &#x27;code&#x27;: &#x27;NOT_FOUND&#x27;, &#x27;type&#x27;: &#x27;error&#x27;}, &#x27;request_id&#x27;: &#x27;chatcmpl-c23671fbbcbf49468e1fdc5eecd88bbb&#x27;}
-</pre></details><details class="step" open><summary>#6 <b>write_file</b> <code>/home/daytona/fireworks_quickstart.py</code></summary><pre>wrote /home/daytona/fireworks_quickstart.py (401 bytes)</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>cd /home/daytona &amp;&amp; python fireworks_quickstart.py</code></summary><pre>exit=1
+openai.NotFoundError: Error code: 404 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Model not found, inaccessible, and/or not deployed&#x27;, &#x27;param&#x27;: &#x27;model&#x27;, &#x27;code&#x27;: &#x27;NOT_FOUND&#x27;, &#x27;type&#x27;: &#x27;error&#x27;}, &#x27;request_id&#x27;: &#x27;chatcmpl-0822d250c74b4e32ab37eae20c25552e&#x27;}
+</pre></details><details class="step" open><summary>#6 <b>write_file</b> <code>/home/daytona/quickstart.py</code></summary><pre>wrote /home/daytona/quickstart.py (401 bytes)</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>cd /home/daytona &amp;&amp; python quickstart.py</code></summary><pre>exit=1
 Traceback (most recent call last):
-  File &quot;/home/daytona/fireworks_quickstart.py&quot;, line 9, in &lt;module&gt;
+  File &quot;/home/daytona/quickstart.py&quot;, line 9, in &lt;module&gt;
     response = client.chat.completions.create(
         model=&quot;accounts/fireworks/models/llama-v3p1-8b-instruct&quot;,
     ...&lt;3 lines&gt;...
@@ -283,11 +284,40 @@ Traceback (most recent call last):
                            ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File &quot;/usr/local/lib/python3.14/site-packages/openai/_base_client.py&quot;, line 1087, in request
     raise self._make_status_error_from_response(err.response) from None
-openai.NotFoundError: Error code: 404 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Model not found, inaccessible, and/or not deployed&#x27;, &#x27;param&#x27;: &#x27;model&#x27;, &#x27;code&#x27;: &#x27;NOT_FOUND&#x27;, &#x27;type&#x27;: &#x27;error&#x27;}, &#x27;request_id&#x27;: &#x27;chatcmpl-45c61af7a41e4f809c1729f67fc29fdb&#x27;}
-</pre></details><details class="step" open><summary>#8 <b>bash</b> <code>cd /home/daytona &amp;&amp; curl -s -H &quot;Authorization: Bearer $FIREWORKS_API_KEY&quot; https://api.fireworks.ai/inference/v1/models | head -c 2000</code></summary><pre>exit=0
-{&quot;data&quot;:[{&quot;id&quot;:&quot;accounts/fireworks/models/glm-5p1&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1774639291,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:202752},{&quot;id&quot;:&quot;accounts/fireworks/routers/glm-5p1-fast&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1774639291,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:202752},{&quot;id&quot;:&quot;accounts/fireworks/models/glm-5p2&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1781630293,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:1048576},{&quot;id&quot;:&quot;accounts/fireworks/routers/glm-5p2-fast&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1781630293,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:1048576},{&quot;id&quot;:&quot;accounts/fireworks/models/kimi-k2p6&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1776455694,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:true,&quot;supports_tools&quot;:true,&quot;context_length&quot;:262144},{&quot;id&quot;:&quot;accounts/fireworks/routers/kimi-k2p6-turbo&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1776455694,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:true,&quot;supports_tools&quot;:true,&quot;context_length&quot;:262144},{&quot;id&quot;:&quot;accounts/fireworks/models/kimi-k2p7-code&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1781283600,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:true,&quot;supports_tools&quot;:true,&quot;context_length&quot;:262144},{&quot;id&quot;:&quot;accounts/fireworks/routers/kimi-k2p7-code-fast&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1781283600,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:true,&quot;supports_tools&quot;:true,&quot;context_length&quot;:262144},{&quot;id&quot;:&quot;accounts/fireworks/models/minimax-m2p7&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1775867225,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_imag</pre></details><details class="step" open><summary>#9 <b>bash</b> <code>cd /home/daytona &amp;&amp; curl -s -H &quot;Authorization: Bearer $FIREWORKS_API_KEY&quot; https://api.fireworks.ai/inference/v1/models | python3 -c &quot;import </code></summary><pre>exit=0
-accounts/fireworks/models/glm-5p1
-accounts/fireworks/routers/glm-5p1-fast
+openai.NotFoundError: Error code: 404 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Model not found, inaccessible, and/or not deployed&#x27;, &#x27;param&#x27;: &#x27;model&#x27;, &#x27;code&#x27;: &#x27;NOT_FOUND&#x27;, &#x27;type&#x27;: &#x27;error&#x27;}, &#x27;request_id&#x27;: &#x27;chatcmpl-346af2ae22304a168bd2e3b5a7e986b3&#x27;}
+</pre></details><details class="step" open><summary>#8 <b>write_file</b> <code>/home/daytona/quickstart.py</code></summary><pre>wrote /home/daytona/quickstart.py (399 bytes)</pre></details><details class="step" open><summary>#9 <b>bash</b> <code>cd /home/daytona &amp;&amp; python quickstart.py</code></summary><pre>exit=1
+Traceback (most recent call last):
+  File &quot;/home/daytona/quickstart.py&quot;, line 9, in &lt;module&gt;
+    response = client.chat.completions.create(
+        model=&quot;accounts/fireworks/models/llama-v3-8b-instruct&quot;,
+    ...&lt;3 lines&gt;...
+        }],
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/openai/_utils/_utils.py&quot;, line 287, in wrapper
+    return func(*args, **kwargs)
+  File &quot;/usr/local/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py&quot;, line 1211, in create
+    return self._post(
+           ~~~~~~~~~~^
+        &quot;/chat/completions&quot;,
+        ^^^^^^^^^^^^^^^^^^^^
+    ...&lt;47 lines&gt;...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File &quot;/usr/local/lib/python3.14/site-packages/openai/_base_client.py&quot;, line 1314, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/openai/_base_client.py&quot;, line 1087, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Model not found, inaccessible, and/or not deployed&#x27;, &#x27;param&#x27;: &#x27;model&#x27;, &#x27;code&#x27;: &#x27;NOT_FOUND&#x27;, &#x27;type&#x27;: &#x27;error&#x27;}, &#x27;request_id&#x27;: &#x27;chatcmpl-9ba0e3211cfc4bcebb3651d2bc9871dd&#x27;}
+</pre></details><details class="step" open><summary>#10 <b>bash</b> <code>cd /home/daytona &amp;&amp; python -c &quot;
+import os
+from openai import OpenAI
+
+client = OpenAI(
+    api_key=os.environ.get(&#x27;FIREWORKS_API_KEY&#x27;),
+    b</code></summary><pre>exit=0
 accounts/fireworks/models/glm-5p2
 accounts/fireworks/routers/glm-5p2-fast
 accounts/fireworks/models/kimi-k2p6
@@ -306,7 +336,8 @@ accounts/fireworks/models/qwen3-reranker-8b
 accounts/fireworks/models/qwen3-embedding-8b
 accounts/fireworks/models/kimi-k3
 accounts/fireworks/routers/kimi-k3-fast
-</pre></details><details class="step" open><summary>#10 <b>write_file</b> <code>/home/daytona/fireworks_quickstart.py</code></summary><pre>wrote /home/daytona/fireworks_quickstart.py (396 bytes)</pre></details><details class="step" open><summary>#11 <b>bash</b> <code>cd /home/daytona &amp;&amp; python fireworks_quickstart.py</code></summary><pre>exit=0
+accounts/fireworks/models/inkling
+</pre></details><details class="step" open><summary>#11 <b>write_file</b> <code>/home/daytona/quickstart.py</code></summary><pre>wrote /home/daytona/quickstart.py (396 bytes)</pre></details><details class="step" open><summary>#12 <b>bash</b> <code>cd /home/daytona &amp;&amp; python quickstart.py</code></summary><pre>exit=0
 Hola
-</pre></details><details class="step" open><summary>#12 <b>finish</b> <code></code></summary><pre>run finished</pre></details>
+</pre></details><details class="step" open><summary>#13 <b>finish</b> <code></code></summary><pre>run finished</pre></details>
 </body></html>
