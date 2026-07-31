@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-07-30T11:25:43Z",
+  "started": "2026-07-31T11:38:44Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Braintrust SDK (`braintrust` and `autoevals`) and created the `tutorial_eval.py` quickstart file. The eval demonstrably runs locally: executing `braintrust eval tutorial_eval.py --no-send-logs` produced real output showing `Say Hi Bot (tasks): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2` and a final score of `77.78% 'Levenshtein' score`. However, network connectivity to the Braintrust API is blocked in this sandbox\u2014every HTTPS request to `braintrust.dev` or `www.braintrust.dev` fails with a TLS handshake `Connection reset by peer` error, so the eval run cannot be uploaded to the platform and verified remotely.",
+  "summary": "I successfully installed the `braintrust` SDK (v0.31.0) and created the `eval_hello.py` script from the quickstart embedded in the SDK's `__init__.py`. I executed the eval locally with `braintrust eval --no-send-logs eval_hello.py` and it demonstrably ran both test cases, reporting **`50.00% 'is_equal' score`** in the summary. However, I could not complete the full cloud-reported workflow because the sandbox environment cannot establish a TLS connection to `braintrust.dev` (curl and the SDK both fail with \"Connection reset by peer\" during the TLS handshake), so the eval could only run offline with `--no-send-logs`.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 208.9,
+  "wall_seconds": 130.2,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Defaulting to user installation because normal site-packages is not writeable"
+      "evidence": "Successfully installed GitPython-3.1.57 braintrust-0.31.0 chevron-0.14.0 python-slugify-8.0.4 sseclient-py-1.9.0 text-unidecode-1.3"
     },
     "installed": {
       "passed": true,
-      "evidence": "/home/daytona/.local/lib/python3.14/site-packages/braintrust/__init__.py"
+      "evidence": "Name: braintrust Version: 0.31.0"
     },
     "configured": {
       "passed": true,
       "evidence": "BRAINTRUST_API_KEY is set: yes"
     },
     "first_call": {
-      "passed": true,
-      "evidence": "Say Hi Bot (tasks): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 1264.49it/s]"
+      "passed": false,
+      "evidence": "exit=1"
     },
     "verified": {
       "passed": true,
-      "evidence": "77.78% 'Levenshtein' score"
+      "evidence": "50.00% 'is_equal' score"
     }
   },
   "friction": [
     {
-      "where": "Doc URL discovery",
-      "detail": "Agent tried multiple guessed URLs like https://www.braintrust.dev/docs/start/eval before falling back to GitHub raw README"
+      "where": "pip install braintrust",
+      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
     },
     {
-      "where": "Network/TLS handshake to Braintrust",
-      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to braintrust.dev:443"
+      "where": "braintrust eval eval_hello.py (first attempt)",
+      "detail": "Traceback (most recent call last): ... exit=1"
     },
     {
-      "where": "Eval CLI default behavior without network",
-      "detail": "Traceback on first run; had to add --no-send-logs (not in quickstart) to avoid upload crash"
+      "where": "curl -v https://www.braintrust.dev/docs/start",
+      "detail": "* OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
     },
     {
-      "where": "PATH after pip user install",
-      "detail": "export PATH=\"$HOME/.local/bin:$PATH\" required before braintrust CLI was found"
+      "where": "SDK __init__.py quickstart",
+      "detail": "Finally, run the script with `braintrust eval eval_hello.py`."
     },
     {
-      "where": "CLI filename convention",
-      "detail": "Reading tutorial_eval.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory."
+      "where": "Documentation discovery",
+      "detail": "[fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/start/eval\"} ... [fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/evaluate/quickstart\"}"
     }
   ],
-  "score": 100,
-  "braintrust_span": "553318ae-8926-4d84-86b2-4916bc65a6b1"
+  "score": 75,
+  "braintrust_span": "ee68ef07-43da-4c4e-ba61-d6260c1f044b"
 }

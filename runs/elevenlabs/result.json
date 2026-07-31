@@ -1,14 +1,14 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-07-30T11:46:48Z",
+  "started": "2026-07-31T12:16:14Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs SDK and python-dotenv as instructed. Created example.py with the quickstart code, using the provided ELEVENLABS_API_KEY environment variable. The script ran successfully and generated a 45KB MP3 audio file (output.mp3) from the text \"The first move is what sets everything in motion.\" The file is verified as a valid MPEG ADTS layer III audio file at 44.1kHz, 128kbps, matching the requested output_format.",
-  "deviations": "The quickstart uses `play(audio)` to play audio through speakers, but the sandbox has no audio output hardware. I deviated by saving the audio stream to a file (output.mp3) instead, which is a more appropriate verification for a sandbox environment and still demonstrates the core TTS functionality working correctly.",
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs SDK and python-dotenv, created the example script, and ran it. The text-to-speech API successfully generated a valid MP3 audio file (41,839 bytes) from the input text \"The first move is what sets everything in motion.\" The file was verified as a real MPEG ADTS Layer III audio file at 128 kbps, 44.1 kHz, monaural.",
+  "deviations": "The quickstart's example code uses `from elevenlabs.play import play` and `play(audio)` to play audio through speakers. Since the sandbox has no audio output hardware, I deviated by saving the audio stream to a file (`/home/daytona/output.mp3`) and verifying its content and format with the `file` command. This is the only deviation \u2014 all other steps (SDK installation, API authentication, text-to-speech request with the same voice_id, model_id, and output_format) followed the quickstart exactly.",
   "steps": 7,
-  "wall_seconds": 39.1,
+  "wall_seconds": 36.3,
   "checkpoints": {
     "env_ready": {
       "passed": true,
@@ -16,39 +16,39 @@
     },
     "installed": {
       "passed": true,
-      "evidence": "Downloading elevenlabs-2.59.0-py3-none-any.whl.metadata (15 kB)"
+      "evidence": "Collecting elevenlabs Downloading elevenlabs-2.60.0-py3-none-any.whl.metadata"
     },
     "configured": {
       "passed": true,
-      "evidence": "API key exists: yes"
+      "evidence": "ELEVENLABS_API_KEY is set: yes"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to output.mp3"
+      "evidence": "Audio saved to /home/daytona/output.mp3"
     },
     "verified": {
       "passed": true,
-      "evidence": "output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural"
+      "evidence": "Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural"
     }
   },
   "friction": [
     {
-      "where": "Documentation fetch returns navigation noise instead of clean quickstart text",
-      "detail": "Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page."
+      "where": "SDK import path differs from quickstart docs",
+      "detail": "The quickstart's example code uses `from ele"
     },
     {
-      "where": "Sandbox cannot play audio, requiring quickstart code to be modified",
-      "detail": "# Save to file instead of playing (sandbox has"
+      "where": "Documentation page is noisy navigation instead of clean quickstart",
+      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt"
     },
     {
-      "where": "API key must be pre-exported in the environment before running the example",
-      "detail": "API key exists: yes"
+      "where": "Sandbox requires user-level pip install",
+      "detail": "Defaulting to user installation because normal site-packages is not writeable"
     },
     {
-      "where": "Quickstart uses hardcoded voice and model IDs without explaining how to find them",
-      "detail": "voice_id=\"JBFqnCBsd6RMkjVDRZzb\",\n    model_id=\"eleven_v3\","
+      "where": "Voice ID must be manually browsed from external library",
+      "detail": "voice_id=\"JBFqnCBsd6RMkjVDRZzb\", # \"George\" - browse voices at elevenlabs.io/app/voice-library"
     }
   ],
   "score": 100,
-  "braintrust_span": "6fbffb7d-d62e-4c51-8aed-91c9d1e6cde5"
+  "braintrust_span": "f26c2164-7486-4879-adcf-1b690bc0d505"
 }

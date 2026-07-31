@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-07-30T11:44:51Z",
+  "started": "2026-07-31T12:14:48Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully completed the sandbox creation step via the Daytona Python SDK: `daytona.create()` returned a sandbox ID and `SandboxState.STARTED` (e.g., `Created sandbox: 00eb820f-39d0-413f-90a7-3abab9fcefb4`). However, I could not get code to run inside the sandbox because every call to `sandbox.process.exec()` failed with `ConnectionResetError: [Errno 104] Connection reset by peer` when trying to reach the toolbox proxy at `https://proxy.app.daytona.io/toolbox`. I verified with `curl` that the proxy endpoint is unreachable from this environment due to TLS handshake failures. I also had to deviate from the docs by explicitly passing `api_key` to `DaytonaConfig` because the SDK did not automatically pick up the `DAYTONA_API_KEY` environment variable.",
+  "summary": "I successfully completed the SDK installation and sandbox creation steps from the quickstart. The Python SDK (v0.202.0) was installed, and I could demonstrably create sandboxes via the SDK\u2014real output showed `Sandbox created with ID: 61b86100-ffee-4b53-8675-a7fa549b606d` with state `SandboxState.STARTED`. However, I was blocked at the code execution step: both `sandbox.process.exec()` and `sandbox.process.code_run()` failed with `ConnectionResetError: [Errno 104] Connection reset by peer` when connecting to `proxy.app.daytona.io:443`. I verified the Daytona API itself works (created sandboxes via `curl` successfully), but the toolbox proxy endpoint for executing code inside sandboxes is unreachable from this environment. I also noted the local `daytona` binary is a server daemon, not the CLI client referenced in the docs.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 337.1,
+  "wall_seconds": 276.6,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "pip install --upgrade daytona returned exit=0"
+      "evidence": "[bash] args={\"command\": \"pip install --upgrade daytona\"} exit=0 and downloaded packages"
     },
     "installed": {
       "passed": true,
-      "evidence": "pip show daytona returned Name: daytona Version: 0.202.0"
+      "evidence": "[bash] args={\"command\": \"pip show daytona | grep Version\"} exit=0 Version: 0.202.0"
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY=***REDACTED*** present in environment and Daytona() with no explicit config created a sandbox"
+      "evidence": "curl to https://app.daytona.io/api/sandbox with Authorization: Bearer $DAYTONA_API_KEY returned 200 and sandbox JSON"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Created sandbox: 472bdfbe-5014-4802-9e5b-fe37dcf777b0 from the first python3 -c command"
+      "evidence": "python quickstart.py printed Sandbox created with ID: 61b86100-ffee-4b53-8675-a7fa549b606d before the later traceback"
     },
     "verified": {
       "passed": false,
-      "evidence": "curl -v https://proxy.app.daytona.io/toolbox returned curl: (35) Recv failure: Connection reset by peer and all sandbox.process.exec() attempts failed"
+      "evidence": "python quickstart.py exited 1 with ConnectionResetError: [Errno 104] Connection reset by peer and never produced the promised code execution output"
     }
   },
   "friction": [
     {
-      "where": "SDK import name mismatch",
-      "detail": "ImportError: cannot import name 'CreateSandboxParams' from 'daytona' ... Did you mean: 'CreateSandboxBaseParams'?"
+      "where": "Local daytona binary is a server daemon, not CLI",
+      "detail": "Running `daytona create --help` launches a GIN server that crashes with port-binding errors instead of displaying help: \"2026-07-31T12:10:55Z ERR Error occurred error=\"listen tcp :22220: bind: address already in use\"\""
     },
     {
-      "where": "SDK method name mismatch",
-      "detail": "AttributeError: 'Daytona' object has no attribute 'remove'"
+      "where": "CLI documentation link is broken",
+      "detail": "The URL for CLI docs returns a 404 page: \"404 \u00b7 Daytona ... The page you're looking for doesn't exist or has been moved.\""
     },
     {
-      "where": "FileSystem API mismatch",
-      "detail": "fs.list error: AttributeError 'FileSystem' object has no attribute 'list'"
+      "where": "Toolbox proxy endpoint is unreachable",
+      "detail": "Code execution requires connectivity to proxy.app.daytona.io, which is blocked in this environment: \"curl: (35) Recv failure: Connection reset by peer\" when connecting to proxy.app.daytona.io:443"
     },
     {
-      "where": "Toolbox proxy unreachable from sandbox",
-      "detail": "curl: (35) Recv failure: Connection reset by peer when connecting to proxy.app.daytona.io:443"
+      "where": "SDK emits low-level connection errors instead of actionable messages",
+      "detail": "When the toolbox proxy is unreachable, sandbox.process.code_run() fails with a cryptic ConnectionResetError deep in urllib3: \"ConnectionResetError: [Errno 104] Connection reset by peer\""
     },
     {
-      "where": "CLI port binding conflict",
-      "detail": "ERR Error occurred error=\"listen tcp :22222: bind: address already in use\""
+      "where": "Pre-installed SDK is severely out of date",
+      "detail": "The environment ships with daytona v0.134.0 while the current version is v0.202.0, risking API incompatibilities: \"Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)\""
     }
   ],
   "score": 70,
-  "braintrust_span": "d58359ac-ffcc-4641-9fa6-33122ec9ddc6"
+  "braintrust_span": "7837b287-8c54-4bbc-aecc-ded67d6e33e6"
 }
