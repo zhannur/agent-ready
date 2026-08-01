@@ -1,22 +1,22 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-07-31T11:38:44Z",
+  "started": "2026-08-01T10:52:46Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the `braintrust` SDK (v0.31.0) and created the `eval_hello.py` script from the quickstart embedded in the SDK's `__init__.py`. I executed the eval locally with `braintrust eval --no-send-logs eval_hello.py` and it demonstrably ran both test cases, reporting **`50.00% 'is_equal' score`** in the summary. However, I could not complete the full cloud-reported workflow because the sandbox environment cannot establish a TLS connection to `braintrust.dev` (curl and the SDK both fail with \"Connection reset by peer\" during the TLS handshake), so the eval could only run offline with `--no-send-logs`.",
+  "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 130.2,
+  "wall_seconds": 211.5,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Successfully installed GitPython-3.1.57 braintrust-0.31.0 chevron-0.14.0 python-slugify-8.0.4 sseclient-py-1.9.0 text-unidecode-1.3"
+      "evidence": "python3 --version returned Python 3.14.4 and pip3 --version returned pip 26.0.1"
     },
     "installed": {
       "passed": true,
-      "evidence": "Name: braintrust Version: 0.31.0"
+      "evidence": "pip3 install braintrust autoevals downloaded braintrust-0.31.0 and autoevals-0.3.0 successfully"
     },
     "configured": {
       "passed": true,
@@ -24,35 +24,35 @@
     },
     "first_call": {
       "passed": false,
-      "evidence": "exit=1"
+      "evidence": "First braintrust eval tutorial_eval.py exited 1 with urllib3 connection error: Connection reset by peer"
     },
     "verified": {
       "passed": true,
-      "evidence": "50.00% 'is_equal' score"
+      "evidence": "braintrust eval --no-send-logs tutorial_eval.py printed 77.78% 'Levenshtein' score"
     }
   },
   "friction": [
     {
-      "where": "pip install braintrust",
-      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
+      "where": "pip user install PATH",
+      "detail": "Defaulting to user installation because normal site-packages is not writeable, requiring export PATH=\"$HOME/.local/bin:$PATH\""
     },
     {
-      "where": "braintrust eval eval_hello.py (first attempt)",
-      "detail": "Traceback (most recent call last): ... exit=1"
+      "where": "vendor API connectivity",
+      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
     },
     {
-      "where": "curl -v https://www.braintrust.dev/docs/start",
-      "detail": "* OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
+      "where": "undocumented offline flag",
+      "detail": "Default eval fails when API is unreachable; quickstart does not mention --no-send-logs needed to run locally"
     },
     {
-      "where": "SDK __init__.py quickstart",
-      "detail": "Finally, run the script with `braintrust eval eval_hello.py`."
+      "where": "file naming convention",
+      "detail": "WARNING [braintrust.eval]: Reading tutorial_eval.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory."
     },
     {
-      "where": "Documentation discovery",
-      "detail": "[fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/start/eval\"} ... [fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/evaluate/quickstart\"}"
+      "where": "docs URL discovery",
+      "detail": "Agent tried multiple URLs (/docs/start/eval, /docs/start/evaluate, /docs/evaluate/quickstart) before finding the README quickstart"
     }
   ],
   "score": 75,
-  "braintrust_span": "ee68ef07-43da-4c4e-ba61-d6260c1f044b"
+  "braintrust_span": "60b480d1-5c28-4bbe-90bd-308ffa773044"
 }
