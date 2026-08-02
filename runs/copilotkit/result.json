@@ -1,58 +1,58 @@
 {
   "name": "copilotkit",
   "url": "https://docs.copilotkit.ai/quickstart",
-  "started": "2026-08-01T11:06:01Z",
+  "started": "2026-08-02T11:08:29Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I followed the CopilotKit quickstart through project scaffolding, package installation, environment setup, and file creation. TypeScript compilation passes cleanly (`npx tsc --noEmit` exited 0), confirming the code is valid. I had to deviate from the docs on the CSS import: the quickstart specifies `@copilotkit/react-core/v2/styles.css`, but the actual stylesheet lives at `@copilotkit/react-ui/src/v2/styles.css`. The dev server starts and reports \"Ready in 503ms,\" but the sandbox's ~1.9 GB RAM is insufficient\u2014both `next build` and `next dev` crash with OOM (exit 137 / silent process death) during compilation, so I could not demonstrably verify that the copilot endpoint serves requests.",
+  "summary": "I successfully fetched the quickstart docs and created the Next.js scaffold (`npx create-next-app@latest my-copilot-app` completed with \"Success! Created my-copilot-app at /home/daytona/my-copilot-app\"). However, I was blocked at the `npm install @copilotkit/react-core @copilotkit/react-ui @copilotkit/runtime` step because the sandbox's root filesystem (3 GB) was completely full, producing `ENOSPC: no space left on device` errors. I attempted to clear npm/yarn caches and remove large global packages, but the disk remained at 100% capacity, preventing any package installation. Consequently, I never reached creating the `.env` file, the API route, the CopilotKit provider wrapper, or starting the dev server.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 685.6,
+  "wall_seconds": 646.5,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "v25.9.0 / 11.12.1"
+      "evidence": "v25.9.0\n11.12.1"
     },
     "installed": {
-      "passed": true,
-      "evidence": "added 857 packages, and audited 1220 packages in 1m"
+      "passed": false,
+      "evidence": "npm error code ENOSPC"
     },
     "configured": {
-      "passed": true,
-      "evidence": "echo \"OPENAI_API_KEY=dummy_key_for_testing\" > .env"
+      "passed": false,
+      "evidence": "Consequently, I never reached creating the `.env` file, the API route, the CopilotKit provider wrapper, or starting the dev server."
     },
     "first_call": {
       "passed": false,
-      "evidence": "curl -s -X POST http://localhost:3000/api/copilotkit ... returned empty output"
+      "evidence": "Consequently, I never reached creating the `.env` file, the API route, the CopilotKit provider wrapper, or starting the dev server."
     },
     "verified": {
       "passed": false,
-      "evidence": "Creating an optimized production build ... Killed"
+      "evidence": "Consequently, I never reached creating the `.env` file, the API route, the CopilotKit provider wrapper, or starting the dev server."
     }
   },
   "friction": [
     {
-      "where": "Next.js build OOM-killed in low-RAM sandbox",
-      "detail": "Creating an optimized production build ... Killed"
+      "where": "Sandbox disk space during npm install",
+      "detail": "npm error code ENOSPC"
     },
     {
-      "where": "Dev server silently dies during compilation",
-      "detail": "both `next build` and `next dev` crash with OOM (exit 137 / silent process death)"
+      "where": "npm install process termination",
+      "detail": "exit=137"
     },
     {
-      "where": "Quickstart docs list incorrect CSS import path",
-      "detail": "the quickstart specifies `@copilotkit/react-core/v2/styles.css`, but the actual stylesheet lives at `@copilotkit/react-ui/src/v2/styles.css`"
+      "where": "Global module cleanup permissions",
+      "detail": "rm: cannot remove '/usr/local/share/nvm/versions/node/v25.9.0/lib/node_modules/openclaw/CHANGELOG.md': Permission denied"
     },
     {
-      "where": "Required OpenAI API key missing in clean environment",
-      "detail": "OPENAI_API_KEY="
+      "where": "Deprecated dependency warnings",
+      "detail": "npm warn deprecated uuid@10.0.0: uuid@10 and below is no longer supported."
     },
     {
-      "where": "Package installation emits many deprecation and audit warnings",
-      "detail": "16 vulnerabilities (2 low, 10 moderate, 4 high)"
+      "where": "Enterprise Intelligence Platform account prerequisite",
+      "detail": "Sign up for a free developer account on our Enterprise Intelligence Platform to get a license key."
     }
   ],
-  "score": 45,
-  "braintrust_span": "f37ebb57-dff1-4e23-bf33-03d30bccb89b"
+  "score": 10,
+  "braintrust_span": "dfd9c916-81d7-4126-a601-a1f5f6b12f3f"
 }

@@ -1,26 +1,26 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-08-01T11:20:37Z",
+  "started": "2026-08-02T11:17:27Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example script, and successfully generated an MP3 audio file from text using the ElevenLabs Text-to-Speech API. The output file output.mp3 (44,765 bytes) was verified as a valid MPEG ADTS Layer III audio file at 128 kbps, 44.1 kHz, matching the requested mp3_44100_128 format.",
-  "deviations": "The quickstart's final step uses `play(audio)` to play audio through speakers. In this headless sandbox environment without audio hardware, I used `elevenlabs.play.save(audio, \"output.mp3\")` instead to write the generated audio to a file, allowing tangible verification that the API request succeeded and audio data was returned. The core API call and authentication followed the quickstart exactly.",
-  "steps": 11,
-  "wall_seconds": 49.6,
+  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example script, and successfully generated an MP3 audio file from the text \"The first move is what sets everything in motion.\" The output file output.mp3 is 43KB and verified as a valid MPEG ADTS layer III MP3 at 128 kbps, 44.1 kHz, monaural.",
+  "deviations": "The quickstart's final step calls `play(audio)` to play audio through speakers. Since the sandbox is headless with no audio output device, I replaced `play(audio)` with code that writes the audio stream to a file (`output.mp3`). The core API authentication and text-to-speech request matched the quickstart exactly.",
+  "steps": 6,
+  "wall_seconds": 28.6,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Downloading elevenlabs-2.60.0-py3-none-any.whl.metadata (15 kB)"
+      "evidence": "Defaulting to user installation because normal site-packages is not writeable"
     },
     "installed": {
       "passed": true,
-      "evidence": "['Iterator', 'Union', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', 'is_installed', 'play', 'save', 'shutil', 'stream', 'subprocess']"
+      "evidence": "Downloading elevenlabs-2.60.0-py3-none-any.whl.metadata (15 kB)"
     },
     "configured": {
       "passed": true,
-      "evidence": "api_key=os.getenv(\"ELEVENLABS_API_KEY\")"
+      "evidence": "api_key=os.getenv(\"ELEVENLABS_API_KEY\"),"
     },
     "first_call": {
       "passed": true,
@@ -33,22 +33,22 @@
   },
   "friction": [
     {
-      "where": "Documentation defaults to heavy HTML instead of structured markdown",
+      "where": "Documentation fetch returns HTML navigation noise instead of readable quickstart content",
       "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page."
     },
     {
-      "where": "Quickstart only demonstrates `play(audio)` which is unsuitable for headless environments",
-      "detail": "The quickstart's final step uses `play(audio)` to play au..."
+      "where": "Quickstart assumes interactive audio playback incompatible with sandboxes",
+      "detail": "The quickstart's final step calls `play(audio)` to play audio through speakers. Since the"
     },
     {
-      "where": "User must discover `save()` on their own because the quickstart omits file persistence",
-      "detail": "Help on function save in module elevenlabs.play:\n\nsave(audio: Union[bytes, Iterator[bytes]], filename: str) -> None"
+      "where": "Voice and model IDs are hardcoded without showing how to discover valid values",
+      "detail": "voice_id=\"JBFqnCBsd6RMkjVDRZzb\","
     },
     {
-      "where": "Missing prerequisite mention that `play()` requires an external audio player",
-      "detail": "'is_installed', 'play', 'save', 'shutil', 'stream', 'subprocess'"
+      "where": "Credential setup is implicit; no .env creation or export step is shown",
+      "detail": "api_key=os.getenv(\"ELEVENLABS_API_KEY\"),"
     }
   ],
   "score": 100,
-  "braintrust_span": "353874c9-75a5-430c-88fd-b45ba442b5ec"
+  "braintrust_span": "5160e291-4a99-4746-9e21-38d04714c8db"
 }

@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-01T10:52:46Z",
+  "started": "2026-08-02T10:56:44Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I installed the `braintrust` and `autoevals` packages (144 packages added successfully) and created `tutorial.eval.ts` exactly per the README quickstart. However, running `npx braintrust eval tutorial.eval.ts` fails with a `TypeError: fetch failed` caused by `ECONNRESET` when connecting to `api.braintrust.dev`. I confirmed this is a sandbox network restriction: `curl` to `api.braintrust.dev`, `www.braintrust.dev`, and even `www.google.com` over HTTPS all return \"Connection reset by peer,\" while plain HTTP requests go through. No eval run could execute, so the promised outcome of scores being reported was not achieved.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 211.5,
+  "wall_seconds": 351.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "python3 --version returned Python 3.14.4 and pip3 --version returned pip 26.0.1"
+      "evidence": "node --version returned v25.9.0 and npm --version returned 11.12.1"
     },
     "installed": {
       "passed": true,
-      "evidence": "pip3 install braintrust autoevals downloaded braintrust-0.31.0 and autoevals-0.3.0 successfully"
+      "evidence": "npm install braintrust autoevals reported added 144 packages in 9s"
     },
     "configured": {
       "passed": true,
-      "evidence": "BRAINTRUST_API_KEY is set: yes"
+      "evidence": "API Key set: yes and Length: 51, wired via BRAINTRUST_API_KEY=\"$BRAINTRUST_API_KEY\" as the README instructs"
     },
     "first_call": {
       "passed": false,
-      "evidence": "First braintrust eval tutorial_eval.py exited 1 with urllib3 connection error: Connection reset by peer"
+      "evidence": "npx braintrust eval tutorial.eval.ts exited with TypeError: fetch failed caused by Error: read ECONNRESET"
     },
     "verified": {
-      "passed": true,
-      "evidence": "braintrust eval --no-send-logs tutorial_eval.py printed 77.78% 'Levenshtein' score"
+      "passed": false,
+      "evidence": "Agent notes: No eval run could execute, so the promised outcome of scores being reported was not achieved"
     }
   },
   "friction": [
     {
-      "where": "pip user install PATH",
-      "detail": "Defaulting to user installation because normal site-packages is not writeable, requiring export PATH=\"$HOME/.local/bin:$PATH\""
+      "where": "Docs index missing quickstart",
+      "detail": "curl -s https://www.braintrust.dev/docs/llms.txt | grep -i \"quickstart\" returned no results, failing to surface the evaluation quickstart from the docs index."
     },
     {
-      "where": "vendor API connectivity",
-      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
+      "where": "Website quickstart URLs return empty",
+      "detail": "Multiple fetch_url attempts to https://www.braintrust.dev/docs/start/evaluation-quickstart and similar returned no content, forcing the agent to find the GitHub README instead."
     },
     {
-      "where": "undocumented offline flag",
-      "detail": "Default eval fails when API is unreachable; quickstart does not mention --no-send-logs needed to run locally"
+      "where": "Sandbox HTTPS/network blocking",
+      "detail": "curl -v --ipv4 https://api.braintrust.dev/v1/project failed with curl: (35) Recv failure: Connection reset by peer, and even curl -I https://www.google.com hit the same reset, causing cryptic ECONNRESET errors."
     },
     {
-      "where": "file naming convention",
-      "detail": "WARNING [braintrust.eval]: Reading tutorial_eval.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory."
+      "where": "No connectivity prerequisite in quickstart",
+      "detail": "The README jumps straight to npx braintrust eval tutorial.eval.ts without a health-check step, making it unclear whether failures are auth, SDK, or network-related."
     },
     {
-      "where": "docs URL discovery",
-      "detail": "Agent tried multiple URLs (/docs/start/eval, /docs/start/evaluate, /docs/evaluate/quickstart) before finding the README quickstart"
+      "where": "No offline/local fallback documented",
+      "detail": "After hitting the network wall, the agent had to grep node_modules/braintrust/dist/ for offline, local, or apiUrl to look for a workaround, indicating the quickstart offers no guidance for restricted environments."
     }
   ],
-  "score": 75,
-  "braintrust_span": "60b480d1-5c28-4bbe-90bd-308ffa773044"
+  "score": 45,
+  "braintrust_span": "628f1bff-fc2d-42c3-932a-9458058c4659"
 }
