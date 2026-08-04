@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-02T10:56:44Z",
+  "started": "2026-08-04T11:36:02Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I installed the `braintrust` and `autoevals` packages (144 packages added successfully) and created `tutorial.eval.ts` exactly per the README quickstart. However, running `npx braintrust eval tutorial.eval.ts` fails with a `TypeError: fetch failed` caused by `ECONNRESET` when connecting to `api.braintrust.dev`. I confirmed this is a sandbox network restriction: `curl` to `api.braintrust.dev`, `www.braintrust.dev`, and even `www.google.com` over HTTPS all return \"Connection reset by peer,\" while plain HTTP requests go through. No eval run could execute, so the promised outcome of scores being reported was not achieved.",
+  "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 351.0,
+  "wall_seconds": 133.9,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "node --version returned v25.9.0 and npm --version returned 11.12.1"
+      "evidence": "added 144 packages in 12s"
     },
     "installed": {
       "passed": true,
-      "evidence": "npm install braintrust autoevals reported added 144 packages in 9s"
+      "evidence": "added 144 packages in 12s"
     },
     "configured": {
       "passed": true,
-      "evidence": "API Key set: yes and Length: 51, wired via BRAINTRUST_API_KEY=\"$BRAINTRUST_API_KEY\" as the README instructs"
+      "evidence": "API key exists: yes"
     },
     "first_call": {
       "passed": false,
-      "evidence": "npx braintrust eval tutorial.eval.ts exited with TypeError: fetch failed caused by Error: read ECONNRESET"
+      "evidence": "TypeError: fetch failed"
     },
     "verified": {
       "passed": false,
-      "evidence": "Agent notes: No eval run could execute, so the promised outcome of scores being reported was not achieved"
+      "evidence": "TypeError: fetch failed"
     }
   },
   "friction": [
     {
-      "where": "Docs index missing quickstart",
-      "detail": "curl -s https://www.braintrust.dev/docs/llms.txt | grep -i \"quickstart\" returned no results, failing to surface the evaluation quickstart from the docs index."
+      "where": "Braintrust docs site blocked standard curl",
+      "detail": "* OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
     },
     {
-      "where": "Website quickstart URLs return empty",
-      "detail": "Multiple fetch_url attempts to https://www.braintrust.dev/docs/start/evaluation-quickstart and similar returned no content, forcing the agent to find the GitHub README instead."
+      "where": "Unclear quickstart URL paths",
+      "detail": "Agent guessed multiple paths: [fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/start/eval\"}, /docs/start/evaluate, /docs/start/evaluation-quickstart"
     },
     {
-      "where": "Sandbox HTTPS/network blocking",
-      "detail": "curl -v --ipv4 https://api.braintrust.dev/v1/project failed with curl: (35) Recv failure: Connection reset by peer, and even curl -I https://www.google.com hit the same reset, causing cryptic ECONNRESET errors."
+      "where": "README omits API key setup instructions",
+      "detail": "BRAINTRUST_API_KEY=<YOUR_API_KEY> npx braintrust eval tutorial.eval.ts"
     },
     {
-      "where": "No connectivity prerequisite in quickstart",
-      "detail": "The README jumps straight to npx braintrust eval tutorial.eval.ts without a health-check step, making it unclear whether failures are auth, SDK, or network-related."
+      "where": "Uninformative eval failure",
+      "detail": "TypeError: fetch failed"
     },
     {
-      "where": "No offline/local fallback documented",
-      "detail": "After hitting the network wall, the agent had to grep node_modules/braintrust/dist/ for offline, local, or apiUrl to look for a workaround, indicating the quickstart offers no guidance for restricted environments."
+      "where": "Docs HTML not grep/curl friendly",
+      "detail": "curl -s \"https://www.braintrust.dev/docs/start\" | grep -i \"eval\" | head -20 returned no visible output, forcing fallback to raw GitHub README"
     }
   ],
   "score": 45,
-  "braintrust_span": "628f1bff-fc2d-42c3-932a-9458058c4659"
+  "braintrust_span": "02a35f4f-84f2-45fc-b328-42ec8c49843b"
 }
