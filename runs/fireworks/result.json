@@ -1,26 +1,26 @@
 {
   "name": "fireworks",
   "url": "https://docs.fireworks.ai/getting-started/quickstart",
-  "started": "2026-08-04T12:01:02Z",
+  "started": "2026-08-05T12:08:58Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the Fireworks AI Serverless Quickstart end-to-end. The API key was already exported in the environment. I installed the Fireworks Python SDK (`pip install --pre fireworks-ai`), created the quickstart script, and ran it. A chat completion was returned from a Fireworks-hosted model: the response was \"\u00a1Hola!\".",
-  "deviations": "The quickstart specifies model `accounts/fireworks/models/deepseek-v3p1`, but that model returned \"Model not found, inaccessible, and/or not deployed\". I queried the available models endpoint and used `accounts/fireworks/models/glm-5p2` instead, which successfully returned a chat completion.",
-  "steps": 13,
-  "wall_seconds": 55.5,
+  "summary": "Successfully completed the Fireworks AI quickstart end-to-end. Fetched the quickstart page, confirmed the FIREWORKS_API_KEY was already exported in the sandbox, and made a working chat completion API call. Verified using both curl and the Python OpenAI SDK method from the docs. The Python script at /home/daytona/fireworks_quickstart.py ran successfully and printed the model's response: \"Hola!\"",
+  "deviations": "The quickstart docs specify model \"accounts/fireworks/models/deepseek-v3p1\", but that model returned \"Model not found, inaccessible, and/or not deployed\". I listed available models via the API and substituted \"accounts/fireworks/models/qwen3p7-plus\", which worked and returned a valid chat completion. This is the only deviation from the docs.",
+  "steps": 11,
+  "wall_seconds": 64.7,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "curl 8.14.1 (x86_64-pc-linux-gnu) libcurl/8.14.1 OpenSSL/3.5.5 zlib/1.3.1 brotli/1.1.0 zstd/1.5.7 libidn2/2.3.8 libpsl/0.21.2 libssh2/1.11.1 nghttp2/1.64.0 nghttp3/1.8.0 librtmp/2.3 OpenLDAP/2.6.10"
+      "evidence": "/usr/bin/curl"
     },
     "installed": {
       "passed": true,
-      "evidence": "Downloading fireworks_ai-1.2.6-py3-none-any.whl.metadata (26 kB)"
+      "evidence": "2.33.0"
     },
     "configured": {
       "passed": true,
-      "evidence": "API key set: yes"
+      "evidence": "FIREWORKS_API_KEY is set: yes"
     },
     "first_call": {
       "passed": false,
@@ -28,26 +28,27 @@
     },
     "verified": {
       "passed": true,
-      "evidence": "\u00a1Hola!"
+      "evidence": "Hola!"
     }
   },
   "friction": [
     {
-      "where": "Quickstart model selection",
-      "detail": "The quickstart specifies a model that is not available, causing the first API call to fail immediately with a NOT_FOUND error.",
-      "quote": "{\"error\":{\"message\":\"Model not found, inaccessible, and/or not deployed\",\"param\":\"model\",\"code\":\"NOT_FOUND\",\"type\":\"error\"}}"
+      "where": "Quickstart docs model string (deepseek-v3p1)",
+      "detail": "First curl returned {\"error\":{\"message\":\"Model not found, inaccessible, and/or not deployed\",\"param\":\"model\",\"code\":\"NOT_FOUND\",\"type\":\"error\"}}"
     },
     {
-      "where": "Model name trial-and-error",
-      "detail": "After the first failure, trying other common model names (llama-v3p1-70b, llama-v3p1-8b, llama-v3-70b) all return the same NOT_FOUND error, forcing guesswork.",
-      "quote": "{\"error\":{\"message\":\"Model not found, inaccessible, and/or not deployed\",\"param\":\"model\",\"code\":\"NOT_FOUND\",\"type\":\"error\"}}"
+      "where": "Quickstart docs model string (llama-v3p1-8b-instruct)",
+      "detail": "Second curl returned {\"error\":{\"message\":\"Model not found, inaccessible, and/or not deployed\",\"param\":\"model\",\"code\":\"NOT_FOUND\",\"type\":\"error\"}}"
     },
     {
       "where": "Missing model discovery guidance",
-      "detail": "The developer must manually call the /v1/models endpoint to find a valid model ID because the quickstart examples are outdated.",
-      "quote": "curl https://api.fireworks.ai/inference/v1/models"
+      "detail": "Agent had to call /v1/models and run a python3 filter script to find a working model (qwen3p7-plus) after two documented models failed"
+    },
+    {
+      "where": "Docs deviation note",
+      "detail": "Finish note states deviation because \"The quickstart docs specify model \\\"accounts/fir...\\\"\" which was unavailable"
     }
   ],
   "score": 75,
-  "braintrust_span": "1d226241-f0ef-4b0f-9adb-998667bfa156"
+  "braintrust_span": "44c5b5ce-ed3b-4ec9-894c-4f713b0ca0bd"
 }

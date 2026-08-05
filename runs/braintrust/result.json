@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-04T11:36:02Z",
+  "started": "2026-08-05T11:30:21Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I spent the entire run attempting to locate the vendor's \"Evaluation quickstart\" page. While I successfully fetched the main start page (`/docs/start`), the docs index (`/docs/llms.txt`), and detailed evaluation reference pages like `/docs/evaluate/run-in-code.md`, every attempt to fetch the actual evaluation quickstart content\u2014via URLs like `/docs/start/evaluation-quickstart`, `/docs/start/eval`, `/docs/guides/eval-quickstart`, and multiple variants\u2014returned empty or null responses. Because I could not retrieve the specific step-by-step quickstart instructions, I never installed the SDK, wrote an eval file, or ran any commands in the sandbox. No eval run was executed and no scores were reported.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 133.9,
+  "wall_seconds": 96.1,
   "checkpoints": {
     "env_ready": {
-      "passed": true,
-      "evidence": "added 144 packages in 12s"
+      "passed": false,
+      "evidence": "Transcript contains only HTTP fetch commands; no sandbox commands were executed to install or verify a runtime or package manager."
     },
     "installed": {
-      "passed": true,
-      "evidence": "added 144 packages in 12s"
+      "passed": false,
+      "evidence": "No installation commands (e.g., npm install, pnpm add, pip install) for the Braintrust SDK, CLI, or dependencies appear in the transcript."
     },
     "configured": {
-      "passed": true,
-      "evidence": "API key exists: yes"
+      "passed": false,
+      "evidence": "No credential or configuration commands (e.g., setting API keys or .env files) were executed in the sandbox."
     },
     "first_call": {
       "passed": false,
-      "evidence": "TypeError: fetch failed"
+      "evidence": "No eval script was created and no `bt eval` or SDK invocation was run in the sandbox."
     },
     "verified": {
       "passed": false,
-      "evidence": "TypeError: fetch failed"
+      "evidence": "The agent's final note states: 'No eval run was executed and no scores were reported.'"
     }
   },
   "friction": [
     {
-      "where": "Braintrust docs site blocked standard curl",
-      "detail": "* OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
+      "where": "Missing evaluation quickstart at canonical URLs",
+      "detail": "Fetches to `https://www.braintrust.dev/docs/start/evaluation-quickstart` repeatedly returned null or empty responses."
     },
     {
-      "where": "Unclear quickstart URL paths",
-      "detail": "Agent guessed multiple paths: [fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/start/eval\"}, /docs/start/evaluate, /docs/start/evaluation-quickstart"
+      "where": "Inconsistent documentation paths",
+      "detail": "The agent had to guess multiple URL variants such as `/docs/start/eval-quickstart.md`, `/docs/guides/eval-quickstart`, and `/docs/evaluate/quickstart.md`."
     },
     {
-      "where": "README omits API key setup instructions",
-      "detail": "BRAINTRUST_API_KEY=<YOUR_API_KEY> npx braintrust eval tutorial.eval.ts"
+      "where": "Python quickstart requires a coding agent",
+      "detail": "The Python SDK page instructs to run `curl -fsSL https://braintrust.dev/wizard/setup.sh | sh -s -- --from docs_python_quickstart` and adds `No coding agent installed? Install and instrument manually.`"
     },
     {
-      "where": "Uninformative eval failure",
-      "detail": "TypeError: fetch failed"
+      "where": "CLI platform restriction",
+      "detail": "The `bt eval` reference notes: `bt eval is currently macOS and Linux only.`"
     },
     {
-      "where": "Docs HTML not grep/curl friendly",
-      "detail": "curl -s \"https://www.braintrust.dev/docs/start\" | grep -i \"eval\" | head -20 returned no visible output, forcing fallback to raw GitHub README"
+      "where": "Runnable eval instructions under non-obvious path",
+      "detail": "Step-by-step eval code instructions were located only under `/docs/evaluate/run-in-code.md` with commands like `pnpm add braintrust openai autoevals`, not under any quickstart path."
     }
   ],
-  "score": 45,
-  "braintrust_span": "02a35f4f-84f2-45fc-b328-42ec8c49843b"
+  "score": 0,
+  "braintrust_span": "ab7e2a0a-1310-4d51-b07a-5565049190c6"
 }

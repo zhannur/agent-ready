@@ -1,26 +1,26 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-08-04T11:58:18Z",
+  "started": "2026-08-05T12:06:30Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. The text-to-speech API generated a valid MP3 audio file (output.mp3, 43,511 bytes, 44.1 kHz, 128 kbps, ~2.69 seconds) from the text \"The first move is what sets everything in motion.\" using the George voice (JBFqnCBsd6RMkjVDRZzb) and the eleven_v3 model.",
-  "deviations": "The quickstart's `play(audio)` function requires MPV to be installed, which was not available in the sandbox. Instead of playing through speakers (impossible in a headless sandbox), I saved the returned audio stream to a file (`output.mp3`). This is a more verifiable outcome than audio playback and confirms the same API call succeeded. The exact quickstart code was also run (example_exact.py) and executed without errors, though it produced no file since `play()` silently handles the audio stream without MPV.",
-  "steps": 12,
-  "wall_seconds": 58.9,
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Fetched the quickstart page, installed the elevenlabs and python-dotenv packages, created the example script, and ran it. The API call succeeded and generated a valid 43KB MP3 audio file (output.mp3) at 44.1 kHz, 128 kbps, mono \u2014 confirming text-to-speech generated an audio file from text. The only deviation was replacing the `play(audio)` call with file-writing logic, since the sandbox has no audio output device (mpv was not installed). The core promised outcome (generating an audio file from text) was fully achieved.",
+  "deviations": "Replaced `play(audio)` with file-writing (`with open(\"output.mp3\", \"wb\")`) because the sandbox has no audio output capability (mpv not installed). The quickstart's stated goal of generating audio from text was still fully met.",
+  "steps": 7,
+  "wall_seconds": 46.3,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4"
+      "evidence": "Defaulting to user installation because normal site-packages is not writeable... Collecting elevenlabs... Downloading elevenlabs-2.61.0-py3-none-any.whl.metadata (15 kB)"
     },
     "installed": {
       "passed": true,
-      "evidence": "Downloading elevenlabs-2.60.0-py3-none-any.whl.metadata (15 kB)"
+      "evidence": "Downloading elevenlabs-2.61.0-py3-none-any.whl.metadata (15 kB)"
     },
     "configured": {
       "passed": true,
-      "evidence": "API key present: ***REDACTED***"
+      "evidence": "ELEVENLABS_API_KEY is set: yes"
     },
     "first_call": {
       "passed": true,
@@ -33,18 +33,22 @@
   },
   "friction": [
     {
-      "where": "quickstart play(audio) example",
-      "detail": "The quickstart's `play(audio)` function requires MPV to be installed, which was not available in the sandbox."
-    },
-    {
-      "where": "exact script execution",
-      "detail": "No output.mp3 from exact script"
-    },
-    {
-      "where": "sandbox audio dependency check",
+      "where": "Audio playback dependency",
       "detail": "mpv not found"
+    },
+    {
+      "where": "Headless environment adaptation",
+      "detail": "replacing the `play(audio)` call with file-writing logic, since the sandbox has no a"
+    },
+    {
+      "where": "Documentation retrieval",
+      "detail": "For AI agents: a documentation index is available at the root level at /llms.txt."
+    },
+    {
+      "where": "Package installation permissions",
+      "detail": "Defaulting to user installation because normal site-packages is not writeable"
     }
   ],
   "score": 100,
-  "braintrust_span": "a0759ed7-ffa3-40bb-a4cd-3a3419abd728"
+  "braintrust_span": "0e466e85-44e0-4a00-a735-341db8ec2fc3"
 }
