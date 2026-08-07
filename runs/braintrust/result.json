@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-05T11:30:21Z",
+  "started": "2026-08-07T10:15:42Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I spent the entire run attempting to locate the vendor's \"Evaluation quickstart\" page. While I successfully fetched the main start page (`/docs/start`), the docs index (`/docs/llms.txt`), and detailed evaluation reference pages like `/docs/evaluate/run-in-code.md`, every attempt to fetch the actual evaluation quickstart content\u2014via URLs like `/docs/start/evaluation-quickstart`, `/docs/start/eval`, `/docs/guides/eval-quickstart`, and multiple variants\u2014returned empty or null responses. Because I could not retrieve the specific step-by-step quickstart instructions, I never installed the SDK, wrote an eval file, or ran any commands in the sandbox. No eval run was executed and no scores were reported.",
+  "summary": "I successfully installed the `braintrust` SDK and created the `eval_hello.py` quickstart script. I can demonstrably run the evaluation locally: executing `braintrust eval --no-send-logs eval_hello.py` produces the score summary `50.00% 'is_equal' score`, proving the SDK computes scores correctly. However, the sandbox environment cannot establish TLS connections to Braintrust's servers\u2014both `www.braintrust.dev` and `api.braintrust.dev` return \"Connection reset by peer\" errors during the SSL handshake. This means I cannot complete the full quickstart as written, because the SDK cannot authenticate or upload the eval run to Braintrust's API despite the `BRAINTRUST_API_KEY` being present in the environment.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 96.1,
+  "wall_seconds": 237.9,
   "checkpoints": {
     "env_ready": {
-      "passed": false,
-      "evidence": "Transcript contains only HTTP fetch commands; no sandbox commands were executed to install or verify a runtime or package manager."
+      "passed": true,
+      "evidence": "Successfully installed GitPython-3.1.58 braintrust-0.32.0"
     },
     "installed": {
-      "passed": false,
-      "evidence": "No installation commands (e.g., npm install, pnpm add, pip install) for the Braintrust SDK, CLI, or dependencies appear in the transcript."
+      "passed": true,
+      "evidence": "braintrust is a cli tool to work with Braintrust"
     },
     "configured": {
-      "passed": false,
-      "evidence": "No credential or configuration commands (e.g., setting API keys or .env files) were executed in the sandbox."
+      "passed": true,
+      "evidence": "BRAINTRUST_API_KEY is set: yes"
     },
     "first_call": {
       "passed": false,
-      "evidence": "No eval script was created and no `bt eval` or SDK invocation was run in the sandbox."
+      "evidence": "return ssl_context.wrap_socket(sock, server_hostname=server_hostname)"
     },
     "verified": {
-      "passed": false,
-      "evidence": "The agent's final note states: 'No eval run was executed and no scores were reported.'"
+      "passed": true,
+      "evidence": "50.00% 'is_equal' score"
     }
   },
   "friction": [
     {
-      "where": "Missing evaluation quickstart at canonical URLs",
-      "detail": "Fetches to `https://www.braintrust.dev/docs/start/evaluation-quickstart` repeatedly returned null or empty responses."
+      "where": "pip install braintrust",
+      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
     },
     {
-      "where": "Inconsistent documentation paths",
-      "detail": "The agent had to guess multiple URL variants such as `/docs/start/eval-quickstart.md`, `/docs/guides/eval-quickstart`, and `/docs/evaluate/quickstart.md`."
+      "where": "fetching quickstart docs",
+      "detail": "* OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
     },
     {
-      "where": "Python quickstart requires a coding agent",
-      "detail": "The Python SDK page instructs to run `curl -fsSL https://braintrust.dev/wizard/setup.sh | sh -s -- --from docs_python_quickstart` and adds `No coding agent installed? Install and instrument manually.`"
+      "where": "first run of braintrust eval",
+      "detail": "braintrust eval eval_hello.py exits with code 1 after a long urllib3/ssl traceback because it cannot reach api.braintrust.dev"
     },
     {
-      "where": "CLI platform restriction",
-      "detail": "The `bt eval` reference notes: `bt eval is currently macOS and Linux only.`"
+      "where": "quickstart instructions vs sandbox reality",
+      "detail": "The quickstart says run `BRAINTRUST_API_KEY=<...> braintrust eval eval_hello.py`, but the only working command required the undocumented `--no-send-logs` flag."
     },
     {
-      "where": "Runnable eval instructions under non-obvious path",
-      "detail": "Step-by-step eval code instructions were located only under `/docs/evaluate/run-in-code.md` with commands like `pnpm add braintrust openai autoevals`, not under any quickstart path."
+      "where": "discovering offline/local eval option",
+      "detail": "python3 -c \"import braintrust; help(braintrust)\" shows Eval() but does not mention `--no-send-logs` for running without API connectivity."
     }
   ],
-  "score": 0,
-  "braintrust_span": "ab7e2a0a-1310-4d51-b07a-5565049190c6"
+  "score": 75,
+  "braintrust_span": "3f45e850-2c7e-4f75-99cb-ee0b2d07ea24"
 }

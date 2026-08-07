@@ -1,54 +1,50 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-08-05T12:06:30Z",
+  "started": "2026-08-07T10:45:42Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Fetched the quickstart page, installed the elevenlabs and python-dotenv packages, created the example script, and ran it. The API call succeeded and generated a valid 43KB MP3 audio file (output.mp3) at 44.1 kHz, 128 kbps, mono \u2014 confirming text-to-speech generated an audio file from text. The only deviation was replacing the `play(audio)` call with file-writing logic, since the sandbox has no audio output device (mpv was not installed). The core promised outcome (generating an audio file from text) was fully achieved.",
-  "deviations": "Replaced `play(audio)` with file-writing (`with open(\"output.mp3\", \"wb\")`) because the sandbox has no audio output capability (mpv not installed). The quickstart's stated goal of generating audio from text was still fully met.",
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example.py script, and ran it. The API call to text_to_speech.convert() succeeded and generated a valid MP3 audio file (output.mp3, 43,511 bytes, MPEG ADTS layer III, 128 kbps, 44.1 kHz, monaural).",
+  "deviations": "The quickstart example uses `play(audio)` to play audio through speakers. Since the sandbox has no audio output hardware, I saved the returned audio stream to a file (`output.mp3`) instead. The core API request and TTS generation followed the docs exactly.",
   "steps": 7,
-  "wall_seconds": 46.3,
+  "wall_seconds": 43.6,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Defaulting to user installation because normal site-packages is not writeable... Collecting elevenlabs... Downloading elevenlabs-2.61.0-py3-none-any.whl.metadata (15 kB)"
+      "evidence": "pip install elevenlabs python-dotenv executed with exit=0 and resolved dependencies"
     },
     "installed": {
       "passed": true,
-      "evidence": "Downloading elevenlabs-2.61.0-py3-none-any.whl.metadata (15 kB)"
+      "evidence": "Downloading elevenlabs-2.62.0-py3-none-any.whl.metadata (15 kB)"
     },
     "configured": {
       "passed": true,
-      "evidence": "ELEVENLABS_API_KEY is set: yes"
+      "evidence": "echo \"ELEVENLABS_API_KEY=$ELEVENLABS_API_KEY\" > .env and script calls load_dotenv()/os.getenv"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to output.mp3"
+      "evidence": "python example.py exited 0 and printed \"Audio saved to output.mp3\""
     },
     "verified": {
       "passed": true,
-      "evidence": "output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural"
+      "evidence": "file output.mp3 reported \"Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural\""
     }
   },
   "friction": [
     {
-      "where": "Audio playback dependency",
-      "detail": "mpv not found"
+      "where": "Documentation fetched as noisy HTML instead of clean markdown",
+      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page."
     },
     {
-      "where": "Headless environment adaptation",
-      "detail": "replacing the `play(audio)` call with file-writing logic, since the sandbox has no a"
+      "where": "Quickstart example assumes local audio playback hardware",
+      "detail": "The quickstart example uses `play(audio)` to play audio through speakers. Since the sandbox has no audio output hardware..."
     },
     {
-      "where": "Documentation retrieval",
-      "detail": "For AI agents: a documentation index is available at the root level at /llms.txt."
-    },
-    {
-      "where": "Package installation permissions",
-      "detail": "Defaulting to user installation because normal site-packages is not writeable"
+      "where": "Voice ID requires manual lookup in web UI",
+      "detail": "voice_id=\"JBFqnCBsd6RMkjVDRZzb\",  # \"George\" - browse voices at elevenlabs.io/app/voice-library"
     }
   ],
   "score": 100,
-  "braintrust_span": "0e466e85-44e0-4a00-a735-341db8ec2fc3"
+  "braintrust_span": "70d8feae-7fa2-4bea-ae17-7b02dd9dddd3"
 }

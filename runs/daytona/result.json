@@ -1,18 +1,18 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-08-05T12:04:29Z",
+  "started": "2026-08-07T10:43:46Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully created a Daytona sandbox via the Python SDK\u2014sandbox `56ef43b1-058a-4175-907d-cbe752e36680` was created and reached state `started`, confirmed by both SDK output and direct API call. However, executing code inside the sandbox via `sandbox.process.exec(\"echo 'Hello, World!'\")` consistently fails with `ConnectionResetError: [Errno 104] Connection reset by peer` when connecting to `https://proxy.app.daytona.io/toolbox`. I verified this is a network-level issue: `curl -v https://proxy.app.daytona.io/toolbox` also receives `Connection reset by peer` during the TLS handshake. The quickstart\u2019s promised outcome\u2014code demonstrably running inside the sandbox\u2014is therefore blocked by an inability to reach the toolbox proxy endpoint from this sandbox environment.",
+  "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 259.1,
+  "wall_seconds": 361.1,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4"
+      "evidence": "Defaulting to user installation because normal site-packages is not writeable"
     },
     "installed": {
       "passed": true,
@@ -20,39 +20,39 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY is set: yes"
+      "evidence": "DAYTONA_API_KEY=***REDACTED***"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created: id=81b4436d-abf2-4768-8a58-89ca23ba92af"
+      "evidence": "Sandbox created with ID: 02a39c4a-001c-4739-b6ae-9579813077a3"
     },
     "verified": {
       "passed": false,
-      "evidence": "Error: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "evidence": "Attempt 1 failed: DaytonaError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   },
   "friction": [
     {
-      "where": "Pre-installed SDK version",
+      "where": "SDK version drift",
       "detail": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     },
     {
-      "where": "SDK API attribute drift",
-      "detail": "AttributeError: 'Sandbox' object has no attribute 'sandbox_class'"
+      "where": "Sandbox proxy SSL/connection failures",
+      "detail": "ConnectionResetError: [Errno 104] Connection reset by peer"
     },
     {
-      "where": "Documentation links",
-      "detail": "404 The page you're looking for doesn't exist or has been moved."
+      "where": "Undocumented or incorrect exec API endpoint",
+      "detail": "\"message\": \"Cannot POST /api/sandbox/57abf2f5-4934-4c81-b923-cd0d2c8d519c/exec\""
     },
     {
-      "where": "In-sandbox daytona binary",
-      "detail": "Error occurred error=\"listen tcp :22220: bind: address already in use\""
+      "where": "Python SDK list() returns generator instead of list",
+      "detail": "TypeError: object of type 'generator' has no len()"
     },
     {
-      "where": "Toolbox proxy network reachability",
-      "detail": "curl: (35) Recv failure: Connection reset by peer"
+      "where": "CLI port binding conflicts",
+      "detail": "ERR Error occurred error=\"listen tcp :33333: bind: address already in use\""
     }
   ],
   "score": 70,
-  "braintrust_span": "146f2d5c-e59c-4ca4-98b1-9a77a1b51a06"
+  "braintrust_span": "3c0a3d07-da66-43cc-aa1b-81dc1b0a71a4"
 }
