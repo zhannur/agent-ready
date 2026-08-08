@@ -107,7 +107,7 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 <h1 class="wordmark"><a href="index.html" style="color:inherit">agent-ready</a> · copilotkit
 <span style="color:#e07b39">30/100</span></h1>
 <p class="meta" style="margin:.6rem 0 1.4rem">40 steps ·
-1178.5s · agent <code>kimi-k2p6</code> ·
+1349.5s · agent <code>kimi-k2p6</code> ·
 <a href="https://github.com/zhannur/agent-ready/blob/main/runs/copilotkit/transcript.jsonl">raw JSONL</a></p>
 <details class="step" open><summary>#1 <b>fetch_url</b> <code>https://docs.copilotkit.ai/quickstart</code></summary><pre> Quickstart CopilotKit Docs Docs Reference Cookbook Get Enterprise Intelligence free Talk to an engineer CopilotKit Docs Docs Reference Cookbook Docs Reference Cookbook Frontend React Agent backend CopilotKit Getting Started Introduction Quickstart CopilotKit CLI Build with agents Concepts Architecture Generative UI Which Hook for Which Job OSS vs Enterprise Intelligence Platform Agentic Protocols Basics Prebuilt Components Rich Threads Overview Threads Drawer Headless Threads Thread &amp;amp; History Lifecycle Synchronize Thread History Threads &amp;amp; Persistence Architecture Custom Look and Feel Programmatic Control Inspector Generative UI Your Components Tool Rendering MCP Apps A2UI App Control Frontend Tools Shared State Agent Context Built-in Agent Server Tools MCP Servers Model Selection Advanced Configuration Anonymous Telemetry Runtime Copilot Runtime Runtime HTTP endpoints Use any model router AgentRunner and persistence Self-managed agents Connect AG-UI agents Deploy to any runtime Authentication Intelligence Platform Enterprise Intelligence Platform Cloud-Hosted Enterprise Intelligence Self-Hosting Enterprise Intelligence Enterprise Intelligence Architecture Deploy AWS AgentCore Other Troubleshooting What&amp;#x27;s New Migrate Talk to an engineer CopilotKit&amp;#x27;s Built-in Agent Quickstart Quickstart Get started with CopilotKit&amp;#x27;s Built-in Agent in minutes. Copy Markdown Open Ship the Built-in Agent to production Add persistent threads and the inspector with the Enterprise Intelligence Platform. Create a free account 
  Prerequisites # 
@@ -176,15 +176,8 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
  Server Tools Give your agent backend capabilities with custom tools. MCP Servers Connect MCP servers for extended tool support. Model Selection Switch to Anthropic, Google, or a custom model. Frontend Tools Let the agent interact with your UI. 397c8ce </pre></details><details class="step" open><summary>#2 <b>bash</b> <code>node --version &amp;&amp; npm --version</code></summary><pre>exit=0
 v25.9.0
 11.12.1
-</pre></details><details class="step" open><summary>#3 <b>bash</b> <code>cd /home/daytona &amp;&amp; echo -e &quot;y\n&quot; | npx create-next-app@latest my-copilot-app --typescript --tailwind --eslint --app --src-dir --no-import-a</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#3 <b>bash</b> <code>cd /home/daytona &amp;&amp; npx create-next-app@latest my-copilot-app --typescript --tailwind --eslint --app --src-dir=false --import-alias=&quot;@/*&quot; --</code></summary><pre>exit=0
 npm warn exec The following package was not found and will be installed: create-next-app@16.3.0
-
-Using defaults for unprovided options:
-
-  --ts                    TypeScript (use --js for JavaScript)
-  --no-react-compiler     No React Compiler (use --react-compiler for React Compiler)
-  --agents-md             AGENTS.md (use --no-agents-md for No AGENTS.md)
-
 Creating a new Next.js app in /home/daytona/my-copilot-app.
 
 Using npm.
@@ -208,7 +201,7 @@ Installing devDependencies:
 - typescript
 
 
-added 365 packages, and audited 366 packages in 35s
+added 365 packages, and audited 366 packages in 42s
 
 147 packages are looking for funding
   run `npm fund` for details
@@ -231,7 +224,7 @@ npm warn deprecated hast@1.0.0: Renamed to rehype
 npm warn deprecated node-domexception@1.0.0: Use your platform&#x27;s native DOMException instead
 npm warn deprecated uuid@10.0.0: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
 
-added 856 packages, and audited 1222 packages in 1m
+added 856 packages, and audited 1222 packages in 2m
 
 357 packages are looking for funding
   run `npm fund` for details
@@ -242,35 +235,66 @@ To address all issues, run:
   npm audit fix
 
 Run `npm audit` for details.
-</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; ls -la &amp;&amp; ls -la app/</code></summary><pre>exit=2
+</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>env | grep -i openai || echo &quot;No OPENAI_API_KEY in env&quot;</code></summary><pre>exit=0
+No OPENAI_API_KEY in env
+</pre></details><details class="step" open><summary>#6 <b>bash</b> <code>env | grep -i -E &#x27;(key|token|secret|api)&#x27; || echo &quot;No relevant env vars found&quot;</code></summary><pre>exit=0
+No relevant env vars found
+</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>env | sort</code></summary><pre>exit=0
+DAYTONA_ORGANIZATION_ID=00000000-0000-0000-0000-000000000000
+DAYTONA_OTEL_ENDPOINT=https://otel-collector.app.daytona.io
+DAYTONA_REGION_ID=us
+DAYTONA_SANDBOX_ID=bc5f6609-ce5d-4425-9348-7c58c357e9a4
+DAYTONA_SANDBOX_SNAPSHOT=cr.app.daytona.io/sbox/daytona-edb66f95f2f09a28a029a0e03d516cf5482ef13a218e93ab1d80954f6ee7ebbb:daytona
+DAYTONA_SANDBOX_USER=daytona
+DAYTONA_USER_HOME_AS_WORKDIR=true
+GTK_MODULES=gail:atk-bridge
+HOME=/home/daytona
+HOSTNAME=bc5f6609-ce5d-4425-9348-7c58c357e9a4
+LANG=en_US.UTF-8
+LC_ALL=en_US.UTF-8
+LOGNAME=daytona
+NO_AT_BRIDGE=0
+NVM_DIR=/usr/local/share/nvm
+NVM_SYMLINK_CURRENT=true
+OLDPWD=/home/daytona
+PATH=/usr/local/python/current/bin:/usr/local/py-utils/bin:/usr/local/jupyter:/usr/local/share/nvm/current/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PIPX_BIN_DIR=/usr/local/py-utils/bin
+PIPX_HOME=/usr/local/py-utils
+PWD=/home/daytona
+PYTHON_PATH=/usr/local/python/current
+PYTHON_SHA256=d923c51303e38e249136fc1bdf3568d56ecb03214efdef48516176d3d7faaef8
+PYTHON_VERSION=3.14.4
+QT_ACCESSIBILITY=1
+SHLVL=1
+_=/usr/bin/env
+</pre></details><details class="step" open><summary>#8 <b>bash</b> <code>ls -la /home/daytona/my-copilot-app/ &amp;&amp; ls -la /home/daytona/my-copilot-app/app/</code></summary><pre>exit=0
 total 732
-drwxr-xr-x   6 daytona daytona   4096 Aug  7 10:16 .
-drwx------   1 daytona daytona     91 Aug  7 10:15 ..
--rw-r--r--   1 daytona daytona    678 Aug  7 10:16 AGENTS.md
--rw-r--r--   1 daytona daytona     11 Aug  7 10:16 CLAUDE.md
--rw-r--r--   1 daytona daytona    465 Aug  7 10:15 eslint.config.mjs
--rw-r--r--   1 daytona daytona    480 Aug  7 10:15 .gitignore
-drwxr-xr-x   3 daytona daytona     27 Aug  7 10:16 .next
--rw-r--r--   1 daytona daytona    133 Aug  7 10:15 next.config.ts
--rw-r--r--   1 daytona daytona    288 Aug  7 10:16 next-env.d.ts
-drwxr-xr-x 749 daytona daytona  24576 Aug  7 10:17 node_modules
--rw-r--r--   1 daytona daytona    654 Aug  7 10:17 package.json
--rw-r--r--   1 daytona daytona 660246 Aug  7 10:17 package-lock.json
--rw-r--r--   1 daytona daytona     94 Aug  7 10:15 postcss.config.mjs
-drwxr-xr-x   2 daytona daytona    115 Aug  7 10:15 public
--rw-r--r--   1 daytona daytona   1450 Aug  7 10:15 README.md
-drwxr-xr-x   3 daytona daytona     25 Aug  7 10:15 src
--rw-r--r--   1 daytona daytona    670 Aug  7 10:15 tsconfig.json
-ls: cannot access &#x27;app/&#x27;: No such file or directory
-</pre></details><details class="step" open><summary>#6 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; ls -la src/app/</code></summary><pre>exit=0
-total 40
-drwxr-xr-x 2 daytona daytona    98 Aug  7 10:15 .
-drwxr-xr-x 3 daytona daytona    25 Aug  7 10:15 ..
--rw-r--r-- 1 daytona daytona 25931 Aug  7 10:15 favicon.ico
--rw-r--r-- 1 daytona daytona   488 Aug  7 10:15 globals.css
--rw-r--r-- 1 daytona daytona   690 Aug  7 10:15 layout.tsx
--rw-r--r-- 1 daytona daytona  3076 Aug  7 10:15 page.tsx
-</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>cat /home/daytona/my-copilot-app/src/app/layout.tsx</code></summary><pre>exit=0
+drwxr-xr-x   6 daytona daytona   4096 Aug  8 09:57 .
+drwx------   1 daytona daytona     91 Aug  8 09:56 ..
+-rw-r--r--   1 daytona daytona    678 Aug  8 09:57 AGENTS.md
+drwxr-xr-x   2 daytona daytona     98 Aug  8 09:56 app
+-rw-r--r--   1 daytona daytona     11 Aug  8 09:57 CLAUDE.md
+-rw-r--r--   1 daytona daytona    465 Aug  8 09:56 eslint.config.mjs
+-rw-r--r--   1 daytona daytona    480 Aug  8 09:56 .gitignore
+drwxr-xr-x   3 daytona daytona     27 Aug  8 09:57 .next
+-rw-r--r--   1 daytona daytona    133 Aug  8 09:56 next.config.ts
+-rw-r--r--   1 daytona daytona    288 Aug  8 09:57 next-env.d.ts
+drwxr-xr-x 749 daytona daytona  24576 Aug  8 09:58 node_modules
+-rw-r--r--   1 daytona daytona    654 Aug  8 09:59 package.json
+-rw-r--r--   1 daytona daytona 660246 Aug  8 09:59 package-lock.json
+-rw-r--r--   1 daytona daytona     94 Aug  8 09:56 postcss.config.mjs
+drwxr-xr-x   2 daytona daytona    115 Aug  8 09:56 public
+-rw-r--r--   1 daytona daytona   1450 Aug  8 09:56 README.md
+-rw-r--r--   1 daytona daytona    666 Aug  8 09:56 tsconfig.json
+total 44
+drwxr-xr-x 2 daytona daytona    98 Aug  8 09:56 .
+drwxr-xr-x 6 daytona daytona  4096 Aug  8 09:57 ..
+-rw-r--r-- 1 daytona daytona 25931 Aug  8 09:56 favicon.ico
+-rw-r--r-- 1 daytona daytona   488 Aug  8 09:56 globals.css
+-rw-r--r-- 1 daytona daytona   690 Aug  8 09:56 layout.tsx
+-rw-r--r-- 1 daytona daytona  3076 Aug  8 09:56 page.tsx
+</pre></details><details class="step" open><summary>#9 <b>write_file</b> <code>/home/daytona/my-copilot-app/.env</code></summary><pre>wrote /home/daytona/my-copilot-app/.env (44 bytes)</pre></details><details class="step" open><summary>#10 <b>bash</b> <code>mkdir -p /home/daytona/my-copilot-app/app/api/copilotkit</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#11 <b>write_file</b> <code>/home/daytona/my-copilot-app/app/api/copilotkit/route.ts</code></summary><pre>wrote /home/daytona/my-copilot-app/app/api/copilotkit/route.ts (555 bytes)</pre></details><details class="step" open><summary>#12 <b>bash</b> <code>cat /home/daytona/my-copilot-app/app/layout.tsx</code></summary><pre>exit=0
 import type { Metadata } from &quot;next&quot;;
 import { Geist, Geist_Mono } from &quot;next/font/google&quot;;
 import &quot;./globals.css&quot;;
@@ -300,57 +324,282 @@ export default function RootLayout({ children }: LayoutProps&lt;&quot;/&quot;&gt
     &lt;/html&gt;
   );
 }
-</pre></details><details class="step" open><summary>#8 <b>bash</b> <code>echo &quot;OPENAI_API_KEY=$OPENAI_API_KEY&quot; | head -c 30</code></summary><pre>exit=0
-OPENAI_API_KEY=
-</pre></details><details class="step" open><summary>#9 <b>bash</b> <code>env | grep -i key | head -20</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#10 <b>bash</b> <code>env | grep -i api | head -20</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#11 <b>bash</b> <code>env | sort</code></summary><pre>exit=0
-DAYTONA_ORGANIZATION_ID=00000000-0000-0000-0000-000000000000
-DAYTONA_OTEL_ENDPOINT=https://otel-collector.app.daytona.io
-DAYTONA_REGION_ID=us
-DAYTONA_SANDBOX_ID=72191620-cd28-4e16-b807-e15c44b5f8e6
-DAYTONA_SANDBOX_SNAPSHOT=cr.app.daytona.io/sbox/daytona-edb66f95f2f09a28a029a0e03d516cf5482ef13a218e93ab1d80954f6ee7ebbb:daytona
-DAYTONA_SANDBOX_USER=daytona
-DAYTONA_USER_HOME_AS_WORKDIR=true
-GTK_MODULES=gail:atk-bridge
-HOME=/home/daytona
-HOSTNAME=72191620-cd28-4e16-b807-e15c44b5f8e6
-LANG=en_US.UTF-8
-LC_ALL=en_US.UTF-8
-LOGNAME=daytona
-NO_AT_BRIDGE=0
-NVM_DIR=/usr/local/share/nvm
-NVM_SYMLINK_CURRENT=true
-OLDPWD=/home/daytona
-PATH=/usr/local/python/current/bin:/usr/local/py-utils/bin:/usr/local/jupyter:/usr/local/share/nvm/current/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-PIPX_BIN_DIR=/usr/local/py-utils/bin
-PIPX_HOME=/usr/local/py-utils
-PWD=/home/daytona
-PYTHON_PATH=/usr/local/python/current
-PYTHON_SHA256=d923c51303e38e249136fc1bdf3568d56ecb03214efdef48516176d3d7faaef8
-PYTHON_VERSION=3.14.4
-QT_ACCESSIBILITY=1
-SHLVL=1
-_=/usr/bin/env
-</pre></details><details class="step" open><summary>#12 <b>bash</b> <code>ls /home/daytona/my-copilot-app/node_modules/@copilotkit/</code></summary><pre>exit=0
-a2ui-renderer
-channels-core
-channels-intelligence
-channels-slack
-channels-teams
-channels-ui
-core
-license-verifier
-react-core
-react-ui
+</pre></details><details class="step" open><summary>#13 <b>write_file</b> <code>/home/daytona/my-copilot-app/app/layout.tsx</code></summary><pre>wrote /home/daytona/my-copilot-app/app/layout.tsx (381 bytes)</pre></details><details class="step" open><summary>#14 <b>write_file</b> <code>/home/daytona/my-copilot-app/app/page.tsx</code></summary><pre>wrote /home/daytona/my-copilot-app/app/page.tsx (184 bytes)</pre></details><details class="step" open><summary>#15 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; npm run build 2&gt;&amp;1</code></summary><pre>tool error: Failed to execute command: command execution timeout</pre></details><details class="step" open><summary>#16 <b>bash</b> <code>cat /home/daytona/my-copilot-app/next.config.ts</code></summary><pre>exit=0
+import type { NextConfig } from &quot;next&quot;;
+
+const nextConfig: NextConfig = {
+  /* config options here */
+};
+
+export default nextConfig;
+</pre></details><details class="step" open><summary>#17 <b>bash</b> <code>ps aux | grep -i next || echo &quot;No next processes running&quot;</code></summary><pre>exit=0
+daytona      372  0.0  0.0   6520  1928 ?        S    10:03   0:00 grep -i next
+</pre></details><details class="step" open><summary>#18 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; npx next build 2&gt;&amp;1 | head -200</code></summary><pre>exit=0
+▲ Next.js 16.3.0 (Turbopack)
+- Environments: .env
+✓ Running next.config.ts took 76ms
+
+  Creating an optimized production build ...
+Killed
+</pre></details><details class="step" open><summary>#19 <b>bash</b> <code>free -h</code></summary><pre>exit=0
+               total        used        free      shared  buff/cache   available
+Mem:           377Gi        70Gi       176Gi       118Mi       140Gi       306Gi
+Swap:             0B          0B          0B
+</pre></details><details class="step" open><summary>#20 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; npx next build 2&gt;&amp;1</code></summary><pre>exit=137
+▲ Next.js 16.3.0 (Turbopack)
+- Environments: .env
+✓ Running next.config.ts took 79ms
+
+  Creating an optimized production build ...
+Killed
+</pre></details><details class="step" open><summary>#21 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; npx tsc --noEmit 2&gt;&amp;1 | head -100</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#22 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; cat package.json</code></summary><pre>exit=0
+{
+  &quot;name&quot;: &quot;my-copilot-app&quot;,
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;private&quot;: true,
+  &quot;scripts&quot;: {
+    &quot;dev&quot;: &quot;next dev&quot;,
+    &quot;build&quot;: &quot;next build&quot;,
+    &quot;start&quot;: &quot;next start&quot;,
+    &quot;lint&quot;: &quot;eslint&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;@copilotkit/react-core&quot;: &quot;^1.66.4&quot;,
+    &quot;@copilotkit/react-ui&quot;: &quot;^1.66.4&quot;,
+    &quot;@copilotkit/runtime&quot;: &quot;^1.66.4&quot;,
+    &quot;next&quot;: &quot;16.3.0&quot;,
+    &quot;react&quot;: &quot;19.2.8&quot;,
+    &quot;react-dom&quot;: &quot;19.2.8&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;@tailwindcss/postcss&quot;: &quot;^4&quot;,
+    &quot;@types/node&quot;: &quot;^20&quot;,
+    &quot;@types/react&quot;: &quot;^19&quot;,
+    &quot;@types/react-dom&quot;: &quot;^19&quot;,
+    &quot;eslint&quot;: &quot;^9&quot;,
+    &quot;eslint-config-next&quot;: &quot;16.3.0&quot;,
+    &quot;tailwindcss&quot;: &quot;^4&quot;,
+    &quot;typescript&quot;: &quot;^5&quot;
+  }
+}
+</pre></details><details class="step" open><summary>#23 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; timeout 60 npm run dev 2&gt;&amp;1 &amp;
+sleep 15
+echo &quot;--- Checking if dev server is running ---&quot;
+ps aux | grep -i </code></summary><pre>exit=0
+
+&gt; my-copilot-app@0.1.0 dev
+&gt; next dev
+
+▲ Next.js 16.3.0 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.20.0.46:3000
+- Environments: .env
+✓ Ready in 367ms
+✓ Running next.config.ts took 88ms
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js&#x27; roadmap and prioritize features.
+You can learn more, including how to opt-out if you&#x27;d not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+
+--- Checking if dev server is running ---
+daytona      528  0.0  0.0   2672  1536 ?        SN   10:08   0:00 sh -c next dev
+daytona      529  1.1  0.0 9916564 72796 ?       SNl  10:08   0:00 node /home/daytona/my-copilot-app/node_modules/.bin/next dev
+daytona      541  5.0  0.0 11603672 175632 ?     SNl  10:08   0:00 next-server (v16.3.0)
+--- Checking port 3000 ---
+○ Compiling / ...
+000Failed to connect
+[?25h
+</pre></details><details class="step" open><summary>#24 <b>bash</b> <code>sleep 15
+echo &quot;--- Checking port 3000 again ---&quot;
+curl -s -o /dev/null -w &quot;%{http_code}&quot; http://localhost:3000/ || echo &quot;Failed to connect&quot;
+e</code></summary><pre>exit=1
+--- Checking port 3000 again ---
+000Failed to connect
+
+--- Checking if dev server is still running ---
+</pre></details><details class="step" open><summary>#25 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; nohup npm run dev &gt; /tmp/next-dev.log 2&gt;&amp;1 &amp;
+echo &quot;Started dev server with PID: $!&quot;
+sleep 20
+echo &quot;--- Lo</code></summary><pre>exit=0
+Started dev server with PID: 620
+--- Log so far ---
+
+&gt; my-copilot-app@0.1.0 dev
+&gt; next dev
+
+▲ Next.js 16.3.0 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.20.0.46:3000
+- Environments: .env
+✓ Ready in 361ms
+✓ Running next.config.ts took 45ms
+
+</pre></details><details class="step" open><summary>#26 <b>bash</b> <code>ps aux | grep -i next | grep -v grep
+echo &quot;---&quot;
+sleep 5
+curl -s -o /dev/null -w &quot;%{http_code}&quot; --max-time 10 http://localhost:3000/ || echo </code></summary><pre>exit=0
+daytona      632  0.0  0.0   2672  1536 ?        SN   10:10   0:00 sh -c next dev
+daytona      633  0.6  0.0 9916556 73412 ?       SNl  10:10   0:00 node /home/daytona/my-copilot-app/node_modules/.bin/next dev
+daytona      645  2.9  0.0 11604060 174624 ?     SNl  10:10   0:00 next-server (v16.3.0)
+---
+000Failed to connect
+
+</pre></details><details class="step" open><summary>#27 <b>bash</b> <code>ip addr show | grep &quot;inet &quot;
+echo &quot;---&quot;
+netstat -tlnp 2&gt;/dev/null || ss -tlnp 2&gt;/dev/null || echo &quot;No netstat/ss available&quot;
+</code></summary><pre>exit=0
+    inet 127.0.0.1/8 scope host lo
+    inet 172.20.0.46/16 brd 172.20.255.255 scope global eth0
+---
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp6       0      0 :::33333                :::*                    LISTEN      1/daytona           
+tcp6       0      0 :::22222                :::*                    LISTEN      1/daytona           
+tcp6       0      0 :::22220                :::*                    LISTEN      1/daytona           
+tcp6       0      0 :::3000                 :::*                    LISTEN      645/next-server (v1 
+tcp6       0      0 :::2280                 :::*                    LISTEN      1/daytona           
+</pre></details><details class="step" open><summary>#28 <b>bash</b> <code>curl -s -o /dev/null -w &quot;%{http_code}&quot; --max-time 10 http://[::1]:3000/ || echo &quot;Failed to connect via [::1]&quot;
+curl -s -o /dev/null -w &quot;%{htt</code></summary><pre>exit=0
+zsh: no matches found: http://[::1]:3000/
+Failed to connect via [::1]
+000Failed to connect via 172.20.0.46
+000Failed to connect via 127.0.0.1
+</pre></details><details class="step" open><summary>#29 <b>bash</b> <code>cat /tmp/next-dev.log
+echo &quot;---&quot;
+sleep 10
+cat /tmp/next-dev.log
+echo &quot;---&quot;
+curl -s -o /dev/null -w &quot;%{http_code}&quot; --max-time 15 http://127.0</code></summary><pre>exit=0
+
+&gt; my-copilot-app@0.1.0 dev
+&gt; next dev
+
+▲ Next.js 16.3.0 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.20.0.46:3000
+- Environments: .env
+✓ Ready in 361ms
+✓ Running next.config.ts took 45ms
+
+○ Compiling / ...
+---
+
+&gt; my-copilot-app@0.1.0 dev
+&gt; next dev
+
+▲ Next.js 16.3.0 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.20.0.46:3000
+- Environments: .env
+✓ Ready in 361ms
+✓ Running next.config.ts took 45ms
+
+○ Compiling / ...
+---
+000Failed to connect via 127.0.0.1
+</pre></details><details class="step" open><summary>#30 <b>bash</b> <code>ls /home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/ | head -20
+echo &quot;---&quot;
+ls /home/daytona/my-copilot-app/node_modules/@cop</code></summary><pre>exit=0
+dist
+LICENSE
+package.json
+README.md
+skills
+---
+No v2 directory
+---
+dist
+LICENSE
+node_modules
+package.json
+README.md
+skills
+---
+No v2 directory
+</pre></details><details class="step" open><summary>#31 <b>bash</b> <code>ls /home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/ | head -20
+echo &quot;---&quot;
+ls /home/daytona/my-copilot-app/node_modules</code></summary><pre>exit=0
+copilotkit-CBCT7BlL.d.cts
+copilotkit-CBCT7BlL.d.cts.map
+copilotkit-D0aAnD3i.d.mts
+copilotkit-D0aAnD3i.d.mts.map
+copilotkit-nRjRp2_5.mjs
+copilotkit-nRjRp2_5.mjs.map
+copilotkit-sitn7Oe8.cjs
+copilotkit-sitn7Oe8.cjs.map
+index.cjs
+index.cjs.map
+index.d.cts
+index.d.cts.map
+index.d.mts
+index.d.mts.map
+index.mjs
+index.mjs.map
+index.umd.js
+index.umd.js.map
+v2
+---
+agent
+agents
+channels
+graphql
+index.cjs
+index.d.cts
+index.d.mts
+index.mjs
+langgraph.cjs
+langgraph.d.cts
+langgraph.d.mts
+langgraph.mjs
+lib
+package.cjs
+package.cjs.map
 runtime
-runtime-client-gql
-shared
-web-components
-web-inspector
-</pre></details><details class="step" open><summary>#13 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; cat node_modules/@copilotkit/runtime/package.json | grep version</code></summary><pre>exit=0
-  &quot;version&quot;: &quot;1.66.4&quot;,
-</pre></details><details class="step" open><summary>#14 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; cat node_modules/@copilotkit/runtime/package.json | grep -A 20 &#x27;&quot;exports&quot;&#x27;</code></summary><pre>exit=0
+service-adapters
+utils
+v2
+_virtual
+---
+  &quot;exports&quot;: {
+    &quot;.&quot;: {
+      &quot;import&quot;: &quot;./dist/index.mjs&quot;,
+      &quot;require&quot;: &quot;./dist/index.cjs&quot;
+    },
+    &quot;./v2&quot;: {
+---
+  &quot;exports&quot;: {
+    &quot;.&quot;: {
+      &quot;import&quot;: &quot;./dist/index.mjs&quot;,
+      &quot;require&quot;: &quot;./dist/index.cjs&quot;
+    },
+    &quot;./langgraph&quot;: {
+</pre></details><details class="step" open><summary>#32 <b>bash</b> <code>cat /home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/package.json | grep -A 20 &#x27;&quot;exports&quot;&#x27;
+echo &quot;===&quot;
+cat /home/daytona/my-c</code></summary><pre>exit=0
+  &quot;exports&quot;: {
+    &quot;.&quot;: {
+      &quot;import&quot;: &quot;./dist/index.mjs&quot;,
+      &quot;require&quot;: &quot;./dist/index.cjs&quot;
+    },
+    &quot;./v2&quot;: {
+      &quot;import&quot;: &quot;./dist/v2/index.mjs&quot;,
+      &quot;require&quot;: &quot;./dist/v2/index.cjs&quot;
+    },
+    &quot;./package.json&quot;: &quot;./package.json&quot;,
+    &quot;./v2/context&quot;: {
+      &quot;import&quot;: &quot;./dist/v2/context.mjs&quot;,
+      &quot;require&quot;: &quot;./dist/v2/context.cjs&quot;
+    },
+    &quot;./v2/headless&quot;: {
+      &quot;import&quot;: &quot;./dist/v2/headless.mjs&quot;,
+      &quot;require&quot;: &quot;./dist/v2/headless.cjs&quot;
+    },
+    &quot;./v2/styles.css&quot;: &quot;./dist/v2/index.css&quot;
+  },
+  &quot;publishConfig&quot;: {
+===
   &quot;exports&quot;: {
     &quot;.&quot;: {
       &quot;import&quot;: &quot;./dist/index.mjs&quot;,
@@ -372,125 +621,98 @@ web-inspector
       &quot;import&quot;: &quot;./dist/v2/hono.mjs&quot;,
       &quot;require&quot;: &quot;./dist/v2/hono.cjs&quot;
     },
-</pre></details><details class="step" open><summary>#15 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; grep -r &quot;BuiltInAgent&quot; node_modules/@copilotkit/runtime/dist/v2/ | head -20</code></summary><pre>exit=0
-node_modules/@copilotkit/runtime/dist/v2/runtime/handlers/shared/agent-utils.cjs:* `BuiltInAgent`).
-node_modules/@copilotkit/runtime/dist/v2/runtime/handlers/shared/agent-utils.cjs.map:{&quot;version&quot;:3,&quot;file&quot;:&quot;agent-utils.cjs&quot;,&quot;names&quot;:[&quot;resolveAgents&quot;,&quot;isA2UIEnabled&quot;,&quot;A2UIMiddleware&quot;,&quot;resolveMcpAppsServers&quot;,&quot;MCPAppsMiddleware&quot;,&quot;OpenGenerativeUIMiddleware&quot;,&quot;mergeForwardableHeaders&quot;,&quot;resolveForwardHeadersPolicy&quot;,&quot;isIntelligenceRuntime&quot;,&quot;errorResponse&quot;,&quot;resolveIntelligenceUser&quot;,&quot;resolveWebMemory&quot;,&quot;MCPMiddleware&quot;,&quot;INTELLIGENCE_USER_ID_HEADER&quot;,&quot;INTELLIGENCE_MEMORY_GRANT_HEADER&quot;,&quot;RunAgentInputSchema&quot;],&quot;sources&quot;:[&quot;../../../../../src/v2/runtime/handlers/shared/agent-utils.ts&quot;],&quot;sourcesContent&quot;:[&quot;import type { AbstractAgent, RunAgentInput } from \&quot;@ag-ui/client\&quot;;\nimport { RunAgentInputSchema } from \&quot;@ag-ui/client\&quot;;\nimport { A2UIMiddleware } from \&quot;@ag-ui/a2ui-middleware\&quot;;\nimport { MCPAppsMiddleware } from \&quot;@ag-ui/mcp-apps-middleware\&quot;;\nimport { MCPMiddleware } from \&quot;@ag-ui/mcp-middleware\&quot;;\nimport type { CopilotRuntimeLike } from \&quot;../../core/runtime\&quot;;\nimport {\n  isA2UIEnabled,\n  isIntelligenceRuntime,\n  resolveAgents,\n} from \&quot;../../core/runtime\&quot;;\nimport { OpenGenerativeUIMiddleware } from \&quot;../../open-generative-ui-middleware\&quot;;\nimport {\n  INTELLIGENCE_MEMORY_GRANT_HEADER,\n  INTELLIGENCE_USER_ID_HEADER,\n} from \&quot;../../intelligence-platform/client\&quot;;\nimport {\n  mergeForwardableHeaders,\n  resolveForwardHeadersPolicy,\n} from \&quot;../header-utils\&quot;;\nimport { resolveMcpAppsServers } from \&quot;./mcp-apps-servers\&quot;;\nimport { resolveIntelligenceUser } from \&quot;./resolve-intelligence-user\&quot;;\nimport { resolveWebMemory } from \&quot;./memory-policy\&quot;;\nimport { errorResponse } from \&quot;./json-response\&quot;;\nimport { logger } from \&quot;@copilotkit/shared\&quot;;\n\ntype MiddlewareCapableAgent = AbstractAgent &amp; {\n  use?: (middleware: unknown) =&gt; void;\n  headers?: Record&lt;string, string&gt;;\n};\n\nexport interface RunAgentParameters {\n  request: Request;\n  runtime: CopilotRuntimeLike;\n  agentId: string;\n}\n\nexport interface ConnectRequestBody extends RunAgentInput {\n  lastSeenEventId?: string | null;\n}\n\n/**\n * Resolve `agentId` against the runtime&#x27;s agents and return a per-request\n * clone of the matching agent.\n *\n * Dual return contract — both callers (`handle-run.ts`, `handle-connect.ts`)\n * depend on it:\n * - Returns a cloned `AbstractAgent` when the agent exists.\n * - Returns a 404 `Response` (`{ error: \&quot;Agent not found\&quot;, ... }`) when the\n *   agent is unknown. Callers MUST `instanceof Response`-check the result and\n *   return it directly; this doubles as the connect/run path&#x27;s agent-existence\n *   guard, so skipping the check would let unknown agent ids slip through.\n *\n * The clone is what subsequent per-request mutation (middleware attach,\n * `agent.headers` merge) operates on, leaving the shared agent registration\n * untouched.\n */\nexport async function cloneAgentForRequest(\n  runtime: CopilotRuntimeLike,\n  agentId: string,\n  request?: Request,\n): Promise&lt;AbstractAgent | Response&gt; {\n  const agents = await resolveAgents(runtime.agents, request);\n\n  if (!agents[agentId]) {\n    return new Response(\n      JSON.stringify({\n        error: \&quot;Agent not found\&quot;,\n        message: `Agent &#x27;${agentId}&#x27; does not exist`,\n      }),\n      {\n        status: 404,\n        headers: { \&quot;Content-Type\&quot;: \&quot;application/json\&quot; },\n      },\n    );\n  }\n\n  return (agents[agentId] as AbstractAgent).clone() as AbstractAgent;\n}\n\nexport function configureAgentForRequest(params: {\n  runtime: CopilotRuntimeLike;\n  request: Request;\n  agentId: string;\n  agent: AbstractAgent;\n  /**\n   * True when the React provider was given an A2UI catalog\n   * (`&lt;CopilotKit a2ui={{ catalog }}&gt;`), forwarded per-run. A catalog alone is\n   * enough to enable A2UI and inject the render tool — the developer no longer\n   * has to also set `a2ui.injectA2UITool` on the runtime.\n   */\n  providerA2UIHasCatalog?: boolean;\n}): void {\n  const { runtime, request, agentId, providerA2UIHasCatalog } = params;\n  const agent = params.agent as MiddlewareCapableAgent;\n\n  // A2UI is on when the runtime explicitly enables it, OR when the provider\n  // forwarded a catalog — but an explicit `enabled: false` always wins (we\n  // provide a quick default, never override a deeper opt-out).\n  const a2uiEnabledByCatalog =\n    !!providerA2UIHasCatalog &amp;&amp; runtime.a2ui?.enabled !== false;\n\n  if (isA2UIEnabled(runtime.a2ui) || a2uiEnabledByCatalog) {\n    // `enabled` is a CopilotKit-level switch, not an A2UIMiddleware option —\n    // drop it (alongside the agent filter) before forwarding to the middleware.\n    const {\n      agents: targetAgents,\n      enabled: _enabled,\n      injectA2UITool,\n      ...a2uiOptions\n    } = runtime.a2ui ?? {};\n    const shouldApply = !targetAgents || targetAgents.includes(agentId);\n    if (shouldApply &amp;&amp; typeof agent.use === \&quot;function\&quot;) {\n      agent.use(\n        new A2UIMiddleware({\n          ...a2uiOptions,\n          // Default render-tool injection on when a catalog is present and the\n          // developer hasn&#x27;t set it explicitly. `??` means an explicit value\n          // (including `false`) is always respected.\n          injectA2UITool:\n            injectA2UITool ?? (providerA2UIHasCatalog ? true : undefined),\n        }),\n      );\n    }\n  }\n\n  if (runtime.mcpApps?.servers?.length) {\n    const mcpServers = resolveMcpAppsServers(runtime.mcpApps.servers, agentId);\n\n    if (mcpServers.length &gt; 0 &amp;&amp; typeof agent.use === \&quot;function\&quot;) {\n      agent.use(new MCPAppsMiddleware({ mcpServers }));\n    }\n  }\n\n  if (runtime.openGenerativeUI) {\n    const config = runtime.openGenerativeUI;\n    const targetAgents = typeof config === \&quot;object\&quot; ? config.agents : undefined;\n    const shouldApply = !targetAgents || targetAgents.includes(agentId);\n    if (shouldApply &amp;&amp; typeof agent.use === \&quot;function\&quot;) {\n      agent.use(new OpenGenerativeUIMiddleware()</pre></details><details class="step" open><summary>#16 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; grep -r &quot;export.*BuiltInAgent&quot; node_modules/@copilotkit/runtime/dist/v2/ | head -20</code></summary><pre>exit=0
-node_modules/@copilotkit/runtime/dist/v2/runtime/handlers/shared/agent-utils.cjs.map:{&quot;version&quot;:3,&quot;file&quot;:&quot;agent-utils.cjs&quot;,&quot;names&quot;:[&quot;resolveAgents&quot;,&quot;isA2UIEnabled&quot;,&quot;A2UIMiddleware&quot;,&quot;resolveMcpAppsServers&quot;,&quot;MCPAppsMiddleware&quot;,&quot;OpenGenerativeUIMiddleware&quot;,&quot;mergeForwardableHeaders&quot;,&quot;resolveForwardHeadersPolicy&quot;,&quot;isIntelligenceRuntime&quot;,&quot;errorResponse&quot;,&quot;resolveIntelligenceUser&quot;,&quot;resolveWebMemory&quot;,&quot;MCPMiddleware&quot;,&quot;INTELLIGENCE_USER_ID_HEADER&quot;,&quot;INTELLIGENCE_MEMORY_GRANT_HEADER&quot;,&quot;RunAgentInputSchema&quot;],&quot;sources&quot;:[&quot;../../../../../src/v2/runtime/handlers/shared/agent-utils.ts&quot;],&quot;sourcesContent&quot;:[&quot;import type { AbstractAgent, RunAgentInput } from \&quot;@ag-ui/client\&quot;;\nimport { RunAgentInputSchema } from \&quot;@ag-ui/client\&quot;;\nimport { A2UIMiddleware } from \&quot;@ag-ui/a2ui-middleware\&quot;;\nimport { MCPAppsMiddleware } from \&quot;@ag-ui/mcp-apps-middleware\&quot;;\nimport { MCPMiddleware } from \&quot;@ag-ui/mcp-middleware\&quot;;\nimport type { CopilotRuntimeLike } from \&quot;../../core/runtime\&quot;;\nimport {\n  isA2UIEnabled,\n  isIntelligenceRuntime,\n  resolveAgents,\n} from \&quot;../../core/runtime\&quot;;\nimport { OpenGenerativeUIMiddleware } from \&quot;../../open-generative-ui-middleware\&quot;;\nimport {\n  INTELLIGENCE_MEMORY_GRANT_HEADER,\n  INTELLIGENCE_USER_ID_HEADER,\n} from \&quot;../../intelligence-platform/client\&quot;;\nimport {\n  mergeForwardableHeaders,\n  resolveForwardHeadersPolicy,\n} from \&quot;../header-utils\&quot;;\nimport { resolveMcpAppsServers } from \&quot;./mcp-apps-servers\&quot;;\nimport { resolveIntelligenceUser } from \&quot;./resolve-intelligence-user\&quot;;\nimport { resolveWebMemory } from \&quot;./memory-policy\&quot;;\nimport { errorResponse } from \&quot;./json-response\&quot;;\nimport { logger } from \&quot;@copilotkit/shared\&quot;;\n\ntype MiddlewareCapableAgent = AbstractAgent &amp; {\n  use?: (middleware: unknown) =&gt; void;\n  headers?: Record&lt;string, string&gt;;\n};\n\nexport interface RunAgentParameters {\n  request: Request;\n  runtime: CopilotRuntimeLike;\n  agentId: string;\n}\n\nexport interface ConnectRequestBody extends RunAgentInput {\n  lastSeenEventId?: string | null;\n}\n\n/**\n * Resolve `agentId` against the runtime&#x27;s agents and return a per-request\n * clone of the matching agent.\n *\n * Dual return contract — both callers (`handle-run.ts`, `handle-connect.ts`)\n * depend on it:\n * - Returns a cloned `AbstractAgent` when the agent exists.\n * - Returns a 404 `Response` (`{ error: \&quot;Agent not found\&quot;, ... }`) when the\n *   agent is unknown. Callers MUST `instanceof Response`-check the result and\n *   return it directly; this doubles as the connect/run path&#x27;s agent-existence\n *   guard, so skipping the check would let unknown agent ids slip through.\n *\n * The clone is what subsequent per-request mutation (middleware attach,\n * `agent.headers` merge) operates on, leaving the shared agent registration\n * untouched.\n */\nexport async function cloneAgentForRequest(\n  runtime: CopilotRuntimeLike,\n  agentId: string,\n  request?: Request,\n): Promise&lt;AbstractAgent | Response&gt; {\n  const agents = await resolveAgents(runtime.agents, request);\n\n  if (!agents[agentId]) {\n    return new Response(\n      JSON.stringify({\n        error: \&quot;Agent not found\&quot;,\n        message: `Agent &#x27;${agentId}&#x27; does not exist`,\n      }),\n      {\n        status: 404,\n        headers: { \&quot;Content-Type\&quot;: \&quot;application/json\&quot; },\n      },\n    );\n  }\n\n  return (agents[agentId] as AbstractAgent).clone() as AbstractAgent;\n}\n\nexport function configureAgentForRequest(params: {\n  runtime: CopilotRuntimeLike;\n  request: Request;\n  agentId: string;\n  agent: AbstractAgent;\n  /**\n   * True when the React provider was given an A2UI catalog\n   * (`&lt;CopilotKit a2ui={{ catalog }}&gt;`), forwarded per-run. A catalog alone is\n   * enough to enable A2UI and inject the render tool — the developer no longer\n   * has to also set `a2ui.injectA2UITool` on the runtime.\n   */\n  providerA2UIHasCatalog?: boolean;\n}): void {\n  const { runtime, request, agentId, providerA2UIHasCatalog } = params;\n  const agent = params.agent as MiddlewareCapableAgent;\n\n  // A2UI is on when the runtime explicitly enables it, OR when the provider\n  // forwarded a catalog — but an explicit `enabled: false` always wins (we\n  // provide a quick default, never override a deeper opt-out).\n  const a2uiEnabledByCatalog =\n    !!providerA2UIHasCatalog &amp;&amp; runtime.a2ui?.enabled !== false;\n\n  if (isA2UIEnabled(runtime.a2ui) || a2uiEnabledByCatalog) {\n    // `enabled` is a CopilotKit-level switch, not an A2UIMiddleware option —\n    // drop it (alongside the agent filter) before forwarding to the middleware.\n    const {\n      agents: targetAgents,\n      enabled: _enabled,\n      injectA2UITool,\n      ...a2uiOptions\n    } = runtime.a2ui ?? {};\n    const shouldApply = !targetAgents || targetAgents.includes(agentId);\n    if (shouldApply &amp;&amp; typeof agent.use === \&quot;function\&quot;) {\n      agent.use(\n        new A2UIMiddleware({\n          ...a2uiOptions,\n          // Default render-tool injection on when a catalog is present and the\n          // developer hasn&#x27;t set it explicitly. `??` means an explicit value\n          // (including `false`) is always respected.\n          injectA2UITool:\n            injectA2UITool ?? (providerA2UIHasCatalog ? true : undefined),\n        }),\n      );\n    }\n  }\n\n  if (runtime.mcpApps?.servers?.length) {\n    const mcpServers = resolveMcpAppsServers(runtime.mcpApps.servers, agentId);\n\n    if (mcpServers.length &gt; 0 &amp;&amp; typeof agent.use === \&quot;function\&quot;) {\n      agent.use(new MCPAppsMiddleware({ mcpServers }));\n    }\n  }\n\n  if (runtime.openGenerativeUI) {\n    const config = runtime.openGenerativeUI;\n    const targetAgents = typeof config === \&quot;object\&quot; ? config.agents : undefined;\n    const shouldApply = !targetAgents || targetAgents.includes(agentId);\n    if (shouldApply &amp;&amp; typeof agent.use === \&quot;function\&quot;) {\n      agent.use(new OpenGenerativeUIMiddleware());\n    }\n  }\n\n  // Forward eligible inbound headers onto the outgoing agent call under the\n  //</pre></details><details class="step" open><summary>#17 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; grep -r &quot;BuiltInAgent&quot; node_modules/@copilotkit/runtime/dist/ | grep -v &quot;.map&quot; | head -30</code></summary><pre>exit=0
-node_modules/@copilotkit/runtime/dist/v2/runtime/handlers/shared/agent-utils.cjs:* `BuiltInAgent`).
-node_modules/@copilotkit/runtime/dist/v2/runtime/handlers/shared/agent-utils.mjs:* `BuiltInAgent`).
-node_modules/@copilotkit/runtime/dist/v2/runtime/endpoints/express-single.cjs:*   agents: { default: new BuiltInAgent({ model: &quot;openai/gpt-4o-mini&quot; }) },
-node_modules/@copilotkit/runtime/dist/v2/runtime/endpoints/express-single.d.cts: *   agents: { default: new BuiltInAgent({ model: &quot;openai/gpt-4o-mini&quot; }) },
-node_modules/@copilotkit/runtime/dist/v2/runtime/endpoints/express-single.mjs:*   agents: { default: new BuiltInAgent({ model: &quot;openai/gpt-4o-mini&quot; }) },
-node_modules/@copilotkit/runtime/dist/v2/runtime/endpoints/express-single.d.mts: *   agents: { default: new BuiltInAgent({ model: &quot;openai/gpt-4o-mini&quot; }) },
-node_modules/@copilotkit/runtime/dist/v2/index.cjs:exports.BuiltInAgent = require_index.BuiltInAgent;
-node_modules/@copilotkit/runtime/dist/v2/index.d.cts:import { BasicAgent, BasicAgentConfiguration, BuiltInAgent, BuiltInAgentAISDKFactoryConfig, BuiltInAgentClassicConfig, BuiltInAgentConfiguration, BuiltInAgentCustomFactoryConfig, BuiltInAgentFactoryConfig, BuiltInAgentModel, BuiltInAgentTanStackFactoryConfig, InterruptSignal, MCPClientConfig, MCPClientConfigHTTP, MCPClientConfigSSE, MCPClientProvider, MessageConversionOptions, ModelSpecifier, OverridableProperty, ToolDefinition, convertJsonSchemaToZodSchema, convertMessagesToVercelAISDKMessages, convertToolDefinitionsToVercelAITools, convertToolsToVercelAITools, defineTool, resolveModel } from &quot;../agent/index.cjs&quot;;
-node_modules/@copilotkit/runtime/dist/v2/index.d.cts:export { type AgentFactoryContext, AgentRunner, AgentRunnerConnectRequest, AgentRunnerIsRunningRequest, AgentRunnerRunRequest, AgentRunnerStopRequest, AgentsConfig, AgentsFactory, BasicAgent, BasicAgentConfiguration, BuiltInAgent, BuiltInAgentAISDKFactoryConfig, BuiltInAgentClassicConfig, BuiltInAgentConfiguration, BuiltInAgentCustomFactoryConfig, BuiltInAgentFactoryConfig, BuiltInAgentModel, BuiltInAgentTanStackFactoryConfig, ChannelStatus, ChannelsControl, CopilotCorsConfig, CopilotEndpointCorsConfig, CopilotExpressEndpointParams, CopilotExpressRouter, CopilotHonoApp, CopilotIntelligenceRuntime, CopilotIntelligenceRuntimeLike, CopilotIntelligenceRuntimeOptions, CopilotKitIntelligence, CopilotKitIntelligenceConfig, CopilotKitRequestHandler, CopilotRuntime, CopilotRuntimeConstructor, CopilotRuntimeFetchHandler, CopilotRuntimeFetchHandlerWithChannels, CopilotRuntimeHandlerOptions, CopilotRuntimeHooks, CopilotRuntimeLike, CopilotRuntimeMemoryConfig, CopilotRuntimeOptions, CopilotRuntimeUser, CopilotSseRuntime, CopilotSseRuntimeLike, CopilotSseRuntimeOptions, CreateThreadRequest, ErrorHookContext, HandlerHookContext, HookContext, IdentifyUserCallback, InMemoryAgentRunner, InMemoryAgentRunnerOptions, InMemoryLimits, InMemoryThread, IntelligenceAgentRunner, IntelligenceAgentRunnerOptions, InterruptSignal, ListThreadsResponse, LocalThreadEndpointRecord, LocalThreadEndpointRunner, MCPClient, MCPClientConfig, MCPClientConfigHTTP, MCPClientConfigSSE, MCPClientProvider, MCPTransport, McpAppsConfig, McpAppsServerConfig, MemoryAccess, MemoryConsumer, MemoryGrant, MessageConversionOptions, ModelSpecifier, OpenGenerativeUIConfig, OpenGenerativeUIOptions, OverridableProperty, ResponseHookContext, RouteInfo, RunnerStartupBoundary, RuntimeWithDeclaredChannels, SubscribeToThreadsRequest, SubscribeToThreadsResponse, TanStackChatMessage, TanStackInputResult, ThreadSummary, ToolDefinition, TranscribeFileOptions, TranscriptionService, UpdateThreadRequest, VERSION, convertAISDKStream, convertInputToTanStackAI, convertJsonSchemaToZodSchema, convertMessagesToVercelAISDKMessages, convertTanStackStream, convertToolDefinitionsToVercelAITools, convertToolsToVercelAITools, createCopilotEndpoint, createCopilotExpressHandler as createCopilotEndpointExpress, createCopilotExpressHandler, createCopilotEndpointSingleRoute, createCopilotEndpointSingleRouteExpress, createCopilotHonoHandler, createCopilotRuntimeHandler, defineTool, finalizeRunEvents, isA2UIEnabled, isIntelligenceRuntime, resolveAgents, resolveModel, supportsLocalThreadEndpoints, toFetchCorsConfig, ɵBoundedThreadStore, ɵGLOBAL_STORE, ɵINMEMORY_DEFAULTS, ɵestimateBytes, ɵnormalizeLimits };
-node_modules/@copilotkit/runtime/dist/v2/index.mjs:import { BasicAgent, BuiltInAgent, InterruptSignal, convertJsonSchemaToZodSchema, convertMessagesToVercelAISDKMessages, convertToolDefinitionsToVercelAITools, convertToolsToVercelAITools, defineTool, resolveModel } from &quot;../agent/index.mjs&quot;;
-node_modules/@copilotkit/runtime/dist/v2/index.mjs:export { AgentRunner, BasicAgent, BuiltInAgent, CopilotIntelligenceRuntime, CopilotKitIntelligence, CopilotRuntime, CopilotSseRuntime, InMemoryAgentRunner, IntelligenceAgentRunner, InterruptSignal, TranscriptionService, VERSION, convertAISDKStream, convertInputToTanStackAI, convertJsonSchemaToZodSchema, convertMessagesToVercelAISDKMessages, convertTanStackStream, convertToolDefinitionsToVercelAITools, convertToolsToVercelAITools, createCopilotEndpoint, createCopilotExpressHandler as createCopilotEndpointExpress, createCopilotExpressHandler, createCopilotEndpointSingleRoute, createCopilotEndpointSingleRouteExpress, createCopilotHonoHandler, createCopilotRuntimeHandler, defineTool, finalizeRunEvents, isA2UIEnabled, isIntelligenceRuntime, resolveAgents, resolveModel, supportsLocalThreadEndpoints, toFetchCorsConfig, ɵBoundedThreadStore, ɵGLOBAL_STORE, ɵINMEMORY_DEFAULTS, ɵestimateBytes, ɵnormalizeLimits };
-node_modules/@copilotkit/runtime/dist/v2/index.d.mts:import { BasicAgent, BasicAgentConfiguration, BuiltInAgent, BuiltInAgentAISDKFactoryConfig, BuiltInAgentClassicConfig, BuiltInAgentConfiguration, BuiltInAgentCustomFactoryConfig, BuiltInAgentFactoryConfig, BuiltInAgentModel, BuiltInAgentTanStackFactoryConfig, InterruptSignal, MCPClientConfig, MCPClientConfigHTTP, MCPClientConfigSSE, MCPClientProvider, MessageCo</pre></details><details class="step" open><summary>#18 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; grep -r &quot;CopilotKit&quot; node_modules/@copilotkit/react-core/dist/ | grep &quot;export&quot; | head -20</code></summary><pre>exit=0
-node_modules/@copilotkit/react-core/dist/v2/context.cjs:exports.CopilotKitContext = CopilotKitContext;
-node_modules/@copilotkit/react-core/dist/v2/context.cjs:exports.CopilotKitCoreReact = CopilotKitCoreReact;
-node_modules/@copilotkit/react-core/dist/v2/context.cjs:exports.useCopilotKit = useCopilotKit;
-node_modules/@copilotkit/react-core/dist/v2/headless.cjs:Object.defineProperty(exports, &#x27;CopilotKitCoreReact&#x27;, {
-node_modules/@copilotkit/react-core/dist/v2/headless.cjs:Object.defineProperty(exports, &#x27;useCopilotKit&#x27;, {
-node_modules/@copilotkit/react-core/dist/v2/index.cjs:exports.CopilotKit = require_copilotkit.CopilotKit;
-node_modules/@copilotkit/react-core/dist/v2/index.cjs:exports.CopilotKitCoreReact = require_copilotkit.CopilotKitCoreReact;
-node_modules/@copilotkit/react-core/dist/v2/index.cjs:exports.CopilotKitInspector = require_copilotkit.CopilotKitInspector;
-node_modules/@copilotkit/react-core/dist/v2/index.cjs:exports.CopilotKitProvider = require_copilotkit.CopilotKitProvider;
-node_modules/@copilotkit/react-core/dist/v2/index.cjs:exports.useCopilotKit = require_copilotkit.useCopilotKit;
-node_modules/@copilotkit/react-core/dist/v2/context.d.cts:export { CopilotKitContext, CopilotKitContextValue, CopilotKitCoreReact, type CopilotKitCoreReactConfig, EMPTY_SET, LicenseContext, useCopilotKit, useLicenseContext };
-node_modules/@copilotkit/react-core/dist/v2/headless.d.cts:export { type AgentContextInput, CopilotChatConfigurationProvider, type CopilotChatConfigurationProviderProps, type CopilotChatConfigurationValue, CopilotChatDefaultLabels, type CopilotChatLabels, CopilotKitCoreReact, type CopilotKitCoreReactConfig, type Interrupt, type InterruptEvent, type InterruptHandlerProps, type InterruptRenderProps, type JsonSerializable, type ReactFrontendTool, type ReactHumanInTheLoop, type RenderToolCompleteProps, type RenderToolExecutingProps, type RenderToolInProgressProps, type RenderToolProps, type ResumeEntry, type ResumeStatus, type Thread, UseAgentUpdate, type UseInterruptConfig, type UseThreadsInput, type UseThreadsResult, defineToolCallRenderer, useAgent, useAgentContext, useCapabilities, useComponent, useConfigureSuggestions, useCopilotChatConfiguration, useCopilotKit, useFrontendTool, useHumanInTheLoop, useInterrupt, useRenderTool, useRenderToolCall, useSuggestions, useThreads };
-node_modules/@copilotkit/react-core/dist/v2/index.d.cts:export { type A2UIActionInterceptor, type A2UIMessageRendererOptions, type A2UIRecoveryRendererOptions, type A2UITheme, type A2UIUserAction, AgentContextInput, Attachment, AttachmentModality, AttachmentsConfig, AudioRecorderError, AudioRecorderState, AutoScrollMode, CopilotChat, CopilotChatAssistantMessage, CopilotChatAssistantMessageProps, CopilotChatAttachmentQueue, CopilotChatAttachmentRenderer, CopilotChatAudioRecorder, CopilotChatConfigurationProvider, CopilotChatConfigurationProviderProps, CopilotChatConfigurationValue, CopilotChatInput, CopilotChatInputProps, CopilotChatLabels, CopilotChatMessageView, CopilotChatMessageViewProps, CopilotChatProps, CopilotChatReasoningMessage, CopilotChatReasoningMessageProps, CopilotChatSuggestionPill, CopilotChatSuggestionPillProps, CopilotChatSuggestionView, CopilotChatSuggestionViewProps, CopilotChatToggleButton, DefaultCloseIcon as CopilotChatToggleButtonCloseIcon, DefaultOpenIcon as CopilotChatToggleButtonOpenIcon, CopilotChatToggleButtonProps, CopilotChatToolCallsView, CopilotChatToolCallsViewProps, CopilotChatUserMessage, CopilotChatUserMessageProps, CopilotChatView, CopilotChatViewProps, CopilotKit, CopilotKitContextValue, CopilotKitCoreReact, CopilotKitCoreReactConfig, CopilotKitCoreReactSubscriber, CopilotKitInspector, CopilotKitInspectorProps, type CopilotKitProps, CopilotKitProvider, CopilotKitProviderProps, CopilotModalHeader, CopilotModalHeaderProps, CopilotPopup, CopilotPopupProps, CopilotPopupView, CopilotPopupViewProps, CopilotSidebar, CopilotSidebarProps, CopilotSidebarView, CopilotSidebarViewProps, CopilotThreadsDrawer, CopilotThreadsDrawerProps, CopilotThreadsDrawerRowRenderer, GenerateSandboxedUiArgs, GenerateSandboxedUiArgsSchema, INTELLIGENCE_TURN_HEAD, InspectorAnchor, IntelligenceIndicator, IntelligenceIndicatorProps, IntelligenceIndicatorStatus, IntelligenceIndicatorView, IntelligenceIndicatorViewProps, Interrupt, InterruptCancelFn, InterruptEvent, InterruptHandlerProps, InterruptRenderProps, InterruptResolveFn, JsonSerializable, LearnFromUserActionInCurrentThreadInput, LearnFromUserActionInput, LearnFromUserActionResult, MCPAppsActivityContent, MCPAppsActivityContentSchema, MCPAppsActivityRenderer, MCPAppsActivityType, Memory, MemoryChanges, MemoryKind, MemoryScope, NewMemory, OpenGenerativeUIActivityRenderer, OpenGenerativeUIActivityType, OpenGenerativeUIContent, OpenGenerativeUIContentSchema, OpenGenerativeUIToolRenderer, ReactActivityMessageRenderer, ReactCustomMessageRenderer, ReactCustomMessageRendererPosition, ReactFrontendTool, ReactHumanInTheLoop, ReactToolCallRenderer, ResumeEntry, SandboxFunction, SandboxFunctionsContext, Thread, ToolsMenuItem, UseAgentUpdate, UseAttachmentsProps, UseAttachmentsReturn, UseInterruptConfig, UseLearnFromUserActionInCurrentThreadRecorder, UseLearnFromUserActionRecorder, UseLearningContainersArgs, UseLearningContainersInCurrentThreadArgs, UseMemoriesResult, UseThreadsInput, UseThreadsResult, WildcardToolCallRender, a2uiDefaultTheme, createA2UIMessageRenderer, defineToolCallRenderer, getIntelligenceTurnAnchors, useAgent, useAgentContext, useAttachments, useCapabilities, useComponent, useConfigureSuggestions, useCopilotChatConfiguration, useCopilotKit, useDefaultRenderTool, useFrontendTool, useHumanInTheLoop, useInterrupt, useLearnFromUserAction, useLearnFromUserActionInCurrentThread, useLearningContainers, useLearningContainersInCurrentThread, useMemories, useRenderActivityMessage, useRenderCustomMessages, useRenderTool, useRenderToolCall, useSandboxFunctions, useSuggestions, useThreads, ɵMcpFollowUpHost, ɵrunMcpFollowUp };
-node_modules/@</pre></details><details class="step" open><summary>#19 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; grep -r &quot;copilotRuntimeNextJSAppRouterEndpoint&quot; node_modules/@copilotkit/runtime/dist/ | grep &quot;export&quot; | </code></summary><pre>exit=0
-node_modules/@copilotkit/runtime/dist/lib/integrations/nextjs/app-router.cjs:exports.copilotRuntimeNextJSAppRouterEndpoint = copilotRuntimeNextJSAppRouterEndpoint;
-node_modules/@copilotkit/runtime/dist/lib/integrations/nextjs/app-router.d.cts:export { copilotRuntimeNextJSAppRouterEndpoint };
-node_modules/@copilotkit/runtime/dist/lib/integrations/nextjs/app-router.cjs.map:{&quot;version&quot;:3,&quot;file&quot;:&quot;app-router.cjs&quot;,&quot;names&quot;:[&quot;getCommonConfig&quot;,&quot;getRuntimeInstanceTelemetryInfo&quot;,&quot;createCopilotEndpointSingleRoute&quot;],&quot;sources&quot;:[&quot;../../../../src/lib/integrations/nextjs/app-router.ts&quot;],&quot;sourcesContent&quot;:[&quot;import { createCopilotEndpointSingleRoute } from \&quot;../../../v2/runtime\&quot;;\nimport { CreateCopilotRuntimeServerOptions, getCommonConfig } from \&quot;../shared\&quot;;\nimport telemetry, {\n  getRuntimeInstanceTelemetryInfo,\n} from \&quot;../../telemetry-client\&quot;;\nimport { handle } from \&quot;hono/vercel\&quot;;\n\nexport function copilotRuntimeNextJSAppRouterEndpoint(\n  options: CreateCopilotRuntimeServerOptions,\n) {\n  const commonConfig = getCommonConfig(options);\n\n  telemetry.setGlobalProperties({\n    runtime: {\n      framework: \&quot;nextjs-app-router\&quot;,\n    },\n  });\n\n  if (options.properties?._copilotkit) {\n    telemetry.setGlobalProperties({\n      _copilotkit: options.properties._copilotkit,\n    });\n  }\n\n  telemetry.capture(\n    \&quot;oss.runtime.instance_created\&quot;,\n    getRuntimeInstanceTelemetryInfo(options),\n  );\n\n  const logger = commonConfig.logging;\n  logger.debug(\&quot;Creating NextJS App Router endpoint\&quot;);\n\n  const serviceAdapter = options.serviceAdapter;\n  if (serviceAdapter) {\n    options.runtime.handleServiceAdapter(serviceAdapter);\n  }\n\n  // Note: cors option requires @copilotkit/runtime with credentials support\n  const copilotRoute = createCopilotEndpointSingleRoute({\n    runtime: options.runtime.instance,\n    basePath: options.baseUrl ?? options.endpoint,\n    ...(options.cors &amp;&amp; { cors: options.cors }),\n  } as any);\n\n  const handleRequest = handle(copilotRoute as any);\n  return { handleRequest };\n}\n&quot;],&quot;mappings&quot;:&quot;;;;;;;;;AAOA,SAAgB,sCACd,SACA;CACA,MAAM,eAAeA,+BAAgB,QAAQ;AAE7C,kCAAU,oBAAoB,EAC5B,SAAS,EACP,WAAW,qBACZ,EACF,CAAC;AAEF,KAAI,QAAQ,YAAY,YACtB,kCAAU,oBAAoB,EAC5B,aAAa,QAAQ,WAAW,aACjC,CAAC;AAGJ,kCAAU,QACR,gCACAC,yDAAgC,QAAQ,CACzC;AAGD,CADe,aAAa,QACrB,MAAM,sCAAsC;CAEnD,MAAM,iBAAiB,QAAQ;AAC/B,KAAI,eACF,SAAQ,QAAQ,qBAAqB,eAAe;AAWtD,QAAO,EAAE,uCAPYC,qDAAiC;EACpD,SAAS,QAAQ,QAAQ;EACzB,UAAU,QAAQ,WAAW,QAAQ;EACrC,GAAI,QAAQ,QAAQ,EAAE,MAAM,QAAQ,MAAM;EAC3C,CAAQ,CAEwC,EACzB&quot;}
-node_modules/@copilotkit/runtime/dist/lib/integrations/nextjs/app-router.mjs.map:{&quot;version&quot;:3,&quot;file&quot;:&quot;app-router.mjs&quot;,&quot;names&quot;:[],&quot;sources&quot;:[&quot;../../../../src/lib/integrations/nextjs/app-router.ts&quot;],&quot;sourcesContent&quot;:[&quot;import { createCopilotEndpointSingleRoute } from \&quot;../../../v2/runtime\&quot;;\nimport { CreateCopilotRuntimeServerOptions, getCommonConfig } from \&quot;../shared\&quot;;\nimport telemetry, {\n  getRuntimeInstanceTelemetryInfo,\n} from \&quot;../../telemetry-client\&quot;;\nimport { handle } from \&quot;hono/vercel\&quot;;\n\nexport function copilotRuntimeNextJSAppRouterEndpoint(\n  options: CreateCopilotRuntimeServerOptions,\n) {\n  const commonConfig = getCommonConfig(options);\n\n  telemetry.setGlobalProperties({\n    runtime: {\n      framework: \&quot;nextjs-app-router\&quot;,\n    },\n  });\n\n  if (options.properties?._copilotkit) {\n    telemetry.setGlobalProperties({\n      _copilotkit: options.properties._copilotkit,\n    });\n  }\n\n  telemetry.capture(\n    \&quot;oss.runtime.instance_created\&quot;,\n    getRuntimeInstanceTelemetryInfo(options),\n  );\n\n  const logger = commonConfig.logging;\n  logger.debug(\&quot;Creating NextJS App Router endpoint\&quot;);\n\n  const serviceAdapter = options.serviceAdapter;\n  if (serviceAdapter) {\n    options.runtime.handleServiceAdapter(serviceAdapter);\n  }\n\n  // Note: cors option requires @copilotkit/runtime with credentials support\n  const copilotRoute = createCopilotEndpointSingleRoute({\n    runtime: options.runtime.instance,\n    basePath: options.baseUrl ?? options.endpoint,\n    ...(options.cors &amp;&amp; { cors: options.cors }),\n  } as any);\n\n  const handleRequest = handle(copilotRoute as any);\n  return { handleRequest };\n}\n&quot;],&quot;mappings&quot;:&quot;;;;;;;;AAOA,SAAgB,sCACd,SACA;CACA,MAAM,eAAe,gBAAgB,QAAQ;AAE7C,iBAAU,oBAAoB,EAC5B,SAAS,EACP,WAAW,qBACZ,EACF,CAAC;AAEF,KAAI,QAAQ,YAAY,YACtB,iBAAU,oBAAoB,EAC5B,aAAa,QAAQ,WAAW,aACjC,CAAC;AAGJ,iBAAU,QACR,gCACA,gCAAgC,QAAQ,CACzC;AAGD,CADe,aAAa,QACrB,MAAM,sCAAsC;CAEnD,MAAM,iBAAiB,QAAQ;AAC/B,KAAI,eACF,SAAQ,QAAQ,qBAAqB,eAAe;AAWtD,QAAO,EAAE,eADa,OAND,iCAAiC;EACpD,SAAS,QAAQ,QAAQ;EACzB,UAAU,QAAQ,WAAW,QAAQ;EACrC,GAAI,QAAQ,QAAQ,EAAE,MAAM,QAAQ,MAAM;EAC3C,CAAQ,CAEwC,EACzB&quot;}
-node_modules/@copilotkit/runtime/dist/lib/integrations/nextjs/app-router.mjs:export { copilotRuntimeNextJSAppRouterEndpoint };
-node_modules/@copilotkit/runtime/dist/lib/integrations/nextjs/app-router.d.mts:export { copilotRuntimeNextJSAppRouterEndpoint };
-node_modules/@copilotkit/runtime/dist/index.cjs:exports.copilotRuntimeNextJSAppRouterEndpoint = require_app_router.copilotRuntimeNextJSAppRouterEndpoint;
-node_modules/@copilotkit/runtime/dist/index.d.cts:export { AgentFactoryContext, AgentsConfig, AgentsFactory, AnthropicAdapter, AnthropicAdapterParams, AnthropicPromptCachingConfig, BedrockAdapter, BedrockAdapterParams, CommonConfig, CopilotEndpointCorsConfig, CopilotRequestContextProperties, CopilotRuntime, CopilotRuntimeChatCompletionRequest, CopilotRuntimeChatCompletionResponse, CopilotRuntimeConstructorParams_BASE, CopilotRuntimeLogger, CopilotServiceAdapter, CreateCopilotRuntimeServerOptions, CustomEventNames, EmptyAdapter, ExperimentalEmptyAdapter, ExperimentalOllamaAdapter, GoogleGenerativeAIAdapter, GraphQLContext, GroqAdapter, GroqAdapterParams, GuardrailsValidationFailureResponse, LangChainAdapter, LangGraphAgent, LangGraphHttpAgent, LogLevel, MCPClient, MCPEndpointConfig, MCPTool, MessageStreamInterruptedResponse, OpenAIAdapter, OpenAIAdapterParams, OpenAIAssistantAdapter, OpenAIAssistantAdapterPa</pre></details><details class="step" open><summary>#20 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; grep &quot;copilotRuntimeNextJSAppRouterEndpoint&quot; node_modules/@copilotkit/runtime/dist/index.cjs</code></summary><pre>exit=0
-exports.copilotRuntimeNextJSAppRouterEndpoint = require_app_router.copilotRuntimeNextJSAppRouterEndpoint;
-</pre></details><details class="step" open><summary>#21 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; grep &quot;CopilotSidebar&quot; node_modules/@copilotkit/react-core/dist/v2/index.d.cts | head -5</code></summary><pre>exit=0
-import { $ as useComponent, $t as CopilotSidebarView, A as useAttachments, An as CopilotChatAssistantMessageProps, At as ɵMcpFollowUpHost, B as UseInterruptConfig, Bn as useCopilotChatConfiguration, Bt as CopilotThreadsDrawer, C as NewMemory, Cn as CopilotChatSuggestionPill, Ct as OpenGenerativeUIContent, D as useLearningContainers, Dn as CopilotChatUserMessage, Dt as MCPAppsActivityContentSchema, E as UseLearningContainersArgs, En as CopilotChatReasoningMessageProps, Et as MCPAppsActivityContent, F as LearnFromUserActionResult, Fn as ToolsMenuItem, Ft as Attachment, G as JsonSerializable, Gt as UseThreadsResult, H as useConfigureSuggestions, Hn as AudioRecorderState, Ht as CopilotThreadsDrawerRowRenderer, I as UseLearnFromUserActionRecorder, In as CopilotChatConfigurationProvider, It as AttachmentModality, J as UseAgentUpdate, Jt as CopilotPopupProps, K as useAgentContext, Kt as useThreads, L as useLearnFromUserAction, Ln as CopilotChatConfigurationProviderProps, Lt as AttachmentsConfig, M as UseLearnFromUserActionInCurrentThreadRecorder, Mn as CopilotChatToolCallsViewProps, Mt as CopilotKitInspector, N as useLearnFromUserActionInCurrentThread, Nn as CopilotChatInput, Nt as CopilotKitInspectorProps, O as UseAttachmentsProps, On as CopilotChatUserMessageProps, Ot as MCPAppsActivityRenderer, P as LearnFromUserActionInput, Pn as CopilotChatInputProps, Pt as WildcardToolCallRender, Q as useRenderTool, Qt as CopilotPopupViewProps, R as UseMemoriesResult, Rn as CopilotChatConfigurationValue, Rt as CopilotChatAttachmentRenderer, S as MemoryScope, Sn as CopilotChatSuggestionViewProps, St as OpenGenerativeUIActivityType, T as useLearningContainersInCurrentThread, Tn as CopilotChatReasoningMessage, Tt as OpenGenerativeUIToolRenderer, U as useSuggestions, Un as CopilotChatAudioRecorder, Ut as Thread, V as useInterrupt, Vn as AudioRecorderError, Vt as CopilotThreadsDrawerProps, W as AgentContextInput, Wt as UseThreadsInput, X as useHumanInTheLoop, Xt as CopilotSidebarProps, Y as useAgent, Yt as CopilotSidebar, Z as useDefaultRenderTool, Zt as CopilotPopupView, _ as CopilotKitCoreReactConfig, _n as getIntelligenceTurnAnchors, _t as ReactCustomMessageRendererPosition, a as A2UIMessageRendererOptions, an as DefaultCloseIcon, at as InterruptEvent, b as MemoryChanges, bn as IntelligenceIndicatorViewProps, bt as GenerateSandboxedUiArgsSchema, c as InspectorAnchor, cn as CopilotChatProps, ct as InterruptResolveFn, d as CopilotKitProvider, dn as AutoScrollMode, dt as ReactHumanInTheLoop, en as CopilotSidebarViewProps, et as useFrontendTool, f as CopilotKitProviderProps, fn as CopilotChatMessageView, ft as ReactFrontendTool, g as CopilotKitCoreReact, gn as IntelligenceIndicatorProps, gt as ReactCustomMessageRenderer, h as useCopilotKit, hn as IntelligenceIndicator, ht as useRenderCustomMessages, i as A2UIActionInterceptor, in as CopilotChatToggleButtonProps, it as InterruptCancelFn, j as LearnFromUserActionInCurrentThreadInput, jn as CopilotChatToolCallsView, jt as ɵrunMcpFollowUp, k as UseAttachmentsReturn, kn as CopilotChatAssistantMessage, kt as MCPAppsActivityType, l as SandboxFunctionsContext, ln as CopilotChatView, lt as ResumeEntry, m as CopilotKitContextValue, mn as INTELLIGENCE_TURN_HEAD, mt as ReactToolCallRenderer, nn as CopilotModalHeaderProps, nt as SandboxFunction, o as A2UIUserAction, on as DefaultOpenIcon, ot as InterruptHandlerProps, p as A2UIRecoveryRendererOptions, pn as CopilotChatMessageViewProps, pt as ReactActivityMessageRenderer, q as useCapabilities, qt as CopilotPopup, r as CopilotKitProps, rn as CopilotChatToggleButton, rt as Interrupt, s as createA2UIMessageRenderer, sn as CopilotChat, st as InterruptRenderProps, t as CopilotKit, tn as CopilotModalHeader, tt as useRenderActivityMessage, u as useSandboxFunctions, un as CopilotChatViewProps, ut as defineToolCallRenderer, v as CopilotKitCoreReactSubscriber, vn as IntelligenceIndicatorStatus, vt as useRenderToolCall, w as UseLearningContainersInCurrentThreadArgs, wn as CopilotChatSuggestionPillProps, wt as OpenGenerativeUIContentSchema, x as MemoryKind, xn as CopilotChatSuggestionView, xt as OpenGenerativeUIActivityRenderer, y as Memory, yn as IntelligenceIndicatorView, yt as GenerateSandboxedUiArgs, z as useMemories, zn as CopilotChatLabels, zt as CopilotChatAttachmentQueue } from &quot;../copilotkit-CBCT7BlL.cjs&quot;;
-export { type A2UIActionInterceptor, type A2UIMessageRendererOptions, type A2UIRecoveryRendererOptions, type A2UITheme, type A2UIUserAction, AgentContextInput, Attachment, AttachmentModality, AttachmentsConfig, AudioRecorderError, AudioRecorderState, AutoScrollMode, CopilotChat, CopilotChatAssistantMessage, CopilotChatAssistantMessageProps, CopilotChatAttachmentQueue, CopilotChatAttachmentRenderer, CopilotChatAudioRecorder, CopilotChatConfigurationProvider, CopilotChatConfigurationProviderProps, CopilotChatConfigurationValue, CopilotChatInput, CopilotChatInputProps, CopilotChatLabels, CopilotChatMessageView, CopilotChatMessageViewProps, CopilotChatProps, CopilotChatReasoningMessage, CopilotChatReasoningMessageProps, CopilotChatSuggestionPill, CopilotChatSuggestionPillProps, CopilotChatSuggestionView, CopilotChatSuggestionViewProps, CopilotChatToggleButton, DefaultCloseIcon as CopilotChatToggleButtonCloseIcon, DefaultOpenIcon as CopilotChatToggleButtonOpenIcon, CopilotChatToggleButtonProps, CopilotChatToolCallsView, CopilotChatToolCallsViewProps, CopilotChatUserMessage, CopilotChatUserMessageProps, CopilotChatView, CopilotChatViewProps, CopilotKit, CopilotKitContextValue, CopilotKitCoreReact, CopilotKitCoreReactConfig, CopilotKitCoreReactSubscriber, CopilotKitInspector, CopilotKitInspectorProps, type CopilotKitProps, CopilotKitProvider, CopilotKitProviderProps, CopilotModalHeader, CopilotModalHeaderProps, CopilotPopup, CopilotPopupProps, CopilotPopupView, CopilotPopupViewProps, CopilotSidebar, CopilotSidebarProps, CopilotSidebarView, CopilotSidebarViewProps, CopilotThreadsDrawer, CopilotThreadsDrawerProps, CopilotThreads</pre></details><details class="step" open><summary>#22 <b>write_file</b> <code>/home/daytona/my-copilot-app/.env</code></summary><pre>wrote /home/daytona/my-copilot-app/.env (43 bytes)</pre></details><details class="step" open><summary>#23 <b>bash</b> <code>mkdir -p /home/daytona/my-copilot-app/src/app/api/copilotkit</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#24 <b>write_file</b> <code>/home/daytona/my-copilot-app/src/app/api/copilotkit/route.ts</code></summary><pre>wrote /home/daytona/my-copilot-app/src/app/api/copilotkit/route.ts (555 bytes)</pre></details><details class="step" open><summary>#25 <b>write_file</b> <code>/home/daytona/my-copilot-app/src/app/layout.tsx</code></summary><pre>wrote /home/daytona/my-copilot-app/src/app/layout.tsx (866 bytes)</pre></details><details class="step" open><summary>#26 <b>write_file</b> <code>/home/daytona/my-copilot-app/src/app/page.tsx</code></summary><pre>wrote /home/daytona/my-copilot-app/src/app/page.tsx (184 bytes)</pre></details><details class="step" open><summary>#27 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; npm run build 2&gt;&amp;1 | head -100</code></summary><pre>tool error: Failed to execute command: command execution timeout</pre></details><details class="step" open><summary>#28 <b>bash</b> <code>cat /home/daytona/my-copilot-app/next.config.ts</code></summary><pre>exit=0
-import type { NextConfig } from &quot;next&quot;;
+</pre></details><details class="step" open><summary>#33 <b>bash</b> <code>ls /home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/v2/ | head -20
+echo &quot;---&quot;
+ls /home/daytona/my-copilot-app/node_modu</code></summary><pre>exit=0
+context.cjs
+context.cjs.map
+context.d.cts
+context.d.cts.map
+context.d.mts
+context.d.mts.map
+context.mjs
+context.mjs.map
+headless.cjs
+headless.cjs.map
+headless.d.cts
+headless.d.cts.map
+headless.d.mts
+headless.d.mts.map
+headless.mjs
+headless.mjs.map
+index.cjs
+index.css
+index.d.cts
+index.d.mts
+---
+/home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/v2/index.css
+</pre></details><details class="step" open><summary>#34 <b>bash</b> <code>sleep 30
+cat /tmp/next-dev.log
+echo &quot;---&quot;
+curl -s -o /dev/null -w &quot;%{http_code}&quot; --max-time 15 http://127.0.0.1:3000/ || echo &quot;Failed to con</code></summary><pre>exit=0
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+&gt; my-copilot-app@0.1.0 dev
+&gt; next dev
 
-export default nextConfig;
-</pre></details><details class="step" open><summary>#29 <b>write_file</b> <code>/home/daytona/my-copilot-app/next.config.ts</code></summary><pre>wrote /home/daytona/my-copilot-app/next.config.ts (129 bytes)</pre></details><details class="step" open><summary>#30 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; timeout 300 npm run build 2&gt;&amp;1 | tail -80</code></summary><pre>tool error: Failed to execute command: command execution timeout</pre></details><details class="step" open><summary>#31 <b>bash</b> <code>ps aux | grep -E &quot;node|next&quot; | head -20</code></summary><pre>exit=0
-daytona      460  0.0  0.0   2672  1792 ?        S    10:23   0:00 sh -c next build
-daytona      461 59.6  0.1 21037244 926048 ?     Sl   10:23   2:24 next-build (v16.3.0)
-daytona      488  0.1  0.0 1548700 91200 ?       Sl   10:23   0:00 node /home/daytona/my-copilot-app/.next/build/chunks/pool_entry-[turbopack-node]_transforms_postcss_ts_0tp-k2v._.js 43865
-daytona      504  0.0  0.0   6520  2396 ?        S    10:27   0:00 grep -E node|next
-</pre></details><details class="step" open><summary>#32 <b>bash</b> <code>sleep 60 &amp;&amp; ps aux | grep -E &quot;node|next&quot; | head -20</code></summary><pre>exit=0
-daytona      517  0.0  0.0   6520  2372 ?        S    10:28   0:00 grep -E node|next
-</pre></details><details class="step" open><summary>#33 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; ls -la .next/ 2&gt;&amp;1 | head -20</code></summary><pre>exit=0
-total 8
-drwxr-xr-x 8 daytona daytona  165 Aug  7 10:28 .
-drwxr-xr-x 6 daytona daytona 4096 Aug  7 10:19 ..
-drwxr-xr-x 3 daytona daytona   52 Aug  7 10:23 build
-drwxr-xr-x 3 daytona daytona   54 Aug  7 10:19 cache
-drwxr-xr-x 2 daytona daytona   70 Aug  7 10:23 diagnostics
--rw-r--r-- 1 daytona daytona   20 Aug  7 10:23 package.json
-drwxr-xr-x 2 daytona daytona   10 Aug  7 10:23 server
-drwxr-xr-x 3 daytona daytona   43 Aug  7 10:23 static
--rw-r--r-- 1 daytona daytona    0 Aug  7 10:23 turbopack
-drwxr-xr-x 2 daytona daytona  112 Aug  7 10:23 types
-</pre></details><details class="step" open><summary>#34 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; rm -rf .next &amp;&amp; timeout 600 npm run build 2&gt;&amp;1 | tail -100</code></summary><pre>tool error: Failed to execute command: command execution timeout</pre></details><details class="step" open><summary>#35 <b>bash</b> <code>ps aux | grep -E &quot;node|next&quot; | head -20</code></summary><pre>exit=0
-daytona      541  0.0  0.0   2672  1884 ?        S    10:28   0:00 sh -c next build
-daytona      542 61.5  0.1 20774408 953200 ?     Sl   10:28   2:30 next-build (v16.3.0)
-daytona      564  0.1  0.0 1547856 86992 ?       Sl   10:28   0:00 node /home/daytona/my-copilot-app/.next/build/chunks/pool_entry-[turbopack-node]_transforms_postcss_ts_0tp-k2v._.js 46315
-daytona      580  0.0  0.0   6520  2464 ?        S    10:32   0:00 grep -E node|next
-</pre></details><details class="step" open><summary>#36 <b>bash</b> <code>sleep 120 &amp;&amp; ps aux | grep -E &quot;node|next&quot; | head -20</code></summary><pre>exit=0
-daytona      541  0.0  0.0   2672  1884 ?        S    10:28   0:00 sh -c next build
-daytona      542 60.3  0.1 20774408 954592 ?     Sl   10:28   3:41 next-build (v16.3.0)
-daytona      564  0.0  0.0 1547856 86992 ?       Sl   10:28   0:00 node /home/daytona/my-copilot-app/.next/build/chunks/pool_entry-[turbopack-node]_transforms_postcss_ts_0tp-k2v._.js 46315
-daytona      593  0.0  0.0   6520  2396 ?        S    10:34   0:00 grep -E node|next
-</pre></details><details class="step" open><summary>#37 <b>bash</b> <code>kill -9 542 564 541 2&gt;/dev/null; sleep 2; ps aux | grep -E &quot;node|next&quot; | head -20</code></summary><pre>exit=0
-daytona      600  0.0  0.0   6520  2372 ?        S    10:34   0:00 grep -E node|next
-</pre></details><details class="step" open><summary>#38 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; ls -la .next/ 2&gt;&amp;1</code></summary><pre>exit=0
-total 8
-drwxr-xr-x 8 daytona daytona  181 Aug  7 10:28 .
-drwxr-xr-x 6 daytona daytona 4096 Aug  7 10:28 ..
-drwxr-xr-x 3 daytona daytona   52 Aug  7 10:28 build
-drwxr-xr-x 3 daytona daytona   54 Aug  7 10:28 cache
-drwxr-xr-x 2 daytona daytona   70 Aug  7 10:28 diagnostics
--rw-r--r-- 1 daytona daytona    0 Aug  7 10:28 lock
--rw-r--r-- 1 daytona daytona   20 Aug  7 10:28 package.json
-drwxr-xr-x 2 daytona daytona   10 Aug  7 10:28 server
-drwxr-xr-x 3 daytona daytona   43 Aug  7 10:28 static
--rw-r--r-- 1 daytona daytona    0 Aug  7 10:28 turbopack
-drwxr-xr-x 2 daytona daytona  112 Aug  7 10:28 types
-</pre></details><details class="step" open><summary>#39 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; find .next -type f | head -30</code></summary><pre>exit=0
-.next/cache/config.json
-.next/cache/turbopack/v16.3.0-d73f5622/CURRENT
-.next/lock
-.next/types/routes.d.ts
-.next/types/validator.ts
-.next/types/cache-life.d.ts
-.next/types/root-params.d.ts
-.next/package.json
-.next/diagnostics/framework.json
-.next/diagnostics/build-diagnostics.json
-.next/turbopack
-.next/build/chunks/[root-of-the-server]__05i36w1._.js
-.next/build/chunks/[root-of-the-server]__05i36w1._.js.map
-.next/build/chunks/[turbopack-node]_transforms_postcss_ts_1gfkiq9._.js.map
-.next/build/chunks/[root-of-the-server]__1kki86f._.js.map
-.next/build/chunks/pool_entry-[turbopack-node]_transforms_postcss_ts_0tp-k2v._.js.map
-.next/build/chunks/[turbopack]_runtime.js
-.next/build/chunks/node_modules_20v-8wl._.js
-.next/build/chunks/[turbopack]_runtime.js.map
-.next/build/chunks/[turbopack-node]_transforms_postcss_ts_1gfkiq9._.js
-.next/build/chunks/[root-of-the-server]__1kki86f._.js
-.next/build/chunks/pool_entry-[turbopack-node]_transforms_postcss_ts_0tp-k2v._.js
-.next/build/chunks/node_modules_20v-8wl._.js.map
-.next/build/package.json
-</pre></details><details class="step" open><summary>#40 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; find .next -name &quot;*.html&quot; -o -name &quot;*.js&quot; | grep -v chunks | head -20</code></summary><pre>exit=0
+▲ Next.js 16.3.0 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.20.0.46:3000
+- Environments: .env
+✓ Ready in 361ms
+✓ Running next.config.ts took 45ms
+
+○ Compiling / ...
+---
+000Failed to connect via 127.0.0.1
+</pre></details><details class="step" open><summary>#35 <b>bash</b> <code>ps aux | grep -i next | grep -v grep
+echo &quot;---&quot;
+kill -0 645 2&gt;/dev/null &amp;&amp; echo &quot;PID 645 is alive&quot; || echo &quot;PID 645 is dead&quot;
+kill -0 633 2&gt;/</code></summary><pre>exit=0
+---
+PID 645 is dead
+PID 633 is dead
+</pre></details><details class="step" open><summary>#36 <b>bash</b> <code>grep -r &quot;CopilotSidebar&quot; /home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/v2/ | head -5
+echo &quot;---&quot;
+grep -r &quot;CopilotKit&quot;</code></summary><pre>exit=0
+/home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/v2/headless.cjs:* CopilotChatInput and CopilotSidebarView.
+/home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/v2/index.cjs:exports.CopilotSidebar = require_copilotkit.CopilotSidebar;
+/home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/v2/index.cjs:Object.defineProperty(exports, &#x27;CopilotSidebarView&#x27;, {
+/home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/v2/index.cjs:    return require_copilotkit.CopilotSidebarView;
+/home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/v2/index.d.cts:import { $ as useComponent, $t as CopilotSidebarView, A as useAttachments, An as CopilotChatAssistantMessageProps, At as ɵMcpFollowUpHost, B as UseInterruptConfig, Bn as useCopilotChatConfiguration, Bt as CopilotThreadsDrawer, C as NewMemory, Cn as CopilotChatSuggestionPill, Ct as OpenGenerativeUIContent, D as useLearningContainers, Dn as CopilotChatUserMessage, Dt as MCPAppsActivityContentSchema, E as UseLearningContainersArgs, En as CopilotChatReasoningMessageProps, Et as MCPAppsActivityContent, F as LearnFromUserActionResult, Fn as ToolsMenuItem, Ft as Attachment, G as JsonSerializable, Gt as UseThreadsResult, H as useConfigureSuggestions, Hn as AudioRecorderState, Ht as CopilotThreadsDrawerRowRenderer, I as UseLearnFromUserActionRecorder, In as CopilotChatConfigurationProvider, It as AttachmentModality, J as UseAgentUpdate, Jt as CopilotPopupProps, K as useAgentContext, Kt as useThreads, L as useLearnFromUserAction, Ln as CopilotChatConfigurationProviderProps, Lt as AttachmentsConfig, M as UseLearnFromUserActionInCurrentThreadRecorder, Mn as CopilotChatToolCallsViewProps, Mt as CopilotKitInspector, N as useLearnFromUserActionInCurrentThread, Nn as CopilotChatInput, Nt as CopilotKitInspectorProps, O as UseAttachmentsProps, On as CopilotChatUserMessageProps, Ot as MCPAppsActivityRenderer, P as LearnFromUserActionInput, Pn as CopilotChatInputProps, Pt as WildcardToolCallRender, Q as useRenderTool, Qt as CopilotPopupViewProps, R as UseMemoriesResult, Rn as CopilotChatConfigurationValue, Rt as CopilotChatAttachmentRenderer, S as MemoryScope, Sn as CopilotChatSuggestionViewProps, St as OpenGenerativeUIActivityType, T as useLearningContainersInCurrentThread, Tn as CopilotChatReasoningMessage, Tt as OpenGenerativeUIToolRenderer, U as useSuggestions, Un as CopilotChatAudioRecorder, Ut as Thread, V as useInterrupt, Vn as AudioRecorderError, Vt as CopilotThreadsDrawerProps, W as AgentContextInput, Wt as UseThreadsInput, X as useHumanInTheLoop, Xt as CopilotSidebarProps, Y as useAgent, Yt as CopilotSidebar, Z as useDefaultRenderTool, Zt as CopilotPopupView, _ as CopilotKitCoreReactConfig, _n as getIntelligenceTurnAnchors, _t as ReactCustomMessageRendererPosition, a as A2UIMessageRendererOptions, an as DefaultCloseIcon, at as InterruptEvent, b as MemoryChanges, bn as IntelligenceIndicatorViewProps, bt as GenerateSandboxedUiArgsSchema, c as InspectorAnchor, cn as CopilotChatProps, ct as InterruptResolveFn, d as CopilotKitProvider, dn as AutoScrollMode, dt as ReactHumanInTheLoop, en as CopilotSidebarViewProps, et as useFrontendTool, f as CopilotKitProviderProps, fn as CopilotChatMessageView, ft as ReactFrontendTool, g as CopilotKitCoreReact, gn as IntelligenceIndicatorProps, gt as ReactCustomMessageRenderer, h as useCopilotKit, hn as IntelligenceIndicator, ht as useRenderCustomMessages, i as A2UIActionInterceptor, in as CopilotChatToggleButtonProps, it as InterruptCancelFn, j as LearnFromUserActionInCurrentThreadInput, jn as CopilotChatToolCallsView, jt as ɵrunMcpFollowUp, k as UseAttachmentsReturn, kn as CopilotChatAssistantMessage, kt as MCPAppsActivityType, l as SandboxFunctionsContext, ln as CopilotChatView, lt as ResumeEntry, m as CopilotKitContextValue, mn as INTELLIGENCE_TURN_HEAD, mt as ReactToolCallRenderer, nn as CopilotModalHeaderProps, nt as SandboxFunction, o as A2UIUserAction, on as DefaultOpenIcon, ot as InterruptHandlerProps, p as A2UIRecoveryRendererOptions, pn as CopilotChatMessageViewProps, pt as ReactActivityMessageRenderer, q as useCapabilities, qt as CopilotPopup, r as CopilotKitProps, rn as CopilotChatToggleButton, rt as Interrupt, s as createA2UIMessageRenderer, sn as CopilotChat, st as InterruptRenderProps, t as CopilotKit, tn as CopilotModalHeader, tt as useRenderActivityMessage, u as useSandboxFunctions, un as CopilotChatViewProps, ut as defineToolCallRenderer, v as CopilotKitCoreReactSubscriber, vn as IntelligenceIndicatorStatus, vt as useRenderToolCall, w as UseLearningContainersInCurrentThreadArgs, wn as CopilotChatSuggestionPillProps, wt as OpenGenerativeUIContentSchema, x as MemoryKind, xn as CopilotChatSuggestionView, xt as OpenGenerativeUIActivityRenderer, y as Memory, yn as IntelligenceIndicatorView, yt as GenerateSandboxedUiArgs, z as useMemories, zn as CopilotChatLabels, zt as CopilotChatAttachmentQueue } from &quot;../copilotkit-CBCT7BlL.cjs&quot;;
+---
+import { $ as useCapabilities, A as CopilotChatMessageView, At as CopilotChatConfigurationProvider, B as CopilotChatAssistantMessage_default, C as CopilotModalHeader, Ct as CopilotKitInspector, D as CopilotChat, Dt as CopilotChatInput_default, E as DefaultOpenIcon, Et as CopilotKitCoreReact, F as CopilotChatSuggestionView, G as useLearnFromUserActionInCurrentThread, H as useLearningContainersInCurrentThread, I as CopilotChatSuggestionPill, J as useThreads, K as useLearnFromUserAction, L as CopilotChatReasoningMessage_default, M as IntelligenceIndicator, N as getIntelligenceTurnAnchors, O as CopilotChatView_default, Ot as AudioRecorderError, P as IntelligenceIndicatorView, Q as useAgentContext, R as CopilotChatUserMessage_default, S as CopilotSidebarView, St as ɵrunMcpFollowUp, T as DefaultCloseIcon, Tt as useCopilotKit, U as useLearningContainers, V as CopilotChatToolCallsView, W as useAttachments, X as useConfigureSuggestions, Y as useInterrupt, Z as useSuggestions, _ as WildcardToolCallRender, _t a</pre></details><details class="step" open><summary>#37 <b>bash</b> <code>pkill -f &quot;next dev&quot; 2&gt;/dev/null; sleep 2
+cd /home/daytona/my-copilot-app &amp;&amp; npm run dev 2&gt;&amp;1 &amp;
+DEV_PID=$!
+echo &quot;Dev server PID: $DEV_PID&quot;
+sl</code></summary><pre>tool error: Failed to execute command: command execution timeout</pre></details><details class="step" open><summary>#38 <b>bash</b> <code>pkill -f &quot;next dev&quot; 2&gt;/dev/null; sleep 2
+cd /home/daytona/my-copilot-app &amp;&amp; nohup npm run dev &gt; /tmp/next-dev.log 2&gt;&amp;1 &amp;
+echo &quot;Started with </code></summary><pre>exit=0
+Started with PID: 841
+
+&gt; my-copilot-app@0.1.0 dev
+&gt; next dev
+
+▲ Next.js 16.3.0 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.20.0.46:3000
+- Environments: .env
+✓ Ready in 385ms
+✓ Running next.config.ts took 90ms
+
+</pre></details><details class="step" open><summary>#39 <b>bash</b> <code>ps aux | grep -i next | grep -v grep
+echo &quot;---&quot;
+kill -0 853 2&gt;/dev/null &amp;&amp; echo &quot;PID 853 alive&quot; || echo &quot;PID 853 dead&quot;
+kill -0 841 2&gt;/dev/nu</code></summary><pre>exit=0
+daytona      853  0.0  0.0   2672  1536 ?        SN   10:17   0:00 sh -c next dev
+daytona      854  0.4  0.0 9916856 72620 ?       SNl  10:17   0:00 node /home/daytona/my-copilot-app/node_modules/.bin/next dev
+daytona      866  2.3  0.0 11603724 174984 ?     SNl  10:17   0:00 next-server (v16.3.0)
+---
+PID 853 alive
+PID 841 alive
+</pre></details><details class="step" open><summary>#40 <b>bash</b> <code>curl -s -o /dev/null -w &quot;%{http_code}&quot; --max-time 15 &quot;http://localhost:3000/&quot; || echo &quot;Failed via localhost&quot;
+curl -s -o /dev/null -w &quot;%{http</code></summary><pre>exit=0
+000Failed via localhost
+000Failed via 127.0.0.1
+000Failed via 172.20.0.46
 </pre></details>
 </body></html>

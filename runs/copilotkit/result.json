@@ -1,14 +1,14 @@
 {
   "name": "copilotkit",
   "url": "https://docs.copilotkit.ai/quickstart",
-  "started": "2026-08-07T10:36:32Z",
+  "started": "2026-08-08T10:21:05Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
   "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 1178.5,
+  "wall_seconds": 1349.5,
   "checkpoints": {
     "env_ready": {
       "passed": true,
@@ -16,43 +16,43 @@
     },
     "installed": {
       "passed": true,
-      "evidence": "added 856 packages, and audited 1222 packages in 1m"
+      "evidence": "added 856 packages, and audited 1222 packages in 2m"
     },
     "configured": {
       "passed": false,
-      "evidence": "OPENAI_API_KEY=sk-dummy-key-for-build-only"
+      "evidence": "OPENAI_API_KEY=dummy_key_for_build_purposes"
     },
     "first_call": {
       "passed": false,
-      "evidence": "tool error: Failed to execute command: command execution timeout"
+      "evidence": "000Failed to connect via localhost"
     },
     "verified": {
       "passed": false,
-      "evidence": "cd /home/daytona/my-copilot-app && find .next -name \"*.html\" -o -name \"*.js\" | grep -v chunks | head -20"
+      "evidence": "Creating an optimized production build ... Killed"
     }
   },
   "friction": [
     {
-      "where": "API key configuration",
-      "detail": "Sandbox had no OPENAI_API_KEY, forcing agent to write dummy key: OPENAI_API_KEY=sk-dummy-key-for-build-only"
+      "where": "Production build step",
+      "detail": "Build is killed unexpectedly despite ample system memory: \"Creating an optimized production build ... Killed\""
     },
     {
-      "where": "Build step",
-      "detail": "npm run build hung repeatedly and was killed after timeout: tool error: Failed to execute command: command execution timeout"
+      "where": "Dev server compilation",
+      "detail": "Dev server hangs on initial page compile and never serves traffic: \"\u25cb Compiling / ...\" followed by \"000Failed to connect via 127.0.0.1\""
     },
     {
-      "where": "Package imports",
-      "detail": "Agent had to grep node_modules to find correct exports: grep -r \"BuiltInAgent\" node_modules/@copilotkit/runtime/dist/v2/"
+      "where": "OpenAI API key setup",
+      "detail": "Sandbox lacks a real key, forcing an invalid dummy credential that prevents the endpoint from working: \"No OPENAI_API_KEY in env\" then \"OPENAI_API_KEY=dummy_key_for_build_purposes\""
     },
     {
-      "where": "Next.js project structure",
-      "detail": "Docs assumed app/ directory but create-next-app with --src-dir placed files in src/app/: ls: cannot access 'app/': No such file or directory"
+      "where": "Enterprise license key instruction",
+      "detail": "Quickstart mentions a free account/license key but defers it, creating ambiguity about whether it is required now: \"Create a free account # Sign up for a free developer account on our Enterprise Intelligence Platform to get a license key. You'll use it later to enable persistent threads and the inspector.\""
     },
     {
-      "where": "Dependency installation",
-      "detail": "npm install emitted deprecation warnings and 13 vulnerabilities: npm warn deprecated lodash.get@4.4.2... 13 vulnerabilities (2 low, 10 moderate, 1 high)"
+      "where": "SDK v2 import paths",
+      "detail": "Agent must manually inspect node_modules to confirm v2 subpath exports exist, suggesting docs lack clear import paths: \"ls /home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/v2/ 2>/dev/null || echo \\\"No v2 directory\\\"\""
     }
   ],
   "score": 30,
-  "braintrust_span": "4cac1c86-5f8d-48ac-9d40-65efd10b319b"
+  "braintrust_span": "52c11fc5-f528-42f2-a067-82aca7ee2610"
 }
