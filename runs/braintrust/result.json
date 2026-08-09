@@ -1,18 +1,18 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-08T09:56:12Z",
+  "started": "2026-08-09T09:58:38Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Braintrust SDK and autoevals (`npm install braintrust autoevals` completed, adding 144 packages), created the `tutorial.eval.ts` eval file exactly as the SDK quickstart specifies, and attempted to run it with `npx braintrust eval tutorial.eval.ts`. However, the run failed with a `TypeError: fetch failed` caused by `ECONNRESET` during the TLS handshake to the Braintrust API endpoint, meaning the eval could not execute and no scores were reported. The `BRAINTRUST_API_KEY` was confirmed present in the environment, and while outbound HTTPS to other sites (e.g., GitHub API) works fine, the sandbox cannot establish a connection to braintrust.dev.",
+  "summary": "I successfully installed the Braintrust SDK and autoevals (`added 144 packages in 11s`), created the `tutorial.eval.ts` file exactly per the quickstart, and attempted to run it with `npx braintrust eval tutorial.eval.ts`. However, the execution failed with `TypeError: fetch failed`, indicating the sandbox could not reach Braintrust's API servers to submit the eval run. The API key was present (51 characters), but the network connectivity issue blocked the promised outcome of seeing scores reported.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 120.1,
+  "wall_seconds": 124.9,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "v25.9.0"
+      "evidence": "added 144 packages in 11s"
     },
     "installed": {
       "passed": true,
@@ -20,7 +20,7 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "BRAINTRUST_API_KEY is set: yes"
+      "evidence": "API key length: 51"
     },
     "first_call": {
       "passed": false,
@@ -28,31 +28,27 @@
     },
     "verified": {
       "passed": false,
-      "evidence": "exit=1"
+      "evidence": "TypeError: fetch failed"
     }
   },
   "friction": [
     {
-      "where": "Deprecated braintrust-examples repository",
-      "detail": "This repository is no longer updated. New examples are published in the [Braintrust cookbook]"
+      "where": "Braintrust docs site TLS/connection",
+      "detail": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Cookbook example README path",
-      "detail": "404: Not Found"
+      "where": "Evaluation quickstart page fetch",
+      "detail": "0"
     },
     {
-      "where": "Braintrust API endpoint connectivity",
-      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
+      "where": "llms.txt quickstart discovery",
+      "detail": "not found"
     },
     {
-      "where": "Eval CLI network error",
-      "detail": "[TypeError: fetch failed] { [cause]: Error: read ECONNRESET"
-    },
-    {
-      "where": "Documentation navigation",
-      "detail": "Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further."
+      "where": "SDK offline execution",
+      "detail": "TypeError: fetch failed"
     }
   ],
   "score": 45,
-  "braintrust_span": "6a8e5bce-5f05-458f-bfb0-1ce20d66c354"
+  "braintrust_span": "010f53a1-8fe3-4cca-b292-d34107bf52a7"
 }

@@ -106,8 +106,8 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 </style></head><body>
 <h1 class="wordmark"><a href="index.html" style="color:inherit">agent-ready</a> · fireworks
 <span style="color:#b3d13b">75/100</span></h1>
-<p class="meta" style="margin:.6rem 0 1.4rem">10 steps ·
-37.1s · agent <code>kimi-k2p6</code> ·
+<p class="meta" style="margin:.6rem 0 1.4rem">12 steps ·
+49.2s · agent <code>kimi-k2p6</code> ·
 <a href="https://github.com/zhannur/agent-ready/blob/main/runs/fireworks/transcript.jsonl">raw JSONL</a></p>
 <details class="step" open><summary>#1 <b>fetch_url</b> <code>https://docs.fireworks.ai/getting-started/quickstart</code></summary><pre> Serverless Quickstart - Fireworks AI Docs Documentation Index Fetch the complete documentation index at: /llms.txt Use this file to discover all available pages before exploring further. Skip to main content Fireworks AI Docs home page Documentation API &amp;amp; SDK Reference CLI Reference Demos Changelog Resources Community Status Dashboard Dashboard Search... Navigation Get Started Serverless Quickstart Search... ⌘ K Get Started Overview Serverless Quickstart Deployments Quickstart Which model should I use? Concepts Serverless Serverless Overview Serverless Serving Paths Serverless Pricing Serverless Rate Limits US-only Serverless Deployments Deployments Overview Autoscaling Custom models Quantization Advanced Models &amp;amp; Inference Text Models Vision Models Embeddings &amp;amp; Reranking Tool Calling Reasoning Reliability and Error Handling Batch API Kimi K2 family Advanced Training Training Overview Models Choose a Training Path Agent Skills Managed Fine-Tuning Bring Your Own Trainer Training API (Tinker compatible) Secure Training Deploying Fine Tuned Models Understanding LoRA performance Fire Pass Fire Pass Setup Fireworks Nexus Per-User Usage Limits FireRouter FireConnect Administration Managing users Custom SSO Service Accounts Account quotas Exporting Billing Metrics Usage &amp;amp; Cost Breakdown Security &amp;amp; Compliance Data Security &amp;amp; Privacy Zero Data Retention Audit &amp;amp; Access Logs Integrations Microsoft Foundry LiteLLM Bring Your Own Cluster Development Setup with Fireworks Docs MCP Agent Frameworks MLOps &amp;amp; Observability Reference Glossary On this page Step 1: Create and export an API key Step 2: Make your first Serverless API call Common use cases Streaming responses Function calling Structured outputs (JSON mode) Reasoning Vision models Learn more about Serverless Next steps Get Started Serverless Quickstart Copy page Copy page Make your first Serverless API call in minutes Copy page Copy page Serverless is the fastest way to get started with using open models. This quickstart will help you make your first API call in minutes. 
  ​ Step 1: Create and export an API key 
@@ -211,81 +211,76 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
  console . log ( response . content [ 0 ]. text ); 
  curl https://api.fireworks.ai/inference/v1/chat/completions \ 
  -H &amp;quot;Content-Type: application/json&amp;quot; \ 
- -H &amp;quot;Authorization: Bearer $FIREWORKS_API_KE</pre></details><details class="step" open><summary>#2 <b>bash</b> <code>cd /home/daytona &amp;&amp; pip install openai</code></summary><pre>exit=0
+ -H &amp;quot;Authorization: Bearer $FIREWORKS_API_KE</pre></details><details class="step" open><summary>#2 <b>bash</b> <code>echo &quot;API key is set: ${FIREWORKS_API_KEY:+yes}&quot; &amp;&amp; echo &quot;Length: ${#FIREWORKS_API_KEY}&quot;</code></summary><pre>exit=0
+API key is set: yes
+Length: 25
+</pre></details><details class="step" open><summary>#3 <b>bash</b> <code>which curl &amp;&amp; curl --version | head -1</code></summary><pre>exit=0
+/usr/bin/curl
+curl 8.14.1 (x86_64-pc-linux-gnu) libcurl/8.14.1 OpenSSL/3.5.5 zlib/1.3.1 brotli/1.1.0 zstd/1.5.7 libidn2/2.3.8 libpsl/0.21.2 libssh2/1.11.1 nghttp2/1.64.0 nghttp3/1.8.0 librtmp/2.3 OpenLDAP/2.6.10
+</pre></details><details class="step" open><summary>#4 <b>bash</b> <code>curl https://api.fireworks.ai/inference/v1/chat/completions \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;Authorization: Bearer $FIREWORKS</code></summary><pre>exit=0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   312  100   181  100   131   3856   2791 --:--:-- --:--:-- --:--:--  6782
+{&quot;error&quot;:{&quot;message&quot;:&quot;Model not found, inaccessible, and/or not deployed&quot;,&quot;param&quot;:&quot;model&quot;,&quot;code&quot;:&quot;NOT_FOUND&quot;,&quot;type&quot;:&quot;error&quot;},&quot;request_id&quot;:&quot;chatcmpl-15dd83dbb4304a79bdcd047baa1e7ed5&quot;}</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>curl https://api.fireworks.ai/inference/v1/chat/completions \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;Authorization: Bearer $FIREWORKS</code></summary><pre>exit=0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   321  100   181  100   140   3823   2957 --:--:-- --:--:-- --:--:--  6829
+{&quot;error&quot;:{&quot;message&quot;:&quot;Model not found, inaccessible, and/or not deployed&quot;,&quot;param&quot;:&quot;model&quot;,&quot;code&quot;:&quot;NOT_FOUND&quot;,&quot;type&quot;:&quot;error&quot;},&quot;request_id&quot;:&quot;chatcmpl-487c9d7fc8754f1e9a2aad7ce040a157&quot;}</pre></details><details class="step" open><summary>#6 <b>bash</b> <code>curl -s https://api.fireworks.ai/inference/v1/models \
+  -H &quot;Authorization: Bearer $FIREWORKS_API_KEY&quot; | head -200</code></summary><pre>exit=0
+{&quot;data&quot;:[{&quot;id&quot;:&quot;accounts/fireworks/models/glm-5p2&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1781630293,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:1048576},{&quot;id&quot;:&quot;accounts/fireworks/routers/glm-5p2-fast&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1781630293,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:1048576},{&quot;id&quot;:&quot;accounts/fireworks/models/kimi-k2p6&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1776455694,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:true,&quot;supports_tools&quot;:true,&quot;context_length&quot;:262144},{&quot;id&quot;:&quot;accounts/fireworks/routers/kimi-k2p6-turbo&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1776455694,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:true,&quot;supports_tools&quot;:true,&quot;context_length&quot;:262144},{&quot;id&quot;:&quot;accounts/fireworks/models/kimi-k2p7-code&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1781283600,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:true,&quot;supports_tools&quot;:true,&quot;context_length&quot;:262144},{&quot;id&quot;:&quot;accounts/fireworks/routers/kimi-k2p7-code-fast&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1781283600,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:true,&quot;supports_tools&quot;:true,&quot;context_length&quot;:262144},{&quot;id&quot;:&quot;accounts/fireworks/models/minimax-m2p7&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1775867225,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:196608},{&quot;id&quot;:&quot;accounts/fireworks/models/minimax-m3&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1781214748,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:512000},{&quot;id&quot;:&quot;accounts/fireworks/models/gpt-oss-120b&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1754345600,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:131072},{&quot;id&quot;:&quot;accounts/fireworks/models/deepseek-v4-flash&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1777003747,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:1048576},{&quot;id&quot;:&quot;accounts/fireworks/models/deepseek-v4-pro&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1777003717,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:1048576},{&quot;id&quot;:&quot;accounts/fireworks/models/qwen3p7-plus&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1781036419,&quot;kind&quot;:&quot;CUSTOM_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:true,&quot;supports_tools&quot;:true},{&quot;id&quot;:&quot;accounts/fireworks/models/gpt-oss-20b&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1754345466,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:false,&quot;context_length&quot;:131072},{&quot;id&quot;:&quot;accounts/fireworks/models/nemotron-3-ultra-nvfp4&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1780415326,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:262144},{&quot;id&quot;:&quot;accounts/fireworks/models/qwen3-reranker-8b&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1759865045,&quot;kind&quot;:&quot;EMBEDDING_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:false,&quot;context_length&quot;:40960},{&quot;id&quot;:&quot;accounts/fireworks/models/qwen3-embedding-8b&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1755707090,&quot;kind&quot;:&quot;EMBEDDING_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:false,&quot;context_length&quot;:40960},{&quot;id&quot;:&quot;accounts/fireworks/models/kimi-k3&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1784483409,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:true,&quot;supports_tools&quot;:true,&quot;context_length&quot;:1048576},{&quot;id&quot;:&quot;accounts/fireworks/routers/kimi-k3-fast&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1784483409,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:true,&quot;supports_tools&quot;:true,&quot;context_length&quot;:1048576},{&quot;id&quot;:&quot;accounts/fireworks/models/deepseek-v4-flash-0731&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1785514482,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:1048576},{&quot;id&quot;:&quot;accounts/fireworks/models/inkling&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1784058124,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:true,&quot;supports_tools&quot;:true,&quot;context_length&quot;:1048576}],&quot;object&quot;:&quot;list&quot;}</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>curl https://api.fireworks.ai/inference/v1/chat/completions \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;Authorization: Bearer $FIREWORKS</code></summary><pre>exit=0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   135    0     0  100   135      0    605 --:--:-- --:--:-- --:--:--   605100   135    0     0  100   135      0    110  0:00:01  0:00:01 --:--:--   110100   745  100   610  100   135    413     91  0:00:01  0:00:01 --:--:--   504
+{&quot;id&quot;:&quot;chatcmpl-b9985933e10647f6bf6528e38fc0b2f7&quot;,&quot;object&quot;:&quot;chat.completion&quot;,&quot;created&quot;:1786271730,&quot;model&quot;:&quot;accounts/fireworks/models/deepseek-v4-flash&quot;,&quot;choices&quot;:[{&quot;index&quot;:0,&quot;message&quot;:{&quot;role&quot;:&quot;assistant&quot;,&quot;content&quot;:&quot;Hello in Spanish is \&quot;hola\&quot;.&quot;,&quot;reasoning_content&quot;:&quot;We need to respond to the user&#x27;s request: \&quot;Say hello in Spanish\&quot;. The user wants a simple translation of \&quot;hello\&quot; into Spanish. The most common greeting is \&quot;hola\&quot;. So answer with that.&quot;,&quot;tools&quot;:null},&quot;finish_reason&quot;:&quot;stop&quot;}],&quot;usage&quot;:{&quot;prompt_tokens&quot;:8,&quot;total_tokens&quot;:61,&quot;completion_tokens&quot;:53,&quot;prompt_tokens_details&quot;:{&quot;cached_tokens&quot;:0}}}</pre></details><details class="step" open><summary>#8 <b>bash</b> <code>python3 --version &amp;&amp; pip --version</code></summary><pre>exit=0
+Python 3.14.4
+pip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)
+</pre></details><details class="step" open><summary>#9 <b>bash</b> <code>pip install --pre fireworks-ai</code></summary><pre>exit=0
 Defaulting to user installation because normal site-packages is not writeable
-Requirement already satisfied: openai in /usr/local/lib/python3.14/site-packages (2.33.0)
-Requirement already satisfied: anyio&lt;5,&gt;=3.5.0 in /usr/local/lib/python3.14/site-packages (from openai) (4.13.0)
-Requirement already satisfied: distro&lt;2,&gt;=1.7.0 in /usr/local/lib/python3.14/site-packages (from openai) (1.9.0)
-Requirement already satisfied: httpx&lt;1,&gt;=0.23.0 in /usr/local/lib/python3.14/site-packages (from openai) (0.28.1)
-Requirement already satisfied: jiter&lt;1,&gt;=0.10.0 in /usr/local/lib/python3.14/site-packages (from openai) (0.11.1)
-Requirement already satisfied: pydantic&lt;3,&gt;=1.9.0 in /usr/local/lib/python3.14/site-packages (from openai) (2.13.4)
-Requirement already satisfied: sniffio in /usr/local/lib/python3.14/site-packages (from openai) (1.3.1)
-Requirement already satisfied: tqdm&gt;4 in /usr/local/lib/python3.14/site-packages (from openai) (4.67.3)
-Requirement already satisfied: typing-extensions&lt;5,&gt;=4.11 in /usr/local/lib/python3.14/site-packages (from openai) (4.15.0)
-Requirement already satisfied: idna&gt;=2.8 in /usr/local/lib/python3.14/site-packages (from anyio&lt;5,&gt;=3.5.0-&gt;openai) (3.15)
-Requirement already satisfied: certifi in /usr/local/lib/python3.14/site-packages (from httpx&lt;1,&gt;=0.23.0-&gt;openai) (2026.4.22)
-Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.14/site-packages (from httpx&lt;1,&gt;=0.23.0-&gt;openai) (1.0.9)
-Requirement already satisfied: h11&gt;=0.16 in /usr/local/lib/python3.14/site-packages (from httpcore==1.*-&gt;httpx&lt;1,&gt;=0.23.0-&gt;openai) (0.16.0)
-Requirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;3,&gt;=1.9.0-&gt;openai) (0.7.0)
-Requirement already satisfied: pydantic-core==2.46.4 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;3,&gt;=1.9.0-&gt;openai) (2.46.4)
-Requirement already satisfied: typing-inspection&gt;=0.4.2 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;3,&gt;=1.9.0-&gt;openai) (0.4.2)
+Collecting fireworks-ai
+  Downloading fireworks_ai-1.2.6-py3-none-any.whl.metadata (26 kB)
+Requirement already satisfied: aiohttp in /usr/local/lib/python3.14/site-packages (from fireworks-ai) (3.13.5)
+Requirement already satisfied: anyio&lt;5,&gt;=3.5.0 in /usr/local/lib/python3.14/site-packages (from fireworks-ai) (4.13.0)
+Requirement already satisfied: distro&lt;2,&gt;=1.7.0 in /usr/local/lib/python3.14/site-packages (from fireworks-ai) (1.9.0)
+Collecting httpx-aiohttp&gt;=0.1.9 (from fireworks-ai)
+  Downloading httpx_aiohttp-0.2.0-py3-none-any.whl.metadata (3.1 kB)
+Requirement already satisfied: httpx&lt;1,&gt;=0.23.0 in /usr/local/lib/python3.14/site-packages (from fireworks-ai) (0.28.1)
+Collecting pydantic&lt;2.13,&gt;=1.9.0 (from fireworks-ai)
+  Downloading pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+Requirement already satisfied: sniffio in /usr/local/lib/python3.14/site-packages (from fireworks-ai) (1.3.1)
+Requirement already satisfied: typing-extensions&lt;5,&gt;=4.14 in /usr/local/lib/python3.14/site-packages (from fireworks-ai) (4.15.0)
+Requirement already satisfied: idna&gt;=2.8 in /usr/local/lib/python3.14/site-packages (from anyio&lt;5,&gt;=3.5.0-&gt;fireworks-ai) (3.15)
+Requirement already satisfied: certifi in /usr/local/lib/python3.14/site-packages (from httpx&lt;1,&gt;=0.23.0-&gt;fireworks-ai) (2026.4.22)
+Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.14/site-packages (from httpx&lt;1,&gt;=0.23.0-&gt;fireworks-ai) (1.0.9)
+Requirement already satisfied: h11&gt;=0.16 in /usr/local/lib/python3.14/site-packages (from httpcore==1.*-&gt;httpx&lt;1,&gt;=0.23.0-&gt;fireworks-ai) (0.16.0)
+Requirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;2.13,&gt;=1.9.0-&gt;fireworks-ai) (0.7.0)
+Collecting pydantic-core==2.41.5 (from pydantic&lt;2.13,&gt;=1.9.0-&gt;fireworks-ai)
+  Downloading pydantic_core-2.41.5-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+Requirement already satisfied: typing-inspection&gt;=0.4.2 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;2.13,&gt;=1.9.0-&gt;fireworks-ai) (0.4.2)
+Requirement already satisfied: aiohappyeyeballs&gt;=2.5.0 in /usr/local/lib/python3.14/site-packages (from aiohttp-&gt;fireworks-ai) (2.6.1)
+Requirement already satisfied: aiosignal&gt;=1.4.0 in /usr/local/lib/python3.14/site-packages (from aiohttp-&gt;fireworks-ai) (1.4.0)
+Requirement already satisfied: attrs&gt;=17.3.0 in /usr/local/lib/python3.14/site-packages (from aiohttp-&gt;fireworks-ai) (26.1.0)
+Requirement already satisfied: frozenlist&gt;=1.1.1 in /usr/local/lib/python3.14/site-packages (from aiohttp-&gt;fireworks-ai) (1.8.0)
+Requirement already satisfied: multidict&lt;7.0,&gt;=4.5 in /usr/local/lib/python3.14/site-packages (from aiohttp-&gt;fireworks-ai) (6.7.1)
+Requirement already satisfied: propcache&gt;=0.2.0 in /usr/local/lib/python3.14/site-packages (from aiohttp-&gt;fireworks-ai) (0.5.2)
+Requirement already satisfied: yarl&lt;2.0,&gt;=1.17.0 in /usr/local/lib/python3.14/site-packages (from aiohttp-&gt;fireworks-ai) (1.23.0)
+Downloading fireworks_ai-1.2.6-py3-none-any.whl (485 kB)
+Downloading pydantic-2.12.5-py3-none-any.whl (463 kB)
+Downloading pydantic_core-2.41.5-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 269.7 MB/s  0:00:00
+Downloading httpx_aiohttp-0.2.0-py3-none-any.whl (9.7 kB)
+Installing collected packages: pydantic-core, pydantic, httpx-aiohttp, fireworks-ai
+
+Successfully installed fireworks-ai-1.2.6 httpx-aiohttp-0.2.0 pydantic-2.12.5 pydantic-core-2.41.5
 
 [notice] A new release of pip is available: 26.0.1 -&gt; 26.2.1
 [notice] To update, run: pip install --upgrade pip
-</pre></details><details class="step" open><summary>#3 <b>write_file</b> <code>/home/daytona/quickstart.py</code></summary><pre>wrote /home/daytona/quickstart.py (392 bytes)</pre></details><details class="step" open><summary>#4 <b>bash</b> <code>cd /home/daytona &amp;&amp; python quickstart.py</code></summary><pre>exit=1
-Traceback (most recent call last):
-  File &quot;/home/daytona/quickstart.py&quot;, line 9, in &lt;module&gt;
-    response = client.chat.completions.create(
-        model=&quot;accounts/fireworks/models/deepseek-v3p1&quot;,
-    ...&lt;3 lines&gt;...
-        }],
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/openai/_utils/_utils.py&quot;, line 287, in wrapper
-    return func(*args, **kwargs)
-  File &quot;/usr/local/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py&quot;, line 1211, in create
-    return self._post(
-           ~~~~~~~~~~^
-        &quot;/chat/completions&quot;,
-        ^^^^^^^^^^^^^^^^^^^^
-    ...&lt;47 lines&gt;...
-        stream_cls=Stream[ChatCompletionChunk],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File &quot;/usr/local/lib/python3.14/site-packages/openai/_base_client.py&quot;, line 1314, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
-                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/openai/_base_client.py&quot;, line 1087, in request
-    raise self._make_status_error_from_response(err.response) from None
-openai.NotFoundError: Error code: 404 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Model not found, inaccessible, and/or not deployed&#x27;, &#x27;param&#x27;: &#x27;model&#x27;, &#x27;code&#x27;: &#x27;NOT_FOUND&#x27;, &#x27;type&#x27;: &#x27;error&#x27;}, &#x27;request_id&#x27;: &#x27;chatcmpl-828f672fc37442f7be243778bf3845b3&#x27;}
-</pre></details><details class="step" open><summary>#5 <b>write_file</b> <code>/home/daytona/quickstart.py</code></summary><pre>wrote /home/daytona/quickstart.py (402 bytes)</pre></details><details class="step" open><summary>#6 <b>bash</b> <code>cd /home/daytona &amp;&amp; python quickstart.py</code></summary><pre>exit=1
-Traceback (most recent call last):
-  File &quot;/home/daytona/quickstart.py&quot;, line 9, in &lt;module&gt;
-    response = client.chat.completions.create(
-        model=&quot;accounts/fireworks/models/llama-v3p1-70b-instruct&quot;,
-    ...&lt;3 lines&gt;...
-        }],
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/openai/_utils/_utils.py&quot;, line 287, in wrapper
-    return func(*args, **kwargs)
-  File &quot;/usr/local/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py&quot;, line 1211, in create
-    return self._post(
-           ~~~~~~~~~~^
-        &quot;/chat/completions&quot;,
-        ^^^^^^^^^^^^^^^^^^^^
-    ...&lt;47 lines&gt;...
-        stream_cls=Stream[ChatCompletionChunk],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File &quot;/usr/local/lib/python3.14/site-packages/openai/_base_client.py&quot;, line 1314, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
-                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/openai/_base_client.py&quot;, line 1087, in request
-    raise self._make_status_error_from_response(err.response) from None
-openai.NotFoundError: Error code: 404 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Model not found, inaccessible, and/or not deployed&#x27;, &#x27;param&#x27;: &#x27;model&#x27;, &#x27;code&#x27;: &#x27;NOT_FOUND&#x27;, &#x27;type&#x27;: &#x27;error&#x27;}, &#x27;request_id&#x27;: &#x27;chatcmpl-3caf41f814344e8bb2184c20da5b0c3b&#x27;}
-</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>cd /home/daytona &amp;&amp; curl -s https://api.fireworks.ai/inference/v1/models -H &quot;Authorization: Bearer $FIREWORKS_API_KEY&quot; | head -c 2000</code></summary><pre>exit=0
-{&quot;data&quot;:[{&quot;id&quot;:&quot;accounts/fireworks/models/glm-5p2&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1781630293,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:1048576},{&quot;id&quot;:&quot;accounts/fireworks/routers/glm-5p2-fast&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1781630293,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:1048576},{&quot;id&quot;:&quot;accounts/fireworks/models/kimi-k2p6&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1776455694,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:true,&quot;supports_tools&quot;:true,&quot;context_length&quot;:262144},{&quot;id&quot;:&quot;accounts/fireworks/routers/kimi-k2p6-turbo&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1776455694,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:true,&quot;supports_tools&quot;:true,&quot;context_length&quot;:262144},{&quot;id&quot;:&quot;accounts/fireworks/models/kimi-k2p7-code&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1781283600,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:true,&quot;supports_tools&quot;:true,&quot;context_length&quot;:262144},{&quot;id&quot;:&quot;accounts/fireworks/routers/kimi-k2p7-code-fast&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1781283600,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:true,&quot;supports_tools&quot;:true,&quot;context_length&quot;:262144},{&quot;id&quot;:&quot;accounts/fireworks/models/minimax-m2p7&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1775867225,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:196608},{&quot;id&quot;:&quot;accounts/fireworks/models/minimax-m3&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1781214748,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_image_input&quot;:false,&quot;supports_tools&quot;:true,&quot;context_length&quot;:512000},{&quot;id&quot;:&quot;accounts/fireworks/models/gpt-oss-120b&quot;,&quot;object&quot;:&quot;model&quot;,&quot;owned_by&quot;:&quot;fireworks&quot;,&quot;created&quot;:1754345600,&quot;kind&quot;:&quot;HF_BASE_MODEL&quot;,&quot;supports_chat&quot;:true,&quot;supports_im</pre></details><details class="step" open><summary>#8 <b>write_file</b> <code>/home/daytona/quickstart.py</code></summary><pre>wrote /home/daytona/quickstart.py (386 bytes)</pre></details><details class="step" open><summary>#9 <b>bash</b> <code>cd /home/daytona &amp;&amp; python quickstart.py</code></summary><pre>exit=0
-Hello in Spanish is **Hola**.
-</pre></details><details class="step" open><summary>#10 <b>finish</b> <code></code></summary><pre>run finished</pre></details>
+</pre></details><details class="step" open><summary>#10 <b>write_file</b> <code>/home/daytona/quickstart.py</code></summary><pre>wrote /home/daytona/quickstart.py (292 bytes)</pre></details><details class="step" open><summary>#11 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 quickstart.py</code></summary><pre>exit=0
+Hola.
+</pre></details><details class="step" open><summary>#12 <b>finish</b> <code></code></summary><pre>run finished</pre></details>
 </body></html>

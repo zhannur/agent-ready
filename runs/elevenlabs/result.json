@@ -1,22 +1,22 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-08-08T10:33:37Z",
+  "started": "2026-08-09T10:34:58Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs SDK and python-dotenv, created the example script per the docs, and successfully generated a valid MP3 audio file from text using the Text-to-Speech API. The output.mp3 file (41,839 bytes) was created and verified as a genuine MPEG ADTS layer III audio file at 128 kbps, 44.1 kHz, matching the requested mp3_44100_128 output format. The API key was already available in the environment as ELEVENLABS_API_KEY.",
-  "deviations": "The quickstart's `play(audio)` step expects speakers to hear audio output, but the sandbox has no audio hardware. To verify the promised outcome (generating an audio file from text), I created a separate verification script that saves the audio stream to output.mp3 and confirms it is a valid MP3 file. The original example.py ran successfully (exit=0), meaning the API call worked, but audio playback was not possible in this headless environment.",
+  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example script, and successfully generated a valid MP3 audio file from text using the ElevenLabs Text-to-Speech API. The output file (/home/daytona/output.mp3) is 46,019 bytes, confirmed by `file` and `ffmpeg` as a proper MPEG ADTS layer III audio file at 44.1 kHz, 128 kbps, mono, ~2.85 seconds duration.",
+  "deviations": "The quickstart's final step calls `play(audio)` to play audio through speakers. Since the sandbox is headless with no audio output, I replaced `play(audio)` with code that saves the audio stream to a file (`/home/daytona/output.mp3`). This is the only deviation \u2014 the core API request, authentication, and text-to-speech generation follow the quickstart exactly.",
   "steps": 9,
-  "wall_seconds": 69.5,
+  "wall_seconds": 39.5,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "cd /home/daytona && pip install elevenlabs python-dotenv\" exit=0"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "Downloading elevenlabs-2.62.0-py3-none-any.whl.metadata (15 kB)"
+      "evidence": "Collecting elevenlabs\n  Downloading elevenlabs-2.62.0-py3-none-any.whl.metadata (15 kB)"
     },
     "configured": {
       "passed": true,
@@ -24,35 +24,23 @@
     },
     "first_call": {
       "passed": true,
-      "evidence": "cd /home/daytona && python example.py\" exit=0"
+      "evidence": "Audio saved to /home/daytona/output.mp3\nFile size: 46019 bytes"
     },
     "verified": {
       "passed": true,
-      "evidence": "Audio file generated: output.mp3 (41839 bytes) / Valid MP3 file detected (ID3 tag present)"
+      "evidence": "output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural"
     }
   },
   "friction": [
     {
-      "where": "Documentation fetch returns noisy HTML; must know to append .md for readable quickstart",
-      "detail": "Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page. Search / Connect Blog Help Center API Pricing Sign up Overview..."
+      "where": "Missing audio player prerequisite",
+      "detail": "which mpv ffmpeg returned exit=1 with mpv not found"
     },
     {
-      "where": "System site-packages is not writeable, forcing user install",
-      "detail": "Defaulting to user installation because normal site-packages is not writeable"
-    },
-    {
-      "where": "Quickstart example uses play() instead of saving audio to a file",
-      "detail": "from elevenlabs.play import play"
-    },
-    {
-      "where": "Voice ID is an opaque string requiring manual web UI lookup",
-      "detail": "voice_id=\"JBFqnCBsd6RMkjVDRZzb\",  # \"George\" - browse voices at elevenlabs.io/app/voice-library"
-    },
-    {
-      "where": "Quickstart does not show how to save output, requiring extra verification code",
-      "detail": "# Save audio to file to verify it was gene"
+      "where": "Documentation page is cluttered with navigation noise",
+      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt... Overview ElevenCreative ElevenAgents..."
     }
   ],
   "score": 100,
-  "braintrust_span": "befb5415-2b52-4600-9b6d-ca98e67f4839"
+  "braintrust_span": "fa82511e-0379-40aa-98bc-d351d67fa7b9"
 }

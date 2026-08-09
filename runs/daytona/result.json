@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-08-08T10:30:22Z",
+  "started": "2026-08-09T10:33:27Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
   "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 399.6,
+  "wall_seconds": 388.5,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "Version: 0.203.0"
+      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY=***REDACTED***"
+      "evidence": "DAYTONA_API_KEY is set: yes"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: d4754643-9b4d-4877-8447-e9f754c8769c"
+      "evidence": "Sandbox created with ID: 6f2d4aab-e1d0-4e8c-aa43-70b28a1589ee"
     },
     "verified": {
       "passed": false,
-      "evidence": "All attempts failed"
+      "evidence": "Error running code: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   },
   "friction": [
     {
-      "where": "SDK sandbox code execution (proxy connectivity)",
-      "detail": "Sandbox reports STARTED but every execution attempt fails with ConnectionResetError: \"Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))\""
+      "where": "SDK class name mismatch",
+      "detail": "ImportError: cannot import name 'CreateSandboxParams' from 'daytona' (/usr/local/lib/python3.14/site-packages/daytona/__init__.py). Did you mean: 'CreateSandboxBaseParams'?"
     },
     {
-      "where": "Daytona CLI --help behavior inside sandbox",
-      "detail": "Running daytona create --help unexpectedly starts local servers and crashes with port already in use instead of printing help: \"Error occurred error=\\\"listen tcp :22222: bind: address already in use\\\"\""
+      "where": "CLI binary behavior",
+      "detail": "daytona --version outputs server startup logs instead of a version string, e.g. 'Starting terminal server on http://localhost:22222' and 'Error occurred error=\"listen tcp :22222: bind: address already in use\"'"
     },
     {
-      "where": "Pre-installed SDK version drift",
-      "detail": "The sandbox image shipped an outdated SDK (0.134.0) that had to be manually upgraded to match the current API: \"Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)\""
+      "where": "Sandbox code execution connectivity",
+      "detail": "After wait_for_sandbox_start() reports 'Sandbox is fully started!', every code_run and exec attempt fails with 'Error with simple command: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))'"
     },
     {
-      "where": "Sandbox proxy readiness after creation",
-      "detail": "No guidance that the sandbox proxy is unreachable immediately after STARTED, forcing custom retry loops that still fail: \"Attempt 5 failed... All attempts failed\""
+      "where": "Cleanup API mismatch",
+      "detail": "AttributeError: 'Daytona' object has no attribute 'remove' \u2014 the SDK client has no remove() method; deletion is a method on the sandbox object instead."
     },
     {
-      "where": "Low-level SSL handshake errors",
-      "detail": "Connection failures surface as deep urllib3/ssl.py tracebacks rather than a clear sandbox-not-ready message: \"File \\\"/usr/local/lib/python3.14/ssl.py\\\", line 1076, in _create self.do_handshake()\""
+      "where": "Image pull authorization failure",
+      "detail": "Using CreateSandboxFromImageParams with the default workspace-python image fails: 'daytonaio/workspace-python: failed to resolve source metadata for docker.io/daytonaio/workspace-python:latest: pull access denied, repository does not exist or may require authorization'"
     }
   ],
   "score": 70,
-  "braintrust_span": "a6572a76-5fac-4ca1-b4bb-e360f4f5ce69"
+  "braintrust_span": "c4935acc-3d00-4d6e-bb9f-2bb5c9bdd386"
 }
