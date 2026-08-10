@@ -1,30 +1,30 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-08-09T10:34:58Z",
+  "started": "2026-08-10T11:00:39Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example script, and successfully generated a valid MP3 audio file from text using the ElevenLabs Text-to-Speech API. The output file (/home/daytona/output.mp3) is 46,019 bytes, confirmed by `file` and `ffmpeg` as a proper MPEG ADTS layer III audio file at 44.1 kHz, 128 kbps, mono, ~2.85 seconds duration.",
-  "deviations": "The quickstart's final step calls `play(audio)` to play audio through speakers. Since the sandbox is headless with no audio output, I replaced `play(audio)` with code that saves the audio stream to a file (`/home/daytona/output.mp3`). This is the only deviation \u2014 the core API request, authentication, and text-to-speech generation follow the quickstart exactly.",
-  "steps": 9,
-  "wall_seconds": 39.5,
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example script, and ran it. The API call to text_to_speech.convert() succeeded and generated a valid 41KB MP3 audio file (output.mp3) from the text \"The first move is what sets everything in motion.\" File was verified as a real MPEG ADTS Layer III audio file at 128 kbps, 44.1 kHz, monaural.",
+  "deviations": "The quickstart uses `play(audio)` to play audio through speakers. Since the sandbox has no audio output, I substituted `save(audio, \"output.mp3\")` to save the generated audio to a file instead. This is the only deviation; the core API authentication, SDK usage, and text-to-speech generation followed the docs exactly.",
+  "steps": 8,
+  "wall_seconds": 39.4,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "pip install elevenlabs python-dotenv exited 0 and /usr/bin/ffmpeg was present"
     },
     "installed": {
       "passed": true,
-      "evidence": "Collecting elevenlabs\n  Downloading elevenlabs-2.62.0-py3-none-any.whl.metadata (15 kB)"
+      "evidence": "Downloading elevenlabs-2.62.0-py3-none-any.whl.metadata and import help(play) returned successfully"
     },
     "configured": {
       "passed": true,
-      "evidence": "API key present: yes"
+      "evidence": "python3 example.py exited 0 and produced audio, proving the API key was loaded"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to /home/daytona/output.mp3\nFile size: 46019 bytes"
+      "evidence": "Audio saved to output.mp3"
     },
     "verified": {
       "passed": true,
@@ -33,14 +33,22 @@
   },
   "friction": [
     {
-      "where": "Missing audio player prerequisite",
-      "detail": "which mpv ffmpeg returned exit=1 with mpv not found"
+      "where": "Missing audio playback prerequisite",
+      "detail": "The quickstart expects play() but mpv is not installed, forcing a deviation to save(); transcript shows 'mpv not found' and finish summary notes 'The quickstart uses `play(a...`"
     },
     {
-      "where": "Documentation page is cluttered with navigation noise",
-      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt... Overview ElevenCreative ElevenAgents..."
+      "where": "Noisy documentation fetch",
+      "detail": "Fetched quickstart page returns cluttered HTML/navigation text instead of clean instructions: 'ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt... Search / Connect Blog Help Center API Pricing Sign up Overview...'"
+    },
+    {
+      "where": "Implicit credential setup",
+      "detail": "The script loads ELEVENLABS_API_KEY from .env but the transcript never shows creating the .env file or exporting the variable: 'api_key=os.getenv(\\\"ELEVENLABS_API_KEY\\\")' appears with no prior setup command"
+    },
+    {
+      "where": "Truncated code display in transcript",
+      "detail": "The written script content is truncated in the log, potentially hiding the full model_id or other parameters: 'model_id=\\\"eleve'"
     }
   ],
   "score": 100,
-  "braintrust_span": "fa82511e-0379-40aa-98bc-d351d67fa7b9"
+  "braintrust_span": "9c20e0ce-ba2c-42f2-bf99-bb784e7172cb"
 }

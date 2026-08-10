@@ -1,54 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-09T09:58:38Z",
+  "started": "2026-08-10T10:40:38Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Braintrust SDK and autoevals (`added 144 packages in 11s`), created the `tutorial.eval.ts` file exactly per the quickstart, and attempted to run it with `npx braintrust eval tutorial.eval.ts`. However, the execution failed with `TypeError: fetch failed`, indicating the sandbox could not reach Braintrust's API servers to submit the eval run. The API key was present (51 characters), but the network connectivity issue blocked the promised outcome of seeing scores reported.",
+  "summary": "I successfully fetched the main quickstart index page at `/docs/start` and the documentation index at `/docs/llms.txt`, which confirmed there is an evaluation quickstart among the getting-started guides. However, I was blocked from retrieving the specific evaluation quickstart instructions because all direct URL variations I tried (`/docs/start/eval`, `/docs/evaluate`, `/docs/evaluate/quickstart`) returned empty responses, and `curl` commands to the site consistently produced no output\u2014suggesting the docs may be JavaScript-rendered or blocked for non-browser clients. Consequently, I never reached the step of installing the Braintrust SDK or executing an eval run. No eval was executed and no scores were reported.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 124.9,
+  "wall_seconds": 113.9,
   "checkpoints": {
     "env_ready": {
-      "passed": true,
-      "evidence": "added 144 packages in 11s"
+      "passed": false,
+      "evidence": "[fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/start\"} \u2014 transcript contains only doc-fetching commands; no runtime or package-manager installation is shown"
     },
     "installed": {
-      "passed": true,
-      "evidence": "added 144 packages in 11s"
+      "passed": false,
+      "evidence": "I never reached the step of installing the Braintrust SDK or executing an eval run."
     },
     "configured": {
-      "passed": true,
-      "evidence": "API key length: 51"
+      "passed": false,
+      "evidence": "I never reached the step of installing the Braintrust SDK or executing an eval run."
     },
     "first_call": {
       "passed": false,
-      "evidence": "TypeError: fetch failed"
+      "evidence": "No eval was executed"
     },
     "verified": {
       "passed": false,
-      "evidence": "TypeError: fetch failed"
+      "evidence": "No eval was executed and no scores were reported."
     }
   },
   "friction": [
     {
-      "where": "Braintrust docs site TLS/connection",
-      "detail": "curl: (35) Recv failure: Connection reset by peer"
+      "where": "Documentation site blocks standard HTTP clients / requires JavaScript rendering",
+      "detail": "curl commands to the site consistently produced no output\u2014suggesting the docs may be JavaScript-rendered or blocked for non-browser clients."
     },
     {
-      "where": "Evaluation quickstart page fetch",
-      "detail": "0"
+      "where": "Evaluation quickstart URL is not at a predictable path",
+      "detail": "all direct URL variations I tried (`/docs/start/eval`, `/docs/evaluate`, `/docs/evaluate/quickstart`) returned empty responses"
     },
     {
-      "where": "llms.txt quickstart discovery",
-      "detail": "not found"
+      "where": "Main start page returns zero bytes via curl even with browser user-agent headers",
+      "detail": "`curl -sL https://www.braintrust.dev/docs/start | wc -c` returned 0"
     },
     {
-      "where": "SDK offline execution",
-      "detail": "TypeError: fetch failed"
+      "where": "Docs index (llms.txt) lacks quickstart keyword matches",
+      "detail": "`curl -s https://www.braintrust.dev/docs/llms.txt | grep -i \\\"quickstart\\\" | head -20` produced no visible output"
+    },
+    {
+      "where": "Start page loads but evaluation quickstart sub-page is unreachable",
+      "detail": "I successfully fetched the main quickstart index page at `/docs/start` ... However, I was blocked from retrieving the specific evaluation quickstart instructions"
     }
   ],
-  "score": 45,
-  "braintrust_span": "010f53a1-8fe3-4cca-b292-d34107bf52a7"
+  "score": 0,
+  "braintrust_span": "ae500b60-9627-42d6-ba0c-604be997db79"
 }
