@@ -105,9 +105,9 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 }
 </style></head><body>
 <h1 class="wordmark"><a href="index.html" style="color:inherit">agent-ready</a> · daytona
-<span style="color:#b3d13b">70/100</span></h1>
+<span style="color:#d9a13b">55/100</span></h1>
 <p class="meta" style="margin:.6rem 0 1.4rem">40 steps ·
-419.5s · agent <code>kimi-k2p6</code> ·
+334.4s · agent <code>kimi-k2p6</code> ·
 <a href="https://github.com/zhannur/agent-ready/blob/main/runs/daytona/transcript.jsonl">raw JSONL</a></p>
 <details class="step" open><summary>#1 <b>fetch_url</b> <code>https://www.daytona.io/docs/getting-started/</code></summary><pre> Sandboxes | Daytona 
 
@@ -275,796 +275,7 @@ Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.14/site-pac
 [notice] To update, run: pip install --upgrade pip
 </pre></details><details class="step" open><summary>#4 <b>bash</b> <code>echo &quot;DAYTONA_API_KEY is set: ${DAYTONA_API_KEY:+yes}&quot;</code></summary><pre>exit=0
 DAYTONA_API_KEY is set: yes
-</pre></details><details class="step" open><summary>#5 <b>fetch_url</b> <code>https://www.daytona.io/docs/process-code-execution/</code></summary><pre> Process and Code Execution | Daytona 
-
- Skip to content 
-
- Platform API Keys 
-
- Organizations SSO Limits 
-
- Billing Linked Accounts Troubleshooting References 
-
- TypeScript SDK 
-
- Python SDK 
-
- Ruby SDK 
-
- Go SDK 
-
- Java SDK API 
-
- CLI Guides Changelog v0.203 
-
-Search
- ⌘ K Sign in 
-
- Introduction 
-
- Quick Start 
-
- Architecture Sandboxes Concepts 
-
- Isolation 
-
- Persistence 
-
- Scale Sandbox Snapshots Warm Pools 
-
- Declarative Builder Volumes Mount External Storage 
-
- Regions Agent Tools 
-
- File System 
-
- Git Operations 
-
- Language Server Protocol 
-
- Process &amp;amp; Code Execution 
-
- Pseudo Terminal (PTY) 
-
- Log Streaming MCP Server 
-
- Computer Use Agent Skills Human Tools 
-
- Web Terminal 
-
- SSH Access VNC Access VPN Connections 
-
- Preview 
-
- Custom Preview Proxy Playground System Tools Webhooks 
-
- Network Limits Security Secrets 
-
- Audit Logs Observability OpenTelemetry Collection Deployments 
-
- Bring Your Own Compute Platform API Keys 
-
- Organizations 
-
- SSO Limits 
-
- Billing Linked Accounts Troubleshooting References 
-
- TypeScript SDK 
-
- Python SDK 
-
- Ruby SDK API 
-
- CLI Guides Sign in 
-# Contents Overview Code execution Run code (stateless) Artifacts Run code (stateful) Command execution Execute commands Session operations Get session status Get session command Entrypoint session Execute interactive commands Resource management Error handling Process and Code Execution Copy for LLM View as Markdown Open Process and code execution are available through the process module of a sandbox. Code and commands run inside the sandbox, so untrusted or generated code executes in isolation from your application. 
- The process module covers running code snippets in Python, JavaScript, and TypeScript, with stateless execution or a persistent interpreter context, executing shell commands, and sessions: independent shells whose state persists across commands and that run long-lived processes in the background. For interactive terminal sessions, see Pseudo Terminal (PTY) . For real-time log streaming from long-running session commands, see Log Streaming . 
- Code execution Section titled “Code execution” 
- Daytona provides methods to execute code in sandboxes. You can run code snippets in multiple languages with support for both stateless execution and stateful interpretation with persistent contexts. 
-
- Run code (stateless) : run independent code snippets where each execution starts from a clean interpreter state; inherits the sandbox language that you choose at sandbox creation . Supports Python, JavaScript, and TypeScript. 
- Run code (stateful) : run Python code in a persistent interpreter context with variables, imports, and state to carry across executions; available in every SDK. 
-
- Run code (stateless) Section titled “Run code (stateless)” 
- Run code snippets in sandboxes using stateless execution. Each invocation starts from a clean interpreter, making it ideal for independent code snippets. 
- Python TypeScript Ruby Go Java API from daytona import CodeRunParams 
- # Run Python code response = sandbox.process. code_run ( &#x27;&#x27;&#x27; def greet(name): return f&quot;Hello, {name} !&quot; 
- print(greet(&quot;Daytona&quot;)) &#x27;&#x27;&#x27; ) 
- print ( response . result ) 
- # Run code with argv and environment variables response = sandbox.process. code_run ( &#x27; import sys; print(f&quot;Hello, {sys.argv[1]} !&quot;) &#x27; , params = CodeRunParams ( argv = [ &quot; Daytona &quot; ], env = { &quot; FOO &quot; : &quot; BAR &quot; }), timeout = 5, ) print ( response . result ) // Run TypeScript code let response = await sandbox . process . codeRun ( ` function greet(name: string): string { return \` Hello, \$ {name}! \` ; } 
- console.log(greet(&quot;Daytona&quot;)); ` ); console . log ( response . result ); 
- // Run code with argv and environment variables response = await sandbox . process . codeRun ( ` console.log( \` Hello, \$ {process.argv[2]}! \` ); console.log( \` FOO: \$ {process.env.FOO} \` ); ` , { argv: [ &quot; Daytona &quot; ], env: { FOO: &quot; BAR &quot; } } ); console . log ( response . result ); 
- // Run code with timeout (5 seconds) response = await sandbox . process . codeRun ( &#x27; setTimeout(() =&gt; console.log(&quot;Done&quot;), 2000); &#x27; , undefined, 5 ); console . log ( response . result ); console.log(&amp;#x22;Done&amp;#x22;), 2000);&amp;#x27;, undefined, 5);console.log(response.result);&quot;&gt; # Run Python code response = sandbox. process . code_run (code: &amp;#x3C;&amp;#x3C;~PYTHON ) def greet(name): return f&quot;Hello, {name}!&quot; 
- print(greet(&quot;Daytona&quot;)) PYTHON 
- puts response. result // Run Python code (language defaults to sandbox language) result , err := sandbox . Process . CodeRun ( ctx , ` def greet(name): return f&quot;Hello, {name}!&quot; 
- print(greet(&quot;Daytona&quot;)) ` ) if err != nil { log . Fatal ( err ) } fmt . Println ( result . Result ) 
- // Run code with environment variables result , err = sandbox . Process . CodeRun ( ctx , ` import os; print(os.environ.get(&quot;FOO&quot;)) ` , options . WithCodeRunParams ( types . CodeRunParams { Env : map [ string ] string { &quot; FOO &quot; : &quot; BAR &quot; }, }), ) if err != nil { log . Fatal ( err ) } fmt . Println ( result . Result ) 
- // Run code with timeout (5 seconds) result , err = sandbox . Process . CodeRun ( ctx , ` import time; time.sleep(2); print(&quot;Done&quot;) ` , options . WithCodeRunTimeout (5 * time . Second ), ) if err != nil { log . Fatal ( err ) } fmt . Println ( result . Result ) import io . daytona . sdk . model . ExecuteResponse ; import java . util . Map ; 
- // Run code (stateless; language matches the sandbox image) ExecuteResponse response = sandbox . process . codeRun ( &quot;&quot;&quot; def greet(name): return f&quot;Hello, {name}!&quot; 
- print(greet(&quot;Daytona&quot;)) &quot;&quot;&quot; ); System . out . println ( response . getResult ()); 
- // Run code with environment variables and timeout (seconds) response = sandbox . process . codeRun ( &quot; import os; print(&#x27;FOO:&#x27;, os.environ.get(&#x27;FOO&#x27;)) &quot; , Map . of ( &quot; FOO &quot; , &quot; BAR &quot; ), null ); System . out . println ( response . getResult ()); 
- response = sandbox . process . codeRun ( &quot; import time; time.sleep(2); print( \&quot; Done \&quot; ) &quot; , null, 5 ); System . out . println ( response . getResult ()); </pre></details><details class="step" open><summary>#6 <b>write_file</b> <code>/home/daytona/daytona_quickstart.py</code></summary><pre>wrote /home/daytona/daytona_quickstart.py (983 bytes)</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 daytona_quickstart.py</code></summary><pre>exit=1
-Traceback (most recent call last):
-  File &quot;/home/daytona/daytona_quickstart.py&quot;, line 1, in &lt;module&gt;
-    from daytona import Daytona, CreateSandboxParams
-ImportError: cannot import name &#x27;CreateSandboxParams&#x27; from &#x27;daytona&#x27; (/usr/local/lib/python3.14/site-packages/daytona/__init__.py). Did you mean: &#x27;CreateSandboxBaseParams&#x27;?
-</pre></details><details class="step" open><summary>#8 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;from daytona import *; import daytona; print(dir(daytona))&quot;</code></summary><pre>exit=0
-[&#x27;AsyncComputerUse&#x27;, &#x27;AsyncDaytona&#x27;, &#x27;AsyncDisplay&#x27;, &#x27;AsyncKeyboard&#x27;, &#x27;AsyncMouse&#x27;, &#x27;AsyncPaginatedSandboxes&#x27;, &#x27;AsyncSandbox&#x27;, &#x27;AsyncScreenshot&#x27;, &#x27;BarChart&#x27;, &#x27;BoxAndWhiskerChart&#x27;, &#x27;Chart&#x27;, &#x27;ChartType&#x27;, &#x27;CodeLanguage&#x27;, &#x27;CodeRunParams&#x27;, &#x27;CompositeChart&#x27;, &#x27;CreateSandboxBaseParams&#x27;, &#x27;CreateSandboxFromImageParams&#x27;, &#x27;CreateSandboxFromSnapshotParams&#x27;, &#x27;CreateSnapshotParams&#x27;, &#x27;Daytona&#x27;, &#x27;DaytonaConfig&#x27;, &#x27;DaytonaError&#x27;, &#x27;DaytonaNotFoundError&#x27;, &#x27;DaytonaRateLimitError&#x27;, &#x27;DaytonaTimeoutError&#x27;, &#x27;ExecuteResponse&#x27;, &#x27;ExecutionArtifacts&#x27;, &#x27;ExecutionError&#x27;, &#x27;ExecutionResult&#x27;, &#x27;FileDownloadRequest&#x27;, &#x27;FileDownloadResponse&#x27;, &#x27;FileUpload&#x27;, &#x27;Image&#x27;, &#x27;LineChart&#x27;, &#x27;LspCompletionPosition&#x27;, &#x27;LspLanguageId&#x27;, &#x27;OutputHandler&#x27;, &#x27;OutputMessage&#x27;, &#x27;PieChart&#x27;, &#x27;PtySize&#x27;, &#x27;Resources&#x27;, &#x27;Sandbox&#x27;, &#x27;SandboxState&#x27;, &#x27;ScatterChart&#x27;, &#x27;ScreenshotOptions&#x27;, &#x27;ScreenshotRegion&#x27;, &#x27;SessionExecuteRequest&#x27;, &#x27;SessionExecuteResponse&#x27;, &#x27;VolumeMount&#x27;, &#x27;__all__&#x27;, &#x27;__builtins__&#x27;, &#x27;__cached__&#x27;, &#x27;__doc__&#x27;, &#x27;__file__&#x27;, &#x27;__loader__&#x27;, &#x27;__name__&#x27;, &#x27;__package__&#x27;, &#x27;__path__&#x27;, &#x27;__spec__&#x27;, &#x27;_async&#x27;, &#x27;_sync&#x27;, &#x27;_utils&#x27;, &#x27;code_toolbox&#x27;, &#x27;common&#x27;, &#x27;handle&#x27;, &#x27;internal&#x27;]
-</pre></details><details class="step" open><summary>#9 <b>write_file</b> <code>/home/daytona/daytona_quickstart.py</code></summary><pre>wrote /home/daytona/daytona_quickstart.py (991 bytes)</pre></details><details class="step" open><summary>#10 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 daytona_quickstart.py</code></summary><pre>exit=1
-Creating Daytona sandbox...
-Sandbox created with ID: b5a136e5-3e6c-49b0-811f-51da61a20ec7
-
-Running code inside the sandbox...
-Traceback (most recent call last):
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
-    response = self._make_request(
-        conn,
-    ...&lt;10 lines&gt;...
-        **response_kw,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
-    raise new_e
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
-    self._validate_conn(conn)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
-    conn.connect()
-    ~~~~~~~~~~~~^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
-    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
-        sock=sock,
-    ...&lt;14 lines&gt;...
-        assert_fingerprint=self.assert_fingerprint,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 975, in _ssl_wrap_socket_and_match_hostname
-    ssl_sock = ssl_wrap_socket(
-        sock=sock,
-    ...&lt;8 lines&gt;...
-        tls_in_tls=tls_in_tls,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 433, in ssl_wrap_socket
-    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 477, in _ssl_wrap_socket_impl
-    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
-           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 455, in wrap_socket
-    return self.sslsocket_class._create(
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-        sock=sock,
-        ^^^^^^^^^^
-    ...&lt;5 lines&gt;...
-        session=session
-        ^^^^^^^^^^^^^^^
-    )
-    ^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1076, in _create
-    self.do_handshake()
-    ~~~~~~~~~~~~~~~~~^^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1372, in do_handshake
-    self._sslobj.do_handshake()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
-ConnectionResetError: [Errno 104] Connection reset by peer
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona/_utils/errors.py&quot;, line 98, in sync_wrapper
-    return sync_func(*args, **kwargs)
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona/_sync/process.py&quot;, line 151, in exec
-    response = self._api_client.execute_command(request=execute_request)
-  File &quot;/usr/local/lib/python3.14/site-packages/pydantic/_internal/_validate_call.py&quot;, line 40, in wrapper_function
-    return wrapper(*args, **kwargs)
-  File &quot;/usr/local/lib/python3.14/site-packages/pydantic/_internal/_validate_call.py&quot;, line 137, in __call__
-    res = self.__pydantic_validator__.validate_python(pydantic_core.ArgsKwargs(args, kwargs))
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/api/process_api.py&quot;, line 1414, in execute_command
-    response_data = self.api_client.call_api(
-        *_param,
-        _request_timeout=_request_timeout
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona/internal/toolbox_api_client_proxy.py&quot;, line 101, in call_api
-    return self._api_client.call_api(*args, **kwargs)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/api_client.py&quot;, line 273, in call_api
-    response_data = self.rest_client.request(
-        method, url,
-    ...&lt;2 lines&gt;...
-        _request_timeout=_request_timeout
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/rest.py&quot;, line 183, in request
-    r = self.pool_manager.request(
-        method,
-    ...&lt;4 lines&gt;...
-        preload_content=False
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/_request_methods.py&quot;, line 143, in request
-    return self.request_encode_body(
-           ~~~~~~~~~~~~~~~~~~~~~~~~^
-        method, url, fields=fields, headers=headers, **urlopen_kw
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/_request_methods.py&quot;, line 278, in request_encode_body
-    return self.urlopen(method, url, **extra_kw)
-           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/poolmanager.py&quot;, line 457, in urlopen
-    response = conn.urlopen(method, u.request_uri, **kw)
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 842, in urlopen
-    retries = retries.increment(
-        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/retry.py&quot;, line 498, in increment
-    raise reraise(type(error), error, _stacktrace)
-          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/util.py&quot;, line 38, in reraise
-    raise value.with_traceback(tb)
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
-    response = self._make_request(
-        conn,
-    ...&lt;10 lines&gt;...
-        **response_kw,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
-    raise new_e
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
-    self._validate_conn(conn)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
-    conn.connect()
-    ~~~~~~~~~~~~^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
-    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
-        sock=sock,
-    ...&lt;14 lines&gt;...
-       </pre></details><details class="step" open><summary>#11 <b>write_file</b> <code>/home/daytona/daytona_quickstart.py</code></summary><pre>wrote /home/daytona/daytona_quickstart.py (1106 bytes)</pre></details><details class="step" open><summary>#12 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 daytona_quickstart.py</code></summary><pre>exit=1
-Creating Daytona sandbox...
-Sandbox created with ID: 8c4c097a-039e-4629-93e5-667244cf2260
-Waiting for sandbox to be fully ready...
-
-Running code inside the sandbox...
-Traceback (most recent call last):
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
-    response = self._make_request(
-        conn,
-    ...&lt;10 lines&gt;...
-        **response_kw,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
-    raise new_e
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
-    self._validate_conn(conn)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
-    conn.connect()
-    ~~~~~~~~~~~~^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
-    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
-        sock=sock,
-    ...&lt;14 lines&gt;...
-        assert_fingerprint=self.assert_fingerprint,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 975, in _ssl_wrap_socket_and_match_hostname
-    ssl_sock = ssl_wrap_socket(
-        sock=sock,
-    ...&lt;8 lines&gt;...
-        tls_in_tls=tls_in_tls,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 433, in ssl_wrap_socket
-    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 477, in _ssl_wrap_socket_impl
-    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
-           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 455, in wrap_socket
-    return self.sslsocket_class._create(
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-        sock=sock,
-        ^^^^^^^^^^
-    ...&lt;5 lines&gt;...
-        session=session
-        ^^^^^^^^^^^^^^^
-    )
-    ^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1076, in _create
-    self.do_handshake()
-    ~~~~~~~~~~~~~~~~~^^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1372, in do_handshake
-    self._sslobj.do_handshake()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
-ConnectionResetError: [Errno 104] Connection reset by peer
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona/_utils/errors.py&quot;, line 98, in sync_wrapper
-    return sync_func(*args, **kwargs)
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona/_sync/process.py&quot;, line 151, in exec
-    response = self._api_client.execute_command(request=execute_request)
-  File &quot;/usr/local/lib/python3.14/site-packages/pydantic/_internal/_validate_call.py&quot;, line 40, in wrapper_function
-    return wrapper(*args, **kwargs)
-  File &quot;/usr/local/lib/python3.14/site-packages/pydantic/_internal/_validate_call.py&quot;, line 137, in __call__
-    res = self.__pydantic_validator__.validate_python(pydantic_core.ArgsKwargs(args, kwargs))
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/api/process_api.py&quot;, line 1414, in execute_command
-    response_data = self.api_client.call_api(
-        *_param,
-        _request_timeout=_request_timeout
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona/internal/toolbox_api_client_proxy.py&quot;, line 101, in call_api
-    return self._api_client.call_api(*args, **kwargs)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/api_client.py&quot;, line 273, in call_api
-    response_data = self.rest_client.request(
-        method, url,
-    ...&lt;2 lines&gt;...
-        _request_timeout=_request_timeout
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/rest.py&quot;, line 183, in request
-    r = self.pool_manager.request(
-        method,
-    ...&lt;4 lines&gt;...
-        preload_content=False
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/_request_methods.py&quot;, line 143, in request
-    return self.request_encode_body(
-           ~~~~~~~~~~~~~~~~~~~~~~~~^
-        method, url, fields=fields, headers=headers, **urlopen_kw
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/_request_methods.py&quot;, line 278, in request_encode_body
-    return self.urlopen(method, url, **extra_kw)
-           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/poolmanager.py&quot;, line 457, in urlopen
-    response = conn.urlopen(method, u.request_uri, **kw)
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 842, in urlopen
-    retries = retries.increment(
-        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/retry.py&quot;, line 498, in increment
-    raise reraise(type(error), error, _stacktrace)
-          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/util.py&quot;, line 38, in reraise
-    raise value.with_traceback(tb)
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
-    response = self._make_request(
-        conn,
-    ...&lt;10 lines&gt;...
-        **response_kw,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
-    raise new_e
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
-    self._validate_conn(conn)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
-    conn.connect()
-    ~~~~~~~~~~~~^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
-    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
-      </pre></details><details class="step" open><summary>#13 <b>write_file</b> <code>/home/daytona/daytona_quickstart.py</code></summary><pre>wrote /home/daytona/daytona_quickstart.py (1775 bytes)</pre></details><details class="step" open><summary>#14 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 daytona_quickstart.py</code></summary><pre>exit=1
-Creating Daytona sandbox...
-Sandbox created with ID: bbd8cae4-7e29-4502-8427-5dec8a1cefea
-Sandbox state: SandboxState.STARTED
-Waiting for sandbox to be fully ready...
-  State after 0s: SandboxState.STARTED
-  State after 5s: SandboxState.STARTED
-  State after 10s: SandboxState.STARTED
-  State after 15s: SandboxState.STARTED
-  State after 20s: SandboxState.STARTED
-  State after 25s: SandboxState.STARTED
-  State after 30s: SandboxState.STARTED
-  State after 35s: SandboxState.STARTED
-  State after 40s: SandboxState.STARTED
-  State after 45s: SandboxState.STARTED
-  State after 50s: SandboxState.STARTED
-  State after 55s: SandboxState.STARTED
-Sandbox is ready after 60 seconds
-
-Running code inside the sandbox...
-Error during code execution: Failed to execute command: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
-Traceback (most recent call last):
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
-    response = self._make_request(
-        conn,
-    ...&lt;10 lines&gt;...
-        **response_kw,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
-    raise new_e
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
-    self._validate_conn(conn)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
-    conn.connect()
-    ~~~~~~~~~~~~^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
-    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
-        sock=sock,
-    ...&lt;14 lines&gt;...
-        assert_fingerprint=self.assert_fingerprint,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 975, in _ssl_wrap_socket_and_match_hostname
-    ssl_sock = ssl_wrap_socket(
-        sock=sock,
-    ...&lt;8 lines&gt;...
-        tls_in_tls=tls_in_tls,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 433, in ssl_wrap_socket
-    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 477, in _ssl_wrap_socket_impl
-    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
-           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 455, in wrap_socket
-    return self.sslsocket_class._create(
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-        sock=sock,
-        ^^^^^^^^^^
-    ...&lt;5 lines&gt;...
-        session=session
-        ^^^^^^^^^^^^^^^
-    )
-    ^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1076, in _create
-    self.do_handshake()
-    ~~~~~~~~~~~~~~~~~^^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1372, in do_handshake
-    self._sslobj.do_handshake()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
-ConnectionResetError: [Errno 104] Connection reset by peer
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona/_utils/errors.py&quot;, line 98, in sync_wrapper
-    return sync_func(*args, **kwargs)
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona/_sync/process.py&quot;, line 151, in exec
-    response = self._api_client.execute_command(request=execute_request)
-  File &quot;/usr/local/lib/python3.14/site-packages/pydantic/_internal/_validate_call.py&quot;, line 40, in wrapper_function
-    return wrapper(*args, **kwargs)
-  File &quot;/usr/local/lib/python3.14/site-packages/pydantic/_internal/_validate_call.py&quot;, line 137, in __call__
-    res = self.__pydantic_validator__.validate_python(pydantic_core.ArgsKwargs(args, kwargs))
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/api/process_api.py&quot;, line 1414, in execute_command
-    response_data = self.api_client.call_api(
-        *_param,
-        _request_timeout=_request_timeout
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona/internal/toolbox_api_client_proxy.py&quot;, line 101, in call_api
-    return self._api_client.call_api(*args, **kwargs)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/api_client.py&quot;, line 273, in call_api
-    response_data = self.rest_client.request(
-        method, url,
-    ...&lt;2 lines&gt;...
-        _request_timeout=_request_timeout
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/rest.py&quot;, line 183, in request
-    r = self.pool_manager.request(
-        method,
-    ...&lt;4 lines&gt;...
-        preload_content=False
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/_request_methods.py&quot;, line 143, in request
-    return self.request_encode_body(
-           ~~~~~~~~~~~~~~~~~~~~~~~~^
-        method, url, fields=fields, headers=headers, **urlopen_kw
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/_request_methods.py&quot;, line 278, in request_encode_body
-    return self.urlopen(method, url, **extra_kw)
-           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/poolmanager.py&quot;, line 457, in urlopen
-    response = conn.urlopen(method, u.request_uri, **kw)
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 842, in urlopen
-    retries = retries.increment(
-        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/retry.py&quot;, line 498, in increment
-    raise reraise(type(error), error, _stacktrace)
-          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/util.py&quot;, line 38, in reraise
-    raise value.with_traceback(tb)
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
- </pre></details><details class="step" open><summary>#15 <b>write_file</b> <code>/home/daytona/inspect_sandbox.py</code></summary><pre>wrote /home/daytona/inspect_sandbox.py (1308 bytes)</pre></details><details class="step" open><summary>#16 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 inspect_sandbox.py</code></summary><pre>exit=0
-/home/daytona/inspect_sandbox.py:21: PydanticDeprecatedSince211: Accessing the &#x27;model_computed_fields&#x27; attribute on the instance is deprecated. Instead, you should access this attribute from the model class. Deprecated in Pydantic V2.11 to be removed in V3.0.
-  val = getattr(sandbox, attr)
-/home/daytona/inspect_sandbox.py:21: PydanticDeprecatedSince211: Accessing the &#x27;model_fields&#x27; attribute on the instance is deprecated. Instead, you should access this attribute from the model class. Deprecated in Pydantic V2.11 to be removed in V3.0.
-  val = getattr(sandbox, attr)
-Creating Daytona sandbox...
-Sandbox created with ID: 8b5f1145-47cd-4384-ba2a-9689c8eb551c
-Sandbox state: SandboxState.STARTED
-Sandbox type: &lt;class &#x27;daytona._sync.sandbox.Sandbox&#x27;&gt;
-Sandbox info: id=&#x27;8b5f1145-47cd-4384-ba2a-9689c8eb551c&#x27; organization_id=&#x27;4f5b4668-e9ee-4dd1-b306-c18dcb5ebcca&#x27; name=&#x27;8b5f1145-47cd-4384-ba2a-9689c8eb551c&#x27; snapshot=&#x27;daytonaio/sandbox:0.8.0&#x27; user=&#x27;daytona&#x27; env={} labels={} public=False network_block_all=False network_allow_list=None target=&#x27;us&#x27; cpu=1 gpu=0 memory=1 disk=3 state=&lt;SandboxState.STARTED: &#x27;started&#x27;&gt; desired_state=&lt;SandboxDesiredState.STARTED: &#x27;started&#x27;&gt; error_reason=None recoverable=False backup_state=None backup_created_at=None auto_stop_interval=15 auto_archive_interval=10080 auto_delete_interval=-1 volumes=[] build_info=None created_at=&#x27;2026-08-10T10:53:21.905Z&#x27; updated_at=&#x27;2026-08-10T10:53:21.912Z&#x27; var_class=None daemon_version=&#x27;v0.203.0-2&#x27; runner_id=&#x27;20f25ba3-e006-4494-9ccc-f97ae4e804ea&#x27; additional_properties={&#x27;domainAllowList&#x27;: None, &#x27;autoPauseInterval&#x27;: 0, &#x27;sandboxClass&#x27;: &#x27;container&#x27;, &#x27;lastActivityAt&#x27;: &#x27;2026-08-10T10:53:21.912Z&#x27;, &#x27;toolboxProxyUrl&#x27;: &#x27;https://proxy.app.daytona.io/toolbox&#x27;}
-
-Sandbox attributes:
-  additional_properties: {&#x27;domainAllowList&#x27;: None, &#x27;autoPauseInterval&#x27;: 0, &#x27;sandboxClass&#x27;: &#x27;container&#x27;, &#x27;lastActivityAt&#x27;: &#x27;2026-08-10T10:53:21.912Z&#x27;, &#x27;toolboxProxyUrl&#x27;: &#x27;https://proxy.app.daytona.io/toolbox&#x27;}
-  auto_archive_interval: 10080
-  auto_delete_interval: -1
-  auto_stop_interval: 15
-  backup_created_at: None
-  backup_state: None
-  build_info: None
-  code_interpreter: &lt;daytona._sync.code_interpreter.CodeInterpreter object at 0x71159fad5e80&gt;
-  computer_use: &lt;daytona._sync.computer_use.ComputerUse object at 0x71159fad56a0&gt;
-  cpu: 1
-  created_at: 2026-08-10T10:53:21.905Z
-  daemon_version: v0.203.0-2
-  desired_state: SandboxDesiredState.STARTED
-  disk: 3
-  env: {}
-  error_reason: None
-  fs: &lt;daytona._sync.filesystem.FileSystem object at 0x71159fad4830&gt;
-  git: &lt;daytona._sync.git.Git object at 0x71159fad5160&gt;
-  gpu: 0
-  id: 8b5f1145-47cd-4384-ba2a-9689c8eb551c
-  labels: {}
-  memory: 1
-  model_computed_fields: {}
-  model_config: {&#x27;populate_by_name&#x27;: True, &#x27;validate_assignment&#x27;: True, &#x27;protected_namespaces&#x27;: (), &#x27;validate_by_alias&#x27;: True, &#x27;validate_by_name&#x27;: True, &#x27;arbitrary_types_allowed&#x27;: True}
-  model_extra: None
-  model_fields: {&#x27;id&#x27;: FieldInfo(annotation=str, required=True, description=&#x27;The ID of the sandbox&#x27;, metadata=[Strict(strict=True)]), &#x27;organization_id&#x27;: FieldInfo(annotation=str, required=True, alias_priority=2, serialization_alias=&#x27;organizationId&#x27;, description=&#x27;The organization ID of the sandbox&#x27;, metadata=[Strict(strict=True)]), &#x27;name&#x27;: FieldInfo(annotation=str, required=True, description=&#x27;The name of the sandbox&#x27;, metadata=[Strict(strict=True)]), &#x27;snapshot&#x27;: FieldInfo(annotation=Union[Annotated[str, Strict(strict=True)], NoneType], required=False, default=None, description=&#x27;The snapshot used for the sandbox&#x27;), &#x27;user&#x27;: FieldInfo(annotation=str, required=True, description=&#x27;The user associated with the project&#x27;, metadata=[Strict(strict=True)]), &#x27;env&#x27;: FieldInfo(annotation=Dict[str, Annotated[str, Strict(strict=True)]], required=True, description=&#x27;Environment variables for the sandbox&#x27;), &#x27;labels&#x27;: FieldInfo(annotation=Dict[str, Annotated[str, Strict(strict=True)]], required=True, description=&#x27;Labels for the sandbox&#x27;), &#x27;public&#x27;: FieldInfo(annotation=bool, required=True, description=&#x27;Whether the sandbox http preview is public&#x27;, metadata=[Strict(strict=True)]), &#x27;network_block_all&#x27;: FieldInfo(annotation=bool, required=True, alias_priority=2, serialization_alias=&#x27;networkBlockAll&#x27;, description=&#x27;Whether to block all network access for the sandbox&#x27;, metadata=[Strict(strict=True)]), &#x27;network_allow_list&#x27;: FieldInfo(annotation=Union[Annotated[str, Strict(strict=True)], NoneType], required=False, default=None, alias_priority=2, serialization_alias=&#x27;networkAllowList&#x27;, description=&#x27;Comma-separated list of allowed CIDR network addresses for the sandbox&#x27;), &#x27;target&#x27;: FieldInfo(annotation=str, required=True, description=&#x27;The target environment for the sandbox&#x27;, metadata=[Strict(strict=True)]), &#x27;cpu&#x27;: FieldInfo(annotation=Union[Annotated[float, Strict(strict=True)], Annotated[int, Strict(strict=True)]], required=True, description=&#x27;The CPU quota for the sandbox&#x27;), &#x27;gpu&#x27;: FieldInfo(annotation=Union[Annotated[float, Strict(strict=True)], Annotated[int, Strict(strict=True)]], required=True, description=&#x27;The GPU quota for the sandbox&#x27;), &#x27;memory&#x27;: FieldInfo(annotation=Union[Annotated[float, Strict(strict=True)], Annotated[int, Strict(strict=True)]], required=True, description=&#x27;The memory quota for the sandbox&#x27;), &#x27;disk&#x27;: FieldInfo(annotation=Union[Annotated[float, Strict(strict=True)], Annotated[int, Strict(strict=True)]], required=True, description=&#x27;The disk quota for the sandbox&#x27;), &#x27;state&#x27;: FieldInfo(annotation=Union[SandboxState, NoneType], required=False, default=None, description=&#x27;The state of the sandbox&#x27;), &#x27;desired_state&#x27;: FieldInfo(annotation=Union[SandboxDesiredState, NoneType], required=False, default=None, alias_priority=2, serialization_alias=&#x27;desiredState&#x27;, description=&#x27;The desired state of the sandbox&#x27;), &#x27;error_reason&#x27;: FieldInfo(annotation=Union[Annotated[str, Strict(strict=True)], NoneType], required=False, default=None, alias_priority=2, serialization_alias=&#x27;errorReason&#x27;, description=&#x27;The error reason of the sandbox&#x27;), &#x27;recoverable&#x27;: FieldInfo(annotation=Union[Annotated</pre></details><details class="step" open><summary>#17 <b>bash</b> <code>curl -s -o /dev/null -w &quot;%{http_code}&quot; https://proxy.app.daytona.io/ || echo &quot;Cannot reach proxy&quot;</code></summary><pre>exit=0
-000Cannot reach proxy
-</pre></details><details class="step" open><summary>#18 <b>bash</b> <code>which daytona || echo &quot;CLI not found&quot;</code></summary><pre>exit=0
-/usr/local/bin/daytona
-</pre></details><details class="step" open><summary>#19 <b>bash</b> <code>daytona version</code></summary><pre>exit=0
-[GIN-debug] [WARNING] Running in &quot;debug&quot; mode. Switch to &quot;release&quot; mode in production.
- - using env:	export GIN_MODE=release
- - using code:	gin.SetMode(gin.ReleaseMode)
-
- - Grim reaper disabled, pid not 1
-2026-08-10T10:54:35Z INF Starting terminal server on http://localhost:22222
-2026-08-10T10:54:35Z INF Starting ssh server component=ssh_server port=22220
-2026-08-10T10:54:35Z INF Starting recording dashboard component=recordings_dashboard port=33333
-Starting toolbox server on port 2280
-2026-08-10T10:54:35Z ERR Error occurred error=&quot;listen tcp :22222: bind: address already in use&quot;
-2026-08-10T10:54:35Z INF Shutting down toolbox server component=toolbox_server
-2026-08-10T10:54:35Z INF Stopping computer use... component=toolbox_server
-2026-08-10T10:54:35Z ERR Failed to stop computer use component=toolbox_server error=&quot;computer-use plugin is not loaded yet&quot;
-2026-08-10T10:54:35Z INF Shutting down meter provider component=toolbox_server
-2026-08-10T10:54:35Z INF Shutdown complete
-2026-08-10T10:54:35Z INF Computer use registered component=toolbox_server pluginName=daytona-computer-use
-2026-08-10T10:54:35.563Z [DEBUG] daytona-computer-use: starting plugin: path=/usr/local/lib/daytona-computer-use args=[&quot;/usr/local/lib/daytona-computer-use&quot;]
-2026-08-10T10:54:35.564Z [DEBUG] daytona-computer-use: plugin started: path=/usr/local/lib/daytona-computer-use pid=235
-2026-08-10T10:54:35.564Z [DEBUG] daytona-computer-use: waiting for RPC address: plugin=/usr/local/lib/daytona-computer-use
-2026-08-10T10:54:35.569Z [DEBUG] daytona-computer-use.daytona-computer-use: plugin address: address=/tmp/plugin151630492 network=unix timestamp=2026-08-10T10:54:35.569Z
-2026-08-10T10:54:35.569Z [DEBUG] daytona-computer-use: using plugin: version=1
-2026-08-10T10:54:35.577Z [DEBUG] daytona-computer-use.daytona-computer-use: time=&quot;2026-08-10T10:54:35Z&quot; level=info msg=&quot;noVNC bridge: using /usr/share/novnc/utils/novnc_proxy&quot;
-2026-08-10T10:54:35Z INF Computer-use plugin initialized successfully component=toolbox_server
-2026-08-10T10:54:35Z INF Computer-use plugin loaded successfully component=toolbox_server
-</pre></details><details class="step" open><summary>#20 <b>bash</b> <code>daytona --help 2&gt;/dev/null | head -50</code></summary><pre>exit=0
-[GIN-debug] [WARNING] Running in &quot;debug&quot; mode. Switch to &quot;release&quot; mode in production.
- - using env:	export GIN_MODE=release
- - using code:	gin.SetMode(gin.ReleaseMode)
-
- - Grim reaper disabled, pid not 1
-[GIN-debug] GET    /swagger/*any             --&gt; github.com/swaggo/gin-swagger.CustomWrapHandler.func1 (5 handlers)
-[GIN-debug] POST   /init                     --&gt; github.com/daytonaio/daemon/pkg/toolbox.(*server).Start.(*server).Initialize.func4 (5 handlers)
-[GIN-debug] POST   /env                      --&gt; github.com/daytonaio/daemon/pkg/toolbox.(*server).UpdateEnv-fm (5 handlers)
-[GIN-debug] GET    /version                  --&gt; github.com/daytonaio/daemon/pkg/toolbox.(*server).GetVersion-fm (5 handlers)
-[GIN-debug] GET    /project-dir              --&gt; github.com/daytonaio/daemon/pkg/toolbox.(*server).GetUserHomeDir-fm (5 handlers)
-[GIN-debug] GET    /user-home-dir            --&gt; github.com/daytonaio/daemon/pkg/toolbox.(*server).GetUserHomeDir-fm (5 handlers)
-[GIN-debug] GET    /work-dir                 --&gt; github.com/daytonaio/daemon/pkg/toolbox.(*server).GetWorkDir-fm (5 handlers)
-2026-08-10T10:54:37Z INF Starting terminal server on http://localhost:22222
-2026-08-10T10:54:37Z INF Starting ssh server component=ssh_server port=22220
-2026-08-10T10:54:37Z INF Starting recording dashboard component=recordings_dashboard port=33333
-Starting toolbox server on port 2280
-2026-08-10T10:54:37Z ERR Error occurred error=&quot;listen tcp :22222: bind: address already in use&quot;
-2026-08-10T10:54:37Z INF Shutting down toolbox server component=toolbox_server
-2026-08-10T10:54:37Z INF Stopping computer use... component=toolbox_server
-2026-08-10T10:54:37Z ERR Failed to stop computer use component=toolbox_server error=&quot;computer-use plugin is not loaded yet&quot;
-2026-08-10T10:54:37Z INF Shutting down meter provider component=toolbox_server
-2026-08-10T10:54:37Z INF Shutdown complete
-2026-08-10T10:54:37Z INF Computer use registered component=toolbox_server pluginName=daytona-computer-use
-2026-08-10T10:54:37.710Z [DEBUG] daytona-computer-use: starting plugin: path=/usr/local/lib/daytona-computer-use args=[&quot;/usr/local/lib/daytona-computer-use&quot;]
-2026-08-10T10:54:37.710Z [DEBUG] daytona-computer-use: plugin started: path=/usr/local/lib/daytona-computer-use pid=279
-2026-08-10T10:54:37.710Z [DEBUG] daytona-computer-use: waiting for RPC address: plugin=/usr/local/lib/daytona-computer-use
-2026-08-10T10:54:37.716Z [DEBUG] daytona-computer-use: using plugin: version=1
-2026-08-10T10:54:37.716Z [DEBUG] daytona-computer-use.daytona-computer-use: plugin address: address=/tmp/plugin271081538 network=unix timestamp=2026-08-10T10:54:37.716Z
-2026-08-10T10:54:37.724Z [DEBUG] daytona-computer-use.daytona-computer-use: time=&quot;2026-08-10T10:54:37Z&quot; level=info msg=&quot;noVNC bridge: using /usr/share/novnc/utils/novnc_proxy&quot;
-2026-08-10T10:54:37Z INF Computer-use plugin initialized successfully component=toolbox_server
-2026-08-10T10:54:37Z INF Computer-use plugin loaded successfully component=toolbox_server
-</pre></details><details class="step" open><summary>#21 <b>bash</b> <code>env | grep -i daytona | sed &#x27;s/=.*//&#x27;</code></summary><pre>exit=0
-DAYTONA_SANDBOX_ID
-DAYTONA_SANDBOX_SNAPSHOT
-DAYTONA_SANDBOX_USER
-DAYTONA_OTEL_ENDPOINT
-DAYTONA_ORGANIZATION_ID
-DAYTONA_REGION_ID
-DAYTONA_USER_HOME_AS_WORKDIR
-HOME
-DAYTONA_API_KEY
-LOGNAME
-PWD
-OLDPWD
-</pre></details><details class="step" open><summary>#22 <b>write_file</b> <code>/home/daytona/test_network.py</code></summary><pre>wrote /home/daytona/test_network.py (1656 bytes)</pre></details><details class="step" open><summary>#23 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 test_network.py</code></summary><pre>exit=0
-Creating Daytona sandbox...
-Sandbox created with ID: 102374f5-d7f4-44ef-b514-c31cff408a6d
-Sandbox state: SandboxState.STARTED
-
-Toolbox proxy URL: https://proxy.app.daytona.io/toolbox
-
-Trying to reach https://proxy.app.daytona.io/toolbox...
-  Error: URLError: &lt;urlopen error [Errno 104] Connection reset by peer&gt;
-
-Using curl to check connectivity...
-  curl stdout: 000
-  curl stderr: * Host proxy.app.daytona.io:443 was resolved.
-* IPv6: (none)
-* IPv4: 98.86.34.17, 52.207.176.73, 23.23.6.66, 52.70.144.214, 3.208.48.149, 34.205.198.153
-*   Trying 98.86.34.17:443...
-* ALPN: curl offers h2,http/1.1
-} [5 bytes data]
-* TLSv1.3 (OUT), TLS handshake, Client hello (1):
-} [1575 bytes data]
-*  CAfile: /etc/ssl/certs/ca-certificates.crt
-*  CApath: /etc/ssl/certs
-* Recv failure: Connection reset by peer
-* TLS connect error: error:00000000:lib(0)::reason(0)
-* OpenSSL SSL_connect: Connecti
-
-Waiting 30 seconds before trying code_run...
-
-Trying code_run...
-Error: DaytonaError: Failed to execute command: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
-
-Cleaning up...
-Done
-</pre></details><details class="step" open><summary>#24 <b>bash</b> <code>daytona create --help 2&gt;/dev/null | head -30</code></summary><pre>exit=0
-[GIN-debug] [WARNING] Running in &quot;debug&quot; mode. Switch to &quot;release&quot; mode in production.
- - using env:	export GIN_MODE=release
- - using code:	gin.SetMode(gin.ReleaseMode)
-
- - Grim reaper disabled, pid not 1
-2026-08-10T10:55:51Z INF Starting terminal server on http://localhost:22222
-2026-08-10T10:55:51Z INF Starting recording dashboard component=recordings_dashboard port=33333
-2026-08-10T10:55:51Z INF Starting ssh server component=ssh_server port=22220
-Starting toolbox server on port 2280
-2026-08-10T10:55:51Z ERR Error occurred error=&quot;listen tcp :22222: bind: address already in use&quot;
-2026-08-10T10:55:51Z INF Shutting down toolbox server component=toolbox_server
-2026-08-10T10:55:51Z INF Stopping computer use... component=toolbox_server
-2026-08-10T10:55:51Z ERR Failed to stop computer use component=toolbox_server error=&quot;computer-use plugin is not loaded yet&quot;
-2026-08-10T10:55:51Z INF Shutting down meter provider component=toolbox_server
-2026-08-10T10:55:52Z INF Shutdown complete
-2026-08-10T10:55:52Z INF Computer use registered component=toolbox_server pluginName=daytona-computer-use
-2026-08-10T10:55:52.006Z [DEBUG] daytona-computer-use: starting plugin: path=/usr/local/lib/daytona-computer-use args=[&quot;/usr/local/lib/daytona-computer-use&quot;]
-2026-08-10T10:55:52.007Z [DEBUG] daytona-computer-use: plugin started: path=/usr/local/lib/daytona-computer-use pid=342
-2026-08-10T10:55:52.007Z [DEBUG] daytona-computer-use: waiting for RPC address: plugin=/usr/local/lib/daytona-computer-use
-2026-08-10T10:55:52.012Z [DEBUG] daytona-computer-use: using plugin: version=1
-2026-08-10T10:55:52.012Z [DEBUG] daytona-computer-use.daytona-computer-use: plugin address: address=/tmp/plugin2914876195 network=unix timestamp=2026-08-10T10:55:52.012Z
-2026-08-10T10:55:52.020Z [DEBUG] daytona-computer-use.daytona-computer-use: time=&quot;2026-08-10T10:55:52Z&quot; level=info msg=&quot;noVNC bridge: using /usr/share/novnc/utils/novnc_proxy&quot;
-2026-08-10T10:55:52Z INF Computer-use plugin initialized successfully component=toolbox_server
-2026-08-10T10:55:52Z INF Computer-use plugin loaded successfully component=toolbox_server
-</pre></details><details class="step" open><summary>#25 <b>bash</b> <code>file /usr/local/bin/daytona &amp;&amp; ls -la /usr/local/bin/daytona</code></summary><pre>exit=0
-/usr/local/bin/daytona: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, BuildID[sha1]=8bb4607402914691c042b945732a82fdc2dc6065, with debug_info, not stripped
--rwxr-xr-x 1 root root 62538236 Aug  7 14:25 /usr/local/bin/daytona
-</pre></details><details class="step" open><summary>#26 <b>bash</b> <code>which -a daytona 2&gt;/dev/null; find / -name &quot;daytona&quot; -type f 2&gt;/dev/null | head -20</code></summary><pre>exit=0
-/usr/local/bin/daytona
-/usr/local/bin/daytona
-/usr/local/bin/daytona
-</pre></details><details class="step" open><summary>#27 <b>fetch_url</b> <code>https://www.daytona.io/docs/cli/</code></summary><pre> 404 · Daytona 
-
- Skip to content 
-
- Platform API Keys 
-
- Organizations SSO Limits 
-
- Billing Linked Accounts Troubleshooting References 
-
- TypeScript SDK 
-
- Python SDK 
-
- Ruby SDK 
-
- Go SDK 
-
- Java SDK API 
-
- CLI Guides Changelog v0.203 
-
-Search
- ⌘ K Sign in 
-
- Introduction 
-
- Quick Start 
-
- Architecture Sandboxes Concepts 
-
- Isolation 
-
- Persistence 
-
- Scale Sandbox Snapshots Warm Pools 
-
- Declarative Builder Volumes Mount External Storage 
-
- Regions Agent Tools 
-
- File System 
-
- Git Operations 
-
- Language Server Protocol 
-
- Process &amp;amp; Code Execution 
-
- Pseudo Terminal (PTY) 
-
- Log Streaming MCP Server 
-
- Computer Use Agent Skills Human Tools 
-
- Web Terminal 
-
- SSH Access VNC Access VPN Connections 
-
- Preview 
-
- Custom Preview Proxy Playground System Tools Webhooks 
-
- Network Limits Security Secrets 
-
- Audit Logs Observability OpenTelemetry Collection Deployments 
-
- Bring Your Own Compute Platform API Keys 
-
- Organizations 
-
- SSO Limits 
-
- Billing Linked Accounts Troubleshooting References 
-
- TypeScript SDK 
-
- Python SDK 
-
- Ruby SDK API 
-
- CLI Guides Sign in 404 The page you&#x27;re looking for doesn&#x27;t exist or has been moved. Suggested: Daytona Documentation Agent Skills API Keys 
-
-Need help? -
- Reach support 
-
-Latest project updates? - View Changelog 
-
-Dotfiles Insider - Read our blog 
-
-LLMs -
- llms.txt &amp;
- llms-full.txt © 2026 Daytona Platforms, Inc. 
-
- Privacy policy Terms of Service </pre></details><details class="step" open><summary>#28 <b>bash</b> <code>strings /usr/local/bin/daytona | grep -i &quot;create\|sandbox\|help\|usage&quot; | head -30</code></summary><pre>exit=0
-sandbox-H
-Usage
-usage
-rusage
-Create
-create@
-created
-SysUsage
-sysUsage
-KeyUsage
-	SandboxId
-	KeyUsages
-	CreateCRL
-	createdAt
-	CreatedAt
-	CreateTag
-	canCreate
-	createDir
-CreateTime
-createTime
-CreatePart
-createAEAD
-createstack
-ExtKeyUsage
-RlimitUsage
-recordUsage
-createdConn
-createIndex
-sysUsage
-defaultUsage
-</pre></details><details class="step" open><summary>#29 <b>bash</b> <code>python3 -c &quot;import daytona; help(daytona.Daytona)&quot; 2&gt;&amp;1 | head -80</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;from daytona import Daytona; help(Daytona)&quot; 2&gt;&amp;1 | head -100</code></summary><pre>exit=0
 Help on class Daytona in module daytona._sync.daytona:
 
 class Daytona(builtins.object)
@@ -1145,202 +356,950 @@ class Daytona(builtins.object)
  |          timeout (float): Timeout (in seconds) for sandbox deletion. 0 means no timeout.
  |              Default is 60 seconds.
  |
-</pre></details><details class="step" open><summary>#30 <b>bash</b> <code>find / -name &quot;daytona*&quot; -type f 2&gt;/dev/null | head -20</code></summary><pre>exit=0
-/home/daytona/daytona_quickstart.py
-/tmp/daytona-daemon.log
-/tmp/daytona_repl_worker.py
-/usr/local/bin/daytona
-/usr/local/lib/daytona-computer-use
-/usr/local/lib/python3.14/site-packages/daytona/_async/__pycache__/daytona.cpython-314.pyc
-/usr/local/lib/python3.14/site-packages/daytona/_async/daytona.py
-/usr/local/lib/python3.14/site-packages/daytona/_sync/__pycache__/daytona.cpython-314.pyc
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py
-/usr/local/lib/python3.14/site-packages/daytona/common/__pycache__/daytona.cpython-314.pyc
-/usr/local/lib/python3.14/site-packages/daytona/common/daytona.py
-/usr/local/lib/python3.14/site-packages/daytona_api_client/models/__pycache__/daytona_configuration.cpython-314.pyc
-/usr/local/lib/python3.14/site-packages/daytona_api_client/models/daytona_configuration.py
-/usr/local/lib/python3.14/site-packages/daytona_api_client_async/models/__pycache__/daytona_configuration.cpython-314.pyc
-/usr/local/lib/python3.14/site-packages/daytona_api_client_async/models/daytona_configuration.py
-</pre></details><details class="step" open><summary>#31 <b>bash</b> <code>cat /usr/local/lib/python3.14/site-packages/daytona/_sync/sandbox.py | head -100</code></summary><pre>exit=0
-# Copyright 2025 Daytona Platforms Inc.
-# SPDX-License-Identifier: Apache-2.0
+ |      Raises:
+ |          DaytonaError: If sandbox fails to delete or times out
+ |
+ |      Example:
+ |          ```python
+ |          sandbox = daytona.create()
+ |          # ... use sandbox ...
+ |          daytona.delete(sandbox)  # Clean up when done
+ |          ```
+ |
+ |  find_one(
+ |      self,
+ |      sandbox_id_or_name: str | None = None,
+ |      labels: dict[str, str] | None = None
+ |  ) -&gt; Sandbox
+ |      Finds a Sandbox by its ID or name or labels.
+ |
+ |      Args:
+ |          sandbox_id_or_name (str | None): The ID or name of the Sandbox to retrieve.
+ |          labels (dict[str, str] | None): Labels to filter Sandboxes.
+</pre></details><details class="step" open><summary>#6 <b>bash</b> <code>echo &quot;DAYTONA_API_URL is set: ${DAYTONA_API_URL:+yes}&quot;</code></summary><pre>exit=0
+DAYTONA_API_URL is set: 
+</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>env | grep -i daytona</code></summary><pre>exit=0
+DAYTONA_SANDBOX_ID=6385f4a2-472e-4c3f-9969-a3b299e21ce7
+DAYTONA_SANDBOX_SNAPSHOT=cr.app.daytona.io/sbox/daytona-edb66f95f2f09a28a029a0e03d516cf5482ef13a218e93ab1d80954f6ee7ebbb:daytona
+DAYTONA_SANDBOX_USER=daytona
+DAYTONA_OTEL_ENDPOINT=https://otel-collector.app.daytona.io
+DAYTONA_ORGANIZATION_ID=00000000-0000-0000-0000-000000000000
+DAYTONA_REGION_ID=us
+DAYTONA_USER_HOME_AS_WORKDIR=true
+HOME=/home/daytona
+DAYTONA_API_KEY=***REDACTED***
+LOGNAME=daytona
+PWD=/home/daytona
+OLDPWD=/home/daytona
+</pre></details><details class="step" open><summary>#8 <b>write_file</b> <code>/home/daytona/test_daytona.py</code></summary><pre>wrote /home/daytona/test_daytona.py (140 bytes)</pre></details><details class="step" open><summary>#9 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 test_daytona.py 2&gt;&amp;1</code></summary><pre>exit=0
+Daytona client created successfully
+</pre></details><details class="step" open><summary>#10 <b>write_file</b> <code>/home/daytona/test_daytona.py</code></summary><pre>wrote /home/daytona/test_daytona.py (602 bytes)</pre></details><details class="step" open><summary>#11 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 test_daytona.py 2&gt;&amp;1</code></summary><pre>exit=1
+Daytona client created successfully
+Sandbox created with ID: 35463284-058c-462f-a4a1-c2b48664f1b9
+Traceback (most recent call last):
+  File &quot;/home/daytona/test_daytona.py&quot;, line 12, in &lt;module&gt;
+    result = sandbox.process.execute(&quot;echo &#x27;Hello from Daytona sandbox!&#x27;&quot;)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: &#x27;Process&#x27; object has no attribute &#x27;execute&#x27;
+</pre></details><details class="step" open><summary>#12 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;from daytona import Sandbox; help(Sandbox)&quot; 2&gt;&amp;1 | head -150</code></summary><pre>exit=0
+Help on class Sandbox in module daytona._sync.sandbox:
 
-from __future__ import annotations
+class Sandbox(daytona_api_client.models.sandbox.Sandbox)
+ |  Sandbox(
+ |      sandbox_dto: SandboxDto,
+ |      toolbox_api: ApiClient,
+ |      sandbox_api: SandboxApi,
+ |      code_toolbox: SandboxCodeToolbox,
+ |      get_toolbox_base_url: Callable[[str, str], str]
+ |  ) -&gt; None
+ |
+ |  Represents a Daytona Sandbox.
+ |
+ |  Attributes:
+ |      fs (FileSystem): File system operations interface.
+ |      git (Git): Git operations interface.
+ |      process (Process): Process execution interface.
+ |      computer_use (ComputerUse): Computer use operations interface for desktop automation.
+ |      code_interpreter (CodeInterpreter): Stateful interpreter interface for executing code.
+ |          Currently supports only Python. For other languages, use the `process.code_run` interface.
+ |      id (str): Unique identifier for the Sandbox.
+ |      name (str): Name of the Sandbox.
+ |      organization_id (str): Organization ID of the Sandbox.
+ |      snapshot (str): Daytona snapshot used to create the Sandbox.
+ |      user (str): OS user running in the Sandbox.
+ |      env (dict[str, str]): Environment variables set in the Sandbox.
+ |      labels (dict[str, str]): Custom labels attached to the Sandbox.
+ |      public (bool): Whether the Sandbox is publicly accessible.
+ |      target (str): Target location of the runner where the Sandbox runs.
+ |      cpu (int): Number of CPUs allocated to the Sandbox.
+ |      gpu (int): Number of GPUs allocated to the Sandbox.
+ |      memory (int): Amount of memory allocated to the Sandbox in GiB.
+ |      disk (int): Amount of disk space allocated to the Sandbox in GiB.
+ |      state (SandboxState): Current state of the Sandbox (e.g., &quot;started&quot;, &quot;stopped&quot;).
+ |      error_reason (str): Error message if Sandbox is in error state.
+ |      recoverable (bool): Whether the Sandbox error is recoverable.
+ |      backup_state (SandboxBackupStateEnum): Current state of Sandbox backup.
+ |      backup_created_at (str): When the backup was created.
+ |      auto_stop_interval (int): Auto-stop interval in minutes.
+ |      auto_archive_interval (int): Auto-archive interval in minutes.
+ |      auto_delete_interval (int): Auto-delete interval in minutes.
+ |      volumes (list[str]): Volumes attached to the Sandbox.
+ |      build_info (str): Build information for the Sandbox if it was created from dynamic build.
+ |      created_at (str): When the Sandbox was created.
+ |      updated_at (str): When the Sandbox was last updated.
+ |      network_block_all (bool): Whether to block all network access for the Sandbox.
+ |      network_allow_list (str): Comma-separated list of allowed CIDR network addresses for the Sandbox.
+ |
+ |  Method resolution order:
+ |      Sandbox
+ |      daytona_api_client.models.sandbox.Sandbox
+ |      pydantic.main.BaseModel
+ |      builtins.object
+ |
+ |  Methods defined here:
+ |
+ |  __init__(
+ |      self,
+ |      sandbox_dto: SandboxDto,
+ |      toolbox_api: ApiClient,
+ |      sandbox_api: SandboxApi,
+ |      code_toolbox: SandboxCodeToolbox,
+ |      get_toolbox_base_url: Callable[[str, str], str]
+ |  )
+ |      Initialize a new Sandbox instance.
+ |
+ |      Args:
+ |          sandbox_dto (SandboxDto): The sandbox data from the API.
+ |          toolbox_api (ApiClient): API client for toolbox operations.
+ |          sandbox_api (SandboxApi): API client for Sandbox operations.
+ |          code_toolbox (SandboxCodeToolbox): Language-specific toolbox implementation.
+ |          get_toolbox_base_url (Callable[[], str]): Function to get the toolbox base URL.
+ |
+ |  archive(self) -&gt; None
+ |      Archives the sandbox, making it inactive and preserving its state. When sandboxes are
+ |      archived, the entire filesystem state is moved to cost-effective object storage, making it
+ |      possible to keep sandboxes available for an extended period. The tradeoff between archived
+ |      and stopped states is that starting an archived sandbox takes more time, depending on its size.
+ |      Sandbox must be stopped before archiving.
+ |
+ |  create_lsp_server(
+ |      self,
+ |      language_id: LspLanguageId | LspLanguageIdLiteral,
+ |      path_to_project: str
+ |  ) -&gt; LspServer
+ |      Creates a new Language Server Protocol (LSP) server instance.
+ |
+ |      The LSP server provides language-specific features like code completion,
+ |      diagnostics, and more.
+ |
+ |      Args:
+ |          language_id (LspLanguageId | LspLanguageIdLiteral): The language server type (e.g., LspLanguageId.PYTHON).
+ |          path_to_project (str): Path to the project root directory. Relative paths are resolved
+ |          based on the sandbox working directory.
+ |
+ |      Returns:
+ |          LspServer: A new LSP server instance configured for the specified language.
+ |
+ |      Example:
+ |          ```python
+ |          lsp = sandbox.create_lsp_server(&quot;python&quot;, &quot;workspace/project&quot;)
+ |          ```
+ |
+ |  create_signed_preview_url(
+ |      self,
+ |      port: int,
+ |      expires_in_seconds: int | None = None
+ |  ) -&gt; SignedPortPreviewUrl
+ |      Creates a signed preview URL for the sandbox at the specified port.
+ |
+ |      Args:
+ |          port (int): The port to open the preview link on.
+ |          expires_in_seconds (int | None): The number of seconds the signed preview
+ |              url will be valid for. Defaults to 60 seconds.
+ |
+ |      Returns:
+ |          SignedPortPreviewUrl: The response object for the signed preview url.
+ |
+ |  create_ssh_access(self, expires_in_minutes: int | None = None) -&gt; SshAccessDto
+ |      Creates an SSH access token for the sandbox.
+ |
+ |      Args:
+ |          expires_in_minutes (int | None): The number of minutes the SSH access token will be valid for.
+ |
+ |  delete(self, timeout: float | None = 60) -&gt; None
+ |      Deletes the Sandbox.
+ |
+ |      Args:
+ |          timeout (float | None): Timeout (in seconds) for sandbox deletion. 0 means no timeout.
+ |              Default is 60 seconds.
+ |
+ |  expir</pre></details><details class="step" open><summary>#13 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;from daytona import Sandbox; s = Sandbox.__dict__; print([k for k in s.keys() if not k.startswith(&#x27;_&#x27;)])&quot;</code></summary><pre>exit=0
+[&#x27;model_config&#x27;, &#x27;fs&#x27;, &#x27;git&#x27;, &#x27;process&#x27;, &#x27;computer_use&#x27;, &#x27;code_interpreter&#x27;, &#x27;refresh_data&#x27;, &#x27;get_user_home_dir&#x27;, &#x27;get_user_root_dir&#x27;, &#x27;get_work_dir&#x27;, &#x27;create_lsp_server&#x27;, &#x27;set_labels&#x27;, &#x27;start&#x27;, &#x27;recover&#x27;, &#x27;stop&#x27;, &#x27;delete&#x27;, &#x27;wait_for_sandbox_start&#x27;, &#x27;wait_for_sandbox_stop&#x27;, &#x27;set_autostop_interval&#x27;, &#x27;set_auto_archive_interval&#x27;, &#x27;set_auto_delete_interval&#x27;, &#x27;get_preview_link&#x27;, &#x27;create_signed_preview_url&#x27;, &#x27;expire_signed_preview_url&#x27;, &#x27;archive&#x27;, &#x27;create_ssh_access&#x27;, &#x27;revoke_ssh_access&#x27;, &#x27;validate_ssh_access&#x27;, &#x27;refresh_activity&#x27;, &#x27;model_post_init&#x27;]
+</pre></details><details class="step" open><summary>#14 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;from daytona import Daytona; d = Daytona(); s = d.create(); print(type(s.process)); print(dir(s.process))&quot; 2</code></summary><pre>exit=0
+&lt;class &#x27;daytona._sync.process.Process&#x27;&gt;
+[&#x27;__class__&#x27;, &#x27;__delattr__&#x27;, &#x27;__dict__&#x27;, &#x27;__dir__&#x27;, &#x27;__doc__&#x27;, &#x27;__eq__&#x27;, &#x27;__firstlineno__&#x27;, &#x27;__format__&#x27;, &#x27;__ge__&#x27;, &#x27;__getattribute__&#x27;, &#x27;__getstate__&#x27;, &#x27;__gt__&#x27;, &#x27;__hash__&#x27;, &#x27;__init__&#x27;, &#x27;__init_subclass__&#x27;, &#x27;__le__&#x27;, &#x27;__lt__&#x27;, &#x27;__module__&#x27;, &#x27;__ne__&#x27;, &#x27;__new__&#x27;, &#x27;__reduce__&#x27;, &#x27;__reduce_ex__&#x27;, &#x27;__repr__&#x27;, &#x27;__setattr__&#x27;, &#x27;__sizeof__&#x27;, &#x27;__static_attributes__&#x27;, &#x27;__str__&#x27;, &#x27;__subclasshook__&#x27;, &#x27;__weakref__&#x27;, &#x27;_api_client&#x27;, &#x27;_code_toolbox&#x27;, &#x27;_ensure_toolbox_url&#x27;, &#x27;_parse_output&#x27;, &#x27;code_run&#x27;, &#x27;connect_pty_session&#x27;, &#x27;create_pty_session&#x27;, &#x27;create_session&#x27;, &#x27;delete_session&#x27;, &#x27;exec&#x27;, &#x27;execute_session_command&#x27;, &#x27;get_pty_session_info&#x27;, &#x27;get_session&#x27;, &#x27;get_session_command&#x27;, &#x27;get_session_command_logs&#x27;, &#x27;get_session_command_logs_async&#x27;, &#x27;kill_pty_session&#x27;, &#x27;list_pty_sessions&#x27;, &#x27;list_sessions&#x27;, &#x27;resize_pty_session&#x27;]
+</pre></details><details class="step" open><summary>#15 <b>write_file</b> <code>/home/daytona/test_daytona.py</code></summary><pre>wrote /home/daytona/test_daytona.py (613 bytes)</pre></details><details class="step" open><summary>#16 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
+from daytona import Daytona
+d = Daytona()
+# Try to find and delete the old sandbox
+try:
+    s = d.find_one(</code></summary><pre>exit=0
+Old sandbox deleted
+</pre></details><details class="step" open><summary>#17 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 test_daytona.py 2&gt;&amp;1</code></summary><pre>exit=1
+Daytona client created successfully
+Sandbox created with ID: ccf1dac1-66b2-4211-915b-95bce8279740
+Traceback (most recent call last):
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...&lt;10 lines&gt;...
+        **response_kw,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
+    raise new_e
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+        sock=sock,
+    ...&lt;14 lines&gt;...
+        assert_fingerprint=self.assert_fingerprint,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 975, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+        sock=sock,
+    ...&lt;8 lines&gt;...
+        tls_in_tls=tls_in_tls,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 433, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 477, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sock=sock,
+        ^^^^^^^^^^
+    ...&lt;5 lines&gt;...
+        session=session
+        ^^^^^^^^^^^^^^^
+    )
+    ^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1076, in _create
+    self.do_handshake()
+    ~~~~~~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1372, in do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+ConnectionResetError: [Errno 104] Connection reset by peer
 
-import time
-from typing import Callable, cast
+During handling of the above exception, another exception occurred:
 
-from daytona_api_client import BuildInfo
-from daytona_api_client import PaginatedSandboxes as PaginatedSandboxesDto
-from daytona_api_client import PortPreviewUrl
-from daytona_api_client import Sandbox as SandboxDto
-from daytona_api_client import (
-    SandboxApi,
-    SandboxLabels,
-    SandboxState,
-    SandboxVolume,
-    SignedPortPreviewUrl,
-    SshAccessDto,
-    SshAccessValidationDto,
-)
-from daytona_toolbox_api_client import (
-    ApiClient,
-    ComputerUseApi,
-    FileSystemApi,
-    GitApi,
-    InfoApi,
-    InterpreterApi,
-    LspApi,
-    ProcessApi,
-)
-from deprecated import deprecated
-from pydantic import ConfigDict, PrivateAttr
+Traceback (most recent call last):
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona/_utils/errors.py&quot;, line 98, in sync_wrapper
+    return sync_func(*args, **kwargs)
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona/_sync/process.py&quot;, line 151, in exec
+    response = self._api_client.execute_command(request=execute_request)
+  File &quot;/usr/local/lib/python3.14/site-packages/pydantic/_internal/_validate_call.py&quot;, line 40, in wrapper_function
+    return wrapper(*args, **kwargs)
+  File &quot;/usr/local/lib/python3.14/site-packages/pydantic/_internal/_validate_call.py&quot;, line 137, in __call__
+    res = self.__pydantic_validator__.validate_python(pydantic_core.ArgsKwargs(args, kwargs))
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/api/process_api.py&quot;, line 1414, in execute_command
+    response_data = self.api_client.call_api(
+        *_param,
+        _request_timeout=_request_timeout
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona/internal/toolbox_api_client_proxy.py&quot;, line 101, in call_api
+    return self._api_client.call_api(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/api_client.py&quot;, line 273, in call_api
+    response_data = self.rest_client.request(
+        method, url,
+    ...&lt;2 lines&gt;...
+        _request_timeout=_request_timeout
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/rest.py&quot;, line 183, in request
+    r = self.pool_manager.request(
+        method,
+    ...&lt;4 lines&gt;...
+        preload_content=False
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/_request_methods.py&quot;, line 143, in request
+    return self.request_encode_body(
+           ~~~~~~~~~~~~~~~~~~~~~~~~^
+        method, url, fields=fields, headers=headers, **urlopen_kw
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/_request_methods.py&quot;, line 278, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/poolmanager.py&quot;, line 457, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/retry.py&quot;, line 498, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/util.py&quot;, line 38, in reraise
+    raise value.with_traceback(tb)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...&lt;10 lines&gt;...
+        **response_kw,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
+    raise new_e
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+        sock=sock,
+    ...&lt;14 lines&gt;...
+        assert_fingerprint=self.ass</pre></details><details class="step" open><summary>#18 <b>write_file</b> <code>/home/daytona/test_daytona.py</code></summary><pre>wrote /home/daytona/test_daytona.py (808 bytes)</pre></details><details class="step" open><summary>#19 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
+from daytona import Daytona
+d = Daytona()
+# Try to find and delete the old sandbox
+try:
+    s = d.find_one(</code></summary><pre>exit=0
+Old sandbox deleted
+</pre></details><details class="step" open><summary>#20 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 test_daytona.py 2&gt;&amp;1</code></summary><pre>exit=1
+Daytona client created successfully
+Sandbox created with ID: 71dd1fbc-3a47-4410-839d-fe834bb24092
+Sandbox state: SandboxState.STARTED
+Waiting for sandbox to be ready...
+Sandbox is ready!
+Traceback (most recent call last):
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...&lt;10 lines&gt;...
+        **response_kw,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
+    raise new_e
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+        sock=sock,
+    ...&lt;14 lines&gt;...
+        assert_fingerprint=self.assert_fingerprint,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 975, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+        sock=sock,
+    ...&lt;8 lines&gt;...
+        tls_in_tls=tls_in_tls,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 433, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 477, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sock=sock,
+        ^^^^^^^^^^
+    ...&lt;5 lines&gt;...
+        session=session
+        ^^^^^^^^^^^^^^^
+    )
+    ^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1076, in _create
+    self.do_handshake()
+    ~~~~~~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1372, in do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+ConnectionResetError: [Errno 104] Connection reset by peer
 
-from .._utils.errors import intercept_errors
-from .._utils.timeout import with_timeout
-from ..common.errors import DaytonaError, DaytonaNotFoundError
-from ..common.lsp_server import LspLanguageId, LspLanguageIdLiteral
-from ..common.protocols import SandboxCodeToolbox
-from ..internal.toolbox_api_client_proxy import ToolboxApiClientProxyLazyBaseUrl
-from .code_interpreter import CodeInterpreter
-from .computer_use import ComputerUse
-from .filesystem import FileSystem
-from .git import Git
-from .lsp_server import LspServer
-from .process import Process
+During handling of the above exception, another exception occurred:
 
+Traceback (most recent call last):
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona/_utils/errors.py&quot;, line 98, in sync_wrapper
+    return sync_func(*args, **kwargs)
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona/_sync/process.py&quot;, line 151, in exec
+    response = self._api_client.execute_command(request=execute_request)
+  File &quot;/usr/local/lib/python3.14/site-packages/pydantic/_internal/_validate_call.py&quot;, line 40, in wrapper_function
+    return wrapper(*args, **kwargs)
+  File &quot;/usr/local/lib/python3.14/site-packages/pydantic/_internal/_validate_call.py&quot;, line 137, in __call__
+    res = self.__pydantic_validator__.validate_python(pydantic_core.ArgsKwargs(args, kwargs))
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/api/process_api.py&quot;, line 1414, in execute_command
+    response_data = self.api_client.call_api(
+        *_param,
+        _request_timeout=_request_timeout
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona/internal/toolbox_api_client_proxy.py&quot;, line 101, in call_api
+    return self._api_client.call_api(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/api_client.py&quot;, line 273, in call_api
+    response_data = self.rest_client.request(
+        method, url,
+    ...&lt;2 lines&gt;...
+        _request_timeout=_request_timeout
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/rest.py&quot;, line 183, in request
+    r = self.pool_manager.request(
+        method,
+    ...&lt;4 lines&gt;...
+        preload_content=False
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/_request_methods.py&quot;, line 143, in request
+    return self.request_encode_body(
+           ~~~~~~~~~~~~~~~~~~~~~~~~^
+        method, url, fields=fields, headers=headers, **urlopen_kw
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/_request_methods.py&quot;, line 278, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/poolmanager.py&quot;, line 457, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/retry.py&quot;, line 498, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/util.py&quot;, line 38, in reraise
+    raise value.with_traceback(tb)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...&lt;10 lines&gt;...
+        **response_kw,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
+    raise new_e
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_ma</pre></details><details class="step" open><summary>#21 <b>write_file</b> <code>/home/daytona/test_daytona.py</code></summary><pre>wrote /home/daytona/test_daytona.py (1565 bytes)</pre></details><details class="step" open><summary>#22 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
+from daytona import Daytona
+d = Daytona()
+# Try to find and delete the old sandbox
+try:
+    s = d.find_one(</code></summary><pre>exit=0
+Old sandbox deleted
+</pre></details><details class="step" open><summary>#23 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 test_daytona.py 2&gt;&amp;1</code></summary><pre>exit=1
+Daytona client created successfully
+Sandbox created with ID: ae14db94-8c80-4a88-8edb-9e0077e404a0
+Sandbox state: SandboxState.STARTED
+Waiting for sandbox to be ready...
+Sandbox is ready!
+Waiting additional 5 seconds for services to initialize...
+Attempt 1 failed: Failed to execute command: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
+Retrying in 3 seconds...
+Attempt 2 failed: Failed to execute command: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
+Retrying in 3 seconds...
+Attempt 3 failed: Failed to execute command: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
+Traceback (most recent call last):
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...&lt;10 lines&gt;...
+        **response_kw,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
+    raise new_e
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+        sock=sock,
+    ...&lt;14 lines&gt;...
+        assert_fingerprint=self.assert_fingerprint,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 975, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+        sock=sock,
+    ...&lt;8 lines&gt;...
+        tls_in_tls=tls_in_tls,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 433, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 477, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sock=sock,
+        ^^^^^^^^^^
+    ...&lt;5 lines&gt;...
+        session=session
+        ^^^^^^^^^^^^^^^
+    )
+    ^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1076, in _create
+    self.do_handshake()
+    ~~~~~~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1372, in do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+ConnectionResetError: [Errno 104] Connection reset by peer
 
-class Sandbox(SandboxDto):
-    &quot;&quot;&quot;Represents a Daytona Sandbox.
+During handling of the above exception, another exception occurred:
 
-    Attributes:
-        fs (FileSystem): File system operations interface.
-        git (Git): Git operations interface.
-        process (Process): Process execution interface.
-        computer_use (ComputerUse): Computer use operations interface for desktop automation.
-        code_interpreter (CodeInterpreter): Stateful interpreter interface for executing code.
-            Currently supports only Python. For other languages, use the `process.code_run` interface.
-        id (str): Unique identifier for the Sandbox.
-        name (str): Name of the Sandbox.
-        organization_id (str): Organization ID of the Sandbox.
-        snapshot (str): Daytona snapshot used to create the Sandbox.
-        user (str): OS user running in the Sandbox.
-        env (dict[str, str]): Environment variables set in the Sandbox.
-        labels (dict[str, str]): Custom labels attached to the Sandbox.
-        public (bool): Whether the Sandbox is publicly accessible.
-        target (str): Target location of the runner where the Sandbox runs.
-        cpu (int): Number of CPUs allocated to the Sandbox.
-        gpu (int): Number of GPUs allocated to the Sandbox.
-        memory (int): Amount of memory allocated to the Sandbox in GiB.
-        disk (int): Amount of disk space allocated to the Sandbox in GiB.
-        state (SandboxState): Current state of the Sandbox (e.g., &quot;started&quot;, &quot;stopped&quot;).
-        error_reason (str): Error message if Sandbox is in error state.
-        recoverable (bool): Whether the Sandbox error is recoverable.
-        backup_state (SandboxBackupStateEnum): Current state of Sandbox backup.
-        backup_created_at (str): When the backup was created.
-        auto_stop_interval (int): Auto-stop interval in minutes.
-        auto_archive_interval (int): Auto-archive interval in minutes.
-        auto_delete_interval (int): Auto-delete interval in minutes.
-        volumes (list[str]): Volumes attached to the Sandbox.
-        build_info (str): Build information for the Sandbox if it was created from dynamic build.
-        created_at (str): When the Sandbox was created.
-        updated_at (str): When the Sandbox was last updated.
-        network_block_all (bool): Whether to block all network access for the Sandbox.
-        network_allow_list (str): Comma-separated list of allowed CIDR network addresses for the Sandbox.
-    &quot;&quot;&quot;
+Traceback (most recent call last):
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona/_utils/errors.py&quot;, line 98, in sync_wrapper
+    return sync_func(*args, **kwargs)
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona/_sync/process.py&quot;, line 151, in exec
+    response = self._api_client.execute_command(request=execute_request)
+  File &quot;/usr/local/lib/python3.14/site-packages/pydantic/_internal/_validate_call.py&quot;, line 40, in wrapper_function
+    return wrapper(*args, **kwargs)
+  File &quot;/usr/local/lib/python3.14/site-packages/pydantic/_internal/_validate_call.py&quot;, line 137, in __call__
+    res = self.__pydantic_validator__.validate_python(pydantic_core.ArgsKwargs(args, kwargs))
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/api/process_api.py&quot;, line 1414, in execute_command
+    response_data = self.api_client.call_api(
+        *_param,
+        _request_timeout=_request_timeout
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona/internal/toolbox_api_client_proxy.py&quot;, line 101, in call_api
+    return self._api_client.call_api(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/api_client.py&quot;, line 273, in call_api
+    response_data = self.rest_client.request(
+        method, url,
+    ...&lt;2 lines&gt;...
+        _request_timeout=_request_timeout
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/rest.py&quot;, line 183, in request
+    r = self.pool_manager.request(
+        method,
+    ...&lt;4 lines&gt;...
+        preload_content=False
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/_request_methods.py&quot;, line 143, in request
+    return self.request_encode_body(
+           ~~~~~~~~~~~~~~~~~~~~~~~~^
+        method, url, fields=fields, headers=headers, **urlopen_kw
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/_request_methods.py&quot;, line 278, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/poolmanager.py&quot;, line 457, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/retry.py&quot;, line 498, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/util.py&quot;, line 38, in reraise
+    raise value.with_traceback(tb)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...&lt;10 lines&gt;...
+        **response_kw,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488</pre></details><details class="step" open><summary>#24 <b>fetch_url</b> <code>https://www.daytona.io/docs/python-sdk/</code></summary><pre> Python SDK Reference | Daytona 
 
-    _fs: FileSystem = PrivateAttr()
-    _git: Git = PrivateAttr()
-    _process: Process = PrivateAttr()
-    _computer_use: ComputerUse = PrivateAttr()
-    _code_interpreter: CodeInterpreter = PrivateAttr()
+ Skip to content 
 
-    # TODO: Remove model_config once everything is migrated to pydantic # pylint: disable=fixme
-    model_config: ConfigDict = ConfigDict(arbitrary_types_allowed=True)
+ Platform API Keys 
 
-    def __init__(
-        self,
-        sandbox_dto: SandboxDto,
-        toolbox_api: ApiClient,
-</pre></details><details class="step" open><summary>#32 <b>bash</b> <code>cat /usr/local/lib/python3.14/site-packages/daytona/internal/toolbox_api_client_proxy.py</code></summary><pre>exit=0
-# Copyright 2025 Daytona Platforms Inc.
-# SPDX-License-Identifier: Apache-2.0
+ Organizations SSO Limits 
 
-from __future__ import annotations
+ Billing Linked Accounts Troubleshooting References 
 
-from collections.abc import Awaitable
-from typing import Any, Callable, Generic, TypeVar
+ TypeScript SDK 
 
-from daytona_toolbox_api_client import ApiClient
-from daytona_toolbox_api_client_async import ApiClient as AsyncApiClient
+ Python SDK 
 
-# TypeVar constrained to either sync or async ApiClient
-ApiClientT = TypeVar(&quot;ApiClientT&quot;, ApiClient, AsyncApiClient)
+ Ruby SDK 
 
+ Go SDK 
 
-class _ToolboxApiClientProxy(Generic[ApiClientT]):
-    &quot;&quot;&quot;Wrapper around an API client that adjusts `param_serialize` method.
+ Java SDK API 
 
-    It intercepts `param_serialize` to prepend the sandbox ID to the `resource_path` and
-    set `_host` to the toolbox base URL, while delegating all other attributes
-    and methods to the underlying API client.
-    &quot;&quot;&quot;
+ CLI Guides Changelog v0.203 
 
-    def __init__(self, api_client: ApiClientT, sandbox_id: str):
-        self._api_client: ApiClientT = api_client
-        self._sandbox_id: str = sandbox_id
-        self._toolbox_base_url: str | None = None
+Search
+ ⌘ K Sign in 
 
-    def param_serialize(self, *args: object, **kwargs: object) -&gt; Any:
-        &quot;&quot;&quot;Intercepts param_serialize to prepend sandbox ID to resource_path.&quot;&quot;&quot;
-        resource_path = kwargs.get(&quot;resource_path&quot;)
+ Common Charts Errors Image Sync Python Daytona Sandbox CodeInterpreter ComputerUse FileSystem Git LspServer ObjectStorage Process Secret Snapshot Volume Async Python AsyncDaytona AsyncSandbox AsyncCodeInterpreter AsyncComputerUse AsyncFileSystem AsyncGit AsyncLspServer AsyncObjectStorage AsyncProcess AsyncSecret AsyncSnapshot AsyncVolume Platform API Keys 
 
-        if resource_path:
-            resource_path = f&quot;/{self._sandbox_id}{resource_path}&quot;
+ Organizations 
 
-        kwargs[&quot;resource_path&quot;] = resource_path
-        kwargs[&quot;_host&quot;] = self._toolbox_base_url
+ SSO Limits 
 
-        return self._api_client.param_serialize(*args, **kwargs)
+ Billing Linked Accounts Troubleshooting References 
 
-    def __getattr__(self, name: str) -&gt; Any:
-        &quot;&quot;&quot;Delegate all other attributes to the wrapped client.&quot;&quot;&quot;
-        return getattr(self._api_client, name)
+ TypeScript SDK 
 
+ Python SDK 
 
-class AsyncToolboxApiClientProxyLazyBaseUrl(_ToolboxApiClientProxy[AsyncApiClient]):
-    &quot;&quot;&quot;Wrapper around an async API client that adjusts `call_api` method.
+ Ruby SDK API 
 
-    It intercepts `call_api` to prepend the toolbox base URL to the `url` if it is not already set.
-    While delegating all other attributes and methods to the underlying async API client.
-    &quot;&quot;&quot;
+ CLI Guides Sign in 
+# Contents Overview Installation Getting Started Create a Sandbox Configuration Real-time state updates Polling fallback Opt out of event streaming Async Python SDK Python SDK Reference Copy for LLM View as Markdown Open The Daytona Python SDK provides a robust interface for programmatically interacting with Daytona Sandboxes. 
+ Installation Section titled “Installation” 
+ Install the Daytona Python SDK using pip: 
+ Terminal window pip install daytona 
+ Or using poetry: 
+ Terminal window poetry add daytona 
+ Getting Started Section titled “Getting Started” 
+ Create a Sandbox Section titled “Create a Sandbox” 
+ Create a Daytona Sandbox to run your code securely in an isolated environment. The following snippet is an example “Hello World” program that runs securely inside a Daytona Sandbox. 
+ Sync Async from daytona import Daytona 
+ def main (): # Initialize the SDK (uses environment variables by default) daytona = Daytona () 
+ # Create a new sandbox sandbox = daytona. create () 
+ # Execute a command response = sandbox.process. exec ( &quot; echo &#x27;Hello, World!&#x27; &quot; ) print ( response . result ) 
+ if __name__ == &quot; __main__ &quot; : main () import asyncio from daytona import AsyncDaytona 
+ async def main (): # Initialize the SDK (uses environment variables by default) async with AsyncDaytona () as daytona: # Create a new sandbox sandbox = await daytona. create () 
+ # Execute a command response = await sandbox.process. exec ( &quot; echo &#x27;Hello, World!&#x27; &quot; ) print ( response . result ) 
+ if __name__ == &quot; __main__ &quot; : asyncio. run ( main ()) 
+ Configuration Section titled “Configuration” 
+ The Daytona SDK can be configured using environment variables or by passing options to the constructor: 
+ Sync Async from daytona import Daytona, DaytonaConfig 
+ # Using environment variables (DAYTONA_API_KEY, DAYTONA_API_URL, DAYTONA_TARGET) daytona = Daytona () 
+ # Using explicit configuration config = DaytonaConfig ( api_key = &quot; YOUR_API_KEY &quot; , api_url = &quot; https://app.daytona.io/api &quot; , target = &quot; us &quot; ) daytona = Daytona ( config ) import asyncio from daytona import AsyncDaytona, DaytonaConfig 
+ async def main (): try: # Using environment variables (DAYTONA_API_KEY, DAYTONA_API_URL, DAYTONA_TARGET) daytona = AsyncDaytona () # Your async code here pass finally: await daytona. close () 
+ # Using explicit configuration config = DaytonaConfig ( api_key = &quot; YOUR_API_KEY &quot; , api_url = &quot; https://app.daytona.io/api &quot; , target = &quot; us &quot; ) async with AsyncDaytona ( config ) as daytona: # Your code here pass 
+ if __name__ == &quot; __main__ &quot; : asyncio. run ( main ()) 
+ For more information on configuring the Daytona SDK, see API keys . 
+ Real-time state updates Section titled “Real-time state updates” 
+ Starting with SDK version 0.198.0 , the SDK streams sandbox state changes over a WebSocket (Socket.IO) connection by default. Sandbox lifecycle operations that wait on a state change (start, stop, pause, resize, snapshot, delete with wait ) complete as soon as the server pushes the new state, instead of waiting for the next polling interval. 
+ Each Daytona or AsyncDaytona client opens a single WebSocket connection shared by all of its sandboxes. A sparse polling safety net runs alongside the event stream, so a missed event never hangs a waiting operation. 
+ The WebSocket handshake carries source and sdkVersion query parameters, equivalent to the X-Daytona-Source and X-Daytona-SDK-Version REST headers. The SDK collects no client-side telemetry. 
+ Polling fallback Section titled “Polling fallback” 
+ If the WebSocket connection cannot be established, for example when a proxy, firewall, or network policy blocks it, the SDK falls back to polling automatically. Connection setup runs in the background and never raises an error, so no handling is required. 
+ The WebSocket endpoint derives from the configured API URL, including custom base paths, so reverse proxy deployments such as https://host/prefix/api work without additional configuration. 
+ Opt out of event streaming Section titled “Opt out of event streaming” 
+ Deprecated Polling-only mode is deprecated and will be removed in a future release. Because the SDK falls back to polling automatically, opting out is only needed in environments that prohibit WebSocket connections by policy. 
+ In polling-only mode the SDK never opens a WebSocket connection. Sandbox state is observed exclusively by polling the REST API, with the same cadence as SDK versions before event streaming. 
+ To opt out, set the DAYTONA_USE_DEPRECATED_POLLING environment variable: 
+ Terminal window export DAYTONA_USE_DEPRECATED_POLLING = true 
+ Or pass use_deprecated_polling when initializing the client. The explicit configuration option always takes precedence over the environment variable; the environment variable applies only when the option is unset. 
+ Sync Async from daytona import Daytona, DaytonaConfig 
+ daytona = Daytona ( DaytonaConfig ( use_deprecated_polling = True)) from daytona import AsyncDaytona, DaytonaConfig 
+ daytona = AsyncDaytona ( DaytonaConfig ( use_deprecated_polling = True)) 
+ See the DaytonaConfig reference for details. 
+ Async Python SDK Section titled “Async Python SDK” 
+ Daytona provides an additional DAYTONA_HAPPY_EYE</pre></details><details class="step" open><summary>#25 <b>bash</b> <code>env | grep DAYTONA_API_URL</code></summary><pre>exit=1
+</pre></details><details class="step" open><summary>#26 <b>write_file</b> <code>/home/daytona/test_daytona.py</code></summary><pre>wrote /home/daytona/test_daytona.py (1656 bytes)</pre></details><details class="step" open><summary>#27 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
+from daytona import Daytona, DaytonaConfig
+config = DaytonaConfig(api_url=&#x27;https://app.daytona.io/api&#x27;)
+d =</code></summary><pre>exit=0
+Old sandbox deleted
+</pre></details><details class="step" open><summary>#28 <b>bash</b> <code>curl -s -o /dev/null -w &quot;%{http_code}&quot; https://app.daytona.io/api/health || echo &quot;Failed&quot;</code></summary><pre>exit=0
+200</pre></details><details class="step" open><summary>#29 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 test_daytona.py 2&gt;&amp;1</code></summary><pre>exit=1
+Daytona client created successfully
+Sandbox created with ID: 410b74af-2d85-4fd2-9425-87e223a3d760
+Sandbox state: SandboxState.STARTED
+Waiting for sandbox to be ready...
+Sandbox is ready!
+Waiting additional 10 seconds for services to initialize...
+Attempt 1 failed: Failed to execute command: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
+Retrying in 5 seconds...
+Attempt 2 failed: Failed to execute command: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
+Retrying in 5 seconds...
+Attempt 3 failed: Failed to execute command: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
+Retrying in 5 seconds...
+Attempt 4 failed: Failed to execute command: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
+Retrying in 5 seconds...
+Attempt 5 failed: Failed to execute command: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
+Traceback (most recent call last):
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...&lt;10 lines&gt;...
+        **response_kw,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
+    raise new_e
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+        sock=sock,
+    ...&lt;14 lines&gt;...
+        assert_fingerprint=self.assert_fingerprint,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 975, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+        sock=sock,
+    ...&lt;8 lines&gt;...
+        tls_in_tls=tls_in_tls,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 433, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 477, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sock=sock,
+        ^^^^^^^^^^
+    ...&lt;5 lines&gt;...
+        session=session
+        ^^^^^^^^^^^^^^^
+    )
+    ^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1076, in _create
+    self.do_handshake()
+    ~~~~~~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1372, in do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+ConnectionResetError: [Errno 104] Connection reset by peer
 
-    def __init__(
-        self,
-        api_client: AsyncApiClient,
-        sandbox_id: str,
-        region_id: str,
-        get_toolbox_base_url: Callable[[str, str], Awaitable[str]],
-    ):
-        super().__init__(api_client, sandbox_id)
-        self._get_toolbox_base_url: Callable[[str, str], Awaitable[str]] = get_toolbox_base_url
-        self._region_id: str = region_id
+During handling of the above exception, another exception occurred:
 
-    async def call_api(self, *args: object, **kwargs: object) -&gt; Any:
-        url = str(args[1])
+Traceback (most recent call last):
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona/_utils/errors.py&quot;, line 98, in sync_wrapper
+    return sync_func(*args, **kwargs)
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona/_sync/process.py&quot;, line 151, in exec
+    response = self._api_client.execute_command(request=execute_request)
+  File &quot;/usr/local/lib/python3.14/site-packages/pydantic/_internal/_validate_call.py&quot;, line 40, in wrapper_function
+    return wrapper(*args, **kwargs)
+  File &quot;/usr/local/lib/python3.14/site-packages/pydantic/_internal/_validate_call.py&quot;, line 137, in __call__
+    res = self.__pydantic_validator__.validate_python(pydantic_core.ArgsKwargs(args, kwargs))
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/api/process_api.py&quot;, line 1414, in execute_command
+    response_data = self.api_client.call_api(
+        *_param,
+        _request_timeout=_request_timeout
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona/internal/toolbox_api_client_proxy.py&quot;, line 101, in call_api
+    return self._api_client.call_api(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/api_client.py&quot;, line 273, in call_api
+    response_data = self.rest_client.request(
+        method, url,
+    ...&lt;2 lines&gt;...
+        _request_timeout=_request_timeout
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/daytona_toolbox_api_client/rest.py&quot;, line 183, in request
+    r = self.pool_manager.request(
+        method,
+    ...&lt;4 lines&gt;...
+        preload_content=False
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/_request_methods.py&quot;, line 143, in request
+    return self.request_encode_body(
+           ~~~~~~~~~~~~~~~~~~~~~~~~^
+        method, url, fields=fields, headers=headers, **urlopen_kw
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/_request_methods.py&quot;, line 278, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/poolmanager.py&quot;, line 457, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/retry.py&quot;, line 498, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/util.py&quot;, line 38, in reraise
+    raise value.</pre></details><details class="step" open><summary>#30 <b>write_file</b> <code>{&quot;path&quot;: &quot;/home/daytona/debug_daytona.py&quot;, &quot;content&quot;: &quot;from daytona import Daytona, DaytonaConfig\nimport time\n\n# Create Daytona client wi</code></summary><pre>wrote /home/daytona/debug_daytona.py (1838 bytes)</pre></details><details class="step" open><summary>#31 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
+from daytona import Daytona, DaytonaConfig
+config = DaytonaConfig(api_url=&#x27;https://app.daytona.io/api&#x27;)
+d =</code></summary><pre>exit=0
+Old sandbox deleted
+</pre></details><details class="step" open><summary>#32 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 debug_daytona.py 2&gt;&amp;1</code></summary><pre>exit=0
+Daytona client created successfully
+Sandbox created with ID: e084b658-321b-4cb1-8877-ec7e3dcd30ef
+Sandbox state: SandboxState.STARTED
+Sandbox target: us
+Sandbox user: daytona
+Sandbox snapshot: daytonaio/sandbox:0.8.0
+Waiting for sandbox to be ready...
+Sandbox is ready!
 
-        if url.startswith(&quot;/&quot;):
-            await self.load_toolbox_base_url()
-            url = (self._toolbox_base_url or &quot;&quot;) + url
-            args = (args[0], url, *args[2:])
+Sandbox attributes:
+  id: e084b658-321b-4cb1-8877-ec7e3dcd30ef
+  name: e084b658-321b-4cb1-8877-ec7e3dcd30ef
+  state: SandboxState.STARTED
+  target: us
+  user: daytona
+  env: {}
+  labels: {}
+  public: False
+  cpu: 1
+  memory: 1
+  disk: 3
+  created_at: 2026-08-11T10:37:45.229Z
+  updated_at: 2026-08-11T10:37:45.236Z
+Preview link error: Failed to get preview link: Sandbox.get_preview_link() missing 1 required positional argument: &#x27;port&#x27;
 
-        return await self._api_client.call_api(*args, **kwargs)
+Process API client type: &lt;class &#x27;daytona._sync.process.Process&#x27;&gt;
+Process API client attributes: [&#x27;code_run&#x27;, &#x27;connect_pty_session&#x27;, &#x27;create_pty_session&#x27;, &#x27;create_session&#x27;, &#x27;delete_session&#x27;, &#x27;exec&#x27;, &#x27;execute_session_command&#x27;, &#x27;get_pty_session_info&#x27;, &#x27;get_session&#x27;, &#x27;get_session_command&#x27;, &#x27;get_session_command_logs&#x27;, &#x27;get_session_command_logs_async&#x27;, &#x27;kill_pty_session&#x27;, &#x27;list_pty_sessions&#x27;, &#x27;list_sessions&#x27;, &#x27;resize_pty_session&#x27;]
 
-    async def load_toolbox_base_url(self):
-        if self._toolbox_base_url is None:
-            self._toolbox_base_url: str | None = await self._get_toolbox_base_url(self._sandbox_id, self._region_id)
+Internal API client: &lt;daytona_toolbox_api_client.api.process_api.ProcessApi object at 0x779077325400&gt;
+Internal API client base URL: None
 
+Sandbox deleted successfully
+</pre></details><details class="step" open><summary>#33 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
+from daytona import Daytona, DaytonaConfig
+config = DaytonaConfig(api_url=&#x27;https://app.daytona.io/api&#x27;)
+d =</code></summary><pre>exit=1
+Traceback (most recent call last):
+  File &quot;&lt;string&gt;&quot;, line 12, in &lt;module&gt;
+    print(f&#x27;get_toolbox_base_url: {sandbox._Sandbox__get_toolbox_base_url}&#x27;)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/pydantic/main.py&quot;, line 1042, in __getattr__
+    raise AttributeError(f&#x27;{type(self).__name__!r} object has no attribute {item!r}&#x27;)
+AttributeError: &#x27;Sandbox&#x27; object has no attribute &#x27;_Sandbox__get_toolbox_base_url&#x27;
+Sandbox ID: 9c87186b-e9ab-4175-b82d-9ca0306ec6fc
 
+--- get_toolbox_base_url ---
+</pre></details><details class="step" open><summary>#34 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
+from daytona import Daytona, DaytonaConfig
+config = DaytonaConfig(api_url=&#x27;https://app.daytona.io/api&#x27;)
+d =</code></summary><pre>exit=0
+&lt;string&gt;:12: PydanticDeprecatedSince211: Accessing the &#x27;model_computed_fields&#x27; attribute on the instance is deprecated. Instead, you should access this attribute from the model class. Deprecated in Pydantic V2.11 to be removed in V3.0.
+&lt;string&gt;:12: PydanticDeprecatedSince211: Accessing the &#x27;model_fields&#x27; attribute on the instance is deprecated. Instead, you should access this attribute from the model class. Deprecated in Pydantic V2.11 to be removed in V3.0.
+Sandbox ID: 2b92d4db-bad2-41c7-964a-351bdb75df07
+_Sandbox__process_sandbox_dto: &lt;callable&gt;
+_Sandbox__properties: [&#x27;id&#x27;, &#x27;organizationId&#x27;, &#x27;name&#x27;, &#x27;snapshot&#x27;, &#x27;user&#x27;, &#x27;env&#x27;, &#x27;labels&#x27;, &#x27;public&#x27;, &#x27;networkBlockAll&#x27;, &#x27;networkAllowList&#x27;, &#x27;target&#x27;, &#x27;cpu&#x27;, &#x27;gpu&#x27;, &#x27;memory&#x27;, &#x27;disk&#x27;, &#x27;state&#x27;, &#x27;desiredState&#x27;, &#x27;errorReason&#x27;, &#x27;recoverable&#x27;, &#x27;backupState&#x27;, &#x27;backupCreatedAt&#x27;, &#x27;autoStopInterval&#x27;, &#x27;autoArchiveInterval&#x27;, &#x27;autoDeleteInterval&#x27;, &#x27;volumes&#x27;, &#x27;buildInfo&#x27;, &#x27;createdAt&#x27;, &#x27;updatedAt&#x27;, &#x27;class&#x27;, &#x27;daemonVersion&#x27;, &#x27;runnerId&#x27;]
+_Sandbox__refresh_data_safe: &lt;callable&gt;
+_abc_impl: &lt;_abc._abc_data object at 0x79c0911ae740&gt;
+_calculate_keys: &lt;callable&gt;
+_code_toolbox: &lt;daytona.code_toolbox.sandbox_python_code_toolbox.SandboxPythonCodeToolbox object at 0x79c0911e4440&gt;
+_copy_and_set_values: &lt;callable&gt;
+_get_value: &lt;callable&gt;
+_info_api: &lt;daytona_toolbox_api_client.api.info_api.InfoApi object at 0x79c0911e5e80&gt;
+_iter: &lt;callable&gt;
+_sandbox_api: &lt;daytona_api_client.api.sandbox_api.SandboxApi object at 0x79c091293620&gt;
+_setattr_handler: &lt;callable&gt;
+_toolbox_api: &lt;daytona.internal.toolbox_api_client_proxy.ToolboxApiClientProxyLazyBaseUrl object at 0x79c0911e4d70&gt;
+additional_properties: {&#x27;domainAllowList&#x27;: None, &#x27;autoPauseInterval&#x27;: 0, &#x27;sandboxClass&#x27;: &#x27;container&#x27;, &#x27;lastActivityAt&#x27;: &#x27;2026-08-11T10:38:07.511Z&#x27;, &#x27;toolboxProxyUrl&#x27;: &#x27;https://proxy.app.daytona.io/toolbox&#x27;}
+archive: &lt;callable&gt;
+auto_archive_interval: 10080
+auto_delete_interval: -1
+auto_stop_interval: 15
+backup_created_at: None
+backup_state: None
+backup_state_validate_enum: &lt;callable&gt;
+build_info: None
+code_interpreter: &lt;daytona._sync.code_interpreter.CodeInterpreter object at 0x79c0911e5d30&gt;
+computer_use: &lt;daytona._sync.computer_use.ComputerUse object at 0x79c0911e5550&gt;
+construct: &lt;callable&gt;
+copy: &lt;callable&gt;
+cpu: 1
+create_lsp_server: &lt;callable&gt;
+create_signed_preview_url: &lt;callable&gt;
+create_ssh_access: &lt;callable&gt;
+created_at: 2026-08-11T10:38:07.500Z
+daemon_version: v0.203.0-2
+delete: &lt;callable&gt;
+desired_state: SandboxDesiredState.STARTED
+dict: &lt;callable&gt;
+disk: 3
+env: {}
+error_reason: None
+expire_signed_preview_url: &lt;callable&gt;
+from_dict: &lt;callable&gt;
+from_json: &lt;callable&gt;
+from_orm: &lt;callable&gt;
+fs: &lt;daytona._sync.filesystem.FileSystem object at 0x79c0911e46e0&gt;
+get_preview_link: &lt;callable&gt;
+get_user_home_dir: &lt;callable&gt;
+get_user_root_dir: &lt;callable&gt;
+get_work_dir: &lt;callable&gt;
+git: &lt;daytona._sync.git.Git object at 0x79c0911e5010&gt;
+gpu: 0
+id: 2b92d4db-bad2-41c7-964a-351bdb75df07
+json: &lt;callable&gt;
+labels: {}
+memory: 1
+model_computed_fields: {}
+model_config: {&#x27;populate_by_name&#x27;: True, &#x27;validate_assignment&#x27;: True, &#x27;protected_namespaces&#x27;: (), &#x27;validate_by_alias&#x27;: True, &#x27;validate_by_name&#x27;: True, &#x27;arbitrary_types_allowed&#x27;: True}
+model_construct: &lt;callable&gt;
+model_copy: &lt;callable&gt;
+model_dump: &lt;callable&gt;
+model_dump_json: &lt;callable&gt;
+model_extra: None
+model_fields: {&#x27;id&#x27;: FieldInfo(annotation=str, required=True, description=&#x27;The ID of the sandbox&#x27;, metadata=[Strict(strict=True)]), &#x27;organization_id&#x27;: FieldInfo(annotation=str, required=True, alias_priority=2, serialization_alias=&#x27;organizationId&#x27;, description=&#x27;The organization ID of the sandbox&#x27;, metadata=[Strict(strict=True)]), &#x27;name&#x27;: FieldInfo(annotation=str, required=True, description=&#x27;The name of the sandbox&#x27;, metadata=[Strict(strict=True)]), &#x27;snapshot&#x27;: FieldInfo(annotation=Union[Annotated[str, Strict(strict=True)], NoneType], required=False, default=None, description=&#x27;The snapshot used for the sandbox&#x27;), &#x27;user&#x27;: FieldInfo(annotation=str, required=True, description=&#x27;The user associated with the project&#x27;, metadata=[Strict(strict=True)]), &#x27;env&#x27;: FieldInfo(annotation=Dict[str, Annotated[str, Strict(strict=True)]], required=True, description=&#x27;Environment variables for the sandbox&#x27;), &#x27;labels&#x27;: FieldInfo(annotation=Dict[str, Annotated[str, Strict(strict=True)]], required=True, description=&#x27;Labels for the sandbox&#x27;), &#x27;public&#x27;: FieldInfo(annotation=bool, required=True, description=&#x27;Whether the sandbox http preview is public&#x27;, metadata=[Strict(strict=True)]), &#x27;network_block_all&#x27;: FieldInfo(annotation=bool, required=True, alias_priority=2, serialization_alias=&#x27;networkBlockAll&#x27;, description=&#x27;Whether to block all network access for the sandbox&#x27;, metadata=[Strict(strict=True)]), &#x27;network_allow_list&#x27;: FieldInfo(annotation=Union[Annotated[str, Strict(strict=True)], NoneType], required=False, default=None, alias_priority=2, serialization_alias=&#x27;networkAllowList&#x27;, description=&#x27;Comma-separated list of allowed CIDR network addresses for the sandbox&#x27;), &#x27;target&#x27;: FieldInfo(annotation=str, required=True, description=&#x27;The target environment for the sandbox&#x27;, metadata=[Strict(strict=True)]), &#x27;cpu&#x27;: FieldInfo(annotation=Union[Annotated[float, Strict(strict=True)], Annotated[int, Strict(strict=True)]], required=True, description=&#x27;The CPU quota for the sandbox&#x27;), &#x27;gpu&#x27;: FieldInfo(annotation=Union[Annotated[float, Strict(strict=True)], Annotated[int, Strict(strict=True)]], required=True, description=&#x27;The GPU quota for the sandbox&#x27;), &#x27;memory&#x27;: FieldInfo(annotation=Union[Annotated[float, Strict(strict=True)], Annotated[int, Strict(strict=True)]], required=True, description=&#x27;The memory quota for the sandbox&#x27;), &#x27;disk&#x27;: FieldInfo(annotation=Union[Annotated[float, Strict(strict=True)], Annotated[int, Strict(strict=True)]], required=True, description=&#x27;The disk quota for the sandbox&#x27;), &#x27;state&#x27;: FieldInfo(annotation=Union[SandboxState, NoneType], required=False, default=None, description=&#x27;The state of the sandbox&#x27;), &#x27;desired_state&#x27;: FieldInfo(annotation=Union[SandboxDesiredState, NoneType], required=False, default=No</pre></details><details class="step" open><summary>#35 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
+from daytona import Daytona, DaytonaConfig
+config = DaytonaConfig(api_url=&#x27;https://app.daytona.io/api&#x27;)
+d =</code></summary><pre>exit=0
+Sandbox ID: 290a86e5-bd88-435d-999a-f89a3b1a4731
+
+toolboxProxyUrl: https://proxy.app.daytona.io/toolbox
+
+_toolbox_api type: &lt;class &#x27;daytona.internal.toolbox_api_client_proxy.ToolboxApiClientProxyLazyBaseUrl&#x27;&gt;
+_toolbox_api: &lt;daytona.internal.toolbox_api_client_proxy.ToolboxApiClientProxyLazyBaseUrl object at 0x761ff6014d70&gt;
+
+_toolbox_api._base_url: not set
+_toolbox_api.api_client: not set
+  _api_client: ApiClient
+  _get_toolbox_base_url: method
+  _region_id: str
+  _sandbox_id: str
+  _toolbox_base_url: NoneType
+  call_api: method
+  load_toolbox_base_url: method
+  param_serialize: method
+</pre></details><details class="step" open><summary>#36 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
+from daytona import Daytona, DaytonaConfig
+config = DaytonaConfig(api_url=&#x27;https://app.daytona.io/api&#x27;)
+d =</code></summary><pre>exit=0
+Sandbox ID: 73226ba9-57b4-41b5-b9cd-37c2ef387bbf
+
+--- Trying load_toolbox_base_url ---
+Base URL after load: https://proxy.app.daytona.io/toolbox
+
+--- Trying _get_toolbox_base_url ---
+Error: Daytona._get_proxy_toolbox_url() missing 2 required positional arguments: &#x27;sandbox_id&#x27; and &#x27;region_id&#x27;
+</pre></details><details class="step" open><summary>#37 <b>bash</b> <code>curl -s -o /dev/null -w &quot;%{http_code}&quot; https://proxy.app.daytona.io/toolbox/health || echo &quot;Failed&quot;</code></summary><pre>exit=0
+000Failed
+</pre></details><details class="step" open><summary>#38 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
+from daytona import Daytona, DaytonaConfig
+config = DaytonaConfig(api_url=&#x27;https://app.daytona.io/api&#x27;)
+d =</code></summary><pre>exit=0
+Sandbox ID: 43f5d4c2-a9fc-443e-b8f9-41dc7efa550a
+Base URL: https://proxy.app.daytona.io/toolbox
+
+API client type: &lt;class &#x27;daytona_toolbox_api_client.api_client.ApiClient&#x27;&gt;
+API client configuration: &lt;daytona_api_client.configuration.Configuration object at 0x7e3733f5fa10&gt;
+Host: 
+</pre></details><details class="step" open><summary>#39 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
+import daytona.internal.toolbox_api_client_proxy as proxy
+import inspect
+print(inspect.getsource(proxy.Tool</code></summary><pre>exit=0
 class ToolboxApiClientProxyLazyBaseUrl(_ToolboxApiClientProxy[ApiClient]):
     &quot;&quot;&quot;Wrapper around a sync API client that adjusts `call_api` method.
 
@@ -1368,323 +1327,25 @@ class ToolboxApiClientProxyLazyBaseUrl(_ToolboxApiClientProxy[ApiClient]):
     def load_toolbox_base_url(self):
         if self._toolbox_base_url is None:
             self._toolbox_base_url: str | None = self._get_toolbox_base_url(self._sandbox_id, self._region_id)
-</pre></details><details class="step" open><summary>#33 <b>bash</b> <code>env | grep -i daytona | sed &#x27;s/=.*//&#x27; | sort</code></summary><pre>exit=0
-DAYTONA_API_KEY
-DAYTONA_ORGANIZATION_ID
-DAYTONA_OTEL_ENDPOINT
-DAYTONA_REGION_ID
-DAYTONA_SANDBOX_ID
-DAYTONA_SANDBOX_SNAPSHOT
-DAYTONA_SANDBOX_USER
-DAYTONA_USER_HOME_AS_WORKDIR
-HOME
-LOGNAME
-OLDPWD
-PWD
-</pre></details><details class="step" open><summary>#34 <b>bash</b> <code>curl -s -o /dev/null -w &quot;%{http_code}&quot; https://app.daytona.io/api/ || echo &quot;Cannot reach API&quot;</code></summary><pre>exit=0
-200</pre></details><details class="step" open><summary>#35 <b>bash</b> <code>curl -s -H &quot;Authorization: Bearer $DAYTONA_API_KEY&quot; https://app.daytona.io/api/sandbox | python3 -m json.tool 2&gt;/dev/null | head -50</code></summary><pre>exit=0
-{
-    &quot;items&quot;: [
-        {
-            &quot;id&quot;: &quot;fac98d0e-ec6f-4b79-af7b-91173b0f05df&quot;,
-            &quot;organizationId&quot;: &quot;4f5b4668-e9ee-4dd1-b306-c18dcb5ebcca&quot;,
-            &quot;name&quot;: &quot;fac98d0e-ec6f-4b79-af7b-91173b0f05df&quot;,
-            &quot;target&quot;: &quot;us&quot;,
-            &quot;runnerId&quot;: &quot;01c99c25-a2bc-4259-8628-df042d558af7&quot;,
-            &quot;sandboxClass&quot;: &quot;container&quot;,
-            &quot;state&quot;: &quot;started&quot;,
-            &quot;desiredState&quot;: &quot;started&quot;,
-            &quot;snapshot&quot;: &quot;daytonaio/sandbox:0.8.0&quot;,
-            &quot;user&quot;: &quot;daytona&quot;,
-            &quot;errorReason&quot;: null,
-            &quot;recoverable&quot;: false,
-            &quot;public&quot;: false,
-            &quot;cpu&quot;: 1,
-            &quot;gpu&quot;: 0,
-            &quot;memory&quot;: 1,
-            &quot;disk&quot;: 3,
-            &quot;labels&quot;: {
-                &quot;code-toolbox-language&quot;: &quot;python&quot;
-            },
-            &quot;backupState&quot;: &quot;None&quot;,
-            &quot;autoStopInterval&quot;: 15,
-            &quot;autoPauseInterval&quot;: 0,
-            &quot;autoArchiveInterval&quot;: 10080,
-            &quot;autoDeleteInterval&quot;: -1,
-            &quot;autoDestroyAt&quot;: null,
-            &quot;createdAt&quot;: &quot;2026-08-10T10:50:21.990Z&quot;,
-            &quot;updatedAt&quot;: &quot;2026-08-10T10:50:21.997Z&quot;,
-            &quot;lastActivityAt&quot;: &quot;2026-08-10T10:56:37.219Z&quot;,
-            &quot;daemonVersion&quot;: &quot;v0.203.0-2&quot;,
-            &quot;warmPoolId&quot;: null,
-            &quot;toolboxProxyUrl&quot;: &quot;https://proxy.app.daytona.io/toolbox&quot;
-        },
-        {
-            &quot;id&quot;: &quot;bbd8cae4-7e29-4502-8427-5dec8a1cefea&quot;,
-            &quot;organizationId&quot;: &quot;4f5b4668-e9ee-4dd1-b306-c18dcb5ebcca&quot;,
-            &quot;name&quot;: &quot;bbd8cae4-7e29-4502-8427-5dec8a1cefea&quot;,
-            &quot;target&quot;: &quot;us&quot;,
-            &quot;runnerId&quot;: &quot;30b35ef7-ad14-4cdc-b6b0-0ad12e8ec95c&quot;,
-            &quot;sandboxClass&quot;: &quot;container&quot;,
-            &quot;state&quot;: &quot;started&quot;,
-            &quot;desiredState&quot;: &quot;started&quot;,
-            &quot;snapshot&quot;: &quot;daytonaio/sandbox:0.8.0&quot;,
-            &quot;user&quot;: &quot;daytona&quot;,
-            &quot;errorReason&quot;: null,
-            &quot;recoverable&quot;: false,
-            &quot;public&quot;: false,
-</pre></details><details class="step" open><summary>#36 <b>bash</b> <code>cat /usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py | head -200</code></summary><pre>exit=0
-# Copyright 2025 Daytona Platforms Inc.
-# SPDX-License-Identifier: Apache-2.0
 
-from __future__ import annotations
-
-import asyncio
-import json
-import threading
-import time
-import warnings
-from concurrent.futures import Future
-from copy import deepcopy
-from importlib.metadata import version
-from typing import Callable, cast, overload
-
-from daytona_api_client import (
-    ApiClient,
-    ConfigApi,
-    Configuration,
-    CreateBuildInfo,
-    CreateSandbox,
-    ObjectStorageApi,
-    SandboxApi,
-    SandboxState,
-    SandboxVolume,
-    SnapshotsApi,
-)
-from daytona_api_client import VolumesApi as VolumesApi
-from daytona_toolbox_api_client import ApiClient as ToolboxApiClient
-from environs import Env
-
-from .._utils.enum import to_enum
-from .._utils.errors import intercept_errors
-from .._utils.stream import process_streaming_response
-from .._utils.timeout import with_timeout
-from ..code_toolbox.sandbox_js_code_toolbox import SandboxJsCodeToolbox
-from ..code_toolbox.sandbox_python_code_toolbox import SandboxPythonCodeToolbox
-from ..code_toolbox.sandbox_ts_code_toolbox import SandboxTsCodeToolbox
-from ..common.daytona import (
-    CodeLanguage,
-    CodeLanguageLiteral,
-    CreateSandboxFromImageParams,
-    CreateSandboxFromSnapshotParams,
-    DaytonaConfig,
-)
-from ..common.errors import DaytonaError
-from ..common.image import Image
-from ..common.protocols import SandboxCodeToolbox
-from .sandbox import PaginatedSandboxes, Sandbox
-from .snapshot import SnapshotService
-from .volume import VolumeService
-
-
-class Daytona:
-    &quot;&quot;&quot;Main class for interacting with the Daytona API.
-
-    This class provides methods to create, manage, and interact with Daytona Sandboxes.
-    It can be initialized either with explicit configuration or using environment variables.
-
-    Attributes:
-        volume (VolumeService): Service for managing volumes.
-        snapshot (SnapshotService): Service for managing snapshots.
-
-    Example:
-        Using environment variables:
-        ```python
-        daytona = Daytona()  # Uses DAYTONA_API_KEY, DAYTONA_API_URL
-        sandbox = daytona.create()
-        ```
-
-        Using explicit configuration:
-        ```python
-        config = DaytonaConfig(
-            api_key=&quot;your-api-key&quot;,
-            api_url=&quot;https://your-api.com&quot;,
-            target=&quot;us&quot;
-        )
-        daytona = Daytona(config)
-        sandbox = daytona.create()
-        ```
-    &quot;&quot;&quot;
-
-    _api_key: str | None = None
-    _jwt_token: str | None = None
-    _organization_id: str | None = None
-    _api_url: str
-    _target: str | None = None
-
-    def __init__(self, config: DaytonaConfig | None = None):
-        &quot;&quot;&quot;Initializes Daytona instance with optional configuration.
-
-        If no config is provided, reads from environment variables:
-        - `DAYTONA_API_KEY`: Required API key for authentication
-        - `DAYTONA_API_URL`: Required api URL
-        - `DAYTONA_TARGET`: Optional target environment (if not provided, default region for the organization is used)
-
-        Args:
-            config (DaytonaConfig | None): Object containing api_key, api_url, and target.
-
-        Raises:
-            DaytonaError: If API key is not provided either through config or environment variables
-
-        Example:
-            ```python
-            from daytona import Daytona, DaytonaConfig
-            # Using environment variables
-            daytona1 = Daytona()
-
-            # Using explicit configuration
-            config = DaytonaConfig(
-                api_key=&quot;your-api-key&quot;,
-                api_url=&quot;https://your-api.com&quot;,
-                target=&quot;us&quot;
-            )
-            daytona2 = Daytona(config)
-
-            ```
-        &quot;&quot;&quot;
-
-        default_api_url = &quot;https://app.daytona.io/api&quot;
-        self.default_language: CodeLanguage = CodeLanguage.PYTHON
-        api_url = None
-
-        if config:
-            self._api_key = None if (not config.api_key and config.jwt_token) else config.api_key
-            self._jwt_token = config.jwt_token
-            self._organization_id = config.organization_id
-            api_url = config.api_url or config.server_url
-            self._target = config.target
-
-        if config is None or (
-            not all([self._api_key, api_url, self._target])
-            and not all(
-                [
-                    self._jwt_token,
-                    self._organization_id,
-                    api_url,
-                    self._target,
-                ]
-            )
-        ):
-            # Initialize env - it automatically reads from .env and .env.local
-            env = Env()
-            _ = env.read_env()
-            _ = env.read_env(&quot;.env&quot;, override=True)
-            _ = env.read_env(&quot;.env.local&quot;, override=True)
-
-            self._api_key = self._api_key or (env.str(&quot;DAYTONA_API_KEY&quot;, None) if not self._jwt_token else None)
-            self._jwt_token = self._jwt_token or env.str(&quot;DAYTONA_JWT_TOKEN&quot;, None)
-            self._organization_id = self._organization_id or env.str(&quot;DAYTONA_ORGANIZATION_ID&quot;, None)
-            api_url = api_url or env.str(&quot;DAYTONA_API_URL&quot;, None) or env.str(&quot;DAYTONA_SERVER_URL&quot;, None)
-            self._target = self._target or env.str(&quot;DAYTONA_TARGET&quot;, None)
-
-            if env.str(&quot;DAYTONA_SERVER_URL&quot;, None) and not env.str(&quot;DAYTONA_API_URL&quot;, None):
-                warnings.warn(
-                    &quot;Environment variable `DAYTONA_SERVER_URL` is deprecated and will be removed in future versions. &quot;
-                    + &quot;Use `DAYTONA_API_URL` instead.&quot;,
-                    DeprecationWarning,
-                    stacklevel=2,
-                )
-
-        self._api_url = api_url or default_api_url
-
-        if not self._api_key and not self._jwt_token:
-            raise DaytonaError(&quot;API key or JWT token is required&quot;)
-
-        # Create API configuration without api_key
-        configuration = Configuration(host=self._api_url)
-        self._api_client: ApiClient = ApiClient(configuration)
-        self._api_client.default_headers[&quot;Authorization&quot;] = f&quot;Bearer {self._api_key or self</pre></details><details class="step" open><summary>#37 <b>bash</b> <code>grep -n &quot;get_toolbox_base_url\|toolbox_base_url\|toolboxProxyUrl&quot; /usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py</code></summary><pre>exit=1
-</pre></details><details class="step" open><summary>#38 <b>bash</b> <code>grep -rn &quot;toolbox&quot; /usr/local/lib/python3.14/site-packages/daytona/_sync/ | head -30</code></summary><pre>exit=0
-grep: /usr/local/lib/python3.14/site-packages/daytona/_sync/__pycache__/code_interpreter.cpython-314.pyc: binary file matches
-grep: /usr/local/lib/python3.14/site-packages/daytona/_sync/__pycache__/computer_use.cpython-314.pyc: binary file matches
-grep: /usr/local/lib/python3.14/site-packages/daytona/_sync/__pycache__/daytona.cpython-314.pyc: binary file matches
-grep: /usr/local/lib/python3.14/site-packages/daytona/_sync/__pycache__/filesystem.cpython-314.pyc: binary file matches
-grep: /usr/local/lib/python3.14/site-packages/daytona/_sync/__pycache__/git.cpython-314.pyc: binary file matches
-grep: /usr/local/lib/python3.14/site-packages/daytona/_sync/__pycache__/lsp_server.cpython-314.pyc: binary file matches
-grep: /usr/local/lib/python3.14/site-packages/daytona/_sync/__pycache__/process.cpython-314.pyc: binary file matches
-grep: /usr/local/lib/python3.14/site-packages/daytona/_sync/__pycache__/sandbox.cpython-314.pyc: binary file matches
-/usr/local/lib/python3.14/site-packages/daytona/_sync/code_interpreter.py:10:from daytona_toolbox_api_client import CreateContextRequest, InterpreterApi, InterpreterContext
-/usr/local/lib/python3.14/site-packages/daytona/_sync/code_interpreter.py:36:        ensure_toolbox_url: Callable[[], None],
-/usr/local/lib/python3.14/site-packages/daytona/_sync/code_interpreter.py:42:            ensure_toolbox_url: Ensures the toolbox API URL is initialized.
-/usr/local/lib/python3.14/site-packages/daytona/_sync/code_interpreter.py:45:        self._ensure_toolbox_url: Callable[[], None] = ensure_toolbox_url
-/usr/local/lib/python3.14/site-packages/daytona/_sync/code_interpreter.py:110:        self._ensure_toolbox_url()
-/usr/local/lib/python3.14/site-packages/daytona/_sync/computer_use.py:6:from daytona_toolbox_api_client import (
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:29:from daytona_toolbox_api_client import ApiClient as ToolboxApiClient
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:36:from ..code_toolbox.sandbox_js_code_toolbox import SandboxJsCodeToolbox
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:37:from ..code_toolbox.sandbox_python_code_toolbox import SandboxPythonCodeToolbox
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:38:from ..code_toolbox.sandbox_ts_code_toolbox import SandboxTsCodeToolbox
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:201:        self._proxy_toolbox_url_futures: dict[str, Future[str]] = {}
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:202:        self._proxy_toolbox_url_lock: threading.Lock = threading.Lock()
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:203:        self._toolbox_api_client: ToolboxApiClient = self._clone_api_client_to_toolbox_api_client()
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:338:        code_toolbox = self._get_code_toolbox(params.language)
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:428:            self._toolbox_api_client,
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:430:            code_toolbox,
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:431:            self._get_proxy_toolbox_url,
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:445:    def _get_code_toolbox(self, language: CodeLanguage | CodeLanguageLiteral | None = None) -&gt; SandboxCodeToolbox:
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:446:        &quot;&quot;&quot;Helper method to get the appropriate code toolbox based on language.
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:449:            language (CodeLanguage | None): Language of the code toolbox. If not provided, defaults to Python.
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:452:            SandboxCodeToolbox: The appropriate code toolbox instance for the specified language.
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:465:        toolboxes = {
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:472:            return toolboxes[language.value]()
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:521:        # Create and return sandbox with Python code toolbox as default
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:522:        code_toolbox = SandboxPythonCodeToolbox()
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:525:            self._toolbox_api_client,
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:527:            code_toolbox,
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:528:            self._get_proxy_toolbox_url,
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:591:                    self._toolbox_api_client,
-/usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py:593:                    self._get_code_toolbox(self._validate_language_label(sandbox.labels.get(&quot;code-toolbox-language&quot;))),
-</pre></details><details class="step" open><summary>#39 <b>bash</b> <code>grep -n &quot;_get_proxy_toolbox_url\|proxy_toolbox_url\|toolboxProxyUrl&quot; /usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py</code></summary><pre>exit=0
-201:        self._proxy_toolbox_url_futures: dict[str, Future[str]] = {}
-202:        self._proxy_toolbox_url_lock: threading.Lock = threading.Lock()
-431:            self._get_proxy_toolbox_url,
-528:            self._get_proxy_toolbox_url,
-594:                    self._get_proxy_toolbox_url,
-663:    def _get_proxy_toolbox_url(self, sandbox_id: str, region_id: str) -&gt; str:
-664:        if self._proxy_toolbox_url_futures.get(region_id) is not None:
-665:            return self._proxy_toolbox_url_futures[region_id].result()
-669:        with self._proxy_toolbox_url_lock:
-673:            if self._proxy_toolbox_url_futures.get(region_id) is None:
-675:                self._proxy_toolbox_url_futures[region_id] = future
-688:        return self._proxy_toolbox_url_futures[region_id].result()
-</pre></details><details class="step" open><summary>#40 <b>bash</b> <code>sed -n &#x27;660,700p&#x27; /usr/local/lib/python3.14/site-packages/daytona/_sync/daytona.py</code></summary><pre>exit=0
-
-        return toolbox_api_client
-
-    def _get_proxy_toolbox_url(self, sandbox_id: str, region_id: str) -&gt; str:
-        if self._proxy_toolbox_url_futures.get(region_id) is not None:
-            return self._proxy_toolbox_url_futures[region_id].result()
-
-        future: Future[str] | None = None
-
-        with self._proxy_toolbox_url_lock:
-            # Double-check: another thread might have created the future
-            # Create local variable &quot;future&quot; so that the thread knows if it created the future
-            # and should do the API call and set the result
-            if self._proxy_toolbox_url_futures.get(region_id) is None:
-                future = Future()
-                self._proxy_toolbox_url_futures[region_id] = future
-
-        # Make API call if we created the future
-        # This allows other threads to wait on the future instead of blocking on the lock
-        if future is not None:
-            try:
-                response = self._sandbox_api.get_toolbox_proxy_url(sandbox_id)
-                future.set_result(response.url)
-            except Exception as e:
-                future.set_exception(e)
-                raise
-
-        # Allows other threads to wait on the same future in parallel
-        return self._proxy_toolbox_url_futures[region_id].result()
+</pre></details><details class="step" open><summary>#40 <b>bash</b> <code>curl -v https://proxy.app.daytona.io/toolbox/ 2&gt;&amp;1 | head -30</code></summary><pre>exit=0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host proxy.app.daytona.io:443 was resolved.
+* IPv6: (none)
+* IPv4: 44.193.38.84, 32.195.4.115, 3.208.48.149, 98.86.34.17, 98.83.201.62, 54.174.43.34, 34.205.198.153, 52.207.176.73
+*   Trying 44.193.38.84:443...
+* ALPN: curl offers h2,http/1.1
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [1575 bytes data]
+*  CAfile: /etc/ssl/certs/ca-certificates.crt
+*  CApath: /etc/ssl/certs
+* Recv failure: Connection reset by peer
+* TLS connect error: error:00000000:lib(0)::reason(0)
+* OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443 
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+* closing connection #0
+curl: (35) Recv failure: Connection reset by peer
 </pre></details>
 </body></html>

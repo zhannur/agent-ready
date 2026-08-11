@@ -1,18 +1,18 @@
 {
   "name": "fireworks",
   "url": "https://docs.fireworks.ai/getting-started/quickstart",
-  "started": "2026-08-10T11:03:00Z",
+  "started": "2026-08-11T10:48:19Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the Fireworks AI quickstart end-to-end. The FIREWORKS_API_KEY was already exported in the sandbox. I first tested with curl (as shown in the quickstart docs), then installed the OpenAI Python SDK and ran the Python example. A chat completion was successfully returned from a Fireworks-hosted model: the assistant responded \"Hola.\" to the prompt \"Say hello in Spanish\".",
-  "deviations": "The quickstart docs specify model `accounts/fireworks/models/deepseek-v3p1`, but that model returned a `NOT_FOUND` error from the API. I had to substitute `accounts/fireworks/models/deepseek-v4-flash` (confirmed available via the models endpoint) to get a successful chat completion. All other steps followed the docs exactly.",
-  "steps": 12,
-  "wall_seconds": 56.5,
+  "summary": "Successfully completed the Fireworks AI Serverless Quickstart end-to-end. A chat completion was returned from a Fireworks-hosted model via the API. The response received was: \"Hola! \\n\\n*(If you meant the literal translation for the command \"Say hello\", it is \"Di hola\").*\"",
+  "deviations": "The quickstart docs specify model \"accounts/fireworks/models/deepseek-v3p1\", but this model returned a 404 Not Found error (\"Model not found, inaccessible, and/or not deployed\"). I had to query the available models endpoint to find a working alternative and used \"accounts/fireworks/models/glm-5p2\" instead, which successfully returned a chat completion.",
+  "steps": 16,
+  "wall_seconds": 108.1,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "/usr/bin/curl"
+      "evidence": "/usr/local/bin/python3\nPython 3.14.4"
     },
     "installed": {
       "passed": true,
@@ -20,31 +20,35 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "FIREWORKS_API_KEY is set: yes"
+      "evidence": "curl -s -H \"Authorization: Bearer $FIREWORKS_API_KEY\" https://api.fireworks.ai/inference/v1/models ... exit=0"
     },
     "first_call": {
       "passed": false,
-      "evidence": "{\"error\":{\"message\":\"Model not found, inaccessible, and/or not deployed\",\"param\":\"model\",\"code\":\"NOT_FOUND\",\"type\":\"error\"}}"
+      "evidence": "openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed'... from first python3 quickstart.py"
     },
     "verified": {
       "passed": true,
-      "evidence": "{\"id\":\"chatcmpl-1d303abc76e141f3b50971bba59157b4\",\"object\":\"chat.completion\",\"created\":1786359670,\"model\":\"accounts/fireworks/models/deepseek-v4-flash\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\u00a1Hola!\",\"reasoning_content\":\"We need to respond to the user's request: \\\"Say hello in Spanish.\\\" The answer is straightforward: \\\"Hola.\\\" But we should provide a complete response. The user might want just the word, but as an assistant, we can give a brief explanation.\",\"tools\":null},"
+      "evidence": "Hola! \n\n*(If you meant the literal translation for the command \"Say hello\", it is \"Di hola\").* with exit=0"
     }
   },
   "friction": [
     {
-      "where": "Quickstart docs model string outdated (deepseek-v3p1)",
-      "detail": "curl with \"model\":\"accounts/fireworks/models/deepseek-v3p1\" returned {\"error\":{\"message\":\"Model not found, inaccessible, and/or not deployed\",\"param\":\"model\",\"code\":\"NOT_FOUND\",\"type\":\"error\"}}"
+      "where": "Quickstart docs specify a model that does not exist",
+      "detail": "model=\"accounts/fireworks/models/deepseek-v3p1\" ... openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed'"
     },
     {
-      "where": "Quickstart docs model string outdated (llama-v3p1-8b-instruct)",
-      "detail": "curl with \"model\":\"accounts/fireworks/models/llama-v3p1-8b-instruct\" returned {\"error\":{\"message\":\"Model not found, inaccessible, and/or not deployed\",\"param\":\"model\",\"code\":\"NOT_FOUND\",\"type\":\"error\"}}"
+      "where": "Multiple fallback model guesses from similar naming conventions also fail",
+      "detail": "model=\"accounts/fireworks/models/llama-v3p1-70b-instruct\" ... Error code: 404; model=\"accounts/fireworks/models/llama-v3p1-8b-instruct\" ... Error code: 404"
     },
     {
-      "where": "Manual model discovery required",
-      "detail": "Agent had to call curl -s https://api.fireworks.ai/inference/v1/models and filter output to find a valid model after two documented examples failed."
+      "where": "Developer must manually query the models endpoint to discover a working model",
+      "detail": "curl -s -H \"Authorization: Bearer $FIREWORKS_API_KEY\" https://api.fireworks.ai/inference/v1/models | python3 -m json.tool | head -100"
+    },
+    {
+      "where": "404 error message is ambiguous about whether the model name is wrong or inaccessible",
+      "detail": "'message': 'Model not found, inaccessible, and/or not deployed'"
     }
   ],
   "score": 75,
-  "braintrust_span": "0374f4dd-7108-4212-8185-73aaa6a39c06"
+  "braintrust_span": "805fbb00-572d-42ac-9ef7-2137f9e6e072"
 }

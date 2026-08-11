@@ -1,58 +1,54 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-08-10T10:58:50Z",
+  "started": "2026-08-11T10:40:57Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
   "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 419.5,
+  "wall_seconds": 334.4,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "python3 -c \"from daytona import *; import daytona; print(dir(daytona))\" exit=0"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "python3 -c \"from daytona import *; import daytona; print(dir(daytona))\" exit=0"
+      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     },
     "configured": {
-      "passed": true,
-      "evidence": "DAYTONA_API_KEY present in environment variables (env | grep -i daytona)"
+      "passed": false,
+      "evidence": "DAYTONA_API_URL is set: "
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: b5a136e5-3e6c-49b0-811f-51da61a20ec7"
+      "evidence": "Sandbox created with ID: 35463284-058c-462f-a4a1-c2b48664f1b9"
     },
     "verified": {
       "passed": false,
-      "evidence": "Error: DaytonaError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "evidence": "Attempt 1 failed: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   },
   "friction": [
     {
-      "where": "SDK import name mismatch in quickstart code",
-      "detail": "ImportError: cannot import name 'CreateSandboxParams' from 'daytona' ... Did you mean: 'CreateSandboxBaseParams'?"
+      "where": "Missing DAYTONA_API_URL environment variable",
+      "detail": "DAYTONA_API_URL is set: "
     },
     {
-      "where": "Network reachability to toolbox proxy",
-      "detail": "Trying to reach https://proxy.app.daytona.io/toolbox... Error: URLError: <urlopen error [Errno 104] Connection reset by peer>"
+      "where": "SDK process method naming mismatch",
+      "detail": "AttributeError: 'Process' object has no attribute 'execute'"
     },
     {
-      "where": "CLI version command behavior",
-      "detail": "daytona version ... ERR Error occurred error=\"listen tcp :22222: bind: address already in use\""
+      "where": "Sandbox code execution fails with connection reset",
+      "detail": "Attempt 1 failed: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     },
     {
-      "where": "Documentation link for CLI",
-      "detail": "fetch_url https://www.daytona.io/docs/cli/ ... 404 The page you're looking for doesn't exist or has been moved."
-    },
-    {
-      "where": "Pydantic deprecation warnings on Python 3.14",
-      "detail": "PydanticDeprecatedSince211: Accessing the 'model_computed_fields' attribute on the instance is deprecated. Instead, you should access this attribute from the model class."
+      "where": "Toolbox proxy endpoint unreachable",
+      "detail": "curl: (35) Recv failure: Connection reset by peer"
     }
   ],
-  "score": 70,
-  "braintrust_span": "30e7fbc5-e243-4e1c-a540-ce05774ca97d"
+  "score": 55,
+  "braintrust_span": "438ac959-b43e-4aac-905c-2efe06454bb2"
 }

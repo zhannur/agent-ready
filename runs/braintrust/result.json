@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-10T10:40:38Z",
+  "started": "2026-08-11T10:11:59Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully fetched the main quickstart index page at `/docs/start` and the documentation index at `/docs/llms.txt`, which confirmed there is an evaluation quickstart among the getting-started guides. However, I was blocked from retrieving the specific evaluation quickstart instructions because all direct URL variations I tried (`/docs/start/eval`, `/docs/evaluate`, `/docs/evaluate/quickstart`) returned empty responses, and `curl` commands to the site consistently produced no output\u2014suggesting the docs may be JavaScript-rendered or blocked for non-browser clients. Consequently, I never reached the step of installing the Braintrust SDK or executing an eval run. No eval was executed and no scores were reported.",
+  "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 113.9,
+  "wall_seconds": 122.9,
   "checkpoints": {
     "env_ready": {
-      "passed": false,
-      "evidence": "[fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/start\"} \u2014 transcript contains only doc-fetching commands; no runtime or package-manager installation is shown"
+      "passed": true,
+      "evidence": "cd /home/daytona && pip install braintrust openai autoevals"
     },
     "installed": {
-      "passed": false,
-      "evidence": "I never reached the step of installing the Braintrust SDK or executing an eval run."
+      "passed": true,
+      "evidence": "Downloading braintrust-0.32.0-py3-none-any.whl.metadata (4.0 kB)"
     },
     "configured": {
       "passed": false,
-      "evidence": "I never reached the step of installing the Braintrust SDK or executing an eval run."
+      "evidence": "OPENAI_API_KEY is set: "
     },
     "first_call": {
       "passed": false,
-      "evidence": "No eval was executed"
+      "evidence": "grep -A 100 'python movie_matcher.py'\" exit=1"
     },
     "verified": {
       "passed": false,
-      "evidence": "No eval was executed and no scores were reported."
+      "evidence": "curl -sL \"https://www.braintrust.dev/docs/evaluation-quickstart.md\" ... | wc -l\" exit=0 0"
     }
   },
   "friction": [
     {
-      "where": "Documentation site blocks standard HTTP clients / requires JavaScript rendering",
-      "detail": "curl commands to the site consistently produced no output\u2014suggesting the docs may be JavaScript-rendered or blocked for non-browser clients."
+      "where": "bt CLI install step",
+      "detail": "curl -fsSL https://bt.dev/cli/install.sh | sh returned curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Evaluation quickstart URL is not at a predictable path",
-      "detail": "all direct URL variations I tried (`/docs/start/eval`, `/docs/evaluate`, `/docs/evaluate/quickstart`) returned empty responses"
+      "where": "Provider API key prerequisite",
+      "detail": "OPENAI_API_KEY is set:  shows the required provider key is missing"
     },
     {
-      "where": "Main start page returns zero bytes via curl even with browser user-agent headers",
-      "detail": "`curl -sL https://www.braintrust.dev/docs/start | wc -c` returned 0"
+      "where": "Fetching quickstart source",
+      "detail": "curl -sL \"https://www.braintrust.dev/docs/evaluation-quickstart.md\" ... | wc -l returned 0 lines"
     },
     {
-      "where": "Docs index (llms.txt) lacks quickstart keyword matches",
-      "detail": "`curl -s https://www.braintrust.dev/docs/llms.txt | grep -i \\\"quickstart\\\" | head -20` produced no visible output"
+      "where": "Python example in docs",
+      "detail": "Python theme=... block ends with github-da, truncating the pip install command"
     },
     {
-      "where": "Start page loads but evaluation quickstart sub-page is unreachable",
-      "detail": "I successfully fetched the main quickstart index page at `/docs/start` ... However, I was blocked from retrieving the specific evaluation quickstart instructions"
+      "where": "Locating runnable example code",
+      "detail": "grep -A 100 'python movie_matcher.py' returned exit=1, failing to find the script"
     }
   ],
-  "score": 0,
-  "braintrust_span": "ae500b60-9627-42d6-ba0c-604be997db79"
+  "score": 30,
+  "braintrust_span": "c72917ef-cb3f-4581-b81f-250062dc6ff4"
 }

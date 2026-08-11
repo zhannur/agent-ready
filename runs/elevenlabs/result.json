@@ -1,54 +1,58 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-08-10T11:00:39Z",
+  "started": "2026-08-11T10:44:37Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example script, and ran it. The API call to text_to_speech.convert() succeeded and generated a valid 41KB MP3 audio file (output.mp3) from the text \"The first move is what sets everything in motion.\" File was verified as a real MPEG ADTS Layer III audio file at 128 kbps, 44.1 kHz, monaural.",
-  "deviations": "The quickstart uses `play(audio)` to play audio through speakers. Since the sandbox has no audio output, I substituted `save(audio, \"output.mp3\")` to save the generated audio to a file instead. This is the only deviation; the core API authentication, SDK usage, and text-to-speech generation followed the docs exactly.",
-  "steps": 8,
-  "wall_seconds": 39.4,
+  "summary": "Successfully completed the ElevenLabs quickstart. The text-to-speech API generated a valid MP3 audio file (40,586 bytes, MPEG ADTS layer III, 128 kbps, 44.1 kHz, Monaural) from the text \"The first move is what sets everything in motion.\" using the George voice (JBFqnCBsd6RMkjVDRZzb) and eleven_v3 model.",
+  "deviations": "The quickstart's `play(audio)` step requires MPV/ffmpeg and working audio output, which isn't practical in a headless sandbox. I saved the returned audio stream to a file instead and verified it's a valid MP3. The core API call and text-to-speech generation followed the quickstart exactly.",
+  "steps": 7,
+  "wall_seconds": 39.2,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "pip install elevenlabs python-dotenv exited 0 and /usr/bin/ffmpeg was present"
+      "evidence": "Defaulting to user installation because normal site-packages is not writeable"
     },
     "installed": {
       "passed": true,
-      "evidence": "Downloading elevenlabs-2.62.0-py3-none-any.whl.metadata and import help(play) returned successfully"
+      "evidence": "Downloading elevenlabs-2.62.0-py3-none-any.whl.metadata (15 kB)"
     },
     "configured": {
       "passed": true,
-      "evidence": "python3 example.py exited 0 and produced audio, proving the API key was loaded"
+      "evidence": "api_key=os.getenv(\"ELEVENLABS_API_KEY\")"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to output.mp3"
+      "evidence": "exit=0"
     },
     "verified": {
       "passed": true,
-      "evidence": "output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural"
+      "evidence": "File type: /home/daytona/output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural"
     }
   },
   "friction": [
     {
-      "where": "Missing audio playback prerequisite",
-      "detail": "The quickstart expects play() but mpv is not installed, forcing a deviation to save(); transcript shows 'mpv not found' and finish summary notes 'The quickstart uses `play(a...`"
+      "where": "Audio playback prerequisite",
+      "detail": "The quickstart's `play(audio)` step requires MPV/ffmpeg and working audio output, which isn't practical in a headless sandbox."
     },
     {
-      "where": "Noisy documentation fetch",
-      "detail": "Fetched quickstart page returns cluttered HTML/navigation text instead of clean instructions: 'ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt... Search / Connect Blog Help Center API Pricing Sign up Overview...'"
+      "where": "Quickstart omits file persistence",
+      "detail": "# Save the audio to a file instead of play"
     },
     {
-      "where": "Implicit credential setup",
-      "detail": "The script loads ELEVENLABS_API_KEY from .env but the transcript never shows creating the .env file or exporting the variable: 'api_key=os.getenv(\\\"ELEVENLABS_API_KEY\\\")' appears with no prior setup command"
+      "where": "Authentication setup",
+      "detail": "api_key=os.getenv(\"ELEVENLABS_API_KEY\")"
     },
     {
-      "where": "Truncated code display in transcript",
-      "detail": "The written script content is truncated in the log, potentially hiding the full model_id or other parameters: 'model_id=\\\"eleve'"
+      "where": "Documentation navigation",
+      "detail": "Text to Speech Speech to Text Speech Engine Music Text to Dialogue Voice Changer Voice Isolator Dubbing Sound effects Forced Alignment Concepts Understanding audio streaming"
+    },
+    {
+      "where": "Voice selection",
+      "detail": "voice_id=\"JBFqnCBsd6RMkjVDRZzb\",  # \"George\" - browse voices at elevenlabs.io/app/voice-library"
     }
   ],
   "score": 100,
-  "braintrust_span": "9c20e0ce-ba2c-42f2-bf99-bb784e7172cb"
+  "braintrust_span": "61219c90-cc0e-461c-9557-5d46ab4cbe5e"
 }
