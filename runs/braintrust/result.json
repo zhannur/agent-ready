@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-11T10:11:59Z",
+  "started": "2026-08-12T10:24:40Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I installed the Braintrust SDK (`braintrust-0.33.0`) and `autoevals` successfully via pip, and wrote the `movie_matcher.py` eval script following the quickstart's Python example with the `ExactMatch` scorer. However, the script failed at runtime with `ConnectionResetError` during the TLS handshake to `api.braintrust.dev:443`. I verified with `curl` and `openssl s_client` that the sandbox cannot establish a TLS connection to Braintrust's API endpoints\u2014the peer resets the connection before completing the handshake\u2014while other HTTPS sites like Google and GitHub work fine. No eval run could be executed or scores reported because the sandbox cannot reach Braintrust's servers.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 122.9,
+  "wall_seconds": 262.1,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "cd /home/daytona && pip install braintrust openai autoevals"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "Downloading braintrust-0.32.0-py3-none-any.whl.metadata (4.0 kB)"
+      "evidence": "Downloading braintrust-0.33.0-py3-none-any.whl.metadata (4.0 kB)"
     },
     "configured": {
-      "passed": false,
-      "evidence": "OPENAI_API_KEY is set: "
+      "passed": true,
+      "evidence": "BRAINTRUST_API_KEY is set: yes"
     },
     "first_call": {
       "passed": false,
-      "evidence": "grep -A 100 'python movie_matcher.py'\" exit=1"
+      "evidence": "exit=1"
     },
     "verified": {
       "passed": false,
-      "evidence": "curl -sL \"https://www.braintrust.dev/docs/evaluation-quickstart.md\" ... | wc -l\" exit=0 0"
+      "evidence": "exit=1"
     }
   },
   "friction": [
     {
-      "where": "bt CLI install step",
-      "detail": "curl -fsSL https://bt.dev/cli/install.sh | sh returned curl: (35) Recv failure: Connection reset by peer"
+      "where": "Prerequisite AI provider API key missing",
+      "detail": "OPENAI_API_KEY is set: "
     },
     {
-      "where": "Provider API key prerequisite",
-      "detail": "OPENAI_API_KEY is set:  shows the required provider key is missing"
+      "where": "Braintrust API endpoint unreachable from sandbox",
+      "detail": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Fetching quickstart source",
-      "detail": "curl -sL \"https://www.braintrust.dev/docs/evaluation-quickstart.md\" ... | wc -l returned 0 lines"
+      "where": "bt CLI installation",
+      "detail": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Python example in docs",
-      "detail": "Python theme=... block ends with github-da, truncating the pip install command"
+      "where": "Documentation Python examples truncated",
+      "detail": "````bash Python theme={\"theme\":{\"light\":\"github-light\",\"dark\":\"github-da"
     },
     {
-      "where": "Locating runnable example code",
-      "detail": "grep -A 100 'python movie_matcher.py' returned exit=1, failing to find the script"
+      "where": "Sandbox Python version",
+      "detail": "Python 3.14.4"
     }
   ],
-  "score": 30,
-  "braintrust_span": "c72917ef-cb3f-4581-b81f-250062dc6ff4"
+  "score": 45,
+  "braintrust_span": "12e69483-6f59-4c69-8581-9178b7cc5820"
 }
