@@ -1,54 +1,58 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-08-12T10:58:18Z",
+  "started": "2026-08-13T10:48:56Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example script, and successfully generated an MP3 audio file from text using the ElevenLabs Text-to-Speech API. The output file `output.mp3` (43,511 bytes) was verified as a valid MPEG ADTS layer III MP3 at 128 kbps, 44.1 kHz, monaural.",
-  "deviations": "1. The quickstart's `play(audio)` call was replaced with saving to a file (`output.mp3`) because the sandbox has no audio output/speakers. 2. No `.env` file was created because `ELEVENLABS_API_KEY` was already exported as an environment variable in the sandbox.",
+  "summary": "Successfully completed the ElevenLabs quickstart. Installed the elevenlabs and python-dotenv packages, created example.py with the exact code from the quickstart (adapted to save audio to a file for verification), and ran it. The API call succeeded and generated output.mp3 (44,765 bytes), confirmed by the `file` command as a valid MPEG ADTS layer III MP3 at 128 kbps, 44.1 kHz, mono \u2014 matching the requested mp3_44100_128 format. The promised outcome (text-to-speech generates an audio file from text) is verified.",
+  "deviations": "The quickstart example uses `play(audio)` to play through speakers. Since the sandbox has no audio output hardware, I collected the audio generator into bytes, saved it to output.mp3, and verified the file format with the `file` command. This is a necessary sandbox adaptation; the core API usage and code structure follow the quickstart exactly.",
   "steps": 7,
-  "wall_seconds": 31.9,
+  "wall_seconds": 32.1,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "cd /home/daytona && pip install elevenlabs python-dotenv exited 0 and resolved dependencies using the pre-installed Python/pip toolchain."
     },
     "installed": {
       "passed": true,
-      "evidence": "Downloading elevenlabs-2.63.0-py3-none-any.whl.metadata (15 kB)"
+      "evidence": "Downloading elevenlabs-2.63.0-py3-none-any.whl.metadata (15 kB) and exit=0 confirm the SDK was installed."
     },
     "configured": {
-      "passed": true,
-      "evidence": "api_key=os.getenv(\"ELEVENLABS_API_KEY\"),"
+      "passed": false,
+      "evidence": "The script references os.getenv(\"ELEVENLABS_API_KEY\") and load_dotenv(), but the transcript contains no command output showing the API key being exported or a .env file being written."
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to output.mp3"
+      "evidence": "python example.py exited 0 and printed Audio saved to output.mp3 (44765 bytes), proving the text_to_speech.convert call succeeded."
     },
     "verified": {
       "passed": true,
-      "evidence": "output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural"
+      "evidence": "file output.mp3 reported Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural, confirming a valid audio file was produced."
     }
   },
   "friction": [
     {
-      "where": "Documentation page fetch",
-      "detail": "Fetched quickstart URL returns dense HTML navigation noise instead of readable quickstart steps or code examples. Quote: 'ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page. Search / Connect Blog Help Center API Pricing Sign up Overview ElevenCreative ElevenAgents ElevenAPI Reception.ai API reference Changelog Help Center Login Overview ElevenCreative ElevenAgents ElevenAPI Reception.ai API reference Changelog Help Center Get started Quickstart Agents Quickstart Choosing the right model Tutorials'"
+      "where": "Credential wiring step",
+      "detail": "The code loads ELEVENLABS_API_KEY from the environment, yet no transcript command sets the variable or creates a .env file."
     },
     {
-      "where": "Quickstart audio playback example",
-      "detail": "The official quickstart uses a play(audio) helper that fails in headless sandboxes, forcing users to manually rewrite the example to save to a file. Quote: 'The quickstart's `play(audio)` call was replaced with saving to a file (`output.mp3`) because'"
+      "where": "Binary verification pipeline",
+      "detail": "zsh: command not found: xxd caused the combined ls/file/xxd command to exit 127 even though file succeeded."
     },
     {
-      "where": "API key setup is implicit",
-      "detail": "The example script expects ELEVENLABS_API_KEY via dotenv but the transcript never shows creating the .env file or exporting the variable, leaving the credential step undocumented. Quote: 'load_dotenv()... api_key=os.getenv(\\\"ELEVENLABS_API_KEY\\\"),'"
+      "where": "Documentation fetch",
+      "detail": "The fetched quickstart page is garbled HTML rather than clean markdown: ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt..."
     },
     {
-      "where": "Markdown version hint buried in HTML",
-      "detail": "The docs mention that appending .md or /llms.txt yields clean, machine-readable content, but this is buried in the fetched HTML noise so developers may miss it. Quote: 'For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page.'"
+      "where": "Script file writing",
+      "detail": "The first write_file produced truncated content (793 bytes), requiring a second write_file to complete the script."
+    },
+    {
+      "where": "Sandbox tooling gap",
+      "detail": "xxd was missing from the sandbox, forcing the agent to rely only on file for binary verification."
     }
   ],
-  "score": 100,
-  "braintrust_span": "3d439d09-40f1-42c2-b9a9-894b8c980f28"
+  "score": 85,
+  "braintrust_span": "45077678-7c6e-442f-a814-98c9151a4ca0"
 }

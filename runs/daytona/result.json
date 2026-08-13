@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-08-12T10:56:19Z",
+  "started": "2026-08-13T10:46:48Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully created multiple Daytona sandboxes via the Python SDK, as demonstrated by real output showing sandbox IDs like `581878e4-1a20-46ff-970c-ab6a090e3678` with state `SandboxState.STARTED`. However, I could not get code to demonstrably run inside any sandbox because every attempt to execute code via `sandbox.process.code_run()` or `sandbox.process.exec()` failed with a persistent `ConnectionResetError: [Errno 104] Connection reset by peer` when the SDK tried to connect to the sandbox's toolbox API endpoint. Even after calling `sandbox.wait_for_sandbox_start()` (which reported success), the connection was reset during the SSL handshake, blocking the promised outcome. Eventually the local sandbox environment itself degraded, with basic bash commands failing with \"failed to resolve container IP after 3 attempts,\" preventing further troubleshooting.",
+  "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 275.5,
+  "wall_seconds": 663.7,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "[bash] args={\"command\": \"cd /home/daytona && python debug3.py\"}\nexit=0\nSandbox created: b5c387a5-d75d-40c9-ba87-8529479979cd"
     },
     "installed": {
       "passed": true,
-      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
+      "evidence": "Name: daytona\nVersion: 0.204.0"
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY is set: yes"
+      "evidence": "DAYTONA_API_KEY set: True"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: 9f37a667-1e49-4394-b9e3-b48878dfb3e5"
+      "evidence": "Sandbox created: bc045477-6695-448e-b8ac-8dde2060c1d5"
     },
     "verified": {
       "passed": false,
-      "evidence": "Code run error: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "evidence": "Attempt 10 failed: DaytonaConnectionError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))\nAll attempts failed"
     }
   },
   "friction": [
     {
-      "where": "sandbox.process.code_run after wait_for_sandbox_start",
-      "detail": "ConnectionResetError(104, 'Connection reset by peer') persists even though sandbox.state is STARTED and wait_for_sandbox_start returns success"
+      "where": "SDK import for sandbox creation params",
+      "detail": "ImportError: cannot import name 'CreateSandboxParams' from 'daytona' ... Did you mean: 'CreateSandboxBaseParams'?"
     },
     {
-      "where": "Creating sandbox after multiple attempts",
-      "detail": "daytona.common.errors.DaytonaError: Failed to create sandbox: Total CPU limit exceeded. Maximum allowed: 10."
+      "where": "Executing code inside created sandbox",
+      "detail": "Attempt 1 failed: DaytonaError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')) (repeated through all attempts)"
     },
     {
-      "where": "Listing sandboxes to clean up",
-      "detail": "TypeError: object of type 'PaginatedSandboxes' has no len()"
+      "where": "Daytona CLI help/version invocation",
+      "detail": "Error occurred error=\"listen tcp :22220: bind: address already in use\" when running daytona --help"
     },
     {
-      "where": "Using code_interpreter",
-      "detail": "AttributeError: 'CodeInterpreter' object has no attribute 'run'; actual method is run_code"
+      "where": "Direct toolbox API endpoint",
+      "detail": "\"statusCode\": 404,\n    \"error\": \"Not Found\",\n    \"message\": \"Cannot POST /api/toolbox/203c88fd-6fb9-43ff-a827-dfe4adf06b72/process/execute\""
     },
     {
-      "where": "Local sandbox environment during cleanup",
-      "detail": "bad request: failed to resolve container IP after 3 attempts: no IP address found. Is the Sandbox started?"
+      "where": "SDK version introspection",
+      "detail": "AttributeError: module 'daytona' has no attribute '__version__'"
     }
   ],
   "score": 70,
-  "braintrust_span": "b48d791c-da7f-40f0-a41c-40b77772335f"
+  "braintrust_span": "57fda1bf-3f90-4013-ae3e-1f097c7a50b7"
 }
