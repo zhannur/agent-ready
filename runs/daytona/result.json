@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-08-13T10:46:48Z",
+  "started": "2026-08-14T10:40:50Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I successfully fetched the quickstart docs, installed the Daytona Python SDK (v0.204.0), and demonstrated that sandbox creation via the SDK works: multiple sandboxes were created with IDs like `bed03d5d-ed37-44e7-adff-73e5c4dd8d1d` and reached the `STARTED` state. However, executing code inside the sandbox via `sandbox.process.exec()` is blocked by a persistent `ConnectionResetError` when connecting to `proxy.app.daytona.io:443` during the TLS handshake. I independently verified this network issue with `curl`, which also fails with \"Connection reset by peer\" when contacting the proxy endpoint. The API calls to `app.daytona.io` work fine, but the toolbox proxy connection required for command execution is unreachable from this sandbox environment.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 663.7,
+  "wall_seconds": 212.5,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "[bash] args={\"command\": \"cd /home/daytona && python debug3.py\"}\nexit=0\nSandbox created: b5c387a5-d75d-40c9-ba87-8529479979cd"
+      "evidence": "Downloading aiohttp-3.14.3 ... Successfully installed daytona-0.204.0"
     },
     "installed": {
       "passed": true,
-      "evidence": "Name: daytona\nVersion: 0.204.0"
+      "evidence": "Successfully installed daytona-0.204.0"
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY set: True"
+      "evidence": "curl ... --header \"Authorization: Bearer $DAYTONA_API_KEY\" returned {\"items\":[{\"id\":\"bed03d5d-ed37-44e7-adff-73e5c4dd8d1d\"...}"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created: bc045477-6695-448e-b8ac-8dde2060c1d5"
+      "evidence": "Sandbox created with ID: bed03d5d-ed37-44e7-adff-73e5c4dd8d1d"
     },
     "verified": {
       "passed": false,
-      "evidence": "Attempt 10 failed: DaytonaConnectionError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))\nAll attempts failed"
+      "evidence": "Traceback (most recent call last): ... ConnectionResetError: [Errno 104] Connection reset by peer"
     }
   },
   "friction": [
     {
-      "where": "SDK import for sandbox creation params",
-      "detail": "ImportError: cannot import name 'CreateSandboxParams' from 'daytona' ... Did you mean: 'CreateSandboxBaseParams'?"
+      "where": "Toolbox proxy TLS connectivity from sandbox environment",
+      "detail": "ConnectionResetError: [Errno 104] Connection reset by peer during sandbox.process.exec and curl confirms OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443"
     },
     {
-      "where": "Executing code inside created sandbox",
-      "detail": "Attempt 1 failed: DaytonaError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')) (repeated through all attempts)"
+      "where": "CLI help/version commands spawn services and fail with port conflicts",
+      "detail": "daytona --help output includes listen tcp :33333: bind: address already in use and listen tcp :22220: bind: address already in use"
     },
     {
-      "where": "Daytona CLI help/version invocation",
-      "detail": "Error occurred error=\"listen tcp :22220: bind: address already in use\" when running daytona --help"
+      "where": "API endpoint for direct sandbox command execution",
+      "detail": "Cannot POST /api/sandbox/bed03d5d-ed37-44e7-adff-73e5c4dd8d1d/process exec and Cannot POST /api/toolbox/sandbox/.../process/exec both return 404"
     },
     {
-      "where": "Direct toolbox API endpoint",
-      "detail": "\"statusCode\": 404,\n    \"error\": \"Not Found\",\n    \"message\": \"Cannot POST /api/toolbox/203c88fd-6fb9-43ff-a827-dfe4adf06b72/process/execute\""
+      "where": "SDK internals required for troubleshooting",
+      "detail": "Agent had to grep -r get_toolbox_base_url /usr/local/lib/python3.14/site-packages/daytona/ --include=\"*.py\" and read toolbox_api_client_proxy.py source to understand base URL wiring"
     },
     {
-      "where": "SDK version introspection",
-      "detail": "AttributeError: module 'daytona' has no attribute '__version__'"
+      "where": "pip install script PATH warning",
+      "detail": "WARNING: The script wsdump is installed in '/home/daytona/.local/bin' which is not on PATH"
     }
   ],
   "score": 70,
-  "braintrust_span": "57fda1bf-3f90-4013-ae3e-1f097c7a50b7"
+  "braintrust_span": "1d3827c1-23c2-45b3-8ca1-a4199b680a8c"
 }

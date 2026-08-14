@@ -1,58 +1,58 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-08-13T10:48:56Z",
+  "started": "2026-08-14T10:42:34Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart. Installed the elevenlabs and python-dotenv packages, created example.py with the exact code from the quickstart (adapted to save audio to a file for verification), and ran it. The API call succeeded and generated output.mp3 (44,765 bytes), confirmed by the `file` command as a valid MPEG ADTS layer III MP3 at 128 kbps, 44.1 kHz, mono \u2014 matching the requested mp3_44100_128 format. The promised outcome (text-to-speech generates an audio file from text) is verified.",
-  "deviations": "The quickstart example uses `play(audio)` to play through speakers. Since the sandbox has no audio output hardware, I collected the audio generator into bytes, saved it to output.mp3, and verified the file format with the `file` command. This is a necessary sandbox adaptation; the core API usage and code structure follow the quickstart exactly.",
-  "steps": 7,
-  "wall_seconds": 32.1,
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. The text-to-speech API generated a valid MP3 audio file from the input text \"The first move is what sets everything in motion.\" The output file (/home/daytona/output.mp3) is 43,511 bytes, confirmed by ffprobe as a proper MPEG-1 Layer III audio file at 44.1 kHz, 128 kbps, mono, ~2.69 seconds duration.",
+  "deviations": "The quickstart example uses `play(audio)` to play audio through speakers. In the sandbox environment (no audio output), I substituted `save(audio, \"/home/daytona/output.mp3\")` to save the generated audio to a file instead. This is the only deviation \u2014 the core API call, authentication, and text-to-speech generation followed the quickstart exactly.",
+  "steps": 8,
+  "wall_seconds": 30.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "cd /home/daytona && pip install elevenlabs python-dotenv exited 0 and resolved dependencies using the pre-installed Python/pip toolchain."
+      "evidence": "pip install elevenlabs python-dotenv exited 0 and /usr/bin/ffmpeg was present"
     },
     "installed": {
       "passed": true,
-      "evidence": "Downloading elevenlabs-2.63.0-py3-none-any.whl.metadata (15 kB) and exit=0 confirm the SDK was installed."
+      "evidence": "Downloading elevenlabs-2.63.0-py3-none-any.whl.metadata (15 kB) and pip install completed with exit=0"
     },
     "configured": {
-      "passed": false,
-      "evidence": "The script references os.getenv(\"ELEVENLABS_API_KEY\") and load_dotenv(), but the transcript contains no command output showing the API key being exported or a .env file being written."
+      "passed": true,
+      "evidence": "Shell reported API key present: yes (length 51) and the authenticated API call succeeded"
     },
     "first_call": {
       "passed": true,
-      "evidence": "python example.py exited 0 and printed Audio saved to output.mp3 (44765 bytes), proving the text_to_speech.convert call succeeded."
+      "evidence": "python example.py exited 0 and output Audio saved to /home/daytona/output.mp3"
     },
     "verified": {
       "passed": true,
-      "evidence": "file output.mp3 reported Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural, confirming a valid audio file was produced."
+      "evidence": "ffprobe confirmed output.mp3 is a valid MP3 stream: codec_name=mp3, sample_rate=44100, bit_rate=128000"
     }
   },
   "friction": [
     {
-      "where": "Credential wiring step",
-      "detail": "The code loads ELEVENLABS_API_KEY from the environment, yet no transcript command sets the variable or creates a .env file."
+      "where": "Quickstart example assumes local audio playback",
+      "detail": "The official example uses `play(audio)`, which requires an audio player like mpv, but headless sandboxes lack speakers and mpv, forcing the user to discover the `save()` alternative.",
+      "quote": "The quickstart example uses `play(audio)` to play audio through speakers. In the s..."
     },
     {
-      "where": "Binary verification pipeline",
-      "detail": "zsh: command not found: xxd caused the combined ls/file/xxd command to exit 127 even though file succeeded."
+      "where": "Documentation fetch returns noisy navigation text",
+      "detail": "The fetched quickstart URL returns a dense wall of navigation links and UI text rather than clean, sequential instructions, making it hard to extract the code example.",
+      "quote": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt..."
     },
     {
-      "where": "Documentation fetch",
-      "detail": "The fetched quickstart page is garbled HTML rather than clean markdown: ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt..."
+      "where": "Voice ID must be sourced from an external library page",
+      "detail": "The example hardcodes a specific voice ID and only comments that users should browse the voice library, adding an extra prerequisite step not handled inside the quickstart itself.",
+      "quote": "voice_id=\"JBFqnCBsd6RMkjVDRZzb\",  # \"George\" - browse voices at elevenlabs.io/app/voice-library"
     },
     {
-      "where": "Script file writing",
-      "detail": "The first write_file produced truncated content (793 bytes), requiring a second write_file to complete the script."
-    },
-    {
-      "where": "Sandbox tooling gap",
-      "detail": "xxd was missing from the sandbox, forcing the agent to rely only on file for binary verification."
+      "where": "Auth setup mixes dotenv and environment-variable patterns",
+      "detail": "The script calls `load_dotenv()`, yet the transcript shows the API key was already injected as an environment variable, which could confuse a first-time developer about whether a .env file is required.",
+      "quote": "API key present: yes"
     }
   ],
-  "score": 85,
-  "braintrust_span": "45077678-7c6e-442f-a814-98c9151a4ca0"
+  "score": 100,
+  "braintrust_span": "7789188d-baac-4ced-b41e-d7c987725187"
 }
