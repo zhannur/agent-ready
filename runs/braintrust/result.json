@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-14T10:20:02Z",
+  "started": "2026-08-15T09:40:26Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Braintrust SDK (`braintrust`, `autoevals`, `openai`) and ran a local evaluation with `no_send_logs=True`. The script executed and demonstrably reported scores: `66.67% 'ExactMatch' score` across three test cases. However, I could not complete the full quickstart as written because every Braintrust endpoint (`api.braintrust.dev`, `gateway.braintrust.dev`, `www.braintrust.dev`) returns a TLS `Connection reset by peer` error from this sandbox, and no AI provider API key (e.g., `OPENAI_API_KEY`) was available in the environment besides `BRAINTRUST_API_KEY`. Consequently, the eval could not log to Braintrust or call an LLM through the Gateway.",
+  "summary": "I successfully fetched the Braintrust evaluation quickstart docs and installed the Python SDK and dependencies (`braintrust`, `openai`, `autoevals`) via pip, which reported \"Successfully installed autoevals-0.3.0 braintrust-0.33.0...\" I then wrote the `movie_matcher.py` eval script exactly as the quickstart specifies, adapting it to use the Braintrust Gateway with the provided `BRAINTRUST_API_KEY`. However, the script cannot execute because the sandbox environment cannot establish TLS connections to Braintrust's infrastructure\u2014every HTTPS request to `gateway.braintrust.dev` and `api.braintrust.dev` fails with \"Connection reset by peer\" during the TLS handshake. This network block prevents the SDK from creating the experiment and running the eval, so I could not reach the promised outcome of seeing scores reported.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 201.5,
+  "wall_seconds": 102.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4 and pip 26.0.1 were present and functional."
+      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.33.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-8.0.4 sseclient-py-1.9.0 text-unidecode-1.3"
     },
     "installed": {
       "passed": true,
-      "evidence": "pip install braintrust openai autoevals exited 0, downloading braintrust-0.33.0 and autoevals-0.3.0."
+      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.33.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-8.0.4 sseclient-py-1.9.0 text-unidecode-1.3"
     },
     "configured": {
       "passed": false,
-      "evidence": "OPENAI_API_KEY is set:  (empty) \u2014 the quickstart requires a provider key such as OPENAI_API_KEY."
+      "evidence": "OPENAI_API_KEY is set: no"
     },
     "first_call": {
       "passed": false,
-      "evidence": "First Eval run failed with AttributeError: 'EvalResultWithSummary' object has no attribute 'scores'."
+      "evidence": "exit=1"
     },
     "verified": {
-      "passed": true,
-      "evidence": "python3 simple_eval.py exited 0 and printed '66.67% 'ExactMatch' score'."
+      "passed": false,
+      "evidence": "exit=1"
     }
   },
   "friction": [
     {
-      "where": "bt CLI install step",
-      "detail": "curl -fsSL https://bt.dev/cli/install.sh | sh failed with curl: (35) Recv failure: Connection reset by peer"
+      "where": "Missing provider API key prerequisite",
+      "detail": "OPENAI_API_KEY is set: no"
     },
     {
-      "where": "Provider API key setup",
-      "detail": "OPENAI_API_KEY is set:  (empty) while the quickstart instructs to export OPENAI_API_KEY"
+      "where": "Sandbox TLS/network block to Braintrust",
+      "detail": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Braintrust API/Gateway connectivity",
-      "detail": "Every curl to api.braintrust.dev and gateway.braintrust.dev returned curl: (35) Recv failure: Connection reset by peer"
+      "where": "TypeScript-only eval example in fetched docs",
+      "detail": "Eval(\"My Project\", { experimentName: \"My experiment\", data: initDataset(\"My Project\", { dataset: \"My dataset\" }),"
     },
     {
-      "where": "SDK result object usage",
-      "detail": "First script crashed with AttributeError: 'EvalResultWithSummary' object has no attribute 'scores'"
+      "where": "Gateway auth requires manual web UI setup",
+      "detail": "Add your provider API key in Braintrust so the Gateway can call it on your behalf \u2014 you won't need to set your provider key locally."
     },
     {
-      "where": "Quickstart code snippet model name",
-      "detail": "Docs and copied code reference model: \"gpt-5-mini\", which does not exist"
+      "where": "pip install warns scripts not on PATH",
+      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
     }
   ],
-  "score": 60,
-  "braintrust_span": "05857201-c8a2-4ad8-bfe1-21ce7111960d"
+  "score": 30,
+  "braintrust_span": "c870e97e-d59e-4f4d-aa15-149c88b3bfaf"
 }
