@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-08-15T10:08:01Z",
+  "started": "2026-08-16T09:58:48Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Daytona Python SDK and created multiple sandboxes via the SDK\u2014real output confirms: `Sandbox created with ID: fcad6fe0-a51d-42a8-9be2-a4a07d39e92f`. I also verified sandbox listing (`Found sandboxes: ... state=SandboxState.STARTED`) and `wait_for_sandbox_start()` returned successfully. However, I was blocked at the code-execution step because every connection to Daytona's toolbox proxy (`proxy.app.daytona.io:443`) failed with `Connection reset by peer` during the TLS handshake, confirmed by both the SDK and direct `curl -v`. This network-level reset prevented any code from running inside the sandbox, so I could not reach the promised outcome of demonstrably running code inside it.",
+  "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 259.3,
+  "wall_seconds": 240.6,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "exit=0 Found sandboxes:"
+      "evidence": "python3 -c \"from daytona import Daytona\" completes with exit=0"
     },
     "installed": {
       "passed": true,
-      "evidence": "/usr/local/bin/daytona"
+      "evidence": "from daytona import Daytona succeeds and /usr/local/lib/python3.14/site-packages/daytona/__init__.py is present"
     },
     "configured": {
       "passed": true,
-      "evidence": "Authorization: Bearer $DAYTONA_API_KEY"
+      "evidence": "DAYTONA_API_KEY: set and daytona.create() returns sandbox IDs without manual key insertion"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Found sandboxes: - 1fad9b43-08d9-4194-9ce3-34bab84defc0: state=SandboxState.STARTED"
+      "evidence": "Sandbox created with ID: fe718fb5-ed01-4522-9f3b-cf6943fe8175"
     },
     "verified": {
       "passed": false,
-      "evidence": "Code run error: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "evidence": "Error: DaytonaError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   },
   "friction": [
     {
-      "where": "SDK listing examples",
-      "detail": "TypeError: object of type 'PaginatedSandboxes' has no len()"
+      "where": "SDK sandbox process execution (exec / code_run)",
+      "detail": "Error: DaytonaError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     },
     {
-      "where": "SDK Sandbox model attributes",
-      "detail": "AttributeError: 'Sandbox' object has no attribute 'sandbox_class'"
+      "where": "daytona CLI version/help commands inside the sandbox",
+      "detail": "Starting terminal server on http://localhost:22222 ... error=\"listen tcp :33333: bind: address already in use\""
     },
     {
-      "where": "SDK Sandbox model attributes",
-      "detail": "AttributeError: 'Sandbox' object has no attribute 'info'"
+      "where": "SDK auto-configuration of API endpoint",
+      "detail": "DAYTONA_API_URL: not set ... api_url='https://app.daytona.io/api'"
     },
     {
-      "where": "Toolbox proxy connection",
-      "detail": "ConnectionResetError(104, 'Connection reset by peer')"
+      "where": "Async SDK connection lifecycle",
+      "detail": "Unclosed connector connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x7588b0351550>, 7676622.661692747)])']"
     },
     {
-      "where": "Daytona CLI startup",
-      "detail": "listen tcp :22220: bind: address already in use"
+      "where": "Sandbox readiness check vs toolbox reachability",
+      "detail": "State: SandboxState.STARTED ... Sandbox start confirmed ... Error: DaytonaError: Failed to execute command..."
     }
   ],
   "score": 70,
-  "braintrust_span": "aeaaf504-bc58-459b-ad34-3e029f6d6b67"
+  "braintrust_span": "dae4515d-d4d0-476b-a82d-f89dd019af50"
 }

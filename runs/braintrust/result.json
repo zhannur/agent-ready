@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-15T09:40:26Z",
+  "started": "2026-08-16T09:42:06Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
-  "outcome": "stuck",
-  "summary": "I successfully fetched the Braintrust evaluation quickstart docs and installed the Python SDK and dependencies (`braintrust`, `openai`, `autoevals`) via pip, which reported \"Successfully installed autoevals-0.3.0 braintrust-0.33.0...\" I then wrote the `movie_matcher.py` eval script exactly as the quickstart specifies, adapting it to use the Braintrust Gateway with the provided `BRAINTRUST_API_KEY`. However, the script cannot execute because the sandbox environment cannot establish TLS connections to Braintrust's infrastructure\u2014every HTTPS request to `gateway.braintrust.dev` and `api.braintrust.dev` fails with \"Connection reset by peer\" during the TLS handshake. This network block prevents the SDK from creating the experiment and running the eval, so I could not reach the promised outcome of seeing scores reported.",
-  "deviations": "",
-  "steps": 40,
-  "wall_seconds": 102.0,
+  "outcome": "verified",
+  "summary": "Successfully completed the Braintrust evaluation quickstart. The eval ran via the SDK and reported scores (77.78% Levenshtein score). Steps completed: 1) Installed braintrust and autoevals packages, 2) Created tutorial_eval.py with the exact code from the quickstart, 3) Ran the eval with `braintrust eval --no-send-logs tutorial_eval.py`. The output showed the eval processed 2 data items and 2 tasks, then printed the summary score of 77.78% Levenshtein.",
+  "deviations": "1. The Braintrust website (www.braintrust.dev) was not accessible from the sandbox due to TLS connection reset errors, so I fetched the quickstart instructions from the GitHub README (https://raw.githubusercontent.com/braintrustdata/braintrust-sdk-python/main/README.md) instead. 2. The Braintrust API endpoint was also unreachable from the sandbox, so I had to add the `--no-send-logs` flag to run the eval locally without uploading results to Braintrust. The quickstart docs say to run `BRAINTRUST_API_KEY=<YOUR_API_KEY> braintrust eval tutorial_eval.py`, but the API key was already exported in the environment and the connection to Braintrust servers failed regardless.",
+  "steps": 27,
+  "wall_seconds": 67.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.33.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-8.0.4 sseclient-py-1.9.0 text-unidecode-1.3"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.33.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-8.0.4 sseclient-py-1.9.0 text-unidecode-1.3"
+      "evidence": "Collecting braintrust\n  Downloading braintrust-0.33.0-py3-none-any.whl.metadata (4.0 kB)\nCollecting autoevals\n  Downloading autoevals-0.3.0-py3-none-any.whl.metadata (17 kB)"
     },
     "configured": {
-      "passed": false,
-      "evidence": "OPENAI_API_KEY is set: no"
+      "passed": true,
+      "evidence": "BRAINTRUST_API_KEY is set: yes"
     },
     "first_call": {
       "passed": false,
-      "evidence": "exit=1"
+      "evidence": "File \"/usr/local/lib/python3.14/ssl.py\", line 455, in wrap_socket"
     },
     "verified": {
-      "passed": false,
-      "evidence": "exit=1"
+      "passed": true,
+      "evidence": "=========================SUMMARY=========================\n77.78% 'Levenshtein' score"
     }
   },
   "friction": [
     {
-      "where": "Missing provider API key prerequisite",
-      "detail": "OPENAI_API_KEY is set: no"
+      "where": "PATH after user pip install",
+      "detail": "export PATH=\"$HOME/.local/bin:$PATH\" was required before the braintrust CLI could be invoked."
     },
     {
-      "where": "Sandbox TLS/network block to Braintrust",
-      "detail": "curl: (35) Recv failure: Connection reset by peer"
+      "where": "TLS handshake to braintrust.dev",
+      "detail": "* OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
     },
     {
-      "where": "TypeScript-only eval example in fetched docs",
-      "detail": "Eval(\"My Project\", { experimentName: \"My experiment\", data: initDataset(\"My Project\", { dataset: \"My dataset\" }),"
+      "where": "Quickstart command vs offline execution",
+      "detail": "README shows `braintrust eval tutorial_eval.py` but the agent had to add `--no-send-logs` to bypass the connection error."
     },
     {
-      "where": "Gateway auth requires manual web UI setup",
-      "detail": "Add your provider API key in Braintrust so the Gateway can call it on your behalf \u2014 you won't need to set your provider key locally."
+      "where": "File naming convention warning",
+      "detail": "Reading tutorial_eval.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory."
     },
     {
-      "where": "pip install warns scripts not on PATH",
-      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
+      "where": "Documentation discovery",
+      "detail": "curl -s \"https://www.braintrust.dev/docs/start/evaluation-quickstart\" | head -100 \u2014 agent had to fall back to GitHub raw README instead."
     }
   ],
-  "score": 30,
-  "braintrust_span": "c870e97e-d59e-4f4d-aa15-149c88b3bfaf"
+  "score": 75,
+  "braintrust_span": "46cb88d0-2627-432b-be86-aa1dd24d6a76"
 }
