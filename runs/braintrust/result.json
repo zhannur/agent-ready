@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-17T09:59:57Z",
+  "started": "2026-08-18T09:50:11Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Braintrust SDK, OpenAI, and autoevals packages via pip, and wrote the movie-matcher evaluation script. I had to deviate from the quickstart docs because the documented `Eval(name, {data: ..., task: ..., scores: ...})` signature does not match the actual Python API, which requires `data` and `task` as positional arguments. However, I could not execute the eval because the sandbox has restricted outbound HTTPS connectivity: TLS handshakes to both `api.braintrust.dev` and `gateway.braintrust.dev` are reset by the peer, and even `curl` to `google.com` fails with the same error. The sandbox environment lacks the network access required to reach Braintrust's API and run the evaluation end-to-end.",
+  "summary": "I successfully installed the Braintrust Python SDK and dependencies (`pip install braintrust openai autoevals` completed with \"Successfully installed autoevals-0.3.0 braintrust-0.34.0\"), verified that `BRAINTRUST_API_KEY` is present in the environment, and reviewed the evaluation quickstart documentation. However, I was blocked from running the eval because the quickstart explicitly requires an `OPENAI_API_KEY` (or another AI provider key) in step 2, and no such key is available in the sandbox environment. Additionally, the `bt` CLI installation failed with `curl: (35) Recv failure: Connection reset by peer`, so I could not use the CLI runner either. Without an AI provider API key, the eval task function cannot call `gpt-5-mini` to generate outputs and produce scores.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 201.4,
+  "wall_seconds": 122.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4 and pip 26.0.1 present; pip install braintrust openai autoevals exited 0"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "pip install braintrust openai autoevals completed successfully with exit=0"
+      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.34.0"
     },
     "configured": {
       "passed": false,
-      "evidence": "Quickstart requires API keys for both Braintrust and AI provider; OPENAI_API_KEY is set:  (empty) and only BRAINTRUST_API_KEY is set"
+      "evidence": "env | grep -i openai | sed 's/=.*//' returned no output, while the quickstart requires export OPENAI_API_KEY=\" \""
     },
     "first_call": {
       "passed": false,
-      "evidence": "python movie_matcher.py failed with Connection reset by peer; curl to api.braintrust.dev returned Recv failure: Connection reset by peer"
+      "evidence": "Agent final note: \"Without an AI provider API key, the eval task function cannot call gpt-5-mini to generate outputs and produce scores.\""
     },
     "verified": {
       "passed": false,
-      "evidence": "No eval run executed or scores reported; agent notes I could not execute the eval because the sandbox has restricted outbound HTTPS connectivity"
+      "evidence": "Agent final note: \"I was blocked from running the eval because the quickstart explicitly requires an OPENAI_API_KEY... and no such key is available\""
     }
   },
   "friction": [
     {
-      "where": "Eval() Python API signature mismatch",
-      "detail": "TypeError: Eval() missing 1 required positional argument: 'task' when calling Eval(name, {...}) with keyword arguments inside a dict"
+      "where": "Prerequisite: AI provider API key",
+      "detail": "Sandbox only had BRAINTRUST_API_KEY; quickstart requires an OpenAI/etc. key to run the eval: export OPENAI_API_KEY=\" \" # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc."
     },
     {
-      "where": "Missing AI provider API key prerequisite",
-      "detail": "OPENAI_API_KEY is set:  (empty) despite quickstart requiring Create API keys for: Braintrust, Your AI p"
+      "where": "bt CLI installation",
+      "detail": "CLI install script failed repeatedly with network error: curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Sandbox network restrictions block API calls",
-      "detail": "curl: (35) Recv failure: Connection reset by peer and python script raised URLError <urlopen error [Errno 104] Connection reset by peer>"
+      "where": "PATH configuration",
+      "detail": "pip warned that script directories are missing from PATH: WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
     },
     {
-      "where": "Documentation URL discovery",
-      "detail": "Agent cycled through multiple URLs: [fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/start/eval\"}, [fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/start/evaluate\"}, [fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/evaluate\"} before finding /docs/evaluation-quickstart"
+      "where": "SDK version verification",
+      "detail": "Checking the installed SDK version failed unexpectedly: AttributeError: module 'braintrust' has no attribute '__version__'"
     },
     {
-      "where": "Quickstart vs actual SDK parameter style",
-      "detail": "the documented Eval(name, {data: ..., task: ..., scores: ...}) signature does not match the actual Python API, which requires data and task as positional arguments"
+      "where": "Documentation rendering",
+      "detail": "Fetched quickstart truncated the Python code block: ```bash Python theme={\"theme\":{\"light\":\"github-light\",\"dark\":\"github-da"
     }
   ],
   "score": 30,
-  "braintrust_span": "218a985a-00bf-4e13-8f55-398140ff036e"
+  "braintrust_span": "a06ab12c-123e-449f-9b9d-4d3f31670b5e"
 }

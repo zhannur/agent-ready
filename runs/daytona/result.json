@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-08-17T10:18:10Z",
+  "started": "2026-08-18T10:02:34Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Daytona Python SDK (v0.204.0) and created sandboxes via the SDK, as demonstrated by real output showing `Sandbox created with ID: f5eeaa05-b15c-4867-9c81-cfd3616bafb6` with state `SandboxState.STARTED`. I also verified via direct API call that sandbox creation works and returns a valid sandbox object with ID `bbd1979b-06d2-48a2-8fc2-1accef14a186`. However, I was blocked from completing the promised outcome because executing code inside the sandbox requires connecting to the toolbox proxy at `proxy.app.daytona.io`, which consistently failed with `ConnectionResetError(104, 'Connection reset by peer')`\u2014a network-level block preventing any command execution inside the created sandbox.",
+  "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 481.3,
+  "wall_seconds": 243.2,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "pip install --upgrade daytona completed with exit=0 and pip show daytona reported Version: 0.204.0"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "pip show daytona | grep Version returned Version: 0.204.0 and which daytona found /usr/local/bin/daytona"
+      "evidence": "Version: 0.205.0"
     },
     "configured": {
       "passed": true,
-      "evidence": "export DAYTONA_API_URL=\"https://app.daytona.io/api\" && export DAYTONA_TARGET=\"us\" && python inspect_sandbox.py successfully returned a sandbox ID and state"
+      "evidence": "DAYTONA_API_KEY is set: yes"
     },
     "first_call": {
       "passed": true,
-      "evidence": "python inspect_sandbox.py printed Sandbox ID: e77bd322-260e-48b4-ae96-6065b5836870 and Sandbox state: SandboxState.STARTED"
+      "evidence": "Sandbox created with ID: c491beb2-9023-477c-ad7a-2fff67c12d0c"
     },
     "verified": {
       "passed": false,
-      "evidence": "Attempt 1 failed: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')) \u2014 repeated for all exec attempts with no observed command output from inside the sandbox"
+      "evidence": "exit=1\nTraceback (most recent call last):\n  File \"/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py\", line 788, in urlopen"
     }
   },
   "friction": [
     {
-      "where": "SDK class name mismatch in docs or version drift",
-      "detail": "ImportError: cannot import name 'CreateSandboxParams' from 'daytona' ... Did you mean: 'CreateSandboxBaseParams'?"
+      "where": "Pre-installed SDK version drift",
+      "detail": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0) ... Downloading daytona-0.205.0-py3-none-any.whl.metadata (9.2 kB)"
     },
     {
-      "where": "Toolbox proxy network block prevents command execution inside sandbox",
-      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443"
+      "where": "Missing network prerequisite (toolbox proxy unreachable)",
+      "detail": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "CLI exec spawns local servers that hit port conflicts",
-      "detail": "ERR Error occurred error=\"listen tcp :33333: bind: address already in use\""
+      "where": "Quickstart timing/robustness gap",
+      "detail": "# Wait longer for sandbox to be fully ready\n    time.sleep(15)"
     },
     {
-      "where": "Deprecated polling fallback is suggested but still fails",
-      "detail": "DeprecationWarning: Polling-only mode (use_deprecated_polling / DAYTONA_USE_DEPRECATED_POLLING) is deprecated and will be removed in a future release. ... Attempt 1 failed: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "where": "Unclear required environment variables",
+      "detail": "DAYTONA_API_URL: not set\nDAYTONA_TARGET: not set"
     },
     {
-      "where": "CLI documentation link returns 404",
-      "detail": "404 The page you're looking for doesn't exist or has been moved. Suggested: Daytona Documentation Agent Skills API Keys"
+      "where": "Undocumented internal API routing",
+      "detail": "{\"path\":\"/api/sandbox/1e0eec01-f257-4f3e-9dea-77638f34682a/process\",\"statusCode\":404,\"error\":\"Not Found\"}"
     }
   ],
   "score": 70,
-  "braintrust_span": "71818cc4-0ea7-4aae-88d8-0d6e57c0fc05"
+  "braintrust_span": "3b8fb78a-580a-4462-860e-6e6f34c81b3d"
 }

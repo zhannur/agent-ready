@@ -107,7 +107,7 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 <h1 class="wordmark"><a href="index.html" style="color:inherit">agent-ready</a> · braintrust
 <span style="color:#e07b39">30/100</span></h1>
 <p class="meta" style="margin:.6rem 0 1.4rem">40 steps ·
-201.4s · agent <code>kimi-k2p6</code> ·
+122.0s · agent <code>kimi-k2p6</code> ·
 <a href="https://github.com/zhannur/agent-ready/blob/main/runs/braintrust/transcript.jsonl">raw JSONL</a></p>
 <details class="step" open><summary>#1 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start</code></summary><pre> Get started with Braintrust - Braintrust Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Braintrust home page Search... ⌘ K Ask Assistant Request demo Start building Start building Search... Navigation Start Get started with Braintrust Guides Integrations SDKs Reference Cookbook Troubleshooting Changelog Start Introduction Braintrust workflow Tracing quickstart Evaluation quickstart Loop agent Plans and limits Instrument Overview Tracing User feedback Attachments Observe Overview Logs Topics Dashboards Alerts Annotate Overview Human review Custom views Labels and corrections Datasets Exports Evaluate Overview Prompts Scorers and classifiers Playgrounds Experiments Remote evals Online scoring Best practices Deploy Overview Prompts Functions Braintrust gateway Environments Monitoring Streaming Admin Overview Organizations Projects AI providers Audit logging Access control Billing Data management Deployment Authentication Personal settings Service health Best practices Evaluating agents Writing scorers PM workflows Security Start Get started with Braintrust Copy page Copy page Copy page Copy page Braintrust is the active observability platform for instrumenting, understanding, and improving agents. By actively applying intelligence to agent traces and automatically surfacing the most critical patterns, Braintrust gives teams the visibility to understand how agents behave in production and the tools to improve them. 
  To get started, create a Braintrust account . 
@@ -116,498 +116,543 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 
  ​ Workflow 
  Follow Braintrust’s structured workflow to build, evaluate, and improve AI applications: 
- Instrument Capture traces from your AI application Observe Analyze logs and identify patterns Annotate Add human feedback and build datasets Evaluate Test changes with experiments Deploy Ship changes and monitor production Admin Manage organizations, projects, and access control Was this page helpful? Yes No Braintrust workflow Next ⌘ I Braintrust home page github x discord youtube Pricing Blog Careers Status github x discord youtube Powered by This documentation is built and hosted on Mintlify, a developer documentation platform Assistant Responses are generated using AI and may contain mistakes. Contact support </pre></details><details class="step" open><summary>#2 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start/eval</code></summary><pre> </pre></details><details class="step" open><summary>#3 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start/evaluation-quickstart</code></summary><pre> </pre></details><details class="step" open><summary>#4 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start/evaluate</code></summary><pre> </pre></details><details class="step" open><summary>#5 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluate</code></summary><pre> Evaluate systematically - Braintrust Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Braintrust home page Search... ⌘ K Ask Assistant Request demo Start building Start building Search... Navigation Evaluate Evaluate systematically Guides Integrations SDKs Reference Cookbook Troubleshooting Changelog Start Introduction Braintrust workflow Tracing quickstart Evaluation quickstart Loop agent Plans and limits Instrument Overview Tracing User feedback Attachments Observe Overview Logs Topics Dashboards Alerts Annotate Overview Human review Custom views Labels and corrections Datasets Exports Evaluate Overview Prompts Scorers and classifiers Playgrounds Experiments Remote evals Online scoring Best practices Deploy Overview Prompts Functions Braintrust gateway Environments Monitoring Streaming Admin Overview Organizations Projects AI providers Audit logging Access control Billing Data management Deployment Authentication Personal settings Service health Best practices Evaluating agents Writing scorers PM workflows Security On this page Offline evaluation Iterate in playgrounds Run experiments Online evaluation Anatomy of an evaluation Next steps Evaluate Evaluate systematically Copy page Copy page Measure AI application quality, detect regressions before they reach production, and build confidence that your system is improving over time. Copy page Copy page AI systems behave differently from traditional software: the same input can produce different outputs, there’s rarely a single correct answer, and a change that improves one metric can silently degrade another. Systematic evaluation is how you measure quality, detect regressions before they reach users, and build confidence that your system is actually improving over time. 
- Braintrust supports evaluation at every stage of AI development — from rapid iteration in the browser to systematic experiments to continuous production monitoring. The full evaluation cycle: 
-
- Iterate in playgrounds — Prototype prompts, models, scorers, or custom agent code 
- Promote to an experiment — Lock in an immutable snapshot when you find a good configuration 
- Automate in CI/CD — Run evals on every pull request to catch regressions 
- Score in production — Monitor live traffic continuously with online scoring rules 
- Feed back — Pull interesting production traces into datasets to improve offline test coverage 
-
- ​ Offline evaluation 
- Offline evaluation runs against known datasets before deployment. Because you control the inputs and can define expected outputs, you can use code-based scorers or LLM-as-a-judge — and results are reproducible and comparable over time. 
- ​ Iterate in playgrounds 
- Playgrounds are a browser-based environment for rapid iteration. Run evaluations in real time, compare configurations side by side, and share results with teammates via URL. Results are mutable — re-running a playground overwrites previous generations, which is ideal for fast iteration. 
- When your task can’t be expressed as a prompt, connect custom agent code to the playground via remote evals or sandboxes . The iteration workflow stays the same. 
- When you’ve found a good configuration, promote it to an experiment to capture an immutable snapshot. 
- ​ Run experiments 
- Experiments are the immutable, comparable record of your eval runs. Run them from code or in the UI, track progress over time, and integrate into CI/CD to catch regressions before they reach production. 
- ​ Online evaluation 
- Online scoring evaluates production traces automatically as they’re logged, running asynchronously with no impact on latency. Because there’s no ground truth for live requests, it relies on LLM-as-a-judge scorers to assess quality. Use it to monitor for regressions, catch edge cases you haven’t seen before, and surface real user interactions that become new test cases. 
- ​ Anatomy of an evaluation 
- Every evaluation has three parts: 
-
- Data — a dataset of test cases with inputs, optional expected outputs, and metadata. Build datasets from production logs, user feedback, or manual curation. 
-
- Task — the function being evaluated. Typically an LLM call, but can be any logic: a multi-step agent, a retrieval pipeline, or a custom workflow. 
-
- Scorers and classifiers — scorers measure quality with numeric scores, while classifiers apply categorical labels. To build them, use built-in autoevals , LLM-as-a-judge , or custom code . 
-
- ​ Next steps 
-
- Test prompts and models in the playground 
- Test complex agents in the playground via remote evals or sandboxes 
- Run experiments with the SDK or in the UI 
- Run in CI/CD to catch regressions automatically 
- Score production traces with online scoring rules 
- Best practices for reliable evaluations 
- Was this page helpful? Yes No Export annotated data Previous Create prompts Next ⌘ I Braintrust home page github x discord youtube Pricing Blog Careers Status github x discord youtube Powered by This documentation is built and hosted on Mintlify, a developer documentation platform Assistant Responses are generated using AI and may contain mistakes. Contact support </pre></details><details class="step" open><summary>#6 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start/evaluation-quickstart</code></summary><pre> </pre></details><details class="step" open><summary>#7 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluate/quickstart</code></summary><pre> </pre></details><details class="step" open><summary>#8 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start</code></summary><pre> Get started with Braintrust - Braintrust Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Braintrust home page Search... ⌘ K Ask Assistant Request demo Start building Start building Search... Navigation Start Get started with Braintrust Guides Integrations SDKs Reference Cookbook Troubleshooting Changelog Start Introduction Braintrust workflow Tracing quickstart Evaluation quickstart Loop agent Plans and limits Instrument Overview Tracing User feedback Attachments Observe Overview Logs Topics Dashboards Alerts Annotate Overview Human review Custom views Labels and corrections Datasets Exports Evaluate Overview Prompts Scorers and classifiers Playgrounds Experiments Remote evals Online scoring Best practices Deploy Overview Prompts Functions Braintrust gateway Environments Monitoring Streaming Admin Overview Organizations Projects AI providers Audit logging Access control Billing Data management Deployment Authentication Personal settings Service health Best practices Evaluating agents Writing scorers PM workflows Security Start Get started with Braintrust Copy page Copy page Copy page Copy page Braintrust is the active observability platform for instrumenting, understanding, and improving agents. By actively applying intelligence to agent traces and automatically surfacing the most critical patterns, Braintrust gives teams the visibility to understand how agents behave in production and the tools to improve them. 
+ Instrument Capture traces from your AI application Observe Analyze logs and identify patterns Annotate Add human feedback and build datasets Evaluate Test changes with experiments Deploy Ship changes and monitor production Admin Manage organizations, projects, and access control Was this page helpful? Yes No Braintrust workflow Next ⌘ I Braintrust home page github x discord youtube Pricing Blog Careers Status github x discord youtube Powered by This documentation is built and hosted on Mintlify, a developer documentation platform Assistant Responses are generated using AI and may contain mistakes. Contact support </pre></details><details class="step" open><summary>#2 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start/eval</code></summary><pre> </pre></details><details class="step" open><summary>#3 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start/eval</code></summary><pre> </pre></details><details class="step" open><summary>#4 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start/eval</code></summary><pre> </pre></details><details class="step" open><summary>#5 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start</code></summary><pre> Get started with Braintrust - Braintrust Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Braintrust home page Search... ⌘ K Ask Assistant Request demo Start building Start building Search... Navigation Start Get started with Braintrust Guides Integrations SDKs Reference Cookbook Troubleshooting Changelog Start Introduction Braintrust workflow Tracing quickstart Evaluation quickstart Loop agent Plans and limits Instrument Overview Tracing User feedback Attachments Observe Overview Logs Topics Dashboards Alerts Annotate Overview Human review Custom views Labels and corrections Datasets Exports Evaluate Overview Prompts Scorers and classifiers Playgrounds Experiments Remote evals Online scoring Best practices Deploy Overview Prompts Functions Braintrust gateway Environments Monitoring Streaming Admin Overview Organizations Projects AI providers Audit logging Access control Billing Data management Deployment Authentication Personal settings Service health Best practices Evaluating agents Writing scorers PM workflows Security Start Get started with Braintrust Copy page Copy page Copy page Copy page Braintrust is the active observability platform for instrumenting, understanding, and improving agents. By actively applying intelligence to agent traces and automatically surfacing the most critical patterns, Braintrust gives teams the visibility to understand how agents behave in production and the tools to improve them. 
  To get started, create a Braintrust account . 
  ​ Quickstarts 
  Log your first trace Integrate with AI providers and frameworks to send traces to Braintrust Run your first eval Measure and improve AI application quality with playgrounds and evals Connect your coding agent Install the bt CLI to set up, instrument, and run Braintrust with your coding agent 
 
  ​ Workflow 
  Follow Braintrust’s structured workflow to build, evaluate, and improve AI applications: 
- Instrument Capture traces from your AI application Observe Analyze logs and identify patterns Annotate Add human feedback and build datasets Evaluate Test changes with experiments Deploy Ship changes and monitor production Admin Manage organizations, projects, and access control Was this page helpful? Yes No Braintrust workflow Next ⌘ I Braintrust home page github x discord youtube Pricing Blog Careers Status github x discord youtube Powered by This documentation is built and hosted on Mintlify, a developer documentation platform Assistant Responses are generated using AI and may contain mistakes. Contact support </pre></details><details class="step" open><summary>#9 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start/evaluation</code></summary><pre> </pre></details><details class="step" open><summary>#10 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluate/quickstart</code></summary><pre> </pre></details><details class="step" open><summary>#11 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start/evaluation-quickstart</code></summary><pre> </pre></details><details class="step" open><summary>#12 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluation-quickstart</code></summary><pre> Evaluation quickstart - Braintrust Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Braintrust home page Search... ⌘ K Ask Assistant Request demo Start building Start building Search... Navigation Start Evaluation quickstart Guides Integrations SDKs Reference Cookbook Troubleshooting Changelog Start Introduction Braintrust workflow Tracing quickstart Evaluation quickstart Loop agent Plans and limits Instrument Overview Tracing User feedback Attachments Observe Overview Logs Topics Dashboards Alerts Annotate Overview Human review Custom views Labels and corrections Datasets Exports Evaluate Overview Prompts Scorers and classifiers Playgrounds Experiments Remote evals Online scoring Best practices Deploy Overview Prompts Functions Braintrust gateway Environments Monitoring Streaming Admin Overview Organizations Projects AI providers Audit logging Access control Billing Data management Deployment Authentication Personal settings Service health Best practices Evaluating agents Writing scorers PM workflows Security On this page Next steps Start Evaluation quickstart Copy page Copy page Systematically measure AI quality. Compare approaches, catch regressions before deployment, and validate improvements with data instead of intuition. Copy page Copy page Evaluations let you systematically measure AI quality. Compare approaches, catch regressions before deployment, and validate improvements with data instead of intuition. 
- Each evaluation consists of three components: 
+ Instrument Capture traces from your AI application Observe Analyze logs and identify patterns Annotate Add human feedback and build datasets Evaluate Test changes with experiments Deploy Ship changes and monitor production Admin Manage organizations, projects, and access control Was this page helpful? Yes No Braintrust workflow Next ⌘ I Braintrust home page github x discord youtube Pricing Blog Careers Status github x discord youtube Powered by This documentation is built and hosted on Mintlify, a developer documentation platform Assistant Responses are generated using AI and may contain mistakes. Contact support </pre></details><details class="step" open><summary>#6 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start/evaluation-quickstart</code></summary><pre> </pre></details><details class="step" open><summary>#7 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start/evaluation</code></summary><pre> </pre></details><details class="step" open><summary>#8 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/llms.txt</code></summary><pre># Braintrust
 
- Data - A dataset of test cases with inputs and expected outputs 
- Task - An AI function you want to test 
- Scores - Scoring functions that measure output quality 
+&gt; Braintrust is the active observability platform for instrumenting, understanding, and improving agents. By actively applying intelligence to agent traces and automatically surfacing the most critical patterns, Braintrust gives teams the visibility to understand how agents behave in production and the tools to improve them.
 
- SDK UI Set up your environment and run evals with the Braintrust SDK. ​ 1. Sign up If you don’t have a Braintrust account, sign up for free at braintrust.dev . ​ 2. Get API keys Create API keys for: 
- Braintrust 
- Your AI provider or framework ( OpenAI , Anthropic , Gemini , etc. ) 
- Set them as environment variables: export BRAINTRUST_API_KEY = &amp;quot;&amp;lt;your-braintrust-api-key&amp;gt;&amp;quot; 
- export OPENAI_API_KEY = &amp;quot;&amp;lt;your-openai-api-key&amp;gt;&amp;quot; # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc. 
- ​ 3. Install SDKs Install the Braintrust SDK and required libraries: TypeScript Python Go Ruby Java C# # pnpm 
- pnpm add braintrust openai autoevals ts-node 
- # npm 
- npm install braintrust openai autoevals ts-node 
+## Docs
 
- # Install the bt CLI (macOS and Linux) 
- curl -fsSL https://bt.dev/cli/install.sh | sh 
- pip install braintrust openai autoevals 
+- [Get started with Braintrust](https://braintrust.dev/docs/index.md)
+- [Braintrust workflow](https://braintrust.dev/docs/workflow.md): Understand how to trace, evaluate…
+- [Tracing quickstart](https://braintrust.dev/docs/tracing-quickstart.md): Instrument your AI application wi…
+- [Evaluation quickstart](https://braintrust.dev/docs/evaluation-quickstart.md): Systematically measure AI quality…
+- [Loop agent](https://braintrust.dev/docs/loop.md): Use natural language to analyze l…
+- [Plans and limits](https://braintrust.dev/docs/plans-and-limits.md): Choose the right Braintrust plan…
+- [Instrument your application](https://braintrust.dev/docs/instrument/index.md): Add tracing to your AI applicatio…
+- [Trace LLM calls](https://braintrust.dev/docs/instrument/trace-llm-calls.md): Enable auto-instrumentation once…
+- [Trace application logic](https://braintrust.dev/docs/instrument/trace-application-logic.md): Trace retrieval steps, tool calls…
+- [Advanced tracing patterns](https://braintrust.dev/docs/instrument/advanced-tracing.md): Implement distributed tracing acr…
+- [Capture user feedback](https://braintrust.dev/docs/instrument/user-feedback.md): Attach ratings, corrections, and…
+- [Log attachments](https://braintrust.dev/docs/instrument/attachments.md): Attach images, audio, PDFs, and o…
+- [Observe your application](https://braintrust.dev/docs/observe/index.md): Turn every production request int…
+- [View your logs](https://braintrust.dev/docs/observe/view-logs.md): Browse and inspect production tra…
+- [Filter and search logs](https://braintrust.dev/docs/observe/filter.md): Narrow down to exactly the traces…
+- [Examine traces](https://braintrust.dev/docs/observe/examine-traces.md): Open any trace to inspect its spa…
+- [Topics](https://braintrust.dev/docs/observe/topics/index.md): Automatically classify logs by us…
+- [Enable Topics](https://braintrust.dev/docs/observe/topics/enable.md): Confirm your traces render with t…
+- [Review insights from Topics](https://braintrust.dev/docs/observe/topics/review-insights.md): Find patterns in classified logs…
+- [Act on findings from Topics](https://braintrust.dev/docs/observe/topics/act-on-findings.md): Turn topic patterns into action:…
+- [Manage Topics](https://braintrust.dev/docs/observe/topics/manage.md): Keep the Topics pipeline healthy:…
+- [Custom facets](https://braintrust.dev/docs/observe/topics/custom-facets.md): Define domain-specific facets wit…
+- [Monitor with dashboards](https://braintrust.dev/docs/observe/dashboards.md): Build custom dashboards to track…
+- [Set up alerts](https://braintrust.dev/docs/observe/alerts.md): Configure webhooks and Slack noti…
+- [Annotate and curate data](https://braintrust.dev/docs/annotate/index.md): Transform production logs into hi…
+- [Set up human review](https://braintrust.dev/docs/annotate/human-review/index.md): Capture structured human judgment…
+- [Score traces and datasets](https://braintrust.dev/docs/annotate/human-review/score-traces.md): Open logs, experiments, and datas…
+- [Review with multiple reviewers](https://braintrust.dev/docs/annotate/human-review/multiple-reviewers.md): See how Braintrust combines score…
+- [Manage review work](https://braintrust.dev/docs/annotate/human-review/manage-review-work.md): Assign rows to reviewers, filter…
+- [Create custom views](https://braintrust.dev/docs/annotate/custom-views.md): Help your team understand and act…
+- [Add labels and corrections](https://braintrust.dev/docs/annotate/labels.md): Go beyond numeric scores by taggi…
+- [Datasets](https://braintrust.dev/docs/annotate/datasets/index.md): Versioned collections of test cas…
+- [Create datasets](https://braintrust.dev/docs/annotate/datasets/create.md): Build datasets from CSV uploads,…
+- [Dataset pipelines](https://braintrust.dev/docs/annotate/datasets/pipelines.md): Transform spans or traces from yo…
+- [Manage datasets](https://braintrust.dev/docs/annotate/datasets/manage.md): Organize datasets with tags and s…
+- [Use datasets in evaluations](https://braintrust.dev/docs/annotate/datasets/use-in-evaluations.md): Pass datasets directly to Eval(),…
+- [Track dataset performance](https://braintrust.dev/docs/annotate/datasets/track-performance.md): See which experiments used a data…
+- [Export annotated data](https://braintrust.dev/docs/annotate/export.md): Take annotated traces and dataset…
+- [Evaluate systematically](https://braintrust.dev/docs/evaluate/index.md): Measure AI application quality, d…
+- [Create prompts](https://braintrust.dev/docs/evaluate/write-prompts.md): Version and deploy prompts indepe…
+- [Evaluate output quality with scorers and classifiers](https://braintrust.dev/docs/evaluate/write-scorers.md): Build scorers and classifiers to…
+- [Autoevals](https://braintrust.dev/docs/evaluate/autoevals.md): Use pre-built, battle-tested scor…
+- [Custom code scorers and classifiers](https://braintrust.dev/docs/evaluate/custom-code.md): Write scorers and classifiers as…
+- [LLM-as-a-judge scorers and classifiers](https://braintrust.dev/docs/evaluate/llm-as-a-judge.md): Use language models to score or c…
+- [Iterate in playgrounds](https://braintrust.dev/docs/evaluate/playgrounds.md): Prototype prompts, swap models, a…
+- [Experiments](https://braintrust.dev/docs/evaluate/run-evaluations.md): Choose how to run evaluations, in…
+- [Run experiments in code](https://braintrust.dev/docs/evaluate/run-in-code.md): Run evaluations with the Braintru…
+- [Run experiments in the UI](https://braintrust.dev/docs/evaluate/run-in-ui.md): Evaluate prompts and workflows in…
+- [Run experiments in CI/CD](https://braintrust.dev/docs/evaluate/run-in-ci.md): Automate evaluation runs in CI</pre></details><details class="step" open><summary>#9 <b>fetch_url</b> <code>https://braintrust.dev/docs/evaluation-quickstart.md</code></summary><pre>&gt; ## Documentation Index
+&gt; Fetch the complete documentation index at: https://braintrust.dev/docs/llms.txt
+&gt; Use this file to discover all available pages before exploring further.
 
- # Install the bt CLI (macOS and Linux) 
- curl -fsSL https://bt.dev/cli/install.sh | sh 
- go get github.com/braintrustdata/braintrust-sdk-go 
- go get github.com/braintrustdata/braintrust-sdk-go/trace/contrib/openai 
- go get github.com/openai/openai-go 
- # Add to your Gemfile 
- gem &amp;quot;braintrust&amp;quot; 
- gem &amp;quot;openai&amp;quot; 
+# Evaluation quickstart
 
- # Install: 
- bundle install 
- // Add to build.gradle dependencies{} block 
- // (in production, pin specific versions ) 
- implementation &amp;#x27;dev.braintrust:braintrust-sdk-java:+&amp;#x27; 
- implementation &amp;#x27;com.openai:openai-java:+&amp;#x27; 
- # Add to .csproj file 
- dotnet add package Braintrust.Sdk 
- dotnet add package Braintrust.Sdk.OpenAI 
- dotnet add package OpenAI 
- ​ 4. Run an eval Build an evaluation that identifies movies from plot descriptions. You’ll define a set of test cases with movie plot descriptions as inputs and expected titles as outputs, write a task function with a prompt to identify movies, and use a scorer to measure accuracy. 1 Write your evaluation Create an evaluation that defines your dataset, task, and scorer (built-in ExactMatch scorer for Python and TypeScript, equivalent code-based scorer for other languages). movie-matcher.eval.ts TypeScript import { Eval } from &amp;quot;braintrust&amp;quot; ; 
- import { ExactMatch } from &amp;quot;autoevals&amp;quot; ; 
- import OpenAI from &amp;quot;openai&amp;quot; ; 
+&gt; Systematically measure AI quality. Compare approaches, catch regressions before deployment, and validate improvements with data instead of intuition.
 
- const client = new OpenAI (); 
+[Evaluations](/docs/evaluate) let you systematically measure AI quality. Compare approaches, catch regressions before deployment, and validate improvements with data instead of intuition.
 
- Eval ( &amp;quot;Evaluation quickstart&amp;quot; , { 
- experimentName: &amp;quot;Movie matcher (TypeScript)&amp;quot; , 
- // Data: Test cases with inputs and expected outputs 
- data: [ 
- { 
- input: &amp;quot;A detective investigates a series of murders based on the seven deadly sins.&amp;quot; , 
- expected: &amp;quot;Se7en&amp;quot; , 
- }, 
- { 
- input: &amp;quot;A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.&amp;quot; , 
- expected: &amp;quot;Inception&amp;quot; , 
- }, 
- { 
- input: &amp;quot;A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.&amp;quot; , 
- expected: &amp;quot;The Matrix&amp;quot; , 
- }, 
- { 
- input: &amp;quot;A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him as top toy in a boy&amp;#x27;s room.&amp;quot; , 
- expected: &amp;quot;Toy Story&amp;quot; , 
- }, 
- { 
- input: &amp;quot;An orphaned boy discovers he&amp;#x27;s a wizard on his 11th birthday when Hagrid escorts him to magic-teaching Hogwarts School.&amp;quot; , 
- expected: &amp;quot;Harry Potter and the Sorcerer&amp;#x27;s Stone&amp;quot; , 
- }, 
- ], 
+Each evaluation consists of three components:
 
- // Task: The function being evaluated 
- task : async ( input ) =&amp;gt; { 
- const response = await client.responses. create ({ 
- model: &amp;quot;gpt-5-mini&amp;quot; , 
- input: [ 
- { 
- role: &amp;quot;system&amp;quot; , 
- content: &amp;quot;Based on the following description, identify the movie.&amp;quot; 
- }, 
- { role: &amp;quot;user&amp;quot; , content: input } 
- ], 
- }); 
- return response.output_text; 
- }, 
+* **Data** - A dataset of test cases with inputs and expected outputs
+* **Task** - An AI function you want to test
+* **Scores** - Scoring functions that measure output quality
 
- // Scores: Metrics to measure quality 
- scores: [ExactMatch], 
- }); 
- import braintrust 
- from braintrust import Eval 
- from autoevals import ExactMatch 
- from openai import OpenAI 
+ Set up your environment and [run evals](/docs/evaluate/run-in-code) with the Braintrust SDK.
 
- braintrust.auto_instrument() 
+ ## 1. Sign up
 
- client = OpenAI() 
+ If you don&#x27;t have a Braintrust account, sign up for free at [braintrust.dev](https://www.braintrust.dev/signup).
 
- def task (input): 
- response = client.responses.create( 
- model = &amp;quot;gpt-5-mini&amp;quot; , 
- input = [ 
- { 
- &amp;quot;role&amp;quot; : &amp;quot;system&amp;quot; , 
- &amp;quot;content&amp;quot; : &amp;quot;Based on the foll</pre></details><details class="step" open><summary>#13 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluation-quickstart</code></summary><pre> Evaluation quickstart - Braintrust Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Braintrust home page Search... ⌘ K Ask Assistant Request demo Start building Start building Search... Navigation Start Evaluation quickstart Guides Integrations SDKs Reference Cookbook Troubleshooting Changelog Start Introduction Braintrust workflow Tracing quickstart Evaluation quickstart Loop agent Plans and limits Instrument Overview Tracing User feedback Attachments Observe Overview Logs Topics Dashboards Alerts Annotate Overview Human review Custom views Labels and corrections Datasets Exports Evaluate Overview Prompts Scorers and classifiers Playgrounds Experiments Remote evals Online scoring Best practices Deploy Overview Prompts Functions Braintrust gateway Environments Monitoring Streaming Admin Overview Organizations Projects AI providers Audit logging Access control Billing Data management Deployment Authentication Personal settings Service health Best practices Evaluating agents Writing scorers PM workflows Security On this page Next steps Start Evaluation quickstart Copy page Copy page Systematically measure AI quality. Compare approaches, catch regressions before deployment, and validate improvements with data instead of intuition. Copy page Copy page Evaluations let you systematically measure AI quality. Compare approaches, catch regressions before deployment, and validate improvements with data instead of intuition. 
- Each evaluation consists of three components: 
+ ## 2. Get API keys
 
- Data - A dataset of test cases with inputs and expected outputs 
- Task - An AI function you want to test 
- Scores - Scoring functions that measure output quality 
+ Create API keys for:
 
- SDK UI Set up your environment and run evals with the Braintrust SDK. ​ 1. Sign up If you don’t have a Braintrust account, sign up for free at braintrust.dev . ​ 2. Get API keys Create API keys for: 
- Braintrust 
- Your AI provider or framework ( OpenAI , Anthropic , Gemini , etc. ) 
- Set them as environment variables: export BRAINTRUST_API_KEY = &amp;quot;&amp;lt;your-braintrust-api-key&amp;gt;&amp;quot; 
- export OPENAI_API_KEY = &amp;quot;&amp;lt;your-openai-api-key&amp;gt;&amp;quot; # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc. 
- ​ 3. Install SDKs Install the Braintrust SDK and required libraries: TypeScript Python Go Ruby Java C# # pnpm 
- pnpm add braintrust openai autoevals ts-node 
- # npm 
- npm install braintrust openai autoevals ts-node 
+ * [Braintrust](https://www.braintrust.dev/app/settings?subroute=api-keys)
+ * Your AI provider or framework ([OpenAI](https://platform.openai.com/api-keys), [Anthropic](https://console.anthropic.com/settings/keys), [Gemini](https://aistudio.google.com/app/apikey), [etc.](/docs/integrations))
 
- # Install the bt CLI (macOS and Linux) 
- curl -fsSL https://bt.dev/cli/install.sh | sh 
- pip install braintrust openai autoevals 
+ Set them as environment variables:
 
- # Install the bt CLI (macOS and Linux) 
- curl -fsSL https://bt.dev/cli/install.sh | sh 
- go get github.com/braintrustdata/braintrust-sdk-go 
- go get github.com/braintrustdata/braintrust-sdk-go/trace/contrib/openai 
- go get github.com/openai/openai-go 
- # Add to your Gemfile 
- gem &amp;quot;braintrust&amp;quot; 
- gem &amp;quot;openai&amp;quot; 
+ ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ export BRAINTRUST_API_KEY=&quot; &quot;
+ export OPENAI_API_KEY=&quot; &quot; # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc.
+ ```
 
- # Install: 
- bundle install 
- // Add to build.gradle dependencies{} block 
- // (in production, pin specific versions ) 
- implementation &amp;#x27;dev.braintrust:braintrust-sdk-java:+&amp;#x27; 
- implementation &amp;#x27;com.openai:openai-java:+&amp;#x27; 
- # Add to .csproj file 
- dotnet add package Braintrust.Sdk 
- dotnet add package Braintrust.Sdk.OpenAI 
- dotnet add package OpenAI 
- ​ 4. Run an eval Build an evaluation that identifies movies from plot descriptions. You’ll define a set of test cases with movie plot descriptions as inputs and expected titles as outputs, write a task function with a prompt to identify movies, and use a scorer to measure accuracy. 1 Write your evaluation Create an evaluation that defines your dataset, task, and scorer (built-in ExactMatch scorer for Python and TypeScript, equivalent code-based scorer for other languages). movie-matcher.eval.ts TypeScript import { Eval } from &amp;quot;braintrust&amp;quot; ; 
- import { ExactMatch } from &amp;quot;autoevals&amp;quot; ; 
- import OpenAI from &amp;quot;openai&amp;quot; ; 
+ ## 3. Install SDKs
 
- const client = new OpenAI (); 
+ Install the Braintrust SDK and required libraries:
 
- Eval ( &amp;quot;Evaluation quickstart&amp;quot; , { 
- experimentName: &amp;quot;Movie matcher (TypeScript)&amp;quot; , 
- // Data: Test cases with inputs and expected outputs 
- data: [ 
- { 
- input: &amp;quot;A detective investigates a series of murders based on the seven deadly sins.&amp;quot; , 
- expected: &amp;quot;Se7en&amp;quot; , 
- }, 
- { 
- input: &amp;quot;A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.&amp;quot; , 
- expected: &amp;quot;Inception&amp;quot; , 
- }, 
- { 
- input: &amp;quot;A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.&amp;quot; , 
- expected: &amp;quot;The Matrix&amp;quot; , 
- }, 
- { 
- input: &amp;quot;A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him as top toy in a boy&amp;#x27;s room.&amp;quot; , 
- expected: &amp;quot;Toy Story&amp;quot; , 
- }, 
- { 
- input: &amp;quot;An orphaned boy discovers he&amp;#x27;s a wizard on his 11th birthday when Hagrid escorts him to magic-teaching Hogwarts School.&amp;quot; , 
- expected: &amp;quot;Harry Potter and the Sorcerer&amp;#x27;s Stone&amp;quot; , 
- }, 
- ], 
+ ```bash TypeScript theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ # pnpm
+ pnpm add braintrust openai autoevals ts-node
+ # npm
+ npm install braintrust openai autoevals ts-node
 
- // Task: The function being evaluated 
- task : async ( input ) =&amp;gt; { 
- const response = await client.responses. create ({ 
- model: &amp;quot;gpt-5-mini&amp;quot; , 
- input: [ 
- { 
- role: &amp;quot;system&amp;quot; , 
- content: &amp;quot;Based on the following description, identify the movie.&amp;quot; 
- }, 
- { role: &amp;quot;user&amp;quot; , content: input } 
- ], 
- }); 
- return response.output_text; 
- }, 
+ # Install the bt CLI (macOS and Linux)
+ curl -fsSL https://bt.dev/cli/install.sh | sh
+ ```
 
- // Scores: Metrics to measure quality 
- scores: [ExactMatch], 
- }); 
- import braintrust 
- from braintrust import Eval 
- from autoevals import ExactMatch 
- from openai import OpenAI 
+ ```bash Python theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ pip install braintrust openai autoevals
 
- braintrust.auto_instrument() 
+ # Install the bt CLI (macOS and Linux)
+ curl -fsSL https://bt.dev/cli/install.sh | sh
+ ```
 
- client = OpenAI() 
+ ```bash Go theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ go get github.com/braintrustdata/braintrust-sdk-go
+ go get github.com/braintrustdata/braintrust-sdk-go/trace/contrib/openai
+ go get github.com/openai/openai-go
+ ```
 
- def task (input): 
- response = client.responses.create( 
- model = &amp;quot;gpt-5-mini&amp;quot; , 
- input = [ 
- { 
- &amp;quot;role&amp;quot; : &amp;quot;system&amp;quot; , 
- &amp;quot;content&amp;quot; : &amp;quot;Based on the foll</pre></details><details class="step" open><summary>#14 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluation-quickstart</code></summary><pre> Evaluation quickstart - Braintrust Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Braintrust home page Search... ⌘ K Ask Assistant Request demo Start building Start building Search... Navigation Start Evaluation quickstart Guides Integrations SDKs Reference Cookbook Troubleshooting Changelog Start Introduction Braintrust workflow Tracing quickstart Evaluation quickstart Loop agent Plans and limits Instrument Overview Tracing User feedback Attachments Observe Overview Logs Topics Dashboards Alerts Annotate Overview Human review Custom views Labels and corrections Datasets Exports Evaluate Overview Prompts Scorers and classifiers Playgrounds Experiments Remote evals Online scoring Best practices Deploy Overview Prompts Functions Braintrust gateway Environments Monitoring Streaming Admin Overview Organizations Projects AI providers Audit logging Access control Billing Data management Deployment Authentication Personal settings Service health Best practices Evaluating agents Writing scorers PM workflows Security On this page Next steps Start Evaluation quickstart Copy page Copy page Systematically measure AI quality. Compare approaches, catch regressions before deployment, and validate improvements with data instead of intuition. Copy page Copy page Evaluations let you systematically measure AI quality. Compare approaches, catch regressions before deployment, and validate improvements with data instead of intuition. 
- Each evaluation consists of three components: 
+ ```bash Ruby theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ # Add to your Gemfile
+ gem &quot;braintrust&quot;
+ gem &quot;openai&quot;
 
- Data - A dataset of test cases with inputs and expected outputs 
- Task - An AI function you want to test 
- Scores - Scoring functions that measure output quality 
+ # Install:
+ bundle install
+ ```
 
- SDK UI Set up your environment and run evals with the Braintrust SDK. ​ 1. Sign up If you don’t have a Braintrust account, sign up for free at braintrust.dev . ​ 2. Get API keys Create API keys for: 
- Braintrust 
- Your AI provider or framework ( OpenAI , Anthropic , Gemini , etc. ) 
- Set them as environment variables: export BRAINTRUST_API_KEY = &amp;quot;&amp;lt;your-braintrust-api-key&amp;gt;&amp;quot; 
- export OPENAI_API_KEY = &amp;quot;&amp;lt;your-openai-api-key&amp;gt;&amp;quot; # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc. 
- ​ 3. Install SDKs Install the Braintrust SDK and required libraries: TypeScript Python Go Ruby Java C# # pnpm 
- pnpm add braintrust openai autoevals ts-node 
- # npm 
- npm install braintrust openai autoevals ts-node 
+ ```bash Java theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ // Add to build.gradle dependencies{} block
+ // (in production, pin specific versions)
+ implementation &#x27;dev.braintrust:braintrust-sdk-java:+&#x27;
+ implementation &#x27;com.openai:openai-java:+&#x27;
+ ```
 
- # Install the bt CLI (macOS and Linux) 
- curl -fsSL https://bt.dev/cli/install.sh | sh 
- pip install braintrust openai autoevals 
+ ```bash C# theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ # Add to .csproj file
+ dotnet add package Braintrust.Sdk
+ dotnet add package Braintrust.Sdk.OpenAI
+ dotnet add package OpenAI
+ ```
 
- # Install the bt CLI (macOS and Linux) 
- curl -fsSL https://bt.dev/cli/install.sh | sh 
- go get github.com/braintrustdata/braintrust-sdk-go 
- go get github.com/braintrustdata/braintrust-sdk-go/trace/contrib/openai 
- go get github.com/openai/openai-go 
- # Add to your Gemfile 
- gem &amp;quot;braintrust&amp;quot; 
- gem &amp;quot;openai&amp;quot; 
+ ## 4. Run an eval
 
- # Install: 
- bundle install 
- // Add to build.gradle dependencies{} block 
- // (in production, pin specific versions ) 
- implementation &amp;#x27;dev.braintrust:braintrust-sdk-java:+&amp;#x27; 
- implementation &amp;#x27;com.openai:openai-java:+&amp;#x27; 
- # Add to .csproj file 
- dotnet add package Braintrust.Sdk 
- dotnet add package Braintrust.Sdk.OpenAI 
- dotnet add package OpenAI 
- ​ 4. Run an eval Build an evaluation that identifies movies from plot descriptions. You’ll define a set of test cases with movie plot descriptions as inputs and expected titles as outputs, write a task function with a prompt to identify movies, and use a scorer to measure accuracy. 1 Write your evaluation Create an evaluation that defines your dataset, task, and scorer (built-in ExactMatch scorer for Python and TypeScript, equivalent code-based scorer for other languages). movie-matcher.eval.ts TypeScript import { Eval } from &amp;quot;braintrust&amp;quot; ; 
- import { ExactMatch } from &amp;quot;autoevals&amp;quot; ; 
- import OpenAI from &amp;quot;openai&amp;quot; ; 
+ Build an evaluation that identifies movies from plot descriptions. You&#x27;ll define a set of test cases with movie plot descriptions as inputs and expected titles as outputs, write a task function with a [prompt](/docs/evaluate/write-prompts) to identify movies, and use a [scorer](/docs/evaluate/write-scorers) to measure accuracy.
 
- const client = new OpenAI (); 
+ Create an evaluation that defines your dataset, task, and scorer (built-in `ExactMatch` scorer for Python and TypeScript, equivalent code-based scorer for other languages).
 
- Eval ( &amp;quot;Evaluation quickstart&amp;quot; , { 
- experimentName: &amp;quot;Movie matcher (TypeScript)&amp;quot; , 
- // Data: Test cases with inputs and expected outputs 
- data: [ 
- { 
- input: &amp;quot;A detective investigates a series of murders based on the seven deadly sins.&amp;quot; , 
- expected: &amp;quot;Se7en&amp;quot; , 
- }, 
- { 
- input: &amp;quot;A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.&amp;quot; , 
- expected: &amp;quot;Inception&amp;quot; , 
- }, 
- { 
- input: &amp;quot;A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.&amp;quot; , 
- expected: &amp;quot;The Matrix&amp;quot; , 
- }, 
- { 
- input: &amp;quot;A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him as top toy in a boy&amp;#x27;s room.&amp;quot; , 
- expected: &amp;quot;Toy Story&amp;quot; , 
- }, 
- { 
- input: &amp;quot;An orphaned boy discovers he&amp;#x27;s a wizard on his 11th birthday when Hagrid escorts him to magic-teaching Hogwarts School.&amp;quot; , 
- expected: &amp;quot;Harry Potter and the Sorcerer&amp;#x27;s Stone&amp;quot; , 
- }, 
- ], 
+ ```typescript movie-matcher.eval.ts theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ import { Eval } from &quot;braintrust&quot;;
+ import { ExactMatch } from &quot;autoevals&quot;;
+ import OpenAI from &quot;openai&quot;;
 
- // Task: The function being evaluated 
- task : async ( input ) =&amp;gt; { 
- const response = await client.responses. create ({ 
- model: &amp;quot;gpt-5-mini&amp;quot; , 
- input: [ 
- { 
- role: &amp;quot;system&amp;quot; , 
- content: &amp;quot;Based on the following description, identify the movie.&amp;quot; 
- }, 
- { role: &amp;quot;user&amp;quot; , content: input } 
- ], 
- }); 
- return response.output_text; 
- }, 
+ const client = new OpenAI();
 
- // Scores: Metrics to measure quality 
- scores: [ExactMatch], 
- }); 
- import braintrust 
- from braintrust import Eval 
- from autoevals import ExactMatch 
- from openai import OpenAI 
+ Eval(&quot;Evaluation quickstart&quot;, {
+ experimentName: &quot;Movie matcher (TypeScript)&quot;,
+ // Data: Test cases with inputs and expected outputs
+ data: [
+ {
+ input: &quot;A detective investigates a series of murders based on the seven deadly sins.&quot;,
+ expected: &quot;Se7en&quot;,
+ },
+ {
+ input: &quot;A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.&quot;,
+ expected: &quot;Inception&quot;,
+ },
+ {
+ input: &quot;A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.&quot;,
+ expected: &quot;The Matrix&quot;,
+ },
+ {
+ input: &quot;A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him as top toy in a boy&#x27;s room.&quot;,
+ expected: &quot;Toy Story&quot;,
+ },
+ {
+ input: &quot;An orphaned boy discovers he&#x27;s a wizard on his 11th birthday when Hagrid escorts him to magic-teaching Hogwarts School.&quot;,
+ expected: &quot;Harry Potter and the Sorcerer&#x27;s Stone&quot;,
+ },
+ ],
 
- braintrust.auto_instrument() 
+ // Task: The function being evaluated
+ task: async (input) =&gt; {
+ const response = await client.responses.create({
+ model: &quot;gpt-5-mini&quot;,
+ input: [
+ {
+ role: &quot;system&quot;,
+ content: &quot;Based on the following description, identify the movie.&quot;
+ },
+ { role: &quot;user&quot;, content: input }
+ ],
+ });
+ return response.output_text;
+ },
 
- client = OpenAI() 
+ // Scores: Metrics to measure quality
+ scores: [ExactMatch],
+ });
+ ```
 
- def task (input): 
- response = client.responses.create( 
- model = &amp;quot;gpt-5-mini&amp;quot; , 
- input = [ 
- { 
- &amp;quot;role&amp;quot; : &amp;quot;system&amp;quot; , 
- &amp;quot;content&amp;quot; : &amp;quot;Based on the foll</pre></details><details class="step" open><summary>#15 <b>bash</b> <code>echo &quot;BRAINTRUST_API_KEY is set: ${BRAINTRUST_API_KEY:+yes}&quot; &amp;&amp; echo &quot;OPENAI_API_KEY is set: ${OPENAI_API_KEY:+yes}&quot; &amp;&amp; python3 --version &amp;&amp;</code></summary><pre>exit=0
-BRAINTRUST_API_KEY is set: yes
-OPENAI_API_KEY is set: 
+ ```python movie_matcher.py theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ import braintrust
+ from braintrust import Eval
+ from autoevals import ExactMatch
+ from openai import OpenAI
+
+ braintrust.auto_instrument()
+
+ client = OpenAI()
+
+ def task(input):
+ response = client.responses.create(
+ model=&quot;gpt-5-mini&quot;,
+ input=[
+ {
+ &quot;role&quot;: &quot;system&quot;,
+ &quot;content&quot;: &quot;Based on the following description, identify the movie.&quot;
+ },
+ {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: input}
+ ],
+ )
+ return response.output_text
+
+ Eval(
+ &quot;Evaluation quickstart&quot;,
+ experiment_name=&quot;Movie matcher (Python)&quot;,
+ # Data: Test cases with inputs and expected outputs
+ data=[
+ {
+ &quot;input&quot;: &quot;A detective investigates a series of murders based on the seven deadly sins.&quot;,
+ &quot;expected&quot;: &quot;Se7en&quot;,
+ },
+ {
+ &quot;input&quot;: &quot;A thief who</pre></details><details class="step" open><summary>#10 <b>fetch_url</b> <code>https://braintrust.dev/docs/evaluate/run-in-code.md</code></summary><pre>&gt; ## Documentation Index
+&gt; Fetch the complete documentation index at: https://braintrust.dev/docs/llms.txt
+&gt; Use this file to discover all available pages before exploring further.
+
+# Run experiments in code
+
+&gt; Run evaluations with the Braintrust SDK, from a local script or the bt eval CLI, and capture each run as an immutable experiment snapshot.
+
+Running your evaluation as code with the Braintrust SDK gives you full control over the task, data, and scorers, and lets you version it alongside your application. Iterate locally, then wire the same code into [CI/CD](/docs/evaluate/run-in-ci).
+
+## Run locally
+
+Run evaluation code locally to create an experiment in Braintrust and return summary metrics, including a direct link to your experiment. See [Interpret results](/docs/evaluate/interpret-results) for how to read it.
+
+ Install the SDK and dependencies:
+
+ ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ # pnpm
+ pnpm add braintrust openai autoevals
+ # npm
+ npm install braintrust openai autoevals
+ ```
+
+ Create the eval code:
+
+ ```typescript wrap theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ import { Eval, initDataset } from &quot;braintrust&quot;;
+ import { Factuality } from &quot;autoevals&quot;;
+
+ Eval(&quot;My Project&quot;, {
+ experimentName: &quot;My experiment&quot;,
+ data: initDataset(&quot;My Project&quot;, { dataset: &quot;My dataset&quot; }),
+ task: async (input) =&gt; {
+ // Your LLM call here
+ return await callModel(input);
+ },
+ scores: [Factuality],
+ metadata: {
+ model: &quot;gpt-5-mini&quot;,
+ },
+ });
+ ```
+
+ Run your evaluation with the [`bt eval`](/docs/reference/cli/eval) CLI:
+
+ ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ bt eval my_eval.eval.ts
+ ```
+
+ Use `--watch` to re-run automatically when files change:
+
+ ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ bt eval --watch my_eval.eval.ts
+ ```
+
+ **Benefits of using the CLI:**
+
+ * **Automatic `.env` loading** — reads `.env.development.local`, `.env.local`, `.env.development`, and `.env`
+ * **Multi-file support** — pass multiple files or directories: `bt eval [file or directory] ...`. Running `bt eval` with no arguments runs all eval files in the current directory.
+ * **TypeScript transpilation** — no build step required; the CLI handles it
+
+ Install the SDK and dependencies:
+
+ ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ pip install braintrust openai autoevals
+ ```
+
+ Create the eval code:
+
+ ```python wrap theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ from braintrust import Eval, init_dataset
+ from autoevals import Factuality
+
+ Eval(
+ &quot;My project&quot;,
+ experiment_name=&quot;My experiment&quot;,
+ data=init_dataset(project=&quot;My project&quot;, name=&quot;My dataset&quot;),
+ task=lambda input: call_model(input), # Your LLM call here
+ scores=[Factuality],
+ metadata={
+ &quot;model&quot;: &quot;gpt-5-mini&quot;,
+ },
+ )
+ ```
+
+ Run your evaluation with the [`bt eval`](/docs/reference/cli/eval) CLI:
+
+ ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ bt eval my_eval.py
+ ```
+
+ Use `--watch` to re-run automatically when files change:
+
+ ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ bt eval --watch my_eval.py
+ ```
+
+ **Benefits of using the CLI:**
+
+ * **Automatic `.env` loading** — reads `.env.development.local`, `.env.local`, `.env.development`, and `.env`
+ * **Multi-file support** — pass multiple files or directories: `bt eval [file or directory] ...`. Running `bt eval` with no arguments runs all eval files in the current directory.
+ * **TypeScript transpilation** — no build step required; the CLI handles it
+
+ Install the SDK and dependencies:
+
+ ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ go get github.com/braintrustdata/braintrust-sdk-go
+ go get github.com/openai/openai-go
+ ```
+
+ Create the eval code:
+
+ ```go wrap theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ package main
+
+ import (
+ &quot;context&quot;
+ &quot;log&quot;
+
+ &quot;go.opentelemetry.io/otel&quot;
+ &quot;go.opentelemetry.io/otel/sdk/trace&quot;
+
+ &quot;github.com/braintrustdata/braintrust-sdk-go&quot;
+ &quot;github.com/braintrustdata/braintrust-sdk-go/eval&quot;
+ )
+
+ func callModel(input string) string {
+ // Your LLM call implementation here
+ return &quot;model output&quot;
+ }
+
+ func main() {
+ ctx := context.Background()
+
+ tp := trace.NewTracerProvider()
+ defer tp.Shutdown(ctx)
+ otel.SetTracerProvider(tp)
+
+ client, err := braintrust.New(tp)
+ if err != nil {
+ log.Fatal(err)
+ }
+
+ evaluator := braintrust.NewEvaluator[string, string](client)
+
+ _, err = evaluator.Run(ctx, eval.Opts[string, string]{
+ Experiment: &quot;My project&quot;,
+ Dataset: eval.NewDataset([]eval.Case[string, string]{
+ {Input: &quot;example input&quot;, Expected: &quot;example expected&quot;},
+ }),
+ Task: eval.T(func(ctx context.Context, input string) (string, error) {
+ return callModel(input), nil // Your LLM call here
+ }),
+ Scorers: []eval.Scorer[string, string]{
+ eval.NewScorer(&quot;exact-match&quot;, func(ctx context.Context, r eval.TaskResult[string, string]) (eval.Scores, error) {
+ score := 0.0
+ if r.Output == r.Expected {
+ score = 1.0
+ }
+ return eval.S(score), nil
+ }),
+ },
+ Metadata: map[string]any{
+ &quot;model&quot;: &quot;gpt-5-mini&quot;,
+ },
+ })
+ if err != nil {
+ log.Fatal(err)
+ }
+ }
+ ```
+
+ Run your evaluation:
+
+ ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ go run my_eval.go
+ ```
+
+ Install the SDK and dependencies:
+
+ ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ # Add to your Gemfile:
+ gem &quot;braintrust&quot;
+ gem &quot;openai&quot;
+
+ bundle install
+ ```
+
+ Create the eval code:
+
+ ```ruby wrap theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ require &quot;braintrust&quot;
+
+ Braintrust.init
+
+ Braintrust::Eval.run(
+ project: &quot;My project&quot;,
+ cases: [
+ {input: &quot;example input&quot;, expected: &quot;example expected&quot;},
+ ],
+ task: -&gt;(input:) { call_model(input) }, # Your LLM call here
+ scorers: [
+ Braintrust::Scorer.new(&quot;exact_match&quot;) { |expected:, output:| output == expected ? 1.0 : 0.0 }
+ ],
+ metadata: {model: &quot;gpt-5-m</pre></details><details class="step" open><summary>#11 <b>bash</b> <code>python3 --version &amp;&amp; pip3 --version &amp;&amp; env | grep -E &quot;BRAINTRUST|OPENAI&quot; | sed &#x27;s/=.*//&#x27;</code></summary><pre>exit=0
 Python 3.14.4
 pip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)
-</pre></details><details class="step" open><summary>#16 <b>bash</b> <code>env | grep -i api_key || env | grep -i key | head -20</code></summary><pre>exit=0
-BRAINTRUST_API_KEY=***REDACTED***
-</pre></details><details class="step" open><summary>#17 <b>bash</b> <code>env | grep -iE &#x27;(openai|anthropic|gemini|ai_|llm|model|provider)&#x27; || true</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#18 <b>bash</b> <code>env | sort | grep -iE &#x27;(key|token|secret|api|openai|anthropic|gemini|azure|cohere|model|llm|ai_)&#x27; || true</code></summary><pre>exit=0
-BRAINTRUST_API_KEY=***REDACTED***
-</pre></details><details class="step" open><summary>#19 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/deploy/gateway</code></summary><pre> Use the Braintrust Gateway - Braintrust Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Braintrust home page Search... ⌘ K Ask Assistant Request demo Start building Start building Search... Navigation Braintrust gateway Use the Braintrust Gateway Guides Integrations SDKs Reference Cookbook Troubleshooting Changelog Start Introduction Braintrust workflow Tracing quickstart Evaluation quickstart Loop agent Plans and limits Instrument Overview Tracing User feedback Attachments Observe Overview Logs Topics Dashboards Alerts Annotate Overview Human review Custom views Labels and corrections Datasets Exports Evaluate Overview Prompts Scorers and classifiers Playgrounds Experiments Remote evals Online scoring Best practices Deploy Overview Prompts Functions Braintrust gateway Use the Gateway Supported models Use the proxy (deprecated) Environments Monitoring Streaming Admin Overview Organizations Projects AI providers Audit logging Access control Billing Data management Deployment Authentication Personal settings Service health Best practices Evaluating agents Writing scorers PM workflows Security On this page Quickstart Gateway endpoints and routing Use any SDK with any provider Generate embeddings Configure API keys Supported providers Custom providers Enable logging Update a logged span Enable caching Cache modes Cache TTL Cache control Cache encryption Specify an organization Use project-level AI providers Enable provider failover How failover works Configure failover for custom models Confirm failover occurred Advanced configuration Monitor Gateway usage Migrate from the AI proxy Next steps Braintrust gateway Use the Braintrust Gateway Copy page Copy page Route requests to any AI provider through a unified LLM API Copy page Copy page The Braintrust Gateway provides a unified API to access LLM models from OpenAI, Anthropic, Google, AWS, and other providers. Point your SDKs to the Gateway URL and immediately get automatic caching, observability, and multi-provider support. Use any supported provider’s SDK to call any provider’s models—standardize on one SDK while accessing all available models. 
- The Braintrust-hosted Gateway ( https://gateway.braintrust.dev ) is in beta and free to use. It is designed for production workloads, and uptime is tracked on the Braintrust status page under AI Gateway. Pricing will be announced before general availability. 
- ​ Quickstart 
- 1 Get a Braintrust API key Create a Braintrust API key and set it as an environment variable: export BRAINTRUST_API_KEY = &amp;quot;&amp;lt;your-braintrust-api-key&amp;gt;&amp;quot; 
- 2 Add your AI provider key Add your provider API key in Braintrust so the Gateway can call it on your behalf — you won’t need to set your provider key locally. You can do this at the organization level (available across all projects) or the project level (overrides organization defaults). See how project overrides work for the rules that decide which provider a request uses. 3 Point your SDK at the Gateway Change your SDK’s base URL to https://gateway.braintrust.dev and pass your Braintrust API key as the API key. That’s it — no other code changes needed. https://gateway.braintrust.dev is the global hosted Gateway endpoint. It uses DNS latency routing and health checks across Braintrust-hosted Gateway regions. Gateway routing is separate from your organization’s data plane region . When logging is enabled , Gateway logs are written to your organization’s configured data plane. OpenAI Anthropic Gemini cURL Set the base URL to https://gateway.braintrust.dev . TypeScript import { OpenAI } from &amp;quot;openai&amp;quot; ; 
+BRAINTRUST_API_KEY
+</pre></details><details class="step" open><summary>#12 <b>bash</b> <code>env | grep -i openai | sed &#x27;s/=.*//&#x27;</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#13 <b>bash</b> <code>env | grep -iE &quot;api_key|key&quot; | sed &#x27;s/=.*//&#x27;</code></summary><pre>exit=0
+BRAINTRUST_API_KEY
+</pre></details><details class="step" open><summary>#14 <b>bash</b> <code>env | sort | sed &#x27;s/=.*//&#x27;</code></summary><pre>exit=0
+BRAINTRUST_API_KEY
+DAYTONA_ORGANIZATION_ID
+DAYTONA_OTEL_ENDPOINT
+DAYTONA_REGION_ID
+DAYTONA_SANDBOX_ID
+DAYTONA_SANDBOX_SNAPSHOT
+DAYTONA_SANDBOX_USER
+DAYTONA_USER_HOME_AS_WORKDIR
+GTK_MODULES
+HOME
+HOSTNAME
+LANG
+LC_ALL
+LOGNAME
+NO_AT_BRIDGE
+NVM_DIR
+NVM_SYMLINK_CURRENT
+OLDPWD
+PATH
+PIPX_BIN_DIR
+PIPX_HOME
+PWD
+PYTHON_PATH
+PYTHON_SHA256
+PYTHON_VERSION
+QT_ACCESSIBILITY
+SHLVL
+_
+</pre></details><details class="step" open><summary>#15 <b>fetch_url</b> <code>https://braintrust.dev/docs/deploy/braintrust-gateway.md</code></summary><pre>null</pre></details><details class="step" open><summary>#16 <b>fetch_url</b> <code>https://braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#17 <b>fetch_url</b> <code>https://braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#18 <b>fetch_url</b> <code>https://braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#19 <b>fetch_url</b> <code>https://braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#20 <b>fetch_url</b> <code>https://braintrust.dev/docs/integrations</code></summary><pre> Integrations - Braintrust Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Braintrust home page Search... ⌘ K Ask Assistant Request demo Start building Start building Search... Navigation Integrations Guides Integrations SDKs Reference Cookbook Troubleshooting Changelog Integrations AI providers Overview Model providers Cloud providers Custom providers SDKs Overview Tracing integrations Agent frameworks Eval frameworks Testing frameworks Developer tools Braintrust MCP Claude Code Claude Cowork Cursor VS Code Devin Desktop Codex OpenCode pi Runtime environments AWS Lambda Integrations Copy page Copy page Connect Braintrust with your AI providers and frameworks Copy page Copy page 
 
- const client = new OpenAI ({ 
- baseURL: &amp;quot;https://gateway.braintrust.dev&amp;quot; , 
- apiKey: process.env. BRAINTRUST_API_KEY , 
- }); 
+ Don’t see your provider or framework? Use the AI Proxy to add any provider or contact us to request an integration. Was this page helpful? Yes No AI providers Next ⌘ I Braintrust home page github x discord youtube Pricing Blog Careers Status github x discord youtube Powered by This documentation is built and hosted on Mintlify, a developer documentation platform Assistant Responses are generated using AI and may contain mistakes. Contact support </pre></details><details class="step" open><summary>#21 <b>fetch_url</b> <code>https://braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#22 <b>fetch_url</b> <code>https://braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#23 <b>fetch_url</b> <code>https://braintrust.dev/docs/integrations/ai-providers</code></summary><pre> AI providers - Braintrust Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Braintrust home page Search... ⌘ K Ask Assistant Request demo Start building Start building Search... Navigation AI providers AI providers Guides Integrations SDKs Reference Cookbook Troubleshooting Changelog Integrations AI providers Overview Model providers Cloud providers Custom providers SDKs Overview Tracing integrations Agent frameworks Eval frameworks Testing frameworks Developer tools Braintrust MCP Claude Code Claude Cowork Cursor VS Code Devin Desktop Codex OpenCode pi Runtime environments AWS Lambda On this page Model providers Cloud providers Custom providers AI providers AI providers Copy page Copy page AI provider configuration Copy page Copy page 
+ Braintrust supports direct integrations with popular AI providers. Wrap their SDKs to automatically log requests, responses, token usage, and timing information. 
+ ​ Model providers 
+ OpenAI OpenRouter Anthropic Gemini Mistral Baseten Cerebras Cohere Fireworks Groq Hugging Face Lepton Ollama Perplexity Replicate Together xAI 
+ ​ Cloud providers 
+ Access models through major cloud platforms: 
+ AWS Bedrock Google Vertex AI Azure AI Foundry Azure AI Gateway Databricks 
+ ​ Custom providers 
+ Add any AI provider using the AI Proxy : 
+ Custom provider Was this page helpful? Yes No Integrations Previous OpenAI Next ⌘ I Braintrust home page github x discord youtube Pricing Blog Careers Status github x discord youtube Powered by This documentation is built and hosted on Mintlify, a developer documentation platform Assistant Responses are generated using AI and may contain mistakes. Contact support </pre></details><details class="step" open><summary>#24 <b>fetch_url</b> <code>https://braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#25 <b>fetch_url</b> <code>https://braintrust.dev/docs/integrations/ai-providers/openai</code></summary><pre> OpenAI - Braintrust Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Braintrust home page Search... ⌘ K Ask Assistant Request demo Start building Start building Search... Navigation Model providers OpenAI Guides Integrations SDKs Reference Cookbook Troubleshooting Changelog Integrations AI providers Overview Model providers OpenAI OpenRouter Anthropic Gemini Mistral Baseten Cerebras Cohere Fireworks Groq Hugging Face Lepton Ollama Perplexity Replicate Together Voyage AI xAI Cloud providers Custom providers SDKs Overview Tracing integrations Agent frameworks Eval frameworks Testing frameworks Developer tools Braintrust MCP Claude Code Claude Cowork Cursor VS Code Devin Desktop Codex OpenCode pi Runtime environments AWS Lambda TypeScript On this page Add OpenAI as an AI provider Tracing Setup Auto-instrumentation Manual instrumentation Streaming Structured outputs Function calling and tools Gateway What Braintrust traces Tracing resources Evals Basic eval setup Use OpenAI as an LLM judge Cookbooks Model providers OpenAI Copy page Copy page Trace OpenAI SDK calls, evaluate GPT models, and route them through the Braintrust gateway Copy page Copy page TypeScript 
+ Braintrust integrates with OpenAI so you can call GPT models from the Braintrust playground, API, and SDKs. Braintrust also traces OpenAI SDK calls from your application, including streaming, structured outputs, and function calling. 
+ ​ Add OpenAI as an AI provider 
+ To use OpenAI models in the Braintrust playground, API, and gateway, connect OpenAI as a provider in your organization or project AI providers. 
 
- async function main () { 
- const response = await client.responses. create ({ 
- model: &amp;quot;gpt-5-mini&amp;quot; , 
- input: [ 
- { role: &amp;quot;user&amp;quot; , content: &amp;quot;Say hello!&amp;quot; }, 
- ], 
- }); 
+ Go to Settings &amp;gt; AI providers . 
 
- console. log (response.output_text); 
- } 
+ Click Organization provider or Project provider , depending on whether you want the provider to be available across every project in the organization or just the current project. 
 
- main (); 
- import os 
+ Under Model providers , click OpenAI . 
 
- from openai import OpenAI 
+ Choose your authentication method: 
 
- client = OpenAI( 
- base_url = &amp;quot;https://gateway.braintrust.dev&amp;quot; , 
- api_key = os.environ[ &amp;quot;BRAINTRUST_API_KEY&amp;quot; ], 
- ) 
+ API key : Visit OpenAI’s API platform , create a new API key, and paste it into the Secret field. 
+ API keys are stored as one-way cryptographic hashes, never in plaintext. 
+ Use a custom OpenAI endpoint To point this provider at a custom OpenAI endpoint, such as a regional API, expand More settings and set these fields. Field What to enter If you leave it blank API base URL The API root, such as https://us.api.openai.com/v1 . Don’t include a route such as /chat/completions . Braintrust uses the default OpenAI endpoint. Endpoint Path A single route, including the leading slash, such as /responses . Every request goes to that route, whichever API the caller used. Braintrust appends the route each request targets, so one provider serves both the Chat Completions and Responses APIs. Leave Endpoint Path blank unless you need to pin this provider to one route. 
 
- response = client.responses.create( 
- model = &amp;quot;gpt-5-mini&amp;quot; , 
- input = [{ &amp;quot;role&amp;quot; : &amp;quot;user&amp;quot; , &amp;quot;content&amp;quot; : &amp;quot;Say hello!&amp;quot; }], 
- ) 
+ Workload identity federation : Exchange a Braintrust-signed OIDC token for an OpenAI access token, instead of storing a long-lived OpenAI API key in Braintrust. 
+ Workload identity federation is available only for organization-level providers on Braintrust-hosted organizations with the Braintrust gateway enabled. Project-level providers and self-hosted deployments must use API key authentication. 
 
- print (response.output_text) 
- Set the base URL to https://gateway.braintrust.dev . The anthropic-version and x-api-key headers are not required when using a Braintrust API key. TypeScript import Anthropic from &amp;quot;@anthropic-ai/sdk&amp;quot; ; 
+ If you chose Workload identity federation , use the setup values shown in Braintrust to configure OpenAI: 
 
- const client = new Anthropic ({ 
- baseURL: &amp;quot;https://gateway.braintrust.dev&amp;quot; , 
- apiKey: process.env. BRAINTRUST_API_KEY , 
- }); 
+ Create a workload identity provider in OpenAI. Enter a descriptive Name , use the OIDC issuer URL and Audience shown in Braintrust, and leave uploaded JWKS and attribute transformations disabled. 
+ From the workload identity provider details page, create a mapping. Use sub as the Key and the subject pattern shown in Braintrust as the Value . Add a mapping attribute for each additional claim shown in Braintrust. Choose the OpenAI Project , Service account , and Permissions Braintrust should use. 
+ Paste the OpenAI IDs back into Braintrust: 
 
- async function main () { 
- const response = await client.messages. create ({ 
- model: &amp;quot;claude-haiku-4-5&amp;quot; , 
- messages: [{ role: &amp;quot;user&amp;quot; , content: &amp;quot;Say hello!&amp;quot; }], 
- }); 
- console. log (response.content[ 0 ].type === &amp;quot;text&amp;quot; ? response.content[ 0 ].text : &amp;quot;&amp;quot; ); 
- } 
+ Identity provider ID : The workload identity provider ID configured for Braintrust. 
+ Service account ID : The OpenAI service account ID Braintrust should use. 
+ Subject suffix : A stable suffix for this OpenAI connection. It must match the final part of the subject pattern used in OpenAI. 
 
- main (); 
- import os 
+ For general OpenAI concepts and dashboard details, see OpenAI’s workload identity federation docs . 
 
- from anthropic import Anthropic 
+ Click Save . 
 
- client = Anthropic( 
- base_url = &amp;quot;https://gateway.braintrust.dev&amp;quot; , 
- api_key = os.environ[ &amp;quot;BRAINTRUST_API_KEY&amp;quot; ], 
- ) 
+ For the GPT-5 family, whether the temperature parameter is configurable depends on the reasoning effort. GPT-5.1 and later accept temperature only when reasoning effort is set to none . At any higher reasoning effort, and for older GPT-5 models ( gpt-5 , gpt-5-mini , gpt-5-nano ) and GPT-5 Pro, temperature isn’t configurable and is disabled in the Braintrust UI. 
+ ​ Tracing Braintrust traces OpenAI calls automatically with the braintrust/hook.mjs import hook, or manually with wrapOpenAI . Either path produces the same spans. Auto-instrumentation is the recommended path for most users. Using the OpenAI Agents SDK? See the OpenAI Agents SDK framework docs. ​ Setup Install the Braintrust SDK alongside the OpenAI SDK, then configure your API keys. 1 Install packages pnpm npm pnpm add braintrust openai 
+ npm install braintrust openai 
+ 2 Get an OpenAI API key Visit OpenAI’s API platform and create a new API key, then add it as a Braintrust AI provider . 3 Set environment variables .env OPENAI_API_KEY =&amp;lt; your-openai-api-key &amp;gt; 
+ BRAINTRUST_API_KEY =&amp;lt; your-braintrust-api-key &amp;gt; 
 
- response = client.messages.create( 
- model = &amp;quot;claude-haiku-4-5&amp;quot; , 
- messages = [{ &amp;quot;role&amp;quot; : &amp;quot;user&amp;quot; , &amp;quot;content&amp;quot; : &amp;quot;Say hello!&amp;quot; }], 
- ) 
- print (response.content[ 0 ].text) 
- Set the base URL to https://gateway.braintrust.dev and pass your Braintrust API key as the API key. TypeScript import { GoogleGenAI } from &amp;quot;@google/genai&amp;quot; ; 
-
- const client = new GoogleGenAI ({ 
- apiKey: process.env. BRAINTRUST_API_KEY , 
- httpOptions: { 
- baseUrl: &amp;quot;https://gateway.braintrust.dev&amp;quot; , 
- }, 
- }); 
-
- async function main () { 
- const response = await clien</pre></details><details class="step" open><summary>#20 <b>bash</b> <code>cd /home/daytona &amp;&amp; pip install braintrust openai autoevals</code></summary><pre>exit=0
-Defaulting to user installation because normal site-packages is not writeable
-Collecting braintrust
-  Downloading braintrust-0.33.0-py3-none-any.whl.metadata (4.0 kB)
-Requirement already satisfied: openai in /usr/local/lib/python3.14/site-packages (2.33.0)
-Collecting autoevals
-  Downloading autoevals-0.3.0-py3-none-any.whl.metadata (17 kB)
-Requirement already satisfied: requests in /usr/local/lib/python3.14/site-packages (from braintrust) (2.32.5)
-Collecting chevron (from braintrust)
-  Downloading chevron-0.14.0-py3-none-any.whl.metadata (4.9 kB)
-Requirement already satisfied: tqdm in /usr/local/lib/python3.14/site-packages (from braintrust) (4.67.3)
-Requirement already satisfied: exceptiongroup&gt;=1.2.0 in /usr/local/lib/python3.14/site-packages (from braintrust) (1.3.1)
-Requirement already satisfied: jsonschema in /usr/local/lib/python3.14/site-packages (from braintrust) (4.26.0)
-Requirement already satisfied: packaging in /usr/local/lib/python3.14/site-packages (from braintrust) (25.0)
-Collecting sseclient-py (from braintrust)
-  Downloading sseclient_py-1.9.0-py3-none-any.whl.metadata (1.9 kB)
-Collecting python-slugify (from braintrust)
-  Downloading python_slugify-8.0.4-py2.py3-none-any.whl.metadata (8.5 kB)
-Requirement already satisfied: typing_extensions&gt;=4.1.0 in /usr/local/lib/python3.14/site-packages (from braintrust) (4.15.0)
-Requirement already satisfied: wrapt in /usr/local/lib/python3.14/site-packages (from braintrust) (2.1.2)
-Requirement already satisfied: anyio&lt;5,&gt;=3.5.0 in /usr/local/lib/python3.14/site-packages (from openai) (4.13.0)
-Requirement already satisfied: distro&lt;2,&gt;=1.7.0 in /usr/local/lib/python3.14/site-packages (from openai) (1.9.0)
-Requirement already satisfied: httpx&lt;1,&gt;=0.23.0 in /usr/local/lib/python3.14/site-packages (from openai) (0.28.1)
-Requirement already satisfied: jiter&lt;1,&gt;=0.10.0 in /usr/local/lib/python3.14/site-packages (from openai) (0.11.1)
-Requirement already satisfied: pydantic&lt;3,&gt;=1.9.0 in /usr/local/lib/python3.14/site-packages (from openai) (2.13.4)
-Requirement already satisfied: sniffio in /usr/local/lib/python3.14/site-packages (from openai) (1.3.1)
-Requirement already satisfied: idna&gt;=2.8 in /usr/local/lib/python3.14/site-packages (from anyio&lt;5,&gt;=3.5.0-&gt;openai) (3.15)
-Requirement already satisfied: certifi in /usr/local/lib/python3.14/site-packages (from httpx&lt;1,&gt;=0.23.0-&gt;openai) (2026.4.22)
-Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.14/site-packages (from httpx&lt;1,&gt;=0.23.0-&gt;openai) (1.0.9)
-Requirement already satisfied: h11&gt;=0.16 in /usr/local/lib/python3.14/site-packages (from httpcore==1.*-&gt;httpx&lt;1,&gt;=0.23.0-&gt;openai) (0.16.0)
-Requirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;3,&gt;=1.9.0-&gt;openai) (0.7.0)
-Requirement already satisfied: pydantic-core==2.46.4 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;3,&gt;=1.9.0-&gt;openai) (2.46.4)
-Requirement already satisfied: typing-inspection&gt;=0.4.2 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;3,&gt;=1.9.0-&gt;openai) (0.4.2)
-Collecting polyleven (from autoevals)
-  Downloading polyleven-0.11.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (4.2 kB)
-Requirement already satisfied: pyyaml in /usr/local/lib/python3.14/site-packages (from autoevals) (6.0.3)
-Requirement already satisfied: attrs&gt;=22.2.0 in /usr/local/lib/python3.14/site-packages (from jsonschema-&gt;braintrust) (26.1.0)
-Requirement already satisfied: jsonschema-specifications&gt;=2023.03.6 in /usr/local/lib/python3.14/site-packages (from jsonschema-&gt;braintrust) (2025.9.1)
-Requirement already satisfied: referencing&gt;=0.28.4 in /usr/local/lib/python3.14/site-packages (from jsonschema-&gt;braintrust) (0.37.0)
-Requirement already satisfied: rpds-py&gt;=0.25.0 in /usr/local/lib/python3.14/site-packages (from jsonschema-&gt;braintrust) (0.30.0)
-Collecting text-unidecode&gt;=1.3 (from python-slugify-&gt;braintrust)
-  Downloading text_unidecode-1.3-py2.py3-none-any.whl.metadata (2.4 kB)
-Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.14/site-packages (from requests-&gt;braintrust) (3.4.7)
-Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.14/site-packages (from requests-&gt;braintrust) (2.7.0)
-Downloading braintrust-0.33.0-py3-none-any.whl (911 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 911.3/911.3 kB 212.5 MB/s  0:00:00
+ # For organizations on the EU data plane, use https://api-eu.braintrust.dev 
+ # For self-hosted deployments, use your data plane URL 
+ # BRAINTRUST_API_URL=&amp;lt;your-braintrust-api-url&amp;gt; 
+ ​ Auto-instrumentation To trace OpenAI calls without modifying your application code, initialize Braintrust, create a normal OpenAI client, then run your app with Braintrust’s import hook to patch the OpenAI SDK at startup. 1 Initialize Braintrust and call OpenAI trace-openai-auto.js import OpenAI from &amp;quot;openai&amp;quot; ; 
+ import { initLogger }</pre></details><details class="step" open><summary>#26 <b>bash</b> <code>cd /home/daytona &amp;&amp; pip install braintrust openai autoevals 2&gt;&amp;1 | tail -20</code></summary><pre>exit=0
+Downloading braintrust-0.34.0-py3-none-any.whl (970 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 970.3/970.3 kB 101.1 MB/s  0:00:00
 Downloading autoevals-0.3.0-py3-none-any.whl (73 kB)
 Downloading chevron-0.14.0-py3-none-any.whl (11 kB)
 Downloading polyleven-0.11.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (21 kB)
@@ -622,365 +667,253 @@ Installing collected packages: text-unidecode, chevron, sseclient-py, python-slu
   WARNING: The script braintrust is installed in &#x27;/home/daytona/.local/bin&#x27; which is not on PATH.
   Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
 
-Successfully installed autoevals-0.3.0 braintrust-0.33.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-8.0.4 sseclient-py-1.9.0 text-unidecode-1.3
+Successfully installed autoevals-0.3.0 braintrust-0.34.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-8.0.4 sseclient-py-1.9.0 text-unidecode-1.3
 
 [notice] A new release of pip is available: 26.0.1 -&gt; 26.2.1
 [notice] To update, run: pip install --upgrade pip
-</pre></details><details class="step" open><summary>#21 <b>write_file</b> <code>/home/daytona/movie_matcher.py</code></summary><pre>wrote /home/daytona/movie_matcher.py (1795 bytes)</pre></details><details class="step" open><summary>#22 <b>bash</b> <code>cd /home/daytona &amp;&amp; python movie_matcher.py 2&gt;&amp;1</code></summary><pre>exit=1
-Traceback (most recent call last):
-  File &quot;/home/daytona/movie_matcher.py&quot;, line 27, in &lt;module&gt;
-    Eval(&quot;Evaluation quickstart&quot;, {
-    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        &quot;experiment_name&quot;: &quot;Movie matcher (Python)&quot;,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...&lt;23 lines&gt;...
-        &quot;scores&quot;: [ExactMatch],
-        ^^^^^^^^^^^^^^^^^^^^^^^
-    })
-    ^^
-TypeError: Eval() missing 1 required positional argument: &#x27;task&#x27;
-</pre></details><details class="step" open><summary>#23 <b>bash</b> <code>cd /home/daytona &amp;&amp; python -c &quot;from braintrust import Eval; help(Eval)&quot; 2&gt;&amp;1 | head -60</code></summary><pre>exit=0
-Help on function Eval in module braintrust.framework:
-
-Eval(
-    name: str,
-    data: EvalData[Input, Expected],
-    task: EvalTask[Input, Output, Expected],
-    scores: Sequence[EvalScorer[Input, Output, Expected]] | None = None,
-    classifiers: Sequence[EvalClassifier[Input, Output, Expected]] | None = None,
-    experiment_name: str | None = None,
-    trial_count: int = 1,
-    metadata: Metadata | None = None,
-    tags: Sequence[str] | None = None,
-    is_public: bool = False,
-    update: bool = False,
-    reporter: ReporterDef[Input, Output, Expected, EvalReport] | None = None,
-    timeout: float | None = None,
-    max_concurrency: int | None = None,
-    project_id: str | None = None,
-    base_experiment_name: str | None = None,
-    base_experiment_id: str | None = None,
-    git_metadata_settings: GitMetadataSettings | None = None,
-    repo_info: RepoInfo | None = None,
-    error_score_handler: ErrorScoreHandler[Input, Expected] | None = None,
-    description: str | None = None,
-    summarize_scores: bool = True,
-    no_send_logs: bool = False,
-    parameters: EvalParameters | RemoteEvalParameters | None = None,
-    on_start: Callable[[ExperimentSummary], None] | None = None,
-    stream: Callable[[SSEProgressEvent], None] | None = None,
-    parent: str | None = None,
-    state: BraintrustState | None = None,
-    enable_cache: bool = True
-) -&gt; EvalResultWithSummary[Input, Output, Expected]
-    A function you can use to define an evaluator. This is a convenience wrapper around the `Evaluator` class.
-
-    For callers running in an async context, use `EvalAsync()` instead.
-
-    Example:
-    ```python
-    Eval(
-        name=&quot;my-evaluator&quot;,
-        data=lambda: [
-            EvalCase(input=1, expected=2),
-            EvalCase(input=2, expected=4),
-        ],
-        task=lambda input, hooks: input * 2,
-        scores=[
-            NumericDiff,
-        ],
-    )
-    ```
-
-    :param name: The name of the evaluator. This corresponds to a project name in Braintrust.
-    :param data: Returns an iterator over the evaluation dataset. Each element of the iterator should be a `EvalCase`.
-    :param task: Runs the evaluation task on a single input. The `hooks` object can be used to add metadata to the evaluation.
-    :param scores: A list of scorers to evaluate the results of the task. Each scorer can be a Scorer object or a function
-    that takes an `EvalScorerArgs` object and returns a `Score` object.
-    :param experiment_name: (Optional) Experiment name. If not specified, a name will be generated automatically.
-    :param trial_count: The number of times to run the evaluator per input. This is useful for evaluating applications that
-    have non-deterministic behavior and gives you both a stronger aggregate measure and a sense of the variance in the results.
-</pre></details><details class="step" open><summary>#24 <b>write_file</b> <code>{&quot;path&quot;: &quot;/home/daytona/movie_matcher.py&quot;, &quot;content&quot;: &quot;import os\nimport braintrust\nfrom braintrust import Eval\nfrom autoevals import Exac</code></summary><pre>wrote /home/daytona/movie_matcher.py (1854 bytes)</pre></details><details class="step" open><summary>#25 <b>bash</b> <code>cd /home/daytona &amp;&amp; python movie_matcher.py 2&gt;&amp;1</code></summary><pre>exit=1
-Traceback (most recent call last):
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
-    response = self._make_request(
-        conn,
-    ...&lt;10 lines&gt;...
-        **response_kw,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
-    raise new_e
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
-    self._validate_conn(conn)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
-    conn.connect()
-    ~~~~~~~~~~~~^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
-    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
-        sock=sock,
-    ...&lt;14 lines&gt;...
-        assert_fingerprint=self.assert_fingerprint,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 975, in _ssl_wrap_socket_and_match_hostname
-    ssl_sock = ssl_wrap_socket(
-        sock=sock,
-    ...&lt;8 lines&gt;...
-        tls_in_tls=tls_in_tls,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 433, in ssl_wrap_socket
-    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 477, in _ssl_wrap_socket_impl
-    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
-           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 455, in wrap_socket
-    return self.sslsocket_class._create(
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-        sock=sock,
-        ^^^^^^^^^^
-    ...&lt;5 lines&gt;...
-        session=session
-        ^^^^^^^^^^^^^^^
-    )
-    ^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1076, in _create
-    self.do_handshake()
-    ~~~~~~~~~~~~~~~~~^^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1372, in do_handshake
-    self._sslobj.do_handshake()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
-ConnectionResetError: [Errno 104] Connection reset by peer
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File &quot;/usr/local/lib/python3.14/site-packages/requests/adapters.py&quot;, line 644, in send
-    resp = conn.urlopen(
-        method=request.method,
-    ...&lt;9 lines&gt;...
-        chunked=chunked,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 842, in urlopen
-    retries = retries.increment(
-        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/retry.py&quot;, line 498, in increment
-    raise reraise(type(error), error, _stacktrace)
-          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/util.py&quot;, line 38, in reraise
-    raise value.with_traceback(tb)
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
-    response = self._make_request(
-        conn,
-    ...&lt;10 lines&gt;...
-        **response_kw,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
-    raise new_e
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
-    self._validate_conn(conn)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
-    conn.connect()
-    ~~~~~~~~~~~~^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
-    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
-        sock=sock,
-    ...&lt;14 lines&gt;...
-        assert_fingerprint=self.assert_fingerprint,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 975, in _ssl_wrap_socket_and_match_hostname
-    ssl_sock = ssl_wrap_socket(
-        sock=sock,
-    ...&lt;8 lines&gt;...
-        tls_in_tls=tls_in_tls,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 433, in ssl_wrap_socket
-    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 477, in _ssl_wrap_socket_impl
-    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
-           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 455, in wrap_socket
-    return self.sslsocket_class._create(
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-        sock=sock,
-        ^^^^^^^^^^
-    ...&lt;5 lines&gt;...
-        session=session
-        ^^^^^^^^^^^^^^^
-    )
-    ^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1076, in _create
-    self.do_handshake()
-    ~~~~~~~~~~~~~~~~~^^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1372, in do_handshake
-    self._sslobj.do_handshake()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
-urllib3.exceptions.ProtocolError: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File &quot;/home/daytona/movie_matcher.py&quot;, line 51, in &lt;module&gt;
-    result = Eval(
-        name=&quot;Evaluation quickstart&quot;,
-    ...&lt;3 lines&gt;...
-        experiment_name=&quot;Movie matcher (Python)&quot;,
-    )
-  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/framework.py&quot;, line 1019, in Eval
-    f = _EvalCommon(
-        name=name,
-    ...&lt;27 lines&gt;...
-        enable_cache=enable_cache,
-    )
-  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/framework.py&quot;, line 761, in _EvalCommon
-    experiment = init_experiment(
-        project_name=evaluator.project_name if evaluator.project_id is None else None,
-    ...&lt;13 lines&gt;...
-        state=state,
-    )
-  File &quot;/home/daytona/.local/lib/python3.14/site-packages/brain</pre></details><details class="step" open><summary>#26 <b>bash</b> <code>curl -s -o /dev/null -w &quot;%{http_code}&quot; -H &quot;Authorization: Bearer $BRAINTRUST_API_KEY&quot; https://api.braintrust.dev/v1/project 2&gt;&amp;1 || echo &quot;CU</code></summary><pre>exit=0
-000CURL FAILED
-</pre></details><details class="step" open><summary>#27 <b>bash</b> <code>curl -v https://api.braintrust.dev/v1/project -H &quot;Authorization: Bearer $BRAINTRUST_API_KEY&quot; 2&gt;&amp;1 | head -30</code></summary><pre>exit=0
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host api.braintrust.dev:443 was resolved.
-* IPv6: 2600:9000:23ca:a200:e:a922:ae40:93a1, 2600:9000:23ca:2200:e:a922:ae40:93a1, 2600:9000:23ca:e200:e:a922:ae40:93a1, 2600:9000:23ca:cc00:e:a922:ae40:93a1, 2600:9000:23ca:ba00:e:a922:ae40:93a1, 2600:9000:23ca:be00:e:a922:ae40:93a1, 2600:9000:23ca:8e00:e:a922:ae40:93a1, 2600:9000:23ca:7200:e:a922:ae40:93a1
-* IPv4: 108.139.29.63, 108.139.29.82, 108.139.29.20, 108.139.29.103
-*   Trying [2600:9000:23ca:a200:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:a200:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:2200:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:2200:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:e200:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:e200:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:cc00:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:cc00:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:ba00:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:ba00:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:be00:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:be00:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:8e00:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:8e00:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:7200:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:7200:e:a922:ae40:93a1: Network is unreachable
-*   Trying 108.139.29.63:443...
-* ALPN: curl offers h2,http/1.1
-} [5 bytes data]
-* TLSv1.3 (OUT), TLS handshake, Client hello (1):
-} [1573 bytes data]
-*  CAfile: /etc/ssl/certs/ca-certificates.crt
-*  CApath: /etc/ssl/certs
-* Recv failure: Connection reset by peer
-* TLS connect error: error:00000000:lib(0)::reason(0)
-</pre></details><details class="step" open><summary>#28 <b>bash</b> <code>curl -v https://www.google.com 2&gt;&amp;1 | head -20</code></summary><pre>exit=0
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host www.google.com:443 was resolved.
-* IPv6: 2001:4860:4829:7700::, 2001:4860:4828:7700::, 2001:4860:4826:7700::, 2001:4860:482d:7700::, 2001:4860:482a:7700::, 2001:4860:482b:7700::, 2001:4860:482c:7700::, 2001:4860:4827:7700::
-* IPv4: 142.251.151.119, 142.251.155.119, 142.251.152.119, 142.251.157.119, 142.251.153.119, 142.251.150.119, 142.251.156.119, 142.251.154.119
-*   Trying [2001:4860:4829:7700::]:443...
-* Immediate connect fail for 2001:4860:4829:7700::: Network is unreachable
-*   Trying [2001:4860:4828:7700::]:443...
-* Immediate connect fail for 2001:4860:4828:7700::: Network is unreachable
-*   Trying [2001:4860:4826:7700::]:443...
-* Immediate connect fail for 2001:4860:4826:7700::: Network is unreachable
-*   Trying [2001:4860:482d:7700::]:443...
-* Immediate connect fail for 2001:4860:482d:7700::: Network is unreachable
-*   Trying [2001:4860:482a:7700::]:443...
-* Immediate connect fail for 2001:4860:482a:7700::: Network is unreachable
-*   Trying [2001:4860:482b:7700::]:443...
-* Immediate connect fail for 2001:4860:482b:7700::: Network is unreachable
-*   Trying [2001:4860:482c:7700::]:443...
-* Immediate connect fail for 2001:4860:482c:7700::: Network is unreachable
-*   Trying [2001:4860:4827:7700::]:443...
-</pre></details><details class="step" open><summary>#29 <b>bash</b> <code>curl -4 -v --max-time 10 https://www.google.com 2&gt;&amp;1 | head -20</code></summary><pre>exit=0
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host www.google.com:443 was resolved.
-* IPv6: (none)
-* IPv4: 142.251.152.119, 142.251.154.119, 142.251.155.119, 142.251.156.119, 142.251.157.119, 142.251.153.119, 142.251.150.119, 142.251.151.119
-*   Trying 142.251.152.119:443...
-* ALPN: curl offers h2,http/1.1
-} [5 bytes data]
-* TLSv1.3 (OUT), TLS handshake, Client hello (1):
-} [1569 bytes data]
-*  CAfile: /etc/ssl/certs/ca-certificates.crt
-*  CApath: /etc/ssl/certs
-* Recv failure: Connection reset by peer
-* TLS connect error: error:00000000:lib(0)::reason(0)
-* OpenSSL SSL_connect: Connection reset by peer in connection to www.google.com:443 
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-* closing connection #0
+</pre></details><details class="step" open><summary>#27 <b>bash</b> <code>cd /home/daytona &amp;&amp; curl -fsSL https://bt.dev/cli/install.sh | sh 2&gt;&amp;1</code></summary><pre>exit=0
 curl: (35) Recv failure: Connection reset by peer
-</pre></details><details class="step" open><summary>#30 <b>bash</b> <code>curl -4 --max-time 10 http://httpbin.org/get 2&gt;&amp;1 | head -20</code></summary><pre>exit=0
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100    45  100    45    0     0  23388      0 --:--:-- --:--:-- --:--:-- 45000
-Internet is restricted on Tier 1 and Tier 2.
-</pre></details><details class="step" open><summary>#31 <b>bash</b> <code>curl -4 --max-time 10 -k -v https://api.braintrust.dev/v1/project -H &quot;Authorization: Bearer $BRAINTRUST_API_KEY&quot; 2&gt;&amp;1 | head -30</code></summary><pre>exit=0
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host api.braintrust.dev:443 was resolved.
-* IPv6: (none)
-* IPv4: 108.139.29.63, 108.139.29.20, 108.139.29.82, 108.139.29.103
-*   Trying 108.139.29.63:443...
-* ALPN: curl offers h2,http/1.1
-} [5 bytes data]
-* TLSv1.3 (OUT), TLS handshake, Client hello (1):
-} [1573 bytes data]
-* Recv failure: Connection reset by peer
-* TLS connect error: error:00000000:lib(0)::reason(0)
-* OpenSSL SSL_connect: Connection reset by peer in connection to api.braintrust.dev:443 
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-* closing connection #0
+</pre></details><details class="step" open><summary>#28 <b>bash</b> <code>cd /home/daytona &amp;&amp; curl -fsSL https://bt.dev/cli/install.sh | sh 2&gt;&amp;1</code></summary><pre>exit=0
 curl: (35) Recv failure: Connection reset by peer
-</pre></details><details class="step" open><summary>#32 <b>bash</b> <code>python3 -c &quot;import urllib.request; req = urllib.request.Request(&#x27;https://api.braintrust.dev/v1/project&#x27;, headers={&#x27;Authorization&#x27;: &#x27;Bearer &#x27;</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#29 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;import braintrust; print(braintrust.__version__)&quot;</code></summary><pre>exit=1
 Traceback (most recent call last):
   File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
-    import urllib.request; req = urllib.request.Request(&#x27;https://api.braintrust.dev/v1/project&#x27;, headers={&#x27;Authorization&#x27;: &#x27;Bearer &#x27; + os.environ[&#x27;BRAINTRUST_API_KEY&#x27;]}); import os; print(urllib.request.urlopen(req, timeout=10).read()[:200])
-                                                                                                                                       ^^
-NameError: name &#x27;os&#x27; is not defined. Did you forget to import &#x27;os&#x27;?
-</pre></details><details class="step" open><summary>#33 <b>bash</b> <code>python3 -c &quot;
-import os
-import urllib.request
-req = urllib.request.Request(&#x27;https://api.braintrust.dev/v1/project&#x27;, headers={&#x27;Authorization&#x27;:</code></summary><pre>exit=0
-URLError &lt;urlopen error [Errno 104] Connection reset by peer&gt;
-</pre></details><details class="step" open><summary>#34 <b>bash</b> <code>env | grep -iE &#x27;(proxy|http_|https_|no_)&#x27; || true</code></summary><pre>exit=0
-NO_AT_BRIDGE=0
-</pre></details><details class="step" open><summary>#35 <b>bash</b> <code>python3 -c &quot;
-from braintrust import Eval
-import inspect
-sig = inspect.signature(Eval)
-for name, param in sig.parameters.items():
-    if &#x27;sen</code></summary><pre>exit=0
-no_send_logs: default=False
-</pre></details><details class="step" open><summary>#36 <b>bash</b> <code>python3 -c &quot;
-import braintrust
-print(dir(braintrust))
-&quot; 2&gt;&amp;1</code></summary><pre>exit=0
-[&#x27;ABC&#x27;, &#x27;AISecret&#x27;, &#x27;AUDIT_METADATA_FIELD&#x27;, &#x27;AUDIT_SOURCE_FIELD&#x27;, &#x27;Acl&#x27;, &#x27;AclObjectType&#x27;, &#x27;Agent&#x27;, &#x27;Any&#x27;, &#x27;AnyModelParams&#x27;, &#x27;ApiKey&#x27;, &#x27;AsyncIterator&#x27;, &#x27;AsyncScoringControl&#x27;, &#x27;AsyncScoringState&#x27;, &#x27;Attachment&#x27;, &#x27;AttachmentMetadata&#x27;, &#x27;AttachmentReference&#x27;, &#x27;AttachmentStatus&#x27;, &#x27;AuditResource&#x27;, &#x27;AugmentedHTTPError&#x27;, &#x27;AutomationStatus&#x27;, &#x27;BACKGROUND_LOGGER_BASE_SLEEP_TIME_S&#x27;, &#x27;BAGGAGE_HEADER&#x27;, &#x27;BRAINTRUST_PARAMS&#x27;, &#x27;BRAINTRUST_PARENT_KEY&#x27;, &#x27;BT_IS_ASYNC_ATTRIBUTE&#x27;, &#x27;BaseAttachment&#x27;, &#x27;BaseExperiment&#x27;, &#x27;BatchedFacetData&#x27;, &#x27;BraintrustAttachmentReference&#x27;, &#x27;BraintrustConsoleChunk&#x27;, &#x27;BraintrustEnv&#x27;, &#x27;BraintrustErrorChunk&#x27;, &#x27;BraintrustInvokeError&#x27;, &#x27;BraintrustJsonChunk&#x27;, &#x27;BraintrustModelParams&#x27;, &#x27;BraintrustProgressChunk&#x27;, &#x27;BraintrustState&#x27;, &#x27;BraintrustStream&#x27;, &#x27;BraintrustStreamChunk&#x27;, &#x27;BraintrustTextChunk&#x27;, &#x27;CallEvent&#x27;, &#x27;Callable&#x27;, &#x27;ChatCompletionContentPart&#x27;, &#x27;ChatCompletionContentPartFileFile&#x27;, &#x27;ChatCompletionContentPartFileWithTitle&#x27;, &#x27;ChatCompletionContentPartImageWithTitle&#x27;, &#x27;ChatCompletionContentPartText&#x27;, &#x27;ChatCompletionContentPartTextWithTitle&#x27;, &#x27;ChatCompletionMessageParam&#x27;, &#x27;ChatCompletionMessageReasoning&#x27;, &#x27;ChatCompletionMessageToolCall&#x27;, &#x27;ChatCompletionOpenAIMessageParam&#x27;, &#x27;ChatCompletionTool&#x27;, &#x27;Classification&#x27;, &#x27;ClassifierBuilder&#x27;, &#x27;CodeBundle&#x27;, &#x27;CodeFunction&#x27;, &#x27;CodeParameters&#x27;, &#x27;CodePrompt&#x27;, &#x27;DATA_API_VERSION&#x27;, &#x27;DEFAULT_APP_URL&#x27;, &#x27;DEFAULT_FETCH_BATCH_SIZE&#x27;, &#x27;DEFAULT_IS_LEGACY_DATASET&#x27;, &#x27;DEFAULT_MAX_REQUEST_SIZE&#x27;, &#x27;DEFAULT_QUEUE_SIZE&#x27;, &#x27;DataSummary&#x27;, &#x27;Dataset&#x27;, &#x27;DatasetEvent&#x27;, &#x27;DatasetPipeline&#x27;, &#x27;DatasetPipelineDefinition&#x27;, &#x27;DatasetPipelineRow&#x27;, &#x27;DatasetPipelineScope&#x27;, &#x27;DatasetPipelineSource&#x27;, &#x27;DatasetPipelineTarget&#x27;, &#x27;DatasetPipelineTransform&#x27;, &#x27;DatasetPipelineTransformArgs&#x27;, &#x27;DatasetPipelineTransformResult&#x27;, &#x27;DatasetRef&#x27;, &#x27;DatasetSnapshot&#x27;, &#x27;DatasetSummary&#x27;, &#x27;DiskCache&#x27;, &#x27;EnvVar&#x27;, &#x27;Eval&#x27;, &#x27;EvalAsync&#x27;, &#x27;EvalCase&#x27;, &#x27;EvalHooks&#x27;, &#x27;EvalParameters&#x27;, &#x27;Evaluator&#x27;, &#x27;Experiment&#x27;, &#x27;ExperimentDatasetEvent&#x27;, &#x27;ExperimentDatasetIterator&#x27;, &#x27;ExperimentEvent&#x27;, &#x27;ExperimentIdentifier&#x27;, &#x27;ExperimentSummary&#x27;, &#x27;Exportable&#x27;, &#x27;ExtendedSavedFunctionId&#x27;, &#x27;ExternalAttachment&#x27;, &#x27;ExternalAttachmentReference&#x27;, &#x27;F&#x27;, &#x27;FacetData&#x27;, &#x27;Function&#x27;, &#x27;FunctionData&#x27;, &#x27;FunctionFormat&#x27;, &#x27;FunctionId&#x27;, &#x27;FunctionIdRef&#x27;, &#x27;FunctionObjectType&#x27;, &#x27;FunctionOutputType&#x27;, &#x27;FunctionTypeEnum&#x27;, &#x27;FunctionTypeEnumNullish&#x27;, &#x27;GLOBAL_PROJECT&#x27;, &#x27;Generator&#x27;, &#x27;Generic&#x27;, &#x27;GitMetadataSettings&#x27;, &#x27;GraphData&#x27;, &#x27;GraphEdge&#x27;, &#x27;GraphNode&#x27;, &#x27;Group&#x27;, &#x27;GroupScope&#x27;, &#x27;HTTPAdapter&#x27;, &#x27;HTTPConnection&#x27;, &#x27;HTTP_REQUEST_THREAD_POOL&#x27;, &#x27;INVOKE_API_VERSION&#x27;, &#x27;IS_MERGE_FIELD&#x27;, &#x27;IfExists&#x27;, &#x27;ImagePart&#x27;, &#x27;ImageRenderingMode&#x27;, &#x27;InvokeFunction&#x27;, &#x27;InvokeParent&#x27;, &#x27;Iterable&#x27;, &#x27;Iterator&#x27;, &#x27;JSONAttachment&#x27;, &#x27;LOGS3_OVERFLOW_REFERENCE_TYPE&#x27;, &#x27;LRUCache&#x27;, &#x27;LazyValue&#x27;, &#x27;Literal&#x27;, &#x27;LogItemWithMeta&#x27;, &#x27;LogQueue&#x27;, &#x27;Logger&#x27;, &#x27;Logs3OverflowInputRow&#x27;, &#x27;MAX_BTQL_ITERATIONS&#x27;, &#x27;MCPServer&#x27;, &#x27;Mapping&#x27;, &#x27;MarkAsyncWrapper&#x27;, &#x27;MessageRole&#x27;, &#x27;Metadata&#x27;, &#x27;MetricSummary&#x27;, &#x27;ModeType&#x27;, &#x27;ModelParams&#x27;, &#x27;MutableMapping&#x27;, &#x27;NOOP_SPAN&#x27;, &#x27;NOOP_SPAN_PERMALINK&#x27;, &#x27;NullableSavedFunctionId&#x27;, &#x27;OBJECT_DELETE_FIELD&#x27;, &#x27;OBJECT_ID_KEYS&#x27;, &#x27;ObjectFetcher&#x27;, &#x27;ObjectIterator&#x27;, &#x27;ObjectMetadata&#x27;, &#x27;ObjectReference&#x27;, &#x27;ObjectReferenceNullish&#x27;, &#x27;ObjectType&#x27;, &#x27;OnlineScoreConfig&#x27;, &#x27;OrgAutomation&#x27;, &#x27;OrgProjectMetadata&#x27;, &#x27;Organization&#x27;, &#x27;ParametersBuilder&#x27;, &#x27;ParametersCache&#x27;, &#x27;ParametersRef&#x27;, &#x27;ParentSpanIds&#x27;, &#x27;Permission&#x27;, &#x27;PreprocessorSavedFunctionId&#x27;, &#x27;Project&#x27;, &#x27;ProjectAutomation&#x27;, &#x27;ProjectBuilder&#x27;, &#x27;ProjectDatasetMetadata&#x27;, &#x27;ProjectExperimentMetadata&#x27;, &#x27;ProjectIdCache&#x27;, &#x27;ProjectLogsEvent&#x27;, &#x27;ProjectScore&#x27;, &#x27;ProjectScoreCategories&#x27;, &#x27;ProjectScoreCategory&#x27;, &#x27;ProjectScoreCondition&#x27;, &#x27;ProjectScoreConfig&#x27;, &#x27;ProjectScoreType&#x27;, &#x27;ProjectSettings&#x27;, &#x27;ProjectTag&#x27;, &#x27;Prompt&#x27;, &#x27;PromptBlockData&#x27;, &#x27;PromptBlockDataNullish&#x27;, &#x27;PromptBuilder&#x27;, &#x27;PromptCache&#x27;, &#x27;PromptData&#x27;, &#x27;PromptDataNullish&#x27;, &#x27;PromptMessage&#x27;, &#x27;PromptOptions&#x27;, &#x27;PromptOptionsNullish&#x27;, &#x27;PromptParserNullish&#x27;, &#x27;PromptSchema&#x27;, &#x27;PromptSessionEvent&#x27;, &#x27;PropagatedState&#x27;, &#x27;REDACTION_FIELDS&#x27;, &#x27;ReadonlyAttachment&#x27;, &#x27;ReadonlyExperiment&#x27;, &#x27;RegisterSandboxResult&#x27;, &#x27;RegisteredSandboxFunction&#x27;, &#x27;RemoteEvalParameters&#x27;, &#x27;RepoInfo&#x27;, &#x27;Reporter&#x27;, &#x27;ResponseFormat&#x27;, &#x27;ResponseFormatJsonSchema&#x27;, &#x27;ResponseFormatNullish&#x27;, &#x27;RetentionObjectType&#x27;, &#x27;RetryRequestExceptionsAdapter&#x27;, &#x27;Role&#x27;, &#x27;RunEval&#x27;, &#x27;SSEClient&#x27;, &#x27;SSEConsoleEventData&#x27;, &#x27;SSEProgressEventData&#x27;, &#x27;SandboxConfig&#x27;, &#x27;SavedFunctionId&#x27;, &#x27;Score&#x27;, &#x27;ScoreSummary&#x27;, &#x27;ScorerBuilder&#x27;, &#x27;Sequence&#x27;, &#x27;SerializableDataClass&#x27;, &#x27;ServiceToken&#x27;, &#x27;Span&#x27;, &#x27;SpanAttributes&#x27;, &#x27;SpanComponentsV3&#x27;, &#x27;SpanComponentsV4&#x27;, &#x27;SpanIFrame&#x27;, &#x27;SpanIds&#x27;, &#x27;SpanImpl&#x27;, &#x27;SpanInternalOptions&#x27;, &#x27;SpanObjectTypeV3&#x27;, &#x27;SpanOriginEnvironment&#x27;, &#x27;SpanScope&#x27;, &#x27;SpanType&#x27;, &#x27;SpanTypeAttribute&#x27;, &#x27;StreamingMode&#x27;, &#x27;T&#x27;, &#x27;TEST_API_KEY&#x27;, &#x27;TMapping&#x27;, &#x27;TMutableMapping&#x27;, &#x27;TRACEPARENT_HEADER&#x27;, &#x27;TRACESTATE_HEADER&#x27;, &#x27;TRANSACTION_ID_FIELD&#x27;, &#x27;TextPart&#x27;, &#x27;ToolBuilder&#x27;, &#x27;ToolFunctionDefinition&#x27;, &#x27;TopicAutomationConfig&#x27;, &#x27;TopicAutomationDataScope&#x27;, &#x27;TopicAutomationFacetModel&#x27;, &#x27;TopicDigestAutomationConfig&#x27;, &#x27;TopicMapData&#x27;, &#x27;TopicMapFunctionAutomation&#x27;, &#x27;TopicMapGenerationSettings&#x27;, &#x27;TraceScope&#x27;, &#x27;TracebackType&#x27;, &#x27;TracedThreadPoolExecutor&#x27;, &#x27;TriggeredFunctionState&#x27;, &#x27;TypeVar&#x27;, &#x27;TypedDict&#x27;, &#x27;UploadStatus&#x27;, &#x27;User&#x27;, &#x27;VALID_SOURCES&#x27;, &#x27;View&#x27;, &#x27;ViewData&#x27;, &#x27;ViewDataSearch&#x27;, &#x27;ViewOptions&#x27;, &#x27;WindowedAutomationConfig&#x27;, &#x27;__builtins__&#x27;, &#x27;__cached__&#x27;, &#x27;__doc__&#x27;, &#x27;__file__&#x27;, &#x27;__loader__&#x27;, &#x27;__name__&#x27;, &#x27;__package__&#x27;, &#x27;__path__&#x27;, &#x27;__spec__&#x27;, &#x27;_generated_types&#x27;, &#x27;_internal_get_global_state&#x27;, &#x27;_internal_reset_global_state&#x27;, &#x27;_internal_with_custom_background_logger&#x27;, &#x27;abstractmethod&#x27;, &#x27;add_azure_blob_headers&#x27;, &#x27;api&#x27;, &#x27;api_conn&#x27;, &#x27;app_conn&#x27;, &#x27;asyncio&#x27;, &#x27;atexit&#x27;, &#x27;audit&#x27;, &#x27;auto&#x27;, &#x27;auto_instrument&#x27;, &#x27;base64&#x27;, &#x27;batch_items&#x27;, &#x27;bcolors&#x27;, &#x27;bt_dumps&#x27;, &#x27;bt_iscoroutinefunction&#x27;, &#x27;bt_json&#x27;, &#x27;bt_safe_deep_copy&#x27;, &#x27;builtins&#x27;, &#x27;cast&#x27;, &#x27;chevron&#x27;, &#x27;coalesce&#x27;, &#x27;concurrent&#x27;, &#x27;construct_json_array&#x27;, &#x27;construct_logs3_data&#x27;, &#x27;construct_logs3_overflow_request&#x27;, &#x27;context&#x27;, &#x27;contextlib&#x27;, &#x27;contextvars&#x27;, &#x27;cpu_count&#x27;, &#x27;current_experiment&#x27;, &#x27;current_logger&#x27;, &#x27;current_span&#x27;, &#x27;dataclass</pre></details><details class="step" open><summary>#37 <b>bash</b> <code>python3 -c &quot;
-from braintrust import Eval
-import inspect
-print(inspect.signature(Eval))
-&quot; 2&gt;&amp;1</code></summary><pre>exit=0
-(name: str, data: collections.abc.Iterable[braintrust.framework.EvalCase[~Input, ~Expected] | braintrust.types._eval.EvalCaseDict[~Input, ~Expected] | braintrust.types._eval.EvalCaseDictNoOutput[~Input] | braintrust.types._eval.ExperimentDatasetEvent] | collections.abc.Iterator[braintrust.framework.EvalCase[~Input, ~Expected] | braintrust.types._eval.EvalCaseDict[~Input, ~Expected] | braintrust.types._eval.EvalCaseDictNoOutput[~Input] | braintrust.types._eval.ExperimentDatasetEvent] | collections.abc.Awaitable[collections.abc.Iterator[braintrust.framework.EvalCase[~Input, ~Expected] | braintrust.types._eval.EvalCaseDict[~Input, ~Expected] | braintrust.types._eval.EvalCaseDictNoOutput[~Input] | braintrust.types._eval.ExperimentDatasetEvent]] | collections.abc.Callable[[], collections.abc.Iterator[braintrust.framework.EvalCase[~Input, ~Expected] | braintrust.types._eval.EvalCaseDict[~Input, ~Expected] | braintrust.types._eval.EvalCaseDictNoOutput[~Input] | braintrust.types._eval.ExperimentDatasetEvent] | collections.abc.Awaitable[collections.abc.Iterator[braintrust.framework.EvalCase[~Input, ~Expected] | braintrust.types._eval.EvalCaseDict[~Input, ~Expected] | braintrust.types._eval.EvalCaseDictNoOutput[~Input] | braintrust.types._eval.ExperimentDatasetEvent]]] | braintrust.framework.BaseExperiment | type[collections.abc.Iterable[braintrust.framework.EvalCase[~Input, ~Expected] | braintrust.types._eval.EvalCaseDict[~Input, ~Expected] | braintrust.types._eval.EvalCaseDictNoOutput[~Input] | braintrust.types._eval.ExperimentDatasetEvent] | collections.abc.Iterator[braintrust.framework.EvalCase[~Input, ~Expected] | braintrust.types._eval.EvalCaseDict[~Input, ~Expected] | braintrust.types._eval.EvalCaseDictNoOutput[~Input] | braintrust.types._eval.ExperimentDatasetEvent] | collections.abc.Awaitable[collections.abc.Iterator[braintrust.framework.EvalCase[~Input, ~Expected] | braintrust.types._eval.EvalCaseDict[~Input, ~Expected] | braintrust.types._eval.EvalCaseDictNoOutput[~Input] | braintrust.types._eval.ExperimentDatasetEvent]] | collections.abc.Callable[[], collections.abc.Iterator[braintrust.framework.EvalCase[~Input, ~Expected] | braintrust.types._eval.EvalCaseDict[~Input, ~Expected] | braintrust.types._eval.EvalCaseDictNoOutput[~Input] | braintrust.types._eval.ExperimentDatasetEvent] | collections.abc.Awaitable[collections.abc.Iterator[braintrust.framework.EvalCase[~Input, ~Expected] | braintrust.types._eval.EvalCaseDict[~Input, ~Expected] | braintrust.types._eval.EvalCaseDictNoOutput[~Input] | braintrust.types._eval.ExperimentDatasetEvent]]] | braintrust.framework.BaseExperiment] | braintrust.logger.Dataset, task: collections.abc.Callable[[~Input], ~Output | collections.abc.Awaitable[~Output]] | collections.abc.Callable[[~Input, braintrust.framework.EvalHooks[~Expected]], ~Output | collections.abc.Awaitable[~Output]], scores: collections.abc.Sequence[braintrust.framework.SyncScorerLike[~Input, ~Output, ~Expected] | braintrust.framework.AsyncScorerLike[~Input, ~Output, ~Expected] | type[braintrust.framework.SyncScorerLike[~Input, ~Output, ~Expected] | braintrust.framework.AsyncScorerLike[~Input, ~Output, ~Expected]] | collections.abc.Callable[[~Input, ~Output, ~Expected], float | int | bool | None | braintrust.score.ScoreLike | collections.abc.Sequence[braintrust.score.ScoreLike]] | collections.abc.Callable[[~Input, ~Output, ~Expected], collections.abc.Awaitable[float | int | bool | None | braintrust.score.ScoreLike | collections.abc.Sequence[braintrust.score.ScoreLike]]]] | None = None, classifiers: collections.abc.Sequence[collections.abc.Callable[[~Input, ~Output, ~Expected], None | braintrust.score.Classification | collections.abc.Mapping[str, Any] | list[braintrust.score.Classification | collections.abc.Mapping[str, Any]]] | collections.abc.Callable[[~Input, ~Output, ~Expected], collections.abc.Awaitable[None | braintrust.score.Classification | collections.abc.Mapping[str, Any] | list[braintrust.score.Classification | collections.abc.Mapping[str, Any]]]]] | None = None, experiment_name: str | None = None, trial_count: int = 1, metadata: collections.abc.Mapping[str, Any] | braintrust.types.PydanticV2Metadata | braintrust.types.PydanticV1Metadata | None = None, tags: collections.abc.Sequence[str] | None = None, is_public: bool = False, update: bool = False, reporter: braintrust.framework.ReporterDef[~Input, ~Output, ~Expected, ~EvalReport] | None = None, timeout: float | None = None, max_concurrency: int | None = None, project_id: str | None = None, base_experiment_name: str | None = None, base_experiment_id: str | None = None, git_metadata_settings: braintrust.git_fields.GitMetadataSettings | None = None, repo_info: braintrust.git_fields.RepoInfo | None = None, error_score_handler: collections.abc.Callable[[braintrust.logger.Span, braintrust.framework.EvalCase[~Input, ~Expected], collections.abc.Sequence[str]], dict[str, float] | None] | None = None, description: str | None = None, summarize_scores: bool = True, no_send_logs: bool = False, parameters: collections.abc.Mapping[str, braintrust.parameters.PromptParameter | braintrust.parameters.ModelParameter | type[object] | None] | braintrust.parameters.RemoteEvalParameters | None = None, on_start: collections.abc.Callable[[braintrust.logger.ExperimentSummary], None] | None = None, stream: collections.abc.Callable[[braintrust.framework.SSEProgressEvent], None] | None = None, parent: str | None = None, state: braintrust.logger.BraintrustState | None = None, enable_cache: bool = True) -&gt; braintrust.framework.EvalResultWithSummary[~Input, ~Output, ~Expected]
-</pre></details><details class="step" open><summary>#38 <b>bash</b> <code>python3 -c &quot;
-from braintrust import Eval
-import inspect
-print(inspect.signature(Eval).parameters[&#x27;reporter&#x27;].default)
-&quot; 2&gt;&amp;1</code></summary><pre>exit=0
-None
-</pre></details><details class="step" open><summary>#39 <b>bash</b> <code>python3 -c &quot;
-from braintrust import Reporter
-import inspect
-print(inspect.signature(Reporter))
-&quot; 2&gt;&amp;1</code></summary><pre>exit=0
-(name: str, report_eval: collections.abc.Callable[[braintrust.framework.Evaluator[~Input, ~Output, ~Expected], braintrust.framework.EvalResultWithSummary[~Input, ~Output, ~Expected], bool, bool], ~EvalReport | collections.abc.Awaitable[~EvalReport]], report_run: collections.abc.Callable[[list[~EvalReport], bool, bool], bool | collections.abc.Awaitable[bool]])
-</pre></details><details class="step" open><summary>#40 <b>bash</b> <code>python3 -c &quot;
-import braintrust.framework as fw
-import inspect
-# Look for default reporter or built-in reporter
-print([x for x in dir(fw) if </code></summary><pre>exit=0
-[&#x27;EvalReport&#x27;, &#x27;Reporter&#x27;, &#x27;ReporterDef&#x27;, &#x27;default_reporter&#x27;, &#x27;report_evaluator_result&#x27;, &#x27;report_failures&#x27;]
-</pre></details><div class="note">I successfully installed the Braintrust SDK, OpenAI, and autoevals packages via pip, and wrote the movie-matcher evaluation script. I had to deviate from the quickstart docs because the documented `Eval(name, {data: ..., task: ..., scores: ...})` signature does not match the actual Python API, which requires `data` and `task` as positional arguments. However, I could not execute the eval because the sandbox has restricted outbound HTTPS connectivity: TLS handshakes to both `api.braintrust.dev` and `gateway.braintrust.dev` are reset by the peer, and even `curl` to `google.com` fails with the same error. The sandbox environment lacks the network access required to reach Braintrust&#x27;s API and run the evaluation end-to-end.</div>
+    import braintrust; print(braintrust.__version__)
+                             ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module &#x27;braintrust&#x27; has no attribute &#x27;__version__&#x27;
+</pre></details><details class="step" open><summary>#30 <b>bash</b> <code>env | grep -iE &quot;api|key|token|secret|auth&quot; | sed &#x27;s/=.*//&#x27;</code></summary><pre>exit=0
+BRAINTRUST_API_KEY
+</pre></details><details class="step" open><summary>#31 <b>fetch_url</b> <code>https://braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#32 <b>fetch_url</b> <code>https://braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#33 <b>fetch_url</b> <code>https://braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#34 <b>fetch_url</b> <code>https://braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#35 <b>fetch_url</b> <code>https://braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#36 <b>fetch_url</b> <code>https://braintrust.dev/docs/llms.txt</code></summary><pre># Braintrust
+
+&gt; Braintrust is the active observability platform for instrumenting, understanding, and improving agents. By actively applying intelligence to agent traces and automatically surfacing the most critical patterns, Braintrust gives teams the visibility to understand how agents behave in production and the tools to improve them.
+
+## Docs
+
+- [Get started with Braintrust](https://braintrust.dev/docs/index.md)
+- [Braintrust workflow](https://braintrust.dev/docs/workflow.md): Understand how to trace, evaluate…
+- [Tracing quickstart](https://braintrust.dev/docs/tracing-quickstart.md): Instrument your AI application wi…
+- [Evaluation quickstart](https://braintrust.dev/docs/evaluation-quickstart.md): Systematically measure AI quality…
+- [Loop agent](https://braintrust.dev/docs/loop.md): Use natural language to analyze l…
+- [Plans and limits](https://braintrust.dev/docs/plans-and-limits.md): Choose the right Braintrust plan…
+- [Instrument your application](https://braintrust.dev/docs/instrument/index.md): Add tracing to your AI applicatio…
+- [Trace LLM calls](https://braintrust.dev/docs/instrument/trace-llm-calls.md): Enable auto-instrumentation once…
+- [Trace application logic](https://braintrust.dev/docs/instrument/trace-application-logic.md): Trace retrieval steps, tool calls…
+- [Advanced tracing patterns](https://braintrust.dev/docs/instrument/advanced-tracing.md): Implement distributed tracing acr…
+- [Capture user feedback](https://braintrust.dev/docs/instrument/user-feedback.md): Attach ratings, corrections, and…
+- [Log attachments](https://braintrust.dev/docs/instrument/attachments.md): Attach images, audio, PDFs, and o…
+- [Observe your application](https://braintrust.dev/docs/observe/index.md): Turn every production request int…
+- [View your logs](https://braintrust.dev/docs/observe/view-logs.md): Browse and inspect production tra…
+- [Filter and search logs](https://braintrust.dev/docs/observe/filter.md): Narrow down to exactly the traces…
+- [Examine traces](https://braintrust.dev/docs/observe/examine-traces.md): Open any trace to inspect its spa…
+- [Topics](https://braintrust.dev/docs/observe/topics/index.md): Automatically classify logs by us…
+- [Enable Topics](https://braintrust.dev/docs/observe/topics/enable.md): Confirm your traces render with t…
+- [Review insights from Topics](https://braintrust.dev/docs/observe/topics/review-insights.md): Find patterns in classified logs…
+- [Act on findings from Topics](https://braintrust.dev/docs/observe/topics/act-on-findings.md): Turn topic patterns into action:…
+- [Manage Topics](https://braintrust.dev/docs/observe/topics/manage.md): Keep the Topics pipeline healthy:…
+- [Custom facets](https://braintrust.dev/docs/observe/topics/custom-facets.md): Define domain-specific facets wit…
+- [Monitor with dashboards](https://braintrust.dev/docs/observe/dashboards.md): Build custom dashboards to track…
+- [Set up alerts](https://braintrust.dev/docs/observe/alerts.md): Configure webhooks and Slack noti…
+- [Annotate and curate data](https://braintrust.dev/docs/annotate/index.md): Transform production logs into hi…
+- [Set up human review](https://braintrust.dev/docs/annotate/human-review/index.md): Capture structured human judgment…
+- [Score traces and datasets](https://braintrust.dev/docs/annotate/human-review/score-traces.md): Open logs, experiments, and datas…
+- [Review with multiple reviewers](https://braintrust.dev/docs/annotate/human-review/multiple-reviewers.md): See how Braintrust combines score…
+- [Manage review work](https://braintrust.dev/docs/annotate/human-review/manage-review-work.md): Assign rows to reviewers, filter…
+- [Create custom views](https://braintrust.dev/docs/annotate/custom-views.md): Help your team understand and act…
+- [Add labels and corrections](https://braintrust.dev/docs/annotate/labels.md): Go beyond numeric scores by taggi…
+- [Datasets](https://braintrust.dev/docs/annotate/datasets/index.md): Versioned collections of test cas…
+- [Create datasets](https://braintrust.dev/docs/annotate/datasets/create.md): Build datasets from CSV uploads,…
+- [Dataset pipelines](https://braintrust.dev/docs/annotate/datasets/pipelines.md): Transform spans or traces from yo…
+- [Manage datasets](https://braintrust.dev/docs/annotate/datasets/manage.md): Organize datasets with tags and s…
+- [Use datasets in evaluations](https://braintrust.dev/docs/annotate/datasets/use-in-evaluations.md): Pass datasets directly to Eval(),…
+- [Track dataset performance](https://braintrust.dev/docs/annotate/datasets/track-performance.md): See which experiments used a data…
+- [Export annotated data](https://braintrust.dev/docs/annotate/export.md): Take annotated traces and dataset…
+- [Evaluate systematically](https://braintrust.dev/docs/evaluate/index.md): Measure AI application quality, d…
+- [Create prompts](https://braintrust.dev/docs/evaluate/write-prompts.md): Version and deploy prompts indepe…
+- [Evaluate output quality with scorers and classifiers](https://braintrust.dev/docs/evaluate/write-scorers.md): Build scorers and classifiers to…
+- [Autoevals](https://braintrust.dev/docs/evaluate/autoevals.md): Use pre-built, battle-tested scor…
+- [Custom code scorers and classifiers](https://braintrust.dev/docs/evaluate/custom-code.md): Write scorers and classifiers as…
+- [LLM-as-a-judge scorers and classifiers](https://braintrust.dev/docs/evaluate/llm-as-a-judge.md): Use language models to score or c…
+- [Iterate in playgrounds](https://braintrust.dev/docs/evaluate/playgrounds.md): Prototype prompts, swap models, a…
+- [Experiments](https://braintrust.dev/docs/evaluate/run-evaluations.md): Choose how to run evaluations, in…
+- [Run experiments in code](https://braintrust.dev/docs/evaluate/run-in-code.md): Run evaluations with the Braintru…
+- [Run experiments in the UI](https://braintrust.dev/docs/evaluate/run-in-ui.md): Evaluate prompts and workflows in…
+- [Run experiments in CI/CD](https://braintrust.dev/docs/evaluate/run-in-ci.md): Automate evaluation runs in CI</pre></details><details class="step" open><summary>#37 <b>fetch_url</b> <code>https://braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#38 <b>fetch_url</b> <code>https://braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#39 <b>fetch_url</b> <code>https://braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#40 <b>fetch_url</b> <code>https://braintrust.dev/docs/evaluation-quickstart.md</code></summary><pre>&gt; ## Documentation Index
+&gt; Fetch the complete documentation index at: https://braintrust.dev/docs/llms.txt
+&gt; Use this file to discover all available pages before exploring further.
+
+# Evaluation quickstart
+
+&gt; Systematically measure AI quality. Compare approaches, catch regressions before deployment, and validate improvements with data instead of intuition.
+
+[Evaluations](/docs/evaluate) let you systematically measure AI quality. Compare approaches, catch regressions before deployment, and validate improvements with data instead of intuition.
+
+Each evaluation consists of three components:
+
+* **Data** - A dataset of test cases with inputs and expected outputs
+* **Task** - An AI function you want to test
+* **Scores** - Scoring functions that measure output quality
+
+ Set up your environment and [run evals](/docs/evaluate/run-in-code) with the Braintrust SDK.
+
+ ## 1. Sign up
+
+ If you don&#x27;t have a Braintrust account, sign up for free at [braintrust.dev](https://www.braintrust.dev/signup).
+
+ ## 2. Get API keys
+
+ Create API keys for:
+
+ * [Braintrust](https://www.braintrust.dev/app/settings?subroute=api-keys)
+ * Your AI provider or framework ([OpenAI](https://platform.openai.com/api-keys), [Anthropic](https://console.anthropic.com/settings/keys), [Gemini](https://aistudio.google.com/app/apikey), [etc.](/docs/integrations))
+
+ Set them as environment variables:
+
+ ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ export BRAINTRUST_API_KEY=&quot; &quot;
+ export OPENAI_API_KEY=&quot; &quot; # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc.
+ ```
+
+ ## 3. Install SDKs
+
+ Install the Braintrust SDK and required libraries:
+
+ ```bash TypeScript theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ # pnpm
+ pnpm add braintrust openai autoevals ts-node
+ # npm
+ npm install braintrust openai autoevals ts-node
+
+ # Install the bt CLI (macOS and Linux)
+ curl -fsSL https://bt.dev/cli/install.sh | sh
+ ```
+
+ ```bash Python theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ pip install braintrust openai autoevals
+
+ # Install the bt CLI (macOS and Linux)
+ curl -fsSL https://bt.dev/cli/install.sh | sh
+ ```
+
+ ```bash Go theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ go get github.com/braintrustdata/braintrust-sdk-go
+ go get github.com/braintrustdata/braintrust-sdk-go/trace/contrib/openai
+ go get github.com/openai/openai-go
+ ```
+
+ ```bash Ruby theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ # Add to your Gemfile
+ gem &quot;braintrust&quot;
+ gem &quot;openai&quot;
+
+ # Install:
+ bundle install
+ ```
+
+ ```bash Java theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ // Add to build.gradle dependencies{} block
+ // (in production, pin specific versions)
+ implementation &#x27;dev.braintrust:braintrust-sdk-java:+&#x27;
+ implementation &#x27;com.openai:openai-java:+&#x27;
+ ```
+
+ ```bash C# theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ # Add to .csproj file
+ dotnet add package Braintrust.Sdk
+ dotnet add package Braintrust.Sdk.OpenAI
+ dotnet add package OpenAI
+ ```
+
+ ## 4. Run an eval
+
+ Build an evaluation that identifies movies from plot descriptions. You&#x27;ll define a set of test cases with movie plot descriptions as inputs and expected titles as outputs, write a task function with a [prompt](/docs/evaluate/write-prompts) to identify movies, and use a [scorer](/docs/evaluate/write-scorers) to measure accuracy.
+
+ Create an evaluation that defines your dataset, task, and scorer (built-in `ExactMatch` scorer for Python and TypeScript, equivalent code-based scorer for other languages).
+
+ ```typescript movie-matcher.eval.ts theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ import { Eval } from &quot;braintrust&quot;;
+ import { ExactMatch } from &quot;autoevals&quot;;
+ import OpenAI from &quot;openai&quot;;
+
+ const client = new OpenAI();
+
+ Eval(&quot;Evaluation quickstart&quot;, {
+ experimentName: &quot;Movie matcher (TypeScript)&quot;,
+ // Data: Test cases with inputs and expected outputs
+ data: [
+ {
+ input: &quot;A detective investigates a series of murders based on the seven deadly sins.&quot;,
+ expected: &quot;Se7en&quot;,
+ },
+ {
+ input: &quot;A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.&quot;,
+ expected: &quot;Inception&quot;,
+ },
+ {
+ input: &quot;A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.&quot;,
+ expected: &quot;The Matrix&quot;,
+ },
+ {
+ input: &quot;A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him as top toy in a boy&#x27;s room.&quot;,
+ expected: &quot;Toy Story&quot;,
+ },
+ {
+ input: &quot;An orphaned boy discovers he&#x27;s a wizard on his 11th birthday when Hagrid escorts him to magic-teaching Hogwarts School.&quot;,
+ expected: &quot;Harry Potter and the Sorcerer&#x27;s Stone&quot;,
+ },
+ ],
+
+ // Task: The function being evaluated
+ task: async (input) =&gt; {
+ const response = await client.responses.create({
+ model: &quot;gpt-5-mini&quot;,
+ input: [
+ {
+ role: &quot;system&quot;,
+ content: &quot;Based on the following description, identify the movie.&quot;
+ },
+ { role: &quot;user&quot;, content: input }
+ ],
+ });
+ return response.output_text;
+ },
+
+ // Scores: Metrics to measure quality
+ scores: [ExactMatch],
+ });
+ ```
+
+ ```python movie_matcher.py theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
+ import braintrust
+ from braintrust import Eval
+ from autoevals import ExactMatch
+ from openai import OpenAI
+
+ braintrust.auto_instrument()
+
+ client = OpenAI()
+
+ def task(input):
+ response = client.responses.create(
+ model=&quot;gpt-5-mini&quot;,
+ input=[
+ {
+ &quot;role&quot;: &quot;system&quot;,
+ &quot;content&quot;: &quot;Based on the following description, identify the movie.&quot;
+ },
+ {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: input}
+ ],
+ )
+ return response.output_text
+
+ Eval(
+ &quot;Evaluation quickstart&quot;,
+ experiment_name=&quot;Movie matcher (Python)&quot;,
+ # Data: Test cases with inputs and expected outputs
+ data=[
+ {
+ &quot;input&quot;: &quot;A detective investigates a series of murders based on the seven deadly sins.&quot;,
+ &quot;expected&quot;: &quot;Se7en&quot;,
+ },
+ {
+ &quot;input&quot;: &quot;A thief who</pre></details><div class="note">I successfully installed the Braintrust Python SDK and dependencies (`pip install braintrust openai autoevals` completed with &quot;Successfully installed autoevals-0.3.0 braintrust-0.34.0&quot;), verified that `BRAINTRUST_API_KEY` is present in the environment, and reviewed the evaluation quickstart documentation. However, I was blocked from running the eval because the quickstart explicitly requires an `OPENAI_API_KEY` (or another AI provider key) in step 2, and no such key is available in the sandbox environment. Additionally, the `bt` CLI installation failed with `curl: (35) Recv failure: Connection reset by peer`, so I could not use the CLI runner either. Without an AI provider API key, the eval task function cannot call `gpt-5-mini` to generate outputs and produce scores.</div>
 </body></html>

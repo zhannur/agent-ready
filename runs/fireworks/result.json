@@ -1,18 +1,18 @@
 {
   "name": "fireworks",
   "url": "https://docs.fireworks.ai/getting-started/quickstart",
-  "started": "2026-08-17T10:22:53Z",
+  "started": "2026-08-18T10:06:38Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the Fireworks AI Serverless Quickstart end-to-end. I followed the vendor's instructions: the OpenAI Python SDK was already installed, I created the quickstart.py script using the exact code pattern from the docs (OpenAI SDK approach), and a chat completion was returned from a Fireworks-hosted model. The API responded with: \"Hello in Spanish is **Hola**.\"",
-  "deviations": "The quickstart docs specify model \"accounts/fireworks/models/deepseek-v3p1\", but that model returned a 404 NOT_FOUND error. I deviated by querying the available models via the API (/v1/models) and substituting \"accounts/fireworks/models/glm-5p2\", which is a chat-capable model currently deployed on the platform. After this substitution, the quickstart code worked exactly as documented.",
+  "summary": "Successfully completed the Fireworks quickstart and received a chat completion from a Fireworks-hosted model via the API. The response was \"\u00a1Hola!\".\n\nSteps taken:\n1. Verified the FIREWORKS_API_KEY environment variable was already set in the sandbox.\n2. Installed the OpenAI Python SDK (already present in the environment).\n3. Created the quickstart script exactly as documented (using the OpenAI SDK with Fireworks base_url).\n4. Ran the script. The model specified in the docs (`accounts/fireworks/models/deepseek-v3p1`) returned a 404 \"Model not found\" error.\n5. Listed available models via the API to find an accessible alternative.\n6. Updated the script to use `accounts/fireworks/models/deepseek-v4-pro` (an available model).\n7. Ran the script again and successfully received the chat completion: \"\u00a1Hola!\"",
+  "deviations": "The quickstart documentation specifies model `accounts/fireworks/models/deepseek-v3p1`, but that model returned a 404 Not Found error (\"Model not found, inaccessible, and/or not deployed\"). I had to substitute `accounts/fireworks/models/deepseek-v4-pro`, which was confirmed available via the models list API, to successfully complete the API call.",
   "steps": 11,
-  "wall_seconds": 43.7,
+  "wall_seconds": 45.5,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "Python 3.14.4"
     },
     "installed": {
       "passed": true,
@@ -20,35 +20,35 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "Hello in Spanish is **Hola**."
+      "evidence": "FIREWORKS_API_KEY is set: yes"
     },
     "first_call": {
       "passed": false,
-      "evidence": "openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed', 'param': 'model', 'code': 'NOT_FOUND', 'type': 'error'}, 'request_id': 'chatcmpl-a3244aafb9234e798594d25b4b228278'}"
+      "evidence": "openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed', 'param': 'model', 'code': 'NOT_FOUND', 'type': 'error'}, 'request_id': 'chatcmpl-cbfd1775109447b79c1fbf4c09158f73'}"
     },
     "verified": {
       "passed": true,
-      "evidence": "Hello in Spanish is **Hola**."
+      "evidence": "\u00a1Hola!"
     }
   },
   "friction": [
     {
-      "where": "Quickstart model reference (deepseek-v3p1)",
-      "detail": "The docs specify model accounts/fireworks/models/deepseek-v3p1, but the API returns 404: 'Model not found, inaccessible, and/or not deployed'"
+      "where": "Documentation page",
+      "detail": "The fetched quickstart URL returned a navigation index instead of the guide content: `Documentation Index Fetch the complete documentation index at: /llms.txt`"
     },
     {
-      "where": "Fallback model reference (llama-v3p1-70b-instruct)",
-      "detail": "Swapping to llama-v3p1-70b-instruct also fails with the same NOT_FOUND error: 'Model not found, inaccessible, and/or not deployed'"
+      "where": "Initial model selection",
+      "detail": "First API call used `model=\"accounts/fireworks/models/deepseek-v3p1\"` and got `openai.NotFoundError: Error code: 404`."
+    },
+    {
+      "where": "Fallback model selection",
+      "detail": "Second try with `model=\"accounts/fireworks/models/llama-v3p1-8b-instruct\"` also returned `404 NOT_FOUND`."
     },
     {
       "where": "Model discovery step",
-      "detail": "Developer must manually query the API with 'curl -s -H \"Authorization: Bearer $FIREWORKS_API_KEY\" https://api.fireworks.ai/inference/v1/models' to locate a valid model ID"
-    },
-    {
-      "where": "Documentation accuracy (agent finish note)",
-      "detail": "Agent explicitly notes deviation: 'The quickstart docs specify model \"accounts/fireworks/models/dee...' indicating the documented model string is incorrect or outdated"
+      "detail": "Had to run `models = client.models.list()` to find a valid model ID because the docs did not provide a working one."
     }
   ],
   "score": 75,
-  "braintrust_span": "d415ff04-c292-49aa-a94e-9f5fddda8c08"
+  "braintrust_span": "2440921e-c0a6-4c35-83de-d1ffbab6963d"
 }
