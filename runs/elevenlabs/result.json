@@ -1,18 +1,18 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-08-18T10:04:48Z",
+  "started": "2026-08-19T10:14:52Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the `elevenlabs` and `python-dotenv` packages, created the example script using the provided API key from the environment, and successfully generated an MP3 audio file from the text \"The first move is what sets everything in motion.\" The output file `output.mp3` (43KB) was verified as a valid MPEG ADTS Layer III audio file at 128 kbps, 44.1 kHz, mono \u2014 matching the requested `mp3_44100_128` format.",
-  "deviations": "The quickstart example uses `play(audio)` to stream audio through speakers. Since the sandbox is headless with no audio output hardware, I saved the returned audio iterator to a file (`output.mp3`) instead. This is the only deviation; all other steps (installing the SDK, loading the API key from environment, making the text-to-speech request with the same voice_id, model_id, and output_format) followed the quickstart exactly.",
-  "steps": 7,
-  "wall_seconds": 27.5,
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Followed the vendor's instructions from https://elevenlabs.io/docs/quickstart: installed the elevenlabs SDK and python-dotenv, created the example script using the exact API call pattern shown (text_to_speech.convert with voice_id JBFqnCBsd6RMkjVDRZzb, model_id eleven_v3, output_format mp3_44100_128), and verified text-to-speech generates a valid audio file. The generated output.mp3 is 46,019 bytes and confirmed by `file` command as a valid MPEG ADTS layer III MP3 at 128 kbps, 44.1 kHz, monaural. The API key was sourced from the pre-exported ELEVENLABS_API_KEY environment variable as instructed.",
+  "deviations": "The quickstart's original example.py calls `play(audio)` which requires MPV/ffmpeg and plays through speakers. In the sandbox (no audio output), I created a second script that saves the audio iterator to a file instead, which is the standard way to verify audio generation in a headless environment. The core API call and SDK usage remain exactly as documented.",
+  "steps": 8,
+  "wall_seconds": 28.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "cd /home/daytona && pip install elevenlabs python-dotenv"
     },
     "installed": {
       "passed": true,
@@ -20,11 +20,11 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "python example.py exited 0 and produced audio, proving valid credentials were present"
+      "evidence": "api_key=os.getenv(\"ELEVENLABS_API_KEY\"),"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to output.mp3"
+      "evidence": "Audio file generated successfully: output.mp3"
     },
     "verified": {
       "passed": true,
@@ -33,22 +33,26 @@
   },
   "friction": [
     {
-      "where": "Documentation fetch returns noisy HTML",
-      "detail": "The fetched quickstart page is cluttered with navigation markup rather than clean instructions: 'ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page. Search / Connect Blog Help Center API Pricing Sign up Overview...'"
+      "where": "Quickstart example uses play() which is not verifiable in a headless sandbox",
+      "detail": "from elevenlabs.play import play"
     },
     {
-      "where": "Credential setup step is invisible",
-      "detail": "The script expects an API key from the environment, but the transcript never shows creating a .env file or exporting the variable: 'api_key=os.getenv(\"ELEVENLABS_API_KEY\")'"
+      "where": "Fetched documentation page is cluttered with navigation HTML instead of clean quickstart steps",
+      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt."
     },
     {
-      "where": "Quickstart assumes audio playback",
-      "detail": "The official example likely targets playing audio, requiring sandbox users to figure out file output instead: '# Save audio to file instead of playing (sandbo'"
+      "where": "No explicit step shown to set the API key or create a .env file",
+      "detail": "api_key=os.getenv(\"ELEVENLABS_API_KEY\"),"
     },
     {
-      "where": "Python version is a pre-release",
-      "detail": "The sandbox runs a development Python release that may not match stable docs: 'Python 3.14.4'"
+      "where": "First script execution produces no visible output, leaving API success ambiguous",
+      "detail": "[bash] args={\"command\": \"cd /home/daytona && python example.py\"}\nexit=0\n"
+    },
+    {
+      "where": "Agent had to write a second script to save audio because the quickstart default does not persist output",
+      "detail": "# Save to file to verify audio generation"
     }
   ],
   "score": 100,
-  "braintrust_span": "a32fe3a4-ab4f-464e-8ed7-f6c8283fba25"
+  "braintrust_span": "d4825562-cf04-4f1b-b2f0-e052be04c46b"
 }

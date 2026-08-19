@@ -1,14 +1,14 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-08-18T10:02:34Z",
+  "started": "2026-08-19T10:11:55Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I successfully installed the Daytona Python SDK and created sandboxes via the SDK\u2014real sandbox IDs like `75630ac7-d052-412d-addd-7d695981cc19` were returned and listed with state `started`. I had to deviate from the docs: `CreateSandboxParams` does not exist (the SDK exports `CreateSandboxBaseParams`), and `sandbox.process.execute()` does not exist (the correct method is `sandbox.process.exec()`). However, I was blocked from completing the promised outcome because every attempt to run code inside the sandbox failed with the same backend error: `bad request: failed to resolve container IP after 3 attempts: no IP address found. Is the Sandbox started?`. This occurred across `process.exec()`, `process.code_run()`, and `sandbox.code_run()`, indicating sandbox creation works but container networking/execution is broken on the platform side.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 243.2,
+  "wall_seconds": 248.9,
   "checkpoints": {
     "env_ready": {
       "passed": true,
@@ -16,7 +16,7 @@
     },
     "installed": {
       "passed": true,
-      "evidence": "Version: 0.205.0"
+      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     },
     "configured": {
       "passed": true,
@@ -24,35 +24,35 @@
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: c491beb2-9023-477c-ad7a-2fff67c12d0c"
+      "evidence": "Sandbox created: id=059285e9-4847-4646-877b-bf25e038de3d"
     },
     "verified": {
       "passed": false,
-      "evidence": "exit=1\nTraceback (most recent call last):\n  File \"/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py\", line 788, in urlopen"
+      "evidence": "bad request: failed to resolve container IP after 3 attempts: no IP address found. Is the Sandbox started?"
     }
   },
   "friction": [
     {
-      "where": "Pre-installed SDK version drift",
-      "detail": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0) ... Downloading daytona-0.205.0-py3-none-any.whl.metadata (9.2 kB)"
+      "where": "SDK class name drift in docs",
+      "detail": "ImportError: cannot import name 'CreateSandboxParams' from 'daytona' ... Did you mean: 'CreateSandboxBaseParams'?"
     },
     {
-      "where": "Missing network prerequisite (toolbox proxy unreachable)",
-      "detail": "curl: (35) Recv failure: Connection reset by peer"
+      "where": "SDK method name drift in docs",
+      "detail": "AttributeError: 'Process' object has no attribute 'execute'"
     },
     {
-      "where": "Quickstart timing/robustness gap",
-      "detail": "# Wait longer for sandbox to be fully ready\n    time.sleep(15)"
+      "where": "Unexpected list return type",
+      "detail": "AttributeError: 'tuple' object has no attribute 'id'"
     },
     {
-      "where": "Unclear required environment variables",
-      "detail": "DAYTONA_API_URL: not set\nDAYTONA_TARGET: not set"
+      "where": "Sandbox execution backend failure",
+      "detail": "bad request: failed to resolve container IP after 3 attempts: no IP address found. Is the Sandbox started?"
     },
     {
-      "where": "Undocumented internal API routing",
-      "detail": "{\"path\":\"/api/sandbox/1e0eec01-f257-4f3e-9dea-77638f34682a/process\",\"statusCode\":404,\"error\":\"Not Found\"}"
+      "where": "Sandbox started but unreachable",
+      "detail": "state=<SandboxState.STARTED: 'started'> ... bad request: failed to resolve container IP after 3 attempts"
     }
   ],
   "score": 70,
-  "braintrust_span": "3b8fb78a-580a-4462-860e-6e6f34c81b3d"
+  "braintrust_span": "06c03550-a209-4320-9edf-8dfe47b57160"
 }

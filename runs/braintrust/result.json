@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-18T09:50:11Z",
+  "started": "2026-08-19T09:51:07Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Braintrust Python SDK and dependencies (`pip install braintrust openai autoevals` completed with \"Successfully installed autoevals-0.3.0 braintrust-0.34.0\"), verified that `BRAINTRUST_API_KEY` is present in the environment, and reviewed the evaluation quickstart documentation. However, I was blocked from running the eval because the quickstart explicitly requires an `OPENAI_API_KEY` (or another AI provider key) in step 2, and no such key is available in the sandbox environment. Additionally, the `bt` CLI installation failed with `curl: (35) Recv failure: Connection reset by peer`, so I could not use the CLI runner either. Without an AI provider API key, the eval task function cannot call `gpt-5-mini` to generate outputs and produce scores.",
+  "summary": "I fetched the Braintrust evaluation quickstart and confirmed the sandbox has Python 3.14.4 and pip available. I verified `BRAINTRUST_API_KEY` is exported in the environment. However, I discovered no AI provider API key (e.g., `OPENAI_API_KEY`) is present, which the quickstart explicitly requires to run the LLM task in the eval. I attempted to fetch documentation about Braintrust Gateway as a potential workaround but encountered empty responses from the documentation site. I did not install the SDK or execute the eval because the quickstart's task function requires calling an external LLM API that cannot authenticate without a provider key.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 122.0,
+  "wall_seconds": 101.2,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "python3 --version && pip3 --version returned Python 3.14.4 and pip 26.0.1"
     },
     "installed": {
-      "passed": true,
-      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.34.0"
+      "passed": false,
+      "evidence": "Agent note: 'I did not install the SDK' and no install command appears in the transcript"
     },
     "configured": {
       "passed": false,
-      "evidence": "env | grep -i openai | sed 's/=.*//' returned no output, while the quickstart requires export OPENAI_API_KEY=\" \""
+      "evidence": "OPENAI_API_KEY is set:  (empty) and env grep for provider keys returned no output"
     },
     "first_call": {
       "passed": false,
-      "evidence": "Agent final note: \"Without an AI provider API key, the eval task function cannot call gpt-5-mini to generate outputs and produce scores.\""
+      "evidence": "Agent note: 'I did not ... execute the eval' and no eval run command appears in the transcript"
     },
     "verified": {
       "passed": false,
-      "evidence": "Agent final note: \"I was blocked from running the eval because the quickstart explicitly requires an OPENAI_API_KEY... and no such key is available\""
+      "evidence": "Agent note: 'I did not install the SDK or execute the eval'; no scores reported in output"
     }
   },
   "friction": [
     {
-      "where": "Prerequisite: AI provider API key",
-      "detail": "Sandbox only had BRAINTRUST_API_KEY; quickstart requires an OpenAI/etc. key to run the eval: export OPENAI_API_KEY=\" \" # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc."
+      "where": "Missing AI provider API key prerequisite",
+      "detail": "OPENAI_API_KEY is set:  (empty output shows required provider key is missing)"
     },
     {
-      "where": "bt CLI installation",
-      "detail": "CLI install script failed repeatedly with network error: curl: (35) Recv failure: Connection reset by peer"
+      "where": "Braintrust Gateway documentation unreachable",
+      "detail": "[fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/deploy/braintrust-gateway.md\"} null"
     },
     {
-      "where": "PATH configuration",
-      "detail": "pip warned that script directories are missing from PATH: WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
+      "where": "Quickstart requires multiple external API keys",
+      "detail": "Create API keys for: * [Braintrust] * Your AI provider or framework ([OpenAI], [Anthropic], [Gemini], [etc.])"
     },
     {
-      "where": "SDK version verification",
-      "detail": "Checking the installed SDK version failed unexpectedly: AttributeError: module 'braintrust' has no attribute '__version__'"
+      "where": "Integration docs return empty responses",
+      "detail": "curl -s \"https://www.braintrust.dev/docs/integrations/ai-providers\" | head -200 repeated with exit=0 and no body"
     },
     {
-      "where": "Documentation rendering",
-      "detail": "Fetched quickstart truncated the Python code block: ```bash Python theme={\"theme\":{\"light\":\"github-light\",\"dark\":\"github-da"
+      "where": "Eval snippet assumes pre-existing project/dataset",
+      "detail": "data: initDataset(\"My Project\", { dataset: \"My dataset\" }), appears without setup instructions in the run-in-code section"
     }
   ],
-  "score": 30,
-  "braintrust_span": "a06ab12c-123e-449f-9b9d-4d3f31670b5e"
+  "score": 10,
+  "braintrust_span": "98a5f320-f3e1-4ab8-b6fc-01b9bc2e21b2"
 }
