@@ -105,9 +105,9 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 }
 </style></head><body>
 <h1 class="wordmark"><a href="index.html" style="color:inherit">agent-ready</a> · braintrust
-<span style="color:#e5544b">10/100</span></h1>
-<p class="meta" style="margin:.6rem 0 1.4rem">40 steps ·
-101.2s · agent <code>kimi-k2p6</code> ·
+<span style="color:#d9a13b">60/100</span></h1>
+<p class="meta" style="margin:.6rem 0 1.4rem">36 steps ·
+257.5s · agent <code>kimi-k2p6</code> ·
 <a href="https://github.com/zhannur/agent-ready/blob/main/runs/braintrust/transcript.jsonl">raw JSONL</a></p>
 <details class="step" open><summary>#1 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start</code></summary><pre> Get started with Braintrust - Braintrust Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Braintrust home page Search... ⌘ K Ask Assistant Request demo Start building Start building Search... Navigation Start Get started with Braintrust Guides Integrations SDKs Reference Cookbook Troubleshooting Changelog Start Introduction Braintrust workflow Tracing quickstart Evaluation quickstart Loop agent Plans and limits Instrument Overview Tracing User feedback Attachments Observe Overview Logs Topics Dashboards Alerts Annotate Overview Human review Custom views Labels and corrections Datasets Exports Evaluate Overview Prompts Scorers and classifiers Playgrounds Experiments Remote evals Online scoring Best practices Deploy Overview Prompts Functions Braintrust gateway Environments Monitoring Streaming Admin Overview Organizations Projects AI providers Audit logging Access control Billing Data management Deployment Authentication Personal settings Service health Best practices Evaluating agents Writing scorers PM workflows Security Start Get started with Braintrust Copy page Copy page Copy page Copy page Braintrust is the active observability platform for instrumenting, understanding, and improving agents. By actively applying intelligence to agent traces and automatically surfacing the most critical patterns, Braintrust gives teams the visibility to understand how agents behave in production and the tools to improve them. 
  To get started, create a Braintrust account . 
@@ -562,255 +562,628 @@ Run evaluation code locally to create an experiment in Braintrust and return sum
  metadata: {model: &quot;gpt-5-m</pre></details><details class="step" open><summary>#11 <b>bash</b> <code>echo &quot;BRAINTRUST_API_KEY is set: ${BRAINTRUST_API_KEY:+yes}&quot; &amp;&amp; echo &quot;OPENAI_API_KEY is set: ${OPENAI_API_KEY:+yes}&quot;</code></summary><pre>exit=0
 BRAINTRUST_API_KEY is set: yes
 OPENAI_API_KEY is set: 
-</pre></details><details class="step" open><summary>#12 <b>bash</b> <code>env | grep -i api_key | cut -d= -f1</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#12 <b>bash</b> <code>env | grep -i api_key | sed &#x27;s/=.*//&#x27;</code></summary><pre>exit=0
 BRAINTRUST_API_KEY
-</pre></details><details class="step" open><summary>#13 <b>bash</b> <code>env | grep -i key | cut -d= -f1</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#13 <b>bash</b> <code>env | grep -i key | sed &#x27;s/=.*//&#x27;</code></summary><pre>exit=0
 BRAINTRUST_API_KEY
-</pre></details><details class="step" open><summary>#14 <b>bash</b> <code>env | grep -i -E &#x27;(openai|anthropic|gemini|azure|claude|gpt|llm|model|ai_)&#x27; | cut -d= -f1</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#15 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluate/run-in-code.md</code></summary><pre>&gt; ## Documentation Index
-&gt; Fetch the complete documentation index at: https://braintrust.dev/docs/llms.txt
-&gt; Use this file to discover all available pages before exploring further.
-
-# Run experiments in code
-
-&gt; Run evaluations with the Braintrust SDK, from a local script or the bt eval CLI, and capture each run as an immutable experiment snapshot.
-
-Running your evaluation as code with the Braintrust SDK gives you full control over the task, data, and scorers, and lets you version it alongside your application. Iterate locally, then wire the same code into [CI/CD](/docs/evaluate/run-in-ci).
-
-## Run locally
-
-Run evaluation code locally to create an experiment in Braintrust and return summary metrics, including a direct link to your experiment. See [Interpret results](/docs/evaluate/interpret-results) for how to read it.
-
- Install the SDK and dependencies:
-
- ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- # pnpm
- pnpm add braintrust openai autoevals
- # npm
- npm install braintrust openai autoevals
- ```
-
- Create the eval code:
-
- ```typescript wrap theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- import { Eval, initDataset } from &quot;braintrust&quot;;
- import { Factuality } from &quot;autoevals&quot;;
-
- Eval(&quot;My Project&quot;, {
- experimentName: &quot;My experiment&quot;,
- data: initDataset(&quot;My Project&quot;, { dataset: &quot;My dataset&quot; }),
- task: async (input) =&gt; {
- // Your LLM call here
- return await callModel(input);
- },
- scores: [Factuality],
- metadata: {
- model: &quot;gpt-5-mini&quot;,
- },
- });
- ```
-
- Run your evaluation with the [`bt eval`](/docs/reference/cli/eval) CLI:
-
- ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- bt eval my_eval.eval.ts
- ```
-
- Use `--watch` to re-run automatically when files change:
-
- ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- bt eval --watch my_eval.eval.ts
- ```
-
- **Benefits of using the CLI:**
-
- * **Automatic `.env` loading** — reads `.env.development.local`, `.env.local`, `.env.development`, and `.env`
- * **Multi-file support** — pass multiple files or directories: `bt eval [file or directory] ...`. Running `bt eval` with no arguments runs all eval files in the current directory.
- * **TypeScript transpilation** — no build step required; the CLI handles it
-
- Install the SDK and dependencies:
-
- ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- pip install braintrust openai autoevals
- ```
-
- Create the eval code:
-
- ```python wrap theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- from braintrust import Eval, init_dataset
- from autoevals import Factuality
-
- Eval(
- &quot;My project&quot;,
- experiment_name=&quot;My experiment&quot;,
- data=init_dataset(project=&quot;My project&quot;, name=&quot;My dataset&quot;),
- task=lambda input: call_model(input), # Your LLM call here
- scores=[Factuality],
- metadata={
- &quot;model&quot;: &quot;gpt-5-mini&quot;,
- },
- )
- ```
-
- Run your evaluation with the [`bt eval`](/docs/reference/cli/eval) CLI:
-
- ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- bt eval my_eval.py
- ```
-
- Use `--watch` to re-run automatically when files change:
-
- ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- bt eval --watch my_eval.py
- ```
-
- **Benefits of using the CLI:**
-
- * **Automatic `.env` loading** — reads `.env.development.local`, `.env.local`, `.env.development`, and `.env`
- * **Multi-file support** — pass multiple files or directories: `bt eval [file or directory] ...`. Running `bt eval` with no arguments runs all eval files in the current directory.
- * **TypeScript transpilation** — no build step required; the CLI handles it
-
- Install the SDK and dependencies:
-
- ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- go get github.com/braintrustdata/braintrust-sdk-go
- go get github.com/openai/openai-go
- ```
-
- Create the eval code:
-
- ```go wrap theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- package main
-
- import (
- &quot;context&quot;
- &quot;log&quot;
-
- &quot;go.opentelemetry.io/otel&quot;
- &quot;go.opentelemetry.io/otel/sdk/trace&quot;
-
- &quot;github.com/braintrustdata/braintrust-sdk-go&quot;
- &quot;github.com/braintrustdata/braintrust-sdk-go/eval&quot;
- )
-
- func callModel(input string) string {
- // Your LLM call implementation here
- return &quot;model output&quot;
- }
-
- func main() {
- ctx := context.Background()
-
- tp := trace.NewTracerProvider()
- defer tp.Shutdown(ctx)
- otel.SetTracerProvider(tp)
-
- client, err := braintrust.New(tp)
- if err != nil {
- log.Fatal(err)
- }
-
- evaluator := braintrust.NewEvaluator[string, string](client)
-
- _, err = evaluator.Run(ctx, eval.Opts[string, string]{
- Experiment: &quot;My project&quot;,
- Dataset: eval.NewDataset([]eval.Case[string, string]{
- {Input: &quot;example input&quot;, Expected: &quot;example expected&quot;},
- }),
- Task: eval.T(func(ctx context.Context, input string) (string, error) {
- return callModel(input), nil // Your LLM call here
- }),
- Scorers: []eval.Scorer[string, string]{
- eval.NewScorer(&quot;exact-match&quot;, func(ctx context.Context, r eval.TaskResult[string, string]) (eval.Scores, error) {
- score := 0.0
- if r.Output == r.Expected {
- score = 1.0
- }
- return eval.S(score), nil
- }),
- },
- Metadata: map[string]any{
- &quot;model&quot;: &quot;gpt-5-mini&quot;,
- },
- })
- if err != nil {
- log.Fatal(err)
- }
- }
- ```
-
- Run your evaluation:
-
- ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- go run my_eval.go
- ```
-
- Install the SDK and dependencies:
-
- ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- # Add to your Gemfile:
- gem &quot;braintrust&quot;
- gem &quot;openai&quot;
-
- bundle install
- ```
-
- Create the eval code:
-
- ```ruby wrap theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- require &quot;braintrust&quot;
-
- Braintrust.init
-
- Braintrust::Eval.run(
- project: &quot;My project&quot;,
- cases: [
- {input: &quot;example input&quot;, expected: &quot;example expected&quot;},
- ],
- task: -&gt;(input:) { call_model(input) }, # Your LLM call here
- scorers: [
- Braintrust::Scorer.new(&quot;exact_match&quot;) { |expected:, output:| output == expected ? 1.0 : 0.0 }
- ],
- metadata: {model: &quot;gpt-5-m</pre></details><details class="step" open><summary>#16 <b>bash</b> <code>python3 --version &amp;&amp; pip3 --version</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#14 <b>bash</b> <code>env | sed &#x27;s/=.*//&#x27; | sort</code></summary><pre>exit=0
+_
+BRAINTRUST_API_KEY
+DAYTONA_ORGANIZATION_ID
+DAYTONA_OTEL_ENDPOINT
+DAYTONA_REGION_ID
+DAYTONA_SANDBOX_ID
+DAYTONA_SANDBOX_SNAPSHOT
+DAYTONA_SANDBOX_USER
+DAYTONA_USER_HOME_AS_WORKDIR
+GTK_MODULES
+HOME
+HOSTNAME
+LANG
+LC_ALL
+LOGNAME
+NO_AT_BRIDGE
+NVM_DIR
+NVM_SYMLINK_CURRENT
+OLDPWD
+PATH
+PIPX_BIN_DIR
+PIPX_HOME
+PWD
+PYTHON_PATH
+PYTHON_SHA256
+PYTHON_VERSION
+QT_ACCESSIBILITY
+SHLVL
+</pre></details><details class="step" open><summary>#15 <b>bash</b> <code>python3 --version &amp;&amp; pip3 --version</code></summary><pre>exit=0
 Python 3.14.4
 pip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)
-</pre></details><details class="step" open><summary>#17 <b>bash</b> <code>env | grep -v -E &#x27;^(PWD|OLDPWD|HOME|PATH|TERM|SHLVL|_|PS1|LS_COLORS|LESS|HOSTNAME|USER|LOGNAME|SHELL|EDITOR|LANG|LC_)&#x27; | sort</code></summary><pre>exit=0
-BRAINTRUST_API_KEY=***REDACTED***
-DAYTONA_ORGANIZATION_ID=00000000-0000-0000-0000-000000000000
-DAYTONA_OTEL_ENDPOINT=https://otel-collector.app.daytona.io
-DAYTONA_REGION_ID=us
-DAYTONA_SANDBOX_ID=e61cedd8-32b4-4e14-8e00-2bd0fa8c93de
-DAYTONA_SANDBOX_SNAPSHOT=cr.app.daytona.io/sbox/daytona-edb66f95f2f09a28a029a0e03d516cf5482ef13a218e93ab1d80954f6ee7ebbb:daytona
-DAYTONA_SANDBOX_USER=daytona
-DAYTONA_USER_HOME_AS_WORKDIR=true
-GTK_MODULES=gail:atk-bridge
-NO_AT_BRIDGE=0
-NVM_DIR=/usr/local/share/nvm
-NVM_SYMLINK_CURRENT=true
-PIPX_BIN_DIR=/usr/local/py-utils/bin
-PIPX_HOME=/usr/local/py-utils
-PYTHON_PATH=/usr/local/python/current
-PYTHON_SHA256=d923c51303e38e249136fc1bdf3568d56ecb03214efdef48516176d3d7faaef8
-PYTHON_VERSION=3.14.4
-QT_ACCESSIBILITY=1
-</pre></details><details class="step" open><summary>#18 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/deploy/braintrust-gateway.md</code></summary><pre>null</pre></details><details class="step" open><summary>#19 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#20 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#21 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/integrations</code></summary><pre> Integrations - Braintrust Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Braintrust home page Search... ⌘ K Ask Assistant Request demo Start building Start building Search... Navigation Integrations Guides Integrations SDKs Reference Cookbook Troubleshooting Changelog Integrations AI providers Overview Model providers Cloud providers Custom providers SDKs Overview Tracing integrations Agent frameworks Eval frameworks Testing frameworks Developer tools Braintrust MCP Claude Code Claude Cowork Cursor VS Code Devin Desktop Codex OpenCode pi Runtime environments AWS Lambda Integrations Copy page Copy page Connect Braintrust with your AI providers and frameworks Copy page Copy page 
+</pre></details><details class="step" open><summary>#16 <b>bash</b> <code>cd /home/daytona &amp;&amp; pip install braintrust openai autoevals</code></summary><pre>exit=0
+Defaulting to user installation because normal site-packages is not writeable
+Collecting braintrust
+  Downloading braintrust-0.34.0-py3-none-any.whl.metadata (4.0 kB)
+Requirement already satisfied: openai in /usr/local/lib/python3.14/site-packages (2.33.0)
+Collecting autoevals
+  Downloading autoevals-0.3.0-py3-none-any.whl.metadata (17 kB)
+Requirement already satisfied: requests in /usr/local/lib/python3.14/site-packages (from braintrust) (2.32.5)
+Collecting chevron (from braintrust)
+  Downloading chevron-0.14.0-py3-none-any.whl.metadata (4.9 kB)
+Requirement already satisfied: tqdm in /usr/local/lib/python3.14/site-packages (from braintrust) (4.67.3)
+Requirement already satisfied: exceptiongroup&gt;=1.2.0 in /usr/local/lib/python3.14/site-packages (from braintrust) (1.3.1)
+Requirement already satisfied: jsonschema in /usr/local/lib/python3.14/site-packages (from braintrust) (4.26.0)
+Requirement already satisfied: packaging in /usr/local/lib/python3.14/site-packages (from braintrust) (25.0)
+Collecting sseclient-py (from braintrust)
+  Downloading sseclient_py-1.9.0-py3-none-any.whl.metadata (1.9 kB)
+Collecting python-slugify (from braintrust)
+  Downloading python_slugify-8.0.4-py2.py3-none-any.whl.metadata (8.5 kB)
+Requirement already satisfied: typing_extensions&gt;=4.1.0 in /usr/local/lib/python3.14/site-packages (from braintrust) (4.15.0)
+Requirement already satisfied: wrapt in /usr/local/lib/python3.14/site-packages (from braintrust) (2.1.2)
+Requirement already satisfied: anyio&lt;5,&gt;=3.5.0 in /usr/local/lib/python3.14/site-packages (from openai) (4.13.0)
+Requirement already satisfied: distro&lt;2,&gt;=1.7.0 in /usr/local/lib/python3.14/site-packages (from openai) (1.9.0)
+Requirement already satisfied: httpx&lt;1,&gt;=0.23.0 in /usr/local/lib/python3.14/site-packages (from openai) (0.28.1)
+Requirement already satisfied: jiter&lt;1,&gt;=0.10.0 in /usr/local/lib/python3.14/site-packages (from openai) (0.11.1)
+Requirement already satisfied: pydantic&lt;3,&gt;=1.9.0 in /usr/local/lib/python3.14/site-packages (from openai) (2.13.4)
+Requirement already satisfied: sniffio in /usr/local/lib/python3.14/site-packages (from openai) (1.3.1)
+Requirement already satisfied: idna&gt;=2.8 in /usr/local/lib/python3.14/site-packages (from anyio&lt;5,&gt;=3.5.0-&gt;openai) (3.15)
+Requirement already satisfied: certifi in /usr/local/lib/python3.14/site-packages (from httpx&lt;1,&gt;=0.23.0-&gt;openai) (2026.4.22)
+Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.14/site-packages (from httpx&lt;1,&gt;=0.23.0-&gt;openai) (1.0.9)
+Requirement already satisfied: h11&gt;=0.16 in /usr/local/lib/python3.14/site-packages (from httpcore==1.*-&gt;httpx&lt;1,&gt;=0.23.0-&gt;openai) (0.16.0)
+Requirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;3,&gt;=1.9.0-&gt;openai) (0.7.0)
+Requirement already satisfied: pydantic-core==2.46.4 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;3,&gt;=1.9.0-&gt;openai) (2.46.4)
+Requirement already satisfied: typing-inspection&gt;=0.4.2 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;3,&gt;=1.9.0-&gt;openai) (0.4.2)
+Collecting polyleven (from autoevals)
+  Downloading polyleven-0.11.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (4.2 kB)
+Requirement already satisfied: pyyaml in /usr/local/lib/python3.14/site-packages (from autoevals) (6.0.3)
+Requirement already satisfied: attrs&gt;=22.2.0 in /usr/local/lib/python3.14/site-packages (from jsonschema-&gt;braintrust) (26.1.0)
+Requirement already satisfied: jsonschema-specifications&gt;=2023.03.6 in /usr/local/lib/python3.14/site-packages (from jsonschema-&gt;braintrust) (2025.9.1)
+Requirement already satisfied: referencing&gt;=0.28.4 in /usr/local/lib/python3.14/site-packages (from jsonschema-&gt;braintrust) (0.37.0)
+Requirement already satisfied: rpds-py&gt;=0.25.0 in /usr/local/lib/python3.14/site-packages (from jsonschema-&gt;braintrust) (0.30.0)
+Collecting text-unidecode&gt;=1.3 (from python-slugify-&gt;braintrust)
+  Downloading text_unidecode-1.3-py2.py3-none-any.whl.metadata (2.4 kB)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.14/site-packages (from requests-&gt;braintrust) (3.4.7)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.14/site-packages (from requests-&gt;braintrust) (2.7.0)
+Downloading braintrust-0.34.0-py3-none-any.whl (970 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 970.3/970.3 kB 184.0 MB/s  0:00:00
+Downloading autoevals-0.3.0-py3-none-any.whl (73 kB)
+Downloading chevron-0.14.0-py3-none-any.whl (11 kB)
+Downloading polyleven-0.11.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (21 kB)
+Downloading python_slugify-8.0.4-py2.py3-none-any.whl (10 kB)
+Downloading text_unidecode-1.3-py2.py3-none-any.whl (78 kB)
+Downloading sseclient_py-1.9.0-py3-none-any.whl (8.4 kB)
+Installing collected packages: text-unidecode, chevron, sseclient-py, python-slugify, polyleven, braintrust, autoevals
+  WARNING: The script chevron is installed in &#x27;/home/daytona/.local/bin&#x27; which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+  WARNING: The script slugify is installed in &#x27;/home/daytona/.local/bin&#x27; which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+  WARNING: The script braintrust is installed in &#x27;/home/daytona/.local/bin&#x27; which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
 
- Don’t see your provider or framework? Use the AI Proxy to add any provider or contact us to request an integration. Was this page helpful? Yes No AI providers Next ⌘ I Braintrust home page github x discord youtube Pricing Blog Careers Status github x discord youtube Powered by This documentation is built and hosted on Mintlify, a developer documentation platform Assistant Responses are generated using AI and may contain mistakes. Contact support </pre></details><details class="step" open><summary>#22 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#23 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/deploy/braintrust-gateway</code></summary><pre> </pre></details><details class="step" open><summary>#24 <b>bash</b> <code>curl -s &quot;https://www.braintrust.dev/docs/deploy/braintrust-gateway&quot; | head -100</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#25 <b>bash</b> <code>curl -s &quot;https://www.braintrust.dev/docs/integrations/ai-providers&quot; | head -200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#26 <b>bash</b> <code>curl -s &quot;https://www.braintrust.dev/docs/integrations/ai-providers&quot; | head -200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#27 <b>bash</b> <code>curl -s &quot;https://www.braintrust.dev/docs/integrations/ai-providers&quot; | head -200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#28 <b>bash</b> <code>curl -s &quot;https://www.braintrust.dev/docs/integrations/ai-providers&quot; | head -200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#29 <b>bash</b> <code>curl -s &quot;https://www.braintrust.dev/docs/integrations/ai-providers&quot; | head -200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#30 <b>bash</b> <code>curl -s &quot;https://www.braintrust.dev/docs/integrations/ai-providers&quot; | head -200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#31 <b>bash</b> <code>curl -s &quot;https://www.braintrust.dev/docs/integrations/ai-providers&quot; | head -200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#32 <b>bash</b> <code>curl -s &quot;https://www.braintrust.dev/docs/integrations/ai-providers&quot; | head -200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#33 <b>bash</b> <code>curl -s &quot;https://www.braintrust.dev/docs/integrations/ai-providers&quot; | head -200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#34 <b>bash</b> <code>curl -s &quot;https://www.braintrust.dev/docs/integrations/ai-providers&quot; | head -200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#35 <b>bash</b> <code>curl -s &quot;https://www.braintrust.dev/docs/integrations/ai-providers&quot; | head -200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#36 <b>bash</b> <code>curl -s -A &quot;Mozilla/5.0&quot; &quot;https://www.braintrust.dev/docs/integrations/ai-providers&quot; | head -200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#37 <b>bash</b> <code>curl -s -A &quot;Mozilla/5.0&quot; &quot;https://www.braintrust.dev/docs/integrations/ai-providers&quot; | head -200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#38 <b>bash</b> <code>curl -s -A &quot;Mozilla/5.0&quot; &quot;https://www.braintrust.dev/docs/integrations/ai-providers&quot; | head -200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#39 <b>bash</b> <code>curl -s -A &quot;Mozilla/5.0&quot; &quot;https://www.braintrust.dev/docs/integrations/ai-providers&quot; | head -200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#40 <b>bash</b> <code>curl -s -A &quot;Mozilla/5.0&quot; &quot;https://www.braintrust.dev/docs/integrations/ai-providers&quot; | head -200</code></summary><pre>exit=0
-</pre></details><div class="note">I fetched the Braintrust evaluation quickstart and confirmed the sandbox has Python 3.14.4 and pip available. I verified `BRAINTRUST_API_KEY` is exported in the environment. However, I discovered no AI provider API key (e.g., `OPENAI_API_KEY`) is present, which the quickstart explicitly requires to run the LLM task in the eval. I attempted to fetch documentation about Braintrust Gateway as a potential workaround but encountered empty responses from the documentation site. I did not install the SDK or execute the eval because the quickstart&#x27;s task function requires calling an external LLM API that cannot authenticate without a provider key.</div>
+Successfully installed autoevals-0.3.0 braintrust-0.34.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-8.0.4 sseclient-py-1.9.0 text-unidecode-1.3
+
+[notice] A new release of pip is available: 26.0.1 -&gt; 26.2.1
+[notice] To update, run: pip install --upgrade pip
+</pre></details><details class="step" open><summary>#17 <b>bash</b> <code>cd /home/daytona &amp;&amp; curl -fsSL https://bt.dev/cli/install.sh | sh</code></summary><pre>exit=0
+curl: (35) Recv failure: Connection reset by peer
+</pre></details><details class="step" open><summary>#18 <b>bash</b> <code>cd /home/daytona &amp;&amp; curl -fsSL https://bt.dev/cli/install.sh | sh</code></summary><pre>exit=0
+curl: (35) Recv failure: Connection reset by peer
+</pre></details><details class="step" open><summary>#19 <b>bash</b> <code>export PATH=&quot;$HOME/.local/bin:$PATH&quot; &amp;&amp; which braintrust</code></summary><pre>exit=0
+/home/daytona/.local/bin/braintrust
+</pre></details><details class="step" open><summary>#20 <b>bash</b> <code>export PATH=&quot;$HOME/.local/bin:$PATH&quot; &amp;&amp; braintrust --help</code></summary><pre>exit=0
+usage: braintrust [-h] {eval,install,push} ...
+
+braintrust is a cli tool to work with Braintrust. To see help for a specific
+subcommand, run `braintrust &lt;subcommand&gt; --help`, e.g. `braintrust eval
+--help`
+
+positional arguments:
+  {eval,install,push}  sub-command help
+    eval               Run evals locally.
+    install            Tools to setup and verify Braintrust&#x27;s installation in
+                       your environment.
+    push               Push code to Braintrust
+
+options:
+  -h, --help           show this help message and exit
+</pre></details><details class="step" open><summary>#21 <b>write_file</b> <code>{&quot;path&quot;: &quot;/home/daytona/movie_matcher.py&quot;, &quot;content&quot;: &quot;from braintrust import Eval\nfrom autoevals import ExactMatch\n\n# Simple mock task t</code></summary><pre>wrote /home/daytona/movie_matcher.py (1929 bytes)</pre></details><details class="step" open><summary>#22 <b>bash</b> <code>export PATH=&quot;$HOME/.local/bin:$PATH&quot; &amp;&amp; cd /home/daytona &amp;&amp; braintrust eval movie_matcher.py</code></summary><pre>exit=1
+2026-08-20 09:50:41,637 WARNING [braintrust.eval]: Reading movie_matcher.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory.
+Traceback (most recent call last):
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...&lt;10 lines&gt;...
+        **response_kw,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
+    raise new_e
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+        sock=sock,
+    ...&lt;14 lines&gt;...
+        assert_fingerprint=self.assert_fingerprint,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 975, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+        sock=sock,
+    ...&lt;8 lines&gt;...
+        tls_in_tls=tls_in_tls,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 433, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 477, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sock=sock,
+        ^^^^^^^^^^
+    ...&lt;5 lines&gt;...
+        session=session
+        ^^^^^^^^^^^^^^^
+    )
+    ^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1076, in _create
+    self.do_handshake()
+    ~~~~~~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1372, in do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+ConnectionResetError: [Errno 104] Connection reset by peer
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File &quot;/usr/local/lib/python3.14/site-packages/requests/adapters.py&quot;, line 644, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...&lt;9 lines&gt;...
+        chunked=chunked,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/retry.py&quot;, line 498, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/util.py&quot;, line 38, in reraise
+    raise value.with_traceback(tb)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...&lt;10 lines&gt;...
+        **response_kw,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
+    raise new_e
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+        sock=sock,
+    ...&lt;14 lines&gt;...
+        assert_fingerprint=self.assert_fingerprint,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 975, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+        sock=sock,
+    ...&lt;8 lines&gt;...
+        tls_in_tls=tls_in_tls,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 433, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 477, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sock=sock,
+        ^^^^^^^^^^
+    ...&lt;5 lines&gt;...
+        session=session
+        ^^^^^^^^^^^^^^^
+    )
+    ^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1076, in _create
+    self.do_handshake()
+    ~~~~~~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1372, in do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+urllib3.exceptions.ProtocolError: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/api/_transport.py&quot;, line 263, in request
+    response = self.session.request(
+        method,
+    ...&lt;7 lines&gt;...
+        **kwargs,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/requests/sessions.py&quot;, line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File &quot;/usr/local/lib/python3.14/site-packages/requests/sessions.py&quot;, line 703, in send
+    r = adapter.send(request, **kwargs)
+  File &quot;/usr/local/lib/python3.14/site-packages/requests/adapters.py&quot;, line 659</pre></details><details class="step" open><summary>#23 <b>bash</b> <code>export PATH=&quot;$HOME/.local/bin:$PATH&quot; &amp;&amp; cd /home/daytona &amp;&amp; braintrust eval movie_matcher.py 2&gt;&amp;1 | tail -50</code></summary><pre>exit=0
+requests.exceptions.ConnectionError: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File &quot;/home/daytona/.local/bin/braintrust&quot;, line 6, in &lt;module&gt;
+    sys.exit(main())
+             ~~~~^^
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/cli/__main__.py&quot;, line 46, in main
+    return args.func(args)
+           ~~~~~~~~~^^^^^^
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/cli/eval.py&quot;, line 318, in run
+    login(
+    ~~~~~^
+        api_key=args.api_key,
+        ^^^^^^^^^^^^^^^^^^^^^
+        org_name=args.org_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        app_url=args.app_url,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/logger.py&quot;, line 2129, in login
+    _state.login(app_url=app_url, api_key=api_key, org_name=org_name, force_login=force_login)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/logger.py&quot;, line 640, in login
+    state = login_to_state(
+        app_url=app_url,
+        api_key=api_key,
+        org_name=org_name,
+    )
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/logger.py&quot;, line 2201, in login_to_state
+    client = BraintrustClient(api_key=api_key, org_name=org_name, app_url=state.app_url, adapter=_http_adapter)
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/api/client.py&quot;, line 65, in __init__
+    result = auth.login(
+        resolved_api_key,
+    ...&lt;2 lines&gt;...
+        proxy_url=proxy_url,
+    )
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/api/auth.py&quot;, line 82, in login
+    response = self._transport.request_json(
+        &quot;POST&quot;,
+    ...&lt;2 lines&gt;...
+        retry_mode=RetryMode.SAFE_READ,
+    )
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/api/_transport.py&quot;, line 361, in request_json
+    response = self.request(method, url, **kwargs)
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/api/_transport.py&quot;, line 283, in request
+    raise error from exc
+braintrust.api.errors.BraintrustTransportRetryExhaustedError: POST https://www.braintrust.dev/api/apikey/login failed after 4 attempt(s) without an HTTP response
+</pre></details><details class="step" open><summary>#24 <b>bash</b> <code>curl -v https://www.braintrust.dev/api/apikey/login 2&gt;&amp;1 | head -30</code></summary><pre>exit=0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host www.braintrust.dev:443 was resolved.
+* IPv6: (none)
+* IPv4: 66.33.60.67, 76.76.21.98
+*   Trying 66.33.60.67:443...
+* ALPN: curl offers h2,http/1.1
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [1573 bytes data]
+*  CAfile: /etc/ssl/certs/ca-certificates.crt
+*  CApath: /etc/ssl/certs
+* Recv failure: Connection reset by peer
+* TLS connect error: error:00000000:lib(0)::reason(0)
+* OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443 
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+* closing connection #0
+curl: (35) Recv failure: Connection reset by peer
+</pre></details><details class="step" open><summary>#25 <b>bash</b> <code>curl -v --resolve www.braintrust.dev:443:76.76.21.98 https://www.braintrust.dev/api/apikey/login 2&gt;&amp;1 | head -30</code></summary><pre>exit=0
+* Added www.braintrust.dev:443:76.76.21.98 to DNS cache
+* Hostname www.braintrust.dev was found in DNS cache
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 76.76.21.98:443...
+* ALPN: curl offers h2,http/1.1
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [1573 bytes data]
+*  CAfile: /etc/ssl/certs/ca-certificates.crt
+*  CApath: /etc/ssl/certs
+* Recv failure: Connection reset by peer
+* TLS connect error: error:00000000:lib(0)::reason(0)
+* OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443 
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+* closing connection #0
+curl: (35) Recv failure: Connection reset by peer
+</pre></details><details class="step" open><summary>#26 <b>bash</b> <code>curl -v --tlsv1.2 https://www.braintrust.dev/ 2&gt;&amp;1 | head -30</code></summary><pre>exit=0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host www.braintrust.dev:443 was resolved.
+* IPv6: (none)
+* IPv4: 66.33.60.129, 76.76.21.22
+*   Trying 66.33.60.129:443...
+* ALPN: curl offers h2,http/1.1
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [1573 bytes data]
+*  CAfile: /etc/ssl/certs/ca-certificates.crt
+*  CApath: /etc/ssl/certs
+* Recv failure: Connection reset by peer
+* TLS connect error: error:00000000:lib(0)::reason(0)
+* OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443 
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+* closing connection #0
+curl: (35) Recv failure: Connection reset by peer
+</pre></details><details class="step" open><summary>#27 <b>bash</b> <code>curl -v http://www.braintrust.dev/ 2&gt;&amp;1 | head -30</code></summary><pre>exit=0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host www.braintrust.dev:80 was resolved.
+* IPv6: (none)
+* IPv4: 66.33.60.67, 76.76.21.98
+*   Trying 66.33.60.67:80...
+* Connected to www.braintrust.dev (66.33.60.67) port 80
+* using HTTP/1.x
+&gt; GET / HTTP/1.1
+&gt; Host: www.braintrust.dev
+&gt; User-Agent: curl/8.14.1
+&gt; Accept: */*
+&gt; 
+* Request completely sent off
+&lt; HTTP/1.1 403 Forbidden
+&lt; content-length: 45
+&lt; content-type: text/plain
+&lt; date: Thu, 20 Aug 2026 09:51:13 GMT
+&lt; server: envoy
+&lt; 
+{ [45 bytes data]
+100    45  100    45    0     0  16088      0 --:--:-- --:--:-- --:--:-- 22500
+* Connection #0 to host www.braintrust.dev left intact
+Internet is restricted on Tier 1 and Tier 2.
+</pre></details><details class="step" open><summary>#28 <b>bash</b> <code>export PATH=&quot;$HOME/.local/bin:$PATH&quot; &amp;&amp; braintrust eval --help</code></summary><pre>exit=0
+usage: braintrust eval [-h] [--verbose] [--api-key API_KEY]
+                       [--org-name ORG_NAME] [--app-url APP_URL] [--watch]
+                       [--filter [FILTER ...]] [--list] [--jsonl]
+                       [--no-send-logs] [--no-progress-bars]
+                       [--terminate-on-failure] [--env-file ENV_FILE]
+                       [--num-workers NUM_WORKERS] [--dev]
+                       [--dev-host DEV_HOST] [--dev-port DEV_PORT]
+                       [--dev-org-name DEV_ORG_NAME]
+                       [files ...]
+
+positional arguments:
+  files                 A list of files or directories to run. If no files are
+                        specified, the current directory is used.
+
+options:
+  -h, --help            show this help message and exit
+  --verbose, -v         Include additional details, including full stack
+                        traces on errors. Pass twice (-vv) for debug logging.
+  --api-key API_KEY     Specify a braintrust api key. If the parameter is not
+                        specified, the BRAINTRUST_API_KEY environment variable
+                        will be used.
+  --org-name ORG_NAME   The name of a specific organization to connect to.
+                        This is useful if you belong to multiple.
+  --app-url APP_URL     Specify a custom braintrust app url. Defaults to
+                        https://www.braintrust.dev. This is only necessary if
+                        you are using an experimental version of Braintrust
+  --watch               Watch files for changes and rerun evals when changes
+                        are detected
+  --filter [FILTER ...]
+                        Only run evaluators that match these filters. Each
+                        filter is a regular expression
+                        (https://docs.python.org/3/library/re.html). For
+                        example, --filter metadata.priority=&#x27;^P0$&#x27;
+                        input.name=&#x27;foo.*bar&#x27; will only run evaluators that
+                        have metadata.priority equal to &#x27;P0&#x27; and input.name
+                        matching the regular expression &#x27;foo.*bar&#x27;.
+  --list                List, but do not execute, evaluators.
+  --jsonl               Format score summaries as jsonl, i.e. one JSON-
+                        formatted line per summary.
+  --no-send-logs        Do not send logs to Braintrust. Useful for testing
+                        evaluators without uploading results.
+  --no-progress-bars    Do not show progress bars when processing evaluators.
+  --terminate-on-failure
+                        If provided, terminates on a failing eval, instead of
+                        the default (moving onto the next one).
+  --env-file ENV_FILE   A path to a .env file containing environment variables
+                        to load (via dotenv).
+  --num-workers NUM_WORKERS
+                        Specify the number of concurrent worker threads to run
+                        evals over, if they are defined as synchronous
+                        functions. Async functions will be run in the single-
+                        threaded asyncio event loop. If not specified,
+                        defaults to the number of cores on the machine.
+  --dev                 Run the evaluators in dev mode. This will start a dev
+                        server which you can connect to via the playground&#x27;s
+                        remote evals feature.
+  --dev-host DEV_HOST   The host to bind the dev server to. Defaults to
+                        localhost. Set to 0.0.0.0 to bind to all interfaces.
+  --dev-port DEV_PORT   The port to bind the dev server to. Defaults to 8300.
+  --dev-org-name DEV_ORG_NAME
+                        Only allow users that belong to this org name to run
+                        remote evals.
+</pre></details><details class="step" open><summary>#29 <b>bash</b> <code>export PATH=&quot;$HOME/.local/bin:$PATH&quot; &amp;&amp; cd /home/daytona &amp;&amp; braintrust eval --no-send-logs movie_matcher.py 2&gt;&amp;1</code></summary><pre>exit=0
+2026-08-20 09:51:29,031 WARNING [braintrust.eval]: Reading movie_matcher.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory.
+Evaluation quickstart [experiment_name=Movie matcher (Python)] (data): 0it [00:00, ?it/s]Evaluation quickstart [experiment_name=Movie matcher (Python)] (data): 5it [00:00, 71089.90it/s]
+Evaluation quickstart [experiment_name=Movie matcher (Python)] (tasks):   0%|          | 0/5 [00:00&lt;?, ?it/s]Evaluation quickstart [experiment_name=Movie matcher (Python)] (tasks): 100%|██████████| 5/5 [00:00&lt;00:00, 2766.33it/s]
+
+=========================SUMMARY=========================
+100.00% &#x27;ExactMatch&#x27; score
+
+
+</pre></details><details class="step" open><summary>#30 <b>bash</b> <code>export PATH=&quot;$HOME/.local/bin:$PATH&quot; &amp;&amp; cd /home/daytona &amp;&amp; braintrust eval --no-send-logs --jsonl movie_matcher.py 2&gt;&amp;1</code></summary><pre>exit=0
+2026-08-20 09:51:40,229 WARNING [braintrust.eval]: Reading movie_matcher.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory.
+Evaluation quickstart [experiment_name=Movie matcher (Python)] (data): 0it [00:00, ?it/s]Evaluation quickstart [experiment_name=Movie matcher (Python)] (data): 5it [00:00, 75983.77it/s]
+Evaluation quickstart [experiment_name=Movie matcher (Python)] (tasks):   0%|          | 0/5 [00:00&lt;?, ?it/s]Evaluation quickstart [experiment_name=Movie matcher (Python)] (tasks): 100%|██████████| 5/5 [00:00&lt;00:00, 2237.92it/s]
+{&quot;project_name&quot;: &quot;Evaluation quickstart&quot;, &quot;project_id&quot;: null, &quot;experiment_id&quot;: null, &quot;experiment_name&quot;: &quot;Evaluation quickstart [experiment_name=Movie matcher (Python)]&quot;, &quot;project_url&quot;: null, &quot;experiment_url&quot;: null, &quot;comparison_experiment_name&quot;: null, &quot;scores&quot;: {&quot;ExactMatch&quot;: {&quot;name&quot;: &quot;ExactMatch&quot;, &quot;_longest_score_name&quot;: 10, &quot;score&quot;: 1.0, &quot;improvements&quot;: 0, &quot;regressions&quot;: 0, &quot;diff&quot;: null}}, &quot;metrics&quot;: {}}
+</pre></details><details class="step" open><summary>#31 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 movie_matcher.py 2&gt;&amp;1</code></summary><pre>exit=1
+Traceback (most recent call last):
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...&lt;10 lines&gt;...
+        **response_kw,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
+    raise new_e
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+        sock=sock,
+    ...&lt;14 lines&gt;...
+        assert_fingerprint=self.assert_fingerprint,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 975, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+        sock=sock,
+    ...&lt;8 lines&gt;...
+        tls_in_tls=tls_in_tls,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 433, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 477, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sock=sock,
+        ^^^^^^^^^^
+    ...&lt;5 lines&gt;...
+        session=session
+        ^^^^^^^^^^^^^^^
+    )
+    ^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1076, in _create
+    self.do_handshake()
+    ~~~~~~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1372, in do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+ConnectionResetError: [Errno 104] Connection reset by peer
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File &quot;/usr/local/lib/python3.14/site-packages/requests/adapters.py&quot;, line 644, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...&lt;9 lines&gt;...
+        chunked=chunked,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 842, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/retry.py&quot;, line 498, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/util.py&quot;, line 38, in reraise
+    raise value.with_traceback(tb)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
+    response = self._make_request(
+        conn,
+    ...&lt;10 lines&gt;...
+        **response_kw,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
+    raise new_e
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+        sock=sock,
+    ...&lt;14 lines&gt;...
+        assert_fingerprint=self.assert_fingerprint,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 975, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+        sock=sock,
+    ...&lt;8 lines&gt;...
+        tls_in_tls=tls_in_tls,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 433, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 477, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sock=sock,
+        ^^^^^^^^^^
+    ...&lt;5 lines&gt;...
+        session=session
+        ^^^^^^^^^^^^^^^
+    )
+    ^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1076, in _create
+    self.do_handshake()
+    ~~~~~~~~~~~~~~~~~^^
+  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1372, in do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+urllib3.exceptions.ProtocolError: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/api/_transport.py&quot;, line 263, in request
+    response = self.session.request(
+        method,
+    ...&lt;7 lines&gt;...
+        **kwargs,
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/requests/sessions.py&quot;, line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File &quot;/usr/local/lib/python3.14/site-packages/requests/sessions.py&quot;, line 703, in send
+    r = adapter.send(request, **kwargs)
+  File &quot;/usr/local/lib/python3.14/site-packages/requests/adapters.py&quot;, line 659, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
+
+The above excepti</pre></details><details class="step" open><summary>#32 <b>bash</b> <code>export PATH=&quot;$HOME/.local/bin:$PATH&quot; &amp;&amp; cd /home/daytona &amp;&amp; braintrust eval --no-send-logs --jsonl movie_matcher.py 2&gt;&amp;1 | grep -E &#x27;(SUMMARY</code></summary><pre>exit=0
+{&quot;project_name&quot;: &quot;Evaluation quickstart&quot;, &quot;project_id&quot;: null, &quot;experiment_id&quot;: null, &quot;experiment_name&quot;: &quot;Evaluation quickstart [experiment_name=Movie matcher (Python)]&quot;, &quot;project_url&quot;: null, &quot;experiment_url&quot;: null, &quot;comparison_experiment_name&quot;: null, &quot;scores&quot;: {&quot;ExactMatch&quot;: {&quot;name&quot;: &quot;ExactMatch&quot;, &quot;_longest_score_name&quot;: 10, &quot;score&quot;: 1.0, &quot;improvements&quot;: 0, &quot;regressions&quot;: 0, &quot;diff&quot;: null}}, &quot;metrics&quot;: {}}
+</pre></details><details class="step" open><summary>#33 <b>bash</b> <code>export PATH=&quot;$HOME/.local/bin:$PATH&quot; &amp;&amp; cd /home/daytona &amp;&amp; braintrust eval --no-send-logs movie_matcher.py 2&gt;&amp;1</code></summary><pre>exit=0
+2026-08-20 09:52:26,010 WARNING [braintrust.eval]: Reading movie_matcher.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory.
+Evaluation quickstart [experiment_name=Movie matcher (Python)] (data): 0it [00:00, ?it/s]Evaluation quickstart [experiment_name=Movie matcher (Python)] (data): 5it [00:00, 68534.38it/s]
+Evaluation quickstart [experiment_name=Movie matcher (Python)] (tasks):   0%|          | 0/5 [00:00&lt;?, ?it/s]Evaluation quickstart [experiment_name=Movie matcher (Python)] (tasks): 100%|██████████| 5/5 [00:00&lt;00:00, 2858.71it/s]
+
+=========================SUMMARY=========================
+100.00% &#x27;ExactMatch&#x27; score
+
+
+</pre></details><details class="step" open><summary>#34 <b>bash</b> <code>export PATH=&quot;$HOME/.local/bin:$PATH&quot; &amp;&amp; cd /home/daytona &amp;&amp; braintrust eval --no-send-logs movie_matcher.py 2&gt;&amp;1 | grep -A5 &quot;SUMMARY&quot;</code></summary><pre>exit=0
+=========================SUMMARY=========================
+100.00% &#x27;ExactMatch&#x27; score
+
+
+</pre></details><details class="step" open><summary>#35 <b>bash</b> <code>export PATH=&quot;$HOME/.local/bin:$PATH&quot; &amp;&amp; cd /home/daytona &amp;&amp; braintrust eval --no-send-logs --verbose movie_matcher.py 2&gt;&amp;1</code></summary><pre>exit=0
+2026-08-20 09:52:54,950 WARNING [braintrust.eval]: Reading movie_matcher.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory.
+Evaluation quickstart [experiment_name=Movie matcher (Python)] (data): 0it [00:00, ?it/s]Evaluation quickstart [experiment_name=Movie matcher (Python)] (data): 5it [00:00, 56833.39it/s]
+Evaluation quickstart [experiment_name=Movie matcher (Python)] (tasks):   0%|          | 0/5 [00:00&lt;?, ?it/s]Evaluation quickstart [experiment_name=Movie matcher (Python)] (tasks): 100%|██████████| 5/5 [00:00&lt;00:00, 2391.01it/s]
+
+=========================SUMMARY=========================
+100.00% &#x27;ExactMatch&#x27; score
+
+
+</pre></details><details class="step" open><summary>#36 <b>finish</b> <code></code></summary><pre>run finished</pre></details>
 </body></html>

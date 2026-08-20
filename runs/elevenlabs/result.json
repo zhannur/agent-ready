@@ -1,14 +1,14 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-08-19T10:14:52Z",
+  "started": "2026-08-20T10:28:58Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Followed the vendor's instructions from https://elevenlabs.io/docs/quickstart: installed the elevenlabs SDK and python-dotenv, created the example script using the exact API call pattern shown (text_to_speech.convert with voice_id JBFqnCBsd6RMkjVDRZzb, model_id eleven_v3, output_format mp3_44100_128), and verified text-to-speech generates a valid audio file. The generated output.mp3 is 46,019 bytes and confirmed by `file` command as a valid MPEG ADTS layer III MP3 at 128 kbps, 44.1 kHz, monaural. The API key was sourced from the pre-exported ELEVENLABS_API_KEY environment variable as instructed.",
-  "deviations": "The quickstart's original example.py calls `play(audio)` which requires MPV/ffmpeg and plays through speakers. In the sandbox (no audio output), I created a second script that saves the audio iterator to a file instead, which is the standard way to verify audio generation in a headless environment. The core API call and SDK usage remain exactly as documented.",
-  "steps": 8,
-  "wall_seconds": 28.0,
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example.py script, and ran it. The API call to text_to_speech.convert() succeeded and generated a valid MP3 audio file (output.mp3, 41,839 bytes, MPEG ADTS layer III, 128 kbps, 44.1 kHz, mono) from the input text \"The first move is what sets everything in motion.\"",
+  "deviations": "The quickstart's final step uses `play(audio)` to play audio through speakers. Since the sandbox has no audio output/speakers, I saved the returned audio stream to a file (output.mp3) instead. This still fulfills the promised outcome of generating an audio file from text.",
+  "steps": 6,
+  "wall_seconds": 21.9,
   "checkpoints": {
     "env_ready": {
       "passed": true,
@@ -20,11 +20,11 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "api_key=os.getenv(\"ELEVENLABS_API_KEY\"),"
+      "evidence": "Audio saved to output.mp3"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio file generated successfully: output.mp3"
+      "evidence": "Audio saved to output.mp3"
     },
     "verified": {
       "passed": true,
@@ -33,26 +33,26 @@
   },
   "friction": [
     {
-      "where": "Quickstart example uses play() which is not verifiable in a headless sandbox",
-      "detail": "from elevenlabs.play import play"
+      "where": "Documentation fetch",
+      "detail": "The fetched quickstart URL returned navigation-heavy HTML instead of clean content, forcing the user to hunt for steps: \"Overview ElevenCreative ElevenAgents ElevenAPI Reception.ai API reference Changelog Help Center Login Overview...\""
     },
     {
-      "where": "Fetched documentation page is cluttered with navigation HTML instead of clean quickstart steps",
-      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt."
+      "where": "API key configuration",
+      "detail": "The script requires ELEVENLABS_API_KEY via os.getenv, yet the transcript shows no export or .env file creation, making the auth step invisible."
     },
     {
-      "where": "No explicit step shown to set the API key or create a .env file",
-      "detail": "api_key=os.getenv(\"ELEVENLABS_API_KEY\"),"
+      "where": "Audio playback step",
+      "detail": "The quickstart expects local playback with play(audio), which is incompatible with a headless sandbox and was skipped: \"The quickstart's final step uses `play(audio)` to play\"."
     },
     {
-      "where": "First script execution produces no visible output, leaving API success ambiguous",
-      "detail": "[bash] args={\"command\": \"cd /home/daytona && python example.py\"}\nexit=0\n"
+      "where": "Pip install permissions",
+      "detail": "Pip defaulted to user installation because system site-packages is not writeable, which can cause path confusion: \"Defaulting to user installation because normal site-packages is not writeable\"."
     },
     {
-      "where": "Agent had to write a second script to save audio because the quickstart default does not persist output",
-      "detail": "# Save to file to verify audio generation"
+      "where": "Markdown endpoint hint",
+      "detail": "The docs explicitly offer a clean .md version, but the agent fetched noisy HTML: \"Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page.\""
     }
   ],
   "score": 100,
-  "braintrust_span": "d4825562-cf04-4f1b-b2f0-e052be04c46b"
+  "braintrust_span": "8d2abbd1-a230-4f54-b4ac-db50c5922206"
 }

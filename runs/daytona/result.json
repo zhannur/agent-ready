@@ -1,22 +1,22 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-08-19T10:11:55Z",
+  "started": "2026-08-20T10:26:47Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Daytona Python SDK and created sandboxes via the SDK\u2014real sandbox IDs like `75630ac7-d052-412d-addd-7d695981cc19` were returned and listed with state `started`. I had to deviate from the docs: `CreateSandboxParams` does not exist (the SDK exports `CreateSandboxBaseParams`), and `sandbox.process.execute()` does not exist (the correct method is `sandbox.process.exec()`). However, I was blocked from completing the promised outcome because every attempt to run code inside the sandbox failed with the same backend error: `bad request: failed to resolve container IP after 3 attempts: no IP address found. Is the Sandbox started?`. This occurred across `process.exec()`, `process.code_run()`, and `sandbox.code_run()`, indicating sandbox creation works but container networking/execution is broken on the platform side.",
+  "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 248.9,
+  "wall_seconds": 245.7,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "python daytona_quickstart.py executes and imports the daytona package, failing later inside urllib3"
     },
     "installed": {
       "passed": true,
-      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
+      "evidence": "cat /usr/local/lib/python3.14/site-packages/daytona/__init__.py exits 0 showing SDK files present"
     },
     "configured": {
       "passed": true,
@@ -24,35 +24,35 @@
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created: id=059285e9-4847-4646-877b-bf25e038de3d"
+      "evidence": "Sandbox ID: 901048dd-ee11-43a3-a3cc-df8266cb9139 with exit=0"
     },
     "verified": {
       "passed": false,
-      "evidence": "bad request: failed to resolve container IP after 3 attempts: no IP address found. Is the Sandbox started?"
+      "evidence": "sandbox.process.exec fails with ConnectionResetError(104, 'Connection reset by peer') and no Hello, World! output is produced"
     }
   },
   "friction": [
     {
-      "where": "SDK class name drift in docs",
-      "detail": "ImportError: cannot import name 'CreateSandboxParams' from 'daytona' ... Did you mean: 'CreateSandboxBaseParams'?"
+      "where": "SDK list return type",
+      "detail": "TypeError: object of type 'PaginatedSandboxes' has no len()"
     },
     {
-      "where": "SDK method name drift in docs",
-      "detail": "AttributeError: 'Process' object has no attribute 'execute'"
+      "where": "Toolbox proxy TLS connection",
+      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443"
     },
     {
-      "where": "Unexpected list return type",
-      "detail": "AttributeError: 'tuple' object has no attribute 'id'"
+      "where": "Daytona.delete signature",
+      "detail": "AttributeError: 'str' object has no attribute 'delete' when passing an id string"
     },
     {
-      "where": "Sandbox execution backend failure",
-      "detail": "bad request: failed to resolve container IP after 3 attempts: no IP address found. Is the Sandbox started?"
+      "where": "CodeInterpreter method name",
+      "detail": "AttributeError: 'CodeInterpreter' object has no attribute 'run'"
     },
     {
-      "where": "Sandbox started but unreachable",
-      "detail": "state=<SandboxState.STARTED: 'started'> ... bad request: failed to resolve container IP after 3 attempts"
+      "where": "Sandbox CPU quota",
+      "detail": "DaytonaError: Failed to create sandbox: Total CPU limit exceeded. Maximum allowed: 10."
     }
   ],
   "score": 70,
-  "braintrust_span": "06c03550-a209-4320-9edf-8dfe47b57160"
+  "braintrust_span": "3b882532-e26e-4167-bfbd-ab07abc6d2be"
 }

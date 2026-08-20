@@ -1,14 +1,14 @@
 {
   "name": "copilotkit",
   "url": "https://docs.copilotkit.ai/quickstart",
-  "started": "2026-08-19T10:06:58Z",
+  "started": "2026-08-20T10:21:21Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I followed the CopilotKit quickstart exactly: created a Next.js 16 app with `npx create-next-app`, installed `@copilotkit/react-core`, `@copilotkit/react-ui`, and `@copilotkit/runtime`, scaffolded the `app/api/copilotkit/route.ts` endpoint, wrapped `layout.tsx` with `CopilotKit`, and added `CopilotSidebar` to `page.tsx`. The build never completed: Next.js workers were repeatedly killed\u2014first with a bare `Killed` message, then with `FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory`\u2014because the sandbox enforces a 1 GB cgroup memory limit (`/sys/fs/cgroup/memory.max` = `1073741824`), which is insufficient for the CopilotKit + Next.js build. Consequently, I never reached a running dev server or verified a working `/api/copilotkit` endpoint.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 884.5,
+  "wall_seconds": 1492.1,
   "checkpoints": {
     "env_ready": {
       "passed": true,
@@ -16,11 +16,11 @@
     },
     "installed": {
       "passed": true,
-      "evidence": "added 860 packages, and audited 1226 packages in 3m"
+      "evidence": "added 860 packages, and audited 1226 packages in 1m"
     },
     "configured": {
-      "passed": false,
-      "evidence": "OPENAI_API_KEY=sk-placeholder-key-for-build-testing"
+      "passed": true,
+      "evidence": "- Environments: .env"
     },
     "first_call": {
       "passed": false,
@@ -28,31 +28,31 @@
     },
     "verified": {
       "passed": false,
-      "evidence": "000"
+      "evidence": "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory"
     }
   },
   "friction": [
     {
       "where": "Missing OpenAI API key prerequisite",
-      "detail": "No OPENAI_API_KEY found in environment"
+      "detail": "OPENAI_API_KEY is set: \nLength: 0"
     },
     {
-      "where": "Production build killed by sandbox",
-      "detail": "Creating an optimized production build ...\nKilled"
+      "where": "Sandbox cgroup memory limit too low for Next.js build",
+      "detail": "1073741824"
     },
     {
-      "where": "Dev server crashes during compilation",
-      "detail": "\u25cb Compiling / ..."
+      "where": "Deprecated SDK dependencies and audit warnings on install",
+      "detail": "npm warn deprecated lodash.get@4.4.2"
     },
     {
-      "where": "Undocumented import paths force node_modules spelunking",
-      "detail": "grep -r \"copilotRuntimeNextJSAppRouterEndpoint\" node_modules/@copilotkit/runtime/dist/ | head -5"
+      "where": "Invalid Next.js CLI flag to disable Turbopack",
+      "detail": "error: unknown option '--no-turbopack'"
     },
     {
-      "where": "SDK install emits deprecation warnings and vulnerabilities",
-      "detail": "npm warn deprecated lodash.get@4.4.2: This package is deprecated"
+      "where": "Next.js 16 build runs out of memory and is killed",
+      "detail": "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory"
     }
   ],
-  "score": 30,
-  "braintrust_span": "8f023411-9083-4dc5-9f65-cec6b4f53807"
+  "score": 45,
+  "braintrust_span": "5ed569d8-ebde-433f-bb13-4808d985ece8"
 }
