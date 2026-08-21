@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-20T09:55:08Z",
+  "started": "2026-08-21T09:56:21Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
-  "outcome": "verified",
-  "summary": "Successfully completed the Braintrust evaluation quickstart. An eval run was executed via the SDK and scores were reported.\n\nSteps completed:\n1. Installed the Braintrust SDK and dependencies: `pip install braintrust openai autoevals`\n2. Created `movie_matcher.py` following the quickstart pattern (data, task, scores with ExactMatch)\n3. Ran the eval using the `braintrust eval` CLI (the SDK's built-in CLI, available after pip install)\n4. Verified scores are reported: **100.00% 'ExactMatch' score** across 5 test cases\n\nDeviations from the docs:\n- The `bt` CLI install script (`curl -fsSL https://bt.dev/cli/install.sh | sh`) failed due to network restrictions in the sandbox. However, the `braintrust` CLI was already available after `pip install braintrust`.\n- The `--no-send-logs` flag was required because the sandbox restricts outbound HTTPS to braintrust.dev, preventing the SDK from uploading experiment results to the cloud. The eval still ran locally and reported scores.\n- The task function used a simple mock implementation instead of calling an LLM, because no OpenAI API key was provided in the sandbox environment and external API calls would likely also be blocked.",
-  "deviations": "1. `bt` CLI install script failed (connection reset to bt.dev). Used the `braintrust` CLI already installed via pip instead.\n2. Added `--no-send-logs` flag to `braintrust eval` because the sandbox blocks HTTPS connections to www.braintrust.dev, preventing cloud upload.\n3. Used a mock task function instead of an OpenAI LLM call because no OPENAI_API_KEY was provided and external APIs are likely blocked.",
-  "steps": 36,
-  "wall_seconds": 257.5,
+  "outcome": "stuck",
+  "summary": "I successfully installed the Braintrust SDK and dependencies (`braintrust`, `openai`, `autoevals` \u2014 pip confirmed \"Successfully installed autoevals-0.3.0 braintrust-0.34.0\") and created the `movie_matcher.py` eval script exactly as the quickstart specifies. However, the sandbox environment has restricted HTTPS internet access; curl tests to `api.braintrust.dev`, `www.braintrust.dev`, and even `google.com` all fail with \"Connection reset by peer,\" while `httpbin.org` explicitly returns \"Internet is restricted on Tier 1 and Tier 2.\" Because the Braintrust SDK and the OpenAI client both require HTTPS API calls to function, the eval run cannot execute and no scores can be reported. The blocker is network-level HTTPS restriction in the sandbox, not any code or configuration issue.",
+  "deviations": "",
+  "steps": 40,
+  "wall_seconds": 261.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4 / pip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "/home/daytona/.local/bin/braintrust"
+      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.34.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-8.0.4 sseclient-py-1.9.0 text-unidecode-1.3"
     },
     "configured": {
       "passed": false,
-      "evidence": "OPENAI_API_KEY is set:  (empty) despite quickstart requiring export OPENAI_API_KEY=\" \""
+      "evidence": "No OpenAI env vars"
     },
     "first_call": {
       "passed": false,
-      "evidence": "requests.exceptions.ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')) on first braintrust eval movie_matcher.py"
+      "evidence": "braintrust eval movie_matcher.py ... exit=1 ... Connection reset by peer"
     },
     "verified": {
-      "passed": true,
-      "evidence": "100.00% 'ExactMatch' score"
+      "passed": false,
+      "evidence": "the eval run cannot execute and no scores can be reported"
     }
   },
   "friction": [
     {
-      "where": "CLI install script",
-      "detail": "curl to https://bt.dev/cli/install.sh fails with connection reset: `curl: (35) Recv failure: Connection reset by peer`"
+      "where": "Missing AI provider API key prerequisite",
+      "detail": "No OpenAI env vars"
     },
     {
-      "where": "CLI command name mismatch in docs",
-      "detail": "Docs refer to `bt eval` but the pip-installed binary is `braintrust`: `bt eval my_eval.eval.ts` vs `usage: braintrust [-h] {eval,install,push} ...`"
+      "where": "bt CLI install script via curl",
+      "detail": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "First eval login without offline flag",
-      "detail": "Restricted network causes long SSL traceback because docs don't mention `--no-send-logs` for air-gapped runs: `requests.exceptions.ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))`"
+      "where": "bt CLI npm package name",
+      "detail": "npm error 404 The requested resource '@braintrust/cli@*' could not be found"
     },
     {
-      "where": "Missing AI provider key prerequisite",
-      "detail": "Quickstart requires OPENAI_API_KEY but sandbox only had BRAINTRUST_API_KEY: `OPENAI_API_KEY is set: `"
+      "where": "Sandbox HTTPS egress restriction",
+      "detail": "Internet is restricted on Tier 1 and Tier 2."
     },
     {
-      "where": "Run-in-code docs lack Python example",
-      "detail": "The `run-in-code.md` page only shows TypeScript snippets, forcing Python users to infer: ` ```typescript wrap ` and `bt eval my_eval.eval.ts`"
+      "where": "Python CLI scripts not on PATH",
+      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
     }
   ],
-  "score": 60,
-  "braintrust_span": "251ae7cb-7f05-43bb-8edf-df5288743174"
+  "score": 30,
+  "braintrust_span": "2bb73543-c305-4db9-a350-37f5bd833633"
 }
