@@ -1,22 +1,22 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-08-20T10:26:47Z",
+  "started": "2026-08-22T10:09:50Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I successfully completed the first half of the quickstart: **sandbox creation via the SDK demonstrably works**. Both the Python SDK (`daytona.create()`) and the direct REST API (`curl -X POST https://app.daytona.io/api/sandbox`) returned valid sandbox IDs with `state: \"started\"` (e.g., `edd913f7-f995-4cd9-892e-9e39130c3e7b`). However, **executing code inside the sandbox is blocked** because the toolbox proxy endpoint (`proxy.app.daytona.io/toolbox`) consistently returns `Connection reset by peer` errors for both `process.exec()` and `process.executeCommand()` calls in Python and Node.js respectively. The main API endpoint works fine, but the secondary proxy required for actual code execution appears unreachable from this sandbox environment.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 245.7,
+  "wall_seconds": 228.7,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "python daytona_quickstart.py executes and imports the daytona package, failing later inside urllib3"
+      "evidence": "Python 3.14.4"
     },
     "installed": {
       "passed": true,
-      "evidence": "cat /usr/local/lib/python3.14/site-packages/daytona/__init__.py exits 0 showing SDK files present"
+      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     },
     "configured": {
       "passed": true,
@@ -24,35 +24,35 @@
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox ID: 901048dd-ee11-43a3-a3cc-df8266cb9139 with exit=0"
+      "evidence": "Sandbox created: 1efc6357-9fef-4316-87fc-8f517e5f9d58"
     },
     "verified": {
       "passed": false,
-      "evidence": "sandbox.process.exec fails with ConnectionResetError(104, 'Connection reset by peer') and no Hello, World! output is produced"
+      "evidence": "codeRun error: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   },
   "friction": [
     {
-      "where": "SDK list return type",
-      "detail": "TypeError: object of type 'PaginatedSandboxes' has no len()"
+      "where": "Python SDK docs vs code mismatch on process method name",
+      "detail": "AttributeError: 'Process' object has no attribute 'execute'"
     },
     {
-      "where": "Toolbox proxy TLS connection",
-      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443"
+      "where": "TypeScript SDK method name differs from Python",
+      "detail": "TypeError: sandbox.process.exec is not a function"
     },
     {
-      "where": "Daytona.delete signature",
-      "detail": "AttributeError: 'str' object has no attribute 'delete' when passing an id string"
+      "where": "Toolbox proxy endpoint unreachable for code execution",
+      "detail": "Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     },
     {
-      "where": "CodeInterpreter method name",
-      "detail": "AttributeError: 'CodeInterpreter' object has no attribute 'run'"
+      "where": "CLI emits debug server logs and port-bind errors on --help",
+      "detail": "Error occurred error=\"listen tcp :22220: bind: address already in use\""
     },
     {
-      "where": "Sandbox CPU quota",
-      "detail": "DaytonaError: Failed to create sandbox: Total CPU limit exceeded. Maximum allowed: 10."
+      "where": "CLI documentation page returns 404",
+      "detail": "404 The page you're looking for doesn't exist or has been moved."
     }
   ],
   "score": 70,
-  "braintrust_span": "3b882532-e26e-4167-bfbd-ab07abc6d2be"
+  "braintrust_span": "690cb97b-4b3b-4ba7-bf7b-383c7ba05a75"
 }
