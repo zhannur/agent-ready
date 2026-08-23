@@ -1,18 +1,18 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-08-22T10:12:17Z",
+  "started": "2026-08-23T10:04:22Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs SDK and python-dotenv, created the example script, and successfully generated a valid MP3 audio file from text using the ElevenLabs API. The output file (output.mp3) is 44,765 bytes and verified as a real MPEG ADTS layer III MP3 at 44.1 kHz, 128 kbps, mono. The text-to-speech API call returned audio data as expected.",
-  "deviations": "The quickstart's final step uses `play(audio)` to play audio through speakers. Since the sandbox has no audio output hardware, I saved the returned audio stream to a file (`output.mp3`) instead. This is a sandbox-environment limitation; the core API request and audio generation worked exactly as documented.",
+  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the SDK (elevenlabs + python-dotenv), created example.py with the documented code, and successfully generated a valid MP3 audio file from text using the ElevenLabs API. The output.mp3 file is 41,839 bytes and verified as a real MPEG ADTS Layer III audio file at 128 kbps, 44.1 kHz.",
+  "deviations": "Removed the `play(audio)` call from the quickstart code because the sandbox has no audio output/speakers. Instead, saved the audio stream to output.mp3 and verified the file with the `file` command. The core text-to-speech API request followed the docs exactly.",
   "steps": 8,
-  "wall_seconds": 33.2,
+  "wall_seconds": 40.5,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Defaulting to user installation because normal site-packages is not writeable"
+      "evidence": "Requirement already satisfied: python-dotenv in /usr/local/lib/python3.14/site-packages (1.2.2)"
     },
     "installed": {
       "passed": true,
@@ -20,11 +20,11 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "api_key=os.getenv(\"ELEVENLABS_API_KEY\")"
+      "evidence": "API key present: yes"
     },
     "first_call": {
       "passed": true,
-      "evidence": "exit=0"
+      "evidence": "Audio file generated: output.mp3"
     },
     "verified": {
       "passed": true,
@@ -33,22 +33,10 @@
   },
   "friction": [
     {
-      "where": "Documentation format hint",
-      "detail": "The fetched HTML page is noisy with navigation, while the docs themselves advertise a cleaner format: \"For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page.\""
-    },
-    {
-      "where": "Quickstart playback step",
-      "detail": "The quickstart defaults to `play(audio)` which requires local audio hardware and is unsuitable for headless sandboxes: \"The quickstart's final step uses `play(audio)` to play\""
-    },
-    {
-      "where": "Missing file output example",
-      "detail": "Because the quickstart only demonstrates playback, the agent had to create a second script (`example_save.py`) to persist audio bytes to disk for verification."
-    },
-    {
-      "where": "Credential setup visibility",
-      "detail": "The script uses `load_dotenv()` and `os.getenv(\\\"ELEVENLABS_API_KEY\\\")`, but the transcript never shows creating the `.env` file or exporting the variable, leaving a gap for first-time developers."
+      "where": "Quickstart code defaults to playing audio instead of saving to file",
+      "detail": "Removed the `play(audio)` call from the quickstart code because the sandbox has no audio output/speakers."
     }
   ],
   "score": 100,
-  "braintrust_span": "c5a30ad3-45d8-4d56-b5dc-91bc8b4a1d0f"
+  "braintrust_span": "81a05b08-7e87-4d5e-a3a0-1a0d0cad8b04"
 }

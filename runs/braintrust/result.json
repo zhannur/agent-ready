@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-22T09:42:48Z",
+  "started": "2026-08-23T09:45:40Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I successfully installed the Braintrust SDK and dependencies (`pip install braintrust openai autoevals` reported \"Successfully installed autoevals-0.3.0 braintrust-0.34.0\"). I also created the `movie_matcher.py` eval script exactly per the quickstart docs, using `Eval` with `ExactMatch` scorer and five movie plot test cases. However, the sandbox environment blocks outbound HTTPS to `api.braintrust.dev` \u2014 both `curl -v https://api.braintrust.dev/v1/status` and the Python SDK fail with `Recv failure: Connection reset by peer` during the TLS handshake. Because the eval cannot reach Braintrust's API to log the experiment, the promised outcome (an eval run executed via the SDK with scores reported) is blocked by this network restriction. I also could not install the `bt` CLI for the same reason (`curl -fsSL https://bt.dev/cli/install.sh` hit the same connection reset).",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 134.1,
+  "wall_seconds": 191.6,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "python3 --version && pip3 --version exited 0 showing Python 3.14.4 and pip 26.0.1"
+      "evidence": "Python 3.14.4"
     },
     "installed": {
       "passed": true,
-      "evidence": "pip install braintrust openai autoevals succeeded and /home/daytona/.local/bin/braintrust --help displayed usage"
+      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.34.0"
     },
     "configured": {
-      "passed": true,
-      "evidence": "BRAINTRUST_API_KEY was present in the environment and the eval script referenced os.environ[\"BRAINTRUST_API_KEY\"] with base_url=\"https://gateway.braintrust.dev\""
+      "passed": false,
+      "evidence": "OPENAI_API_KEY is set: "
     },
     "first_call": {
       "passed": false,
-      "evidence": "braintrust eval movie_matcher.py exited 1 with urllib3 MaxRetryError / SSL Connection reset by peer"
+      "evidence": "* OpenSSL SSL_connect: Connection reset by peer in connection to api.braintrust.dev:443"
     },
     "verified": {
       "passed": false,
-      "evidence": "No eval scores were produced; the run failed with a network traceback and neverssl.com confirmed 'Internet is restricted on Tier 1 and Tier 2.'"
+      "evidence": "curl: (35) Recv failure: Connection reset by peer"
     }
   },
   "friction": [
     {
-      "where": "Sandbox network policy blocks all outbound HTTPS",
-      "detail": "curl to gateway.braintrust.dev and api.braintrust.dev returns 'curl: (35) Recv failure: Connection reset by peer', and neverssl.com finally reveals 'Internet is restricted on Tier 1 and Tier 2.'"
+      "where": "bt CLI install step",
+      "detail": "curl -fsSL https://bt.dev/cli/install.sh | sh failed with curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "bt CLI install step in docs",
-      "detail": "The quickstart recommends 'curl -fsSL https://bt.dev/cli/install.sh | sh' which fails with 'curl: (35) Recv failure: Connection reset by peer' in the sandbox"
+      "where": "API key configuration",
+      "detail": "OPENAI_API_KEY is set:  (empty) \u2014 the quickstart requires this env var but it was missing"
     },
     {
-      "where": "Missing OPENAI_API_KEY forces Gateway detour",
-      "detail": "The eval quickstart says 'export OPENAI_API_KEY=\" \"' but env shows none set, so the agent had to hunt down the Gateway docs to avoid a local provider key"
+      "where": "SDK environment variable access",
+      "detail": "Probing braintrust.api_conn() raised RuntimeError: Must initialize api_url before requesting api_conn and multiple AttributeError/TypeError attempts to read BraintrustEnv"
     },
     {
-      "where": "Python eval file naming convention",
-      "detail": "braintrust eval warns 'Reading movie_matcher.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory.'"
+      "where": "Outbound network connectivity to Braintrust API",
+      "detail": "curl -v --ipv4 https://api.braintrust.dev/v1/status failed with * OpenSSL SSL_connect: Connection reset by peer in connection to api.braintrust.dev:443"
     },
     {
-      "where": "Cryptic SSL errors instead of clear auth or network messages",
-      "detail": "All Braintrust endpoints return 'OpenSSL SSL_connect: Connection reset by peer' rather than a readable HTTP error, making it hard to distinguish key/auth issues from network blocks"
+      "where": "pip install PATH warning",
+      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
     }
   ],
-  "score": 45,
-  "braintrust_span": "23789ee3-9b10-4c8c-ad74-aa453c29c8d6"
+  "score": 30,
+  "braintrust_span": "758a1b4c-52cb-4df2-950b-bb1905488328"
 }
