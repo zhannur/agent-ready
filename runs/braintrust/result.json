@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-23T09:45:40Z",
+  "started": "2026-08-24T10:05:48Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Braintrust SDK and dependencies (`pip install braintrust openai autoevals` reported \"Successfully installed autoevals-0.3.0 braintrust-0.34.0\"). I also created the `movie_matcher.py` eval script exactly per the quickstart docs, using `Eval` with `ExactMatch` scorer and five movie plot test cases. However, the sandbox environment blocks outbound HTTPS to `api.braintrust.dev` \u2014 both `curl -v https://api.braintrust.dev/v1/status` and the Python SDK fail with `Recv failure: Connection reset by peer` during the TLS handshake. Because the eval cannot reach Braintrust's API to log the experiment, the promised outcome (an eval run executed via the SDK with scores reported) is blocked by this network restriction. I also could not install the `bt` CLI for the same reason (`curl -fsSL https://bt.dev/cli/install.sh` hit the same connection reset).",
+  "summary": "I successfully fetched the Braintrust evaluation quickstart and installed the required Python SDKs (`braintrust`, `openai`, `autoevals`) \u2014 pip completed with `Successfully installed autoevals-0.3.0 braintrust-0.34.0`. I wrote the `movie_matcher.py` eval script exactly as the quickstart specifies, adapting it to route through the Braintrust Gateway using the provided `BRAINTRUST_API_KEY`. However, the sandbox cannot establish TLS connections to any Braintrust endpoint: `curl` to `gateway.braintrust.dev`, `www.braintrust.dev`, `api.braintrust.dev`, and `api.braintrust.ai` all fail with `Connection reset by peer` during the TLS handshake, while other HTTPS endpoints like `api.openai.com` do respond (HTTP 421). This network-level restriction blocks the SDK from reaching Braintrust entirely, so I could not execute the eval run or report scores.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 191.6,
+  "wall_seconds": 175.7,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4"
+      "evidence": "pip install braintrust openai autoevals exited with code 0"
     },
     "installed": {
       "passed": true,
-      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.34.0"
+      "evidence": "Downloading braintrust-0.34.0-py3-none-any.whl.metadata (4.0 kB) and autoevals-0.3.0-py3-none-any.whl.metadata (17 kB)"
     },
     "configured": {
       "passed": false,
-      "evidence": "OPENAI_API_KEY is set: "
+      "evidence": "OPENAI_API_KEY is set:  (empty) despite quickstart requiring export OPENAI_API_KEY=\" \""
     },
     "first_call": {
       "passed": false,
-      "evidence": "* OpenSSL SSL_connect: Connection reset by peer in connection to api.braintrust.dev:443"
+      "evidence": "python movie_matcher.py exited with code 1 and SSL connection reset traceback"
     },
     "verified": {
       "passed": false,
-      "evidence": "curl: (35) Recv failure: Connection reset by peer"
+      "evidence": "No eval scores reported; script failed with connection reset before any API call succeeded"
     }
   },
   "friction": [
     {
-      "where": "bt CLI install step",
-      "detail": "curl -fsSL https://bt.dev/cli/install.sh | sh failed with curl: (35) Recv failure: Connection reset by peer"
+      "where": "Evaluation quickstart page",
+      "detail": "Python install snippet truncated after github-da, showing only TypeScript/pnpm commands"
     },
     {
-      "where": "API key configuration",
-      "detail": "OPENAI_API_KEY is set:  (empty) \u2014 the quickstart requires this env var but it was missing"
+      "where": "Credential prerequisites",
+      "detail": "Docs require export OPENAI_API_KEY=\" \" but sandbox only has BRAINTRUST_API_KEY"
     },
     {
-      "where": "SDK environment variable access",
-      "detail": "Probing braintrust.api_conn() raised RuntimeError: Must initialize api_url before requesting api_conn and multiple AttributeError/TypeError attempts to read BraintrustEnv"
+      "where": "SDK login helper",
+      "detail": "Agent tried braintrust.login().api_key then discovered login(...) -> None from help text"
     },
     {
-      "where": "Outbound network connectivity to Braintrust API",
-      "detail": "curl -v --ipv4 https://api.braintrust.dev/v1/status failed with * OpenSSL SSL_connect: Connection reset by peer in connection to api.braintrust.dev:443"
+      "where": "Braintrust Gateway connectivity",
+      "detail": "curl to gateway.braintrust.dev fails with Connection reset by peer during TLS handshake"
     },
     {
-      "where": "pip install PATH warning",
-      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
+      "where": "Python SDK discoverability",
+      "detail": "Working Python Eval example is hidden in separate run-in-code.md, not the main quickstart"
     }
   ],
   "score": 30,
-  "braintrust_span": "758a1b4c-52cb-4df2-950b-bb1905488328"
+  "braintrust_span": "b701d32c-01b4-4860-9cce-7e659ad5e5b6"
 }

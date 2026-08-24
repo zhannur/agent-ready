@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-08-22T10:09:50Z",
+  "started": "2026-08-24T10:29:54Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully completed the first half of the quickstart: **sandbox creation via the SDK demonstrably works**. Both the Python SDK (`daytona.create()`) and the direct REST API (`curl -X POST https://app.daytona.io/api/sandbox`) returned valid sandbox IDs with `state: \"started\"` (e.g., `edd913f7-f995-4cd9-892e-9e39130c3e7b`). However, **executing code inside the sandbox is blocked** because the toolbox proxy endpoint (`proxy.app.daytona.io/toolbox`) consistently returns `Connection reset by peer` errors for both `process.exec()` and `process.executeCommand()` calls in Python and Node.js respectively. The main API endpoint works fine, but the secondary proxy required for actual code execution appears unreachable from this sandbox environment.",
+  "summary": "I successfully completed the first half of the quickstart: I installed both the Python and TypeScript SDKs, and I demonstrably created Daytona sandboxes via the Python SDK (sandbox `5659c230-e32e-4aec-9013-2143ac24a815` created with state `started`), the TypeScript SDK (sandbox `0fa71152-f6d9-41c9-a07b-504809303ab1` created with state `started`), and the REST API (curl returned JSON with `\"state\": \"started\"`). I also verified `daytona.list()` works, returning two sandboxes with their IDs and states.\n\nWhat blocked me was executing code inside the sandbox. Both `sandbox.process.exec(\"echo 'Hello, World!'\")` in Python and `sandbox.process.executeCommand()` in TypeScript failed with connection reset errors when trying to reach `proxy.app.daytona.io:443` \u2014 the toolbox proxy endpoint used for command execution. DNS resolved the host, but the TLS handshake was consistently reset by the peer, preventing any code from running inside the created sandboxes.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 228.7,
+  "wall_seconds": 324.4,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4"
+      "evidence": "node --version returned v25.9.0 and npm --version returned 11.12.1"
     },
     "installed": {
       "passed": true,
-      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
+      "evidence": "npm install @daytona/sdk output: added 180 packages in 37s"
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY is set: yes"
+      "evidence": "curl with Authorization: Bearer $DAYTONA_API_KEY successfully created sandbox and returned JSON with state: started"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created: 1efc6357-9fef-4316-87fc-8f517e5f9d58"
+      "evidence": "python daytona.create() output: Created sandbox: 5659c230-e32e-4aec-9013-2143ac24a815"
     },
     "verified": {
       "passed": false,
-      "evidence": "codeRun error: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "evidence": "sandbox.process.executeCommand failed with DaytonaConnectionError: read ECONNRESET and python exec failed with ConnectionResetError, so no code ran inside"
     }
   },
   "friction": [
     {
-      "where": "Python SDK docs vs code mismatch on process method name",
-      "detail": "AttributeError: 'Process' object has no attribute 'execute'"
-    },
-    {
-      "where": "TypeScript SDK method name differs from Python",
+      "where": "TypeScript SDK method name mismatch",
       "detail": "TypeError: sandbox.process.exec is not a function"
     },
     {
-      "where": "Toolbox proxy endpoint unreachable for code execution",
-      "detail": "Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "where": "Toolbox proxy TLS handshake blocked execution",
+      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443"
     },
     {
-      "where": "CLI emits debug server logs and port-bind errors on --help",
-      "detail": "Error occurred error=\"listen tcp :22220: bind: address already in use\""
+      "where": "CLI basic commands fail due to port conflicts",
+      "detail": "ERR Error occurred error=\"listen tcp :22222: bind: address already in use\""
     },
     {
-      "where": "CLI documentation page returns 404",
-      "detail": "404 The page you're looking for doesn't exist or has been moved."
+      "where": "REST API execution endpoint not found",
+      "detail": "\"message\": \"Cannot POST /api/sandbox/2eefbac4-2efc-475f-9e71-bc89e8d27166/process/execute\""
+    },
+    {
+      "where": "Python SDK version drift",
+      "detail": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     }
   ],
   "score": 70,
-  "braintrust_span": "690cb97b-4b3b-4ba7-bf7b-383c7ba05a75"
+  "braintrust_span": "4fe54533-f4dd-4d0a-b695-1bfacc603d32"
 }
