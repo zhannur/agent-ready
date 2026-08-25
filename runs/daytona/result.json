@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-08-24T10:29:54Z",
+  "started": "2026-08-25T10:24:02Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully completed the first half of the quickstart: I installed both the Python and TypeScript SDKs, and I demonstrably created Daytona sandboxes via the Python SDK (sandbox `5659c230-e32e-4aec-9013-2143ac24a815` created with state `started`), the TypeScript SDK (sandbox `0fa71152-f6d9-41c9-a07b-504809303ab1` created with state `started`), and the REST API (curl returned JSON with `\"state\": \"started\"`). I also verified `daytona.list()` works, returning two sandboxes with their IDs and states.\n\nWhat blocked me was executing code inside the sandbox. Both `sandbox.process.exec(\"echo 'Hello, World!'\")` in Python and `sandbox.process.executeCommand()` in TypeScript failed with connection reset errors when trying to reach `proxy.app.daytona.io:443` \u2014 the toolbox proxy endpoint used for command execution. DNS resolved the host, but the TLS handshake was consistently reset by the peer, preventing any code from running inside the created sandboxes.",
+  "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 324.4,
+  "wall_seconds": 298.1,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "node --version returned v25.9.0 and npm --version returned 11.12.1"
+      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     },
     "installed": {
       "passed": true,
-      "evidence": "npm install @daytona/sdk output: added 180 packages in 37s"
+      "evidence": "Version: 0.207.0"
     },
     "configured": {
       "passed": true,
-      "evidence": "curl with Authorization: Bearer $DAYTONA_API_KEY successfully created sandbox and returned JSON with state: started"
+      "evidence": "API URL: https://app.daytona.io/api"
     },
     "first_call": {
       "passed": true,
-      "evidence": "python daytona.create() output: Created sandbox: 5659c230-e32e-4aec-9013-2143ac24a815"
+      "evidence": "Sandbox created with ID: 940ce6a8-84e7-44d2-b4f4-813b84a8413f"
     },
     "verified": {
       "passed": false,
-      "evidence": "sandbox.process.executeCommand failed with DaytonaConnectionError: read ECONNRESET and python exec failed with ConnectionResetError, so no code ran inside"
+      "evidence": "curl: (35) Recv failure: Connection reset by peer"
     }
   },
   "friction": [
     {
-      "where": "TypeScript SDK method name mismatch",
-      "detail": "TypeError: sandbox.process.exec is not a function"
+      "where": "Toolbox proxy TLS handshake",
+      "detail": "* OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443"
     },
     {
-      "where": "Toolbox proxy TLS handshake blocked execution",
-      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443"
+      "where": "CLI help command startup",
+      "detail": "2026-08-25T10:21:04Z ERR Error occurred error=\"listen tcp :22222: bind: address already in use\""
     },
     {
-      "where": "CLI basic commands fail due to port conflicts",
-      "detail": "ERR Error occurred error=\"listen tcp :22222: bind: address already in use\""
-    },
-    {
-      "where": "REST API execution endpoint not found",
-      "detail": "\"message\": \"Cannot POST /api/sandbox/2eefbac4-2efc-475f-9e71-bc89e8d27166/process/execute\""
-    },
-    {
-      "where": "Python SDK version drift",
+      "where": "SDK version drift",
       "detail": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
+    },
+    {
+      "where": "Module version introspection",
+      "detail": "AttributeError: module 'daytona' has no attribute '__version__'"
+    },
+    {
+      "where": "Sandbox readiness signaling",
+      "detail": "Waiting... 30/30, state: SandboxState.STARTED"
     }
   ],
   "score": 70,
-  "braintrust_span": "4fe54533-f4dd-4d0a-b695-1bfacc603d32"
+  "braintrust_span": "4b7276a3-d6a0-4c75-ab44-f22a642e44ca"
 }

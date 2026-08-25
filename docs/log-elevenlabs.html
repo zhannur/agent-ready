@@ -106,8 +106,8 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 </style></head><body>
 <h1 class="wordmark"><a href="index.html" style="color:inherit">agent-ready</a> · elevenlabs
 <span style="color:#46d17a">100/100</span></h1>
-<p class="meta" style="margin:.6rem 0 1.4rem">10 steps ·
-52.6s · agent <code>kimi-k2p6</code> ·
+<p class="meta" style="margin:.6rem 0 1.4rem">11 steps ·
+52.0s · agent <code>kimi-k2p6</code> ·
 <a href="https://github.com/zhannur/agent-ready/blob/main/runs/elevenlabs/transcript.jsonl">raw JSONL</a></p>
 <details class="step" open><summary>#1 <b>fetch_url</b> <code>https://elevenlabs.io/docs/quickstart</code></summary><pre> ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page. Search / Connect Blog Help Center API Pricing Sign up Overview ElevenCreative ElevenAgents ElevenAPI Reception.ai API reference Changelog Help Center Login Overview ElevenCreative ElevenAgents ElevenAPI Reception.ai API reference Changelog Help Center Get started Quickstart Agents Quickstart Choosing the right model Tutorials 
 
@@ -132,12 +132,13 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
  For guides covering other capabilities — streaming, voice cloning, speech-to-text — see the Tutorials section. 
  Use the ElevenLabs text-to-speech skill to generate speech from your AI coding assistant: $ npx skills add elevenlabs/skills --skill text-to-speech 
  Using the Text to Speech API 
- 1 Create an API key Create an API key in the dashboard here , which you’ll use to securely access the API . Store the key as a managed secret and pass it to the SDKs either as a environment variable via an .env file, or directly in your app’s configuration depending on your preference. .env 1 ELEVENLABS_API_KEY = &amp;lt; your_api_key_here &amp;gt; 2 Install the SDK We’ll also use the dotenv library to load our API key from an environment variable. Python TypeScript 1 pip install elevenlabs 2 pip install python - dotenv To play the audio through your speakers, you may be prompted to install MPV 
-and/or ffmpeg . 3 Make your first request Create a new file named example.py or example.mts , depending on your language of choice and add the following code: Python TypeScript 1 from dotenv import load_dotenv 2 from elevenlabs . client import ElevenLabs 3 from elevenlabs . play import play 4 import os 5 6 load_dotenv () 7 8 elevenlabs = ElevenLabs ( 9 api_key = os . getenv ( &amp;quot; ELEVENLABS_API_KEY &amp;quot; ), 10 ) 11 12 audio = elevenlabs . text_to_speech . convert ( 13 text = &amp;quot; The first move is what sets everything in motion. &amp;quot; , 14 voice_id = &amp;quot; JBFqnCBsd6RMkjVDRZzb &amp;quot; , # &amp;quot;George&amp;quot; - browse voices at elevenlabs.io/app/voice-library 15 model_id = &amp;quot; eleven_v3 &amp;quot; , 16 output_format = &amp;quot; mp3_44100_128 &amp;quot; , 17 ) 18 19 play ( audio ) 4 Run the code Python TypeScript 1 python example . py You should hear the audio play through your speakers. 
+ 1 Create an API key Create an API key in the dashboard here , which you’ll use to securely access the API . Store the key as a managed secret and pass it to the SDKs either as a environment variable via an .env file, or directly in your app’s configuration depending on your preference. .env 1 ELEVENLABS_API_KEY = &amp;lt; your_api_key_here &amp;gt; 2 Install the SDK SDK CLI We’ll also use the dotenv library to load our API key from an environment variable. Python TypeScript 1 pip install elevenlabs 2 pip install python - dotenv To play the audio through your speakers, you may be prompted to install MPV 
+and/or ffmpeg . 3 Make your first request SDK CLI Create a new file named example.py or example.mts , depending on your language of choice and add the following code: Python TypeScript 1 from dotenv import load_dotenv 2 from elevenlabs . client import ElevenLabs 3 from elevenlabs . play import play 4 import os 5 6 load_dotenv () 7 8 elevenlabs = ElevenLabs ( 9 api_key = os . getenv ( &amp;quot; ELEVENLABS_API_KEY &amp;quot; ), 10 ) 11 12 audio = elevenlabs . text_to_speech . convert ( 13 text = &amp;quot; The first move is what sets everything in motion. &amp;quot; , 14 voice_id = &amp;quot; JBFqnCBsd6RMkjVDRZzb &amp;quot; , # &amp;quot;George&amp;quot; - browse voices at elevenlabs.io/app/voice-library 15 model_id = &amp;quot; eleven_v3 &amp;quot; , 16 output_format = &amp;quot; mp3_44100_128 &amp;quot; , 17 ) 18 19 play ( audio ) Then run it: Python TypeScript 1 python example . py You should hear the audio play through your speakers. 
  Next steps 
 
- Stream audio Reduce latency by streaming audio as it generates rather than waiting for the complete file Browse voices Explore 10,000+ voices and swap the example voice ID for one that fits your use case Clone a voice Create a custom voice from a short audio recording Was this page helpful? Yes No How to choose the right model This guide shows you how to choose the right ElevenLabs model for your use case. Next Built with Login </pre></details><details class="step" open><summary>#2 <b>bash</b> <code>echo &quot;ELEVENLABS_API_KEY is set: ${ELEVENLABS_API_KEY:+yes}&quot;</code></summary><pre>exit=0
-ELEVENLABS_API_KEY is set: yes
+ Stream audio Reduce latency by streaming audio as it generates rather than waiting for the complete file Browse voices Explore 10,000+ voices and swap the example voice ID for one that fits your use case Clone a voice Create a custom voice from a short audio recording Was this page helpful? Yes No How to choose the right model This guide shows you how to choose the right ElevenLabs model for your use case. Next Built with Login </pre></details><details class="step" open><summary>#2 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 --version &amp;&amp; pip3 --version</code></summary><pre>exit=0
+Python 3.14.4
+pip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)
 </pre></details><details class="step" open><summary>#3 <b>bash</b> <code>cd /home/daytona &amp;&amp; pip install elevenlabs python-dotenv</code></summary><pre>exit=0
 Defaulting to user installation because normal site-packages is not writeable
 Collecting elevenlabs
@@ -159,54 +160,25 @@ Requirement already satisfied: typing-inspection&gt;=0.4.2 in /usr/local/lib/pyt
 Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.14/site-packages (from requests&gt;=2.20-&gt;elevenlabs) (3.4.7)
 Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.14/site-packages (from requests&gt;=2.20-&gt;elevenlabs) (2.7.0)
 Downloading elevenlabs-2.64.0-py3-none-any.whl (2.1 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 248.6 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 20.2 MB/s  0:00:00
 Installing collected packages: elevenlabs
 Successfully installed elevenlabs-2.64.0
 
 [notice] A new release of pip is available: 26.0.1 -&gt; 26.2.1
 [notice] To update, run: pip install --upgrade pip
-</pre></details><details class="step" open><summary>#4 <b>write_file</b> <code>/home/daytona/example.py</code></summary><pre>wrote /home/daytona/example.py (485 bytes)</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>cd /home/daytona &amp;&amp; python example.py</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#6 <b>bash</b> <code>which mpv ffmpeg 2&gt;/dev/null; echo &quot;---&quot;; ls -la /home/daytona/</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#4 <b>write_file</b> <code>/home/daytona/example.py</code></summary><pre>wrote /home/daytona/example.py (485 bytes)</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>cd /home/daytona &amp;&amp; echo &quot;API key present: $([ -n &quot;$ELEVENLABS_API_KEY&quot; ] &amp;&amp; echo yes || echo no)&quot;</code></summary><pre>exit=0
+API key present: yes
+</pre></details><details class="step" open><summary>#6 <b>bash</b> <code>which mpv || which ffmpeg || echo &quot;Neither mpv nor ffmpeg found&quot;</code></summary><pre>exit=0
 mpv not found
 /usr/bin/ffmpeg
----
-total 28
-drwx------ 1 daytona daytona  127 Aug 24 10:30 .
-drwxr-xr-x 1 root    root      29 May 18 13:46 ..
--rw-r--r-- 1 daytona daytona  220 Mar  8 15:21 .bash_logout
--rw-r--r-- 1 daytona daytona 3526 Mar  8 15:21 .bashrc
-drwxr-xr-x 3 daytona daytona   25 Aug 24 10:30 .cache
-drwx------ 3 daytona daytona   27 Aug 24 10:30 .config
-drwxr-xr-x 4 daytona daytona   53 Aug 24 10:16 .daytona
--rw-r--r-- 1 daytona daytona  485 Aug 24 10:30 example.py
--rw-r--r-- 1 daytona daytona 5290 Aug 28  2025 .face
-lrwxrwxrwx 1 daytona daytona    5 Aug 28  2025 .face.icon -&gt; .face
--rw-r--r-- 1 daytona daytona   80 Aug 24 10:29 .lab_env
-drwxr-xr-x 3 daytona daytona   25 Aug 24 10:30 .local
--rw-r--r-- 1 daytona daytona  807 Mar  8 15:21 .profile
--rw-r--r-- 1 daytona daytona    0 May 18 13:47 .zshrc
-</pre></details><details class="step" open><summary>#7 <b>write_file</b> <code>/home/daytona/example.py</code></summary><pre>wrote /home/daytona/example.py (810 bytes)</pre></details><details class="step" open><summary>#8 <b>bash</b> <code>cd /home/daytona &amp;&amp; python example.py</code></summary><pre>exit=0
-Audio file saved to output.mp3
-</pre></details><details class="step" open><summary>#9 <b>bash</b> <code>cd /home/daytona &amp;&amp; ls -la output.mp3 &amp;&amp; file output.mp3 &amp;&amp; ffprobe -v quiet -print_format json -show_format output.mp3</code></summary><pre>exit=0
--rw-r--r-- 1 daytona daytona 44765 Aug 24 10:30 output.mp3
+</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>apt-get update &amp;&amp; apt-get install -y mpv 2&gt;&amp;1 | tail -n 20</code></summary><pre>exit=100
+Reading package lists...
+E: List directory /var/lib/apt/lists/partial is missing. - Acquire (13: Permission denied)
+</pre></details><details class="step" open><summary>#8 <b>write_file</b> <code>/home/daytona/example.py</code></summary><pre>wrote /home/daytona/example.py (629 bytes)</pre></details><details class="step" open><summary>#9 <b>bash</b> <code>cd /home/daytona &amp;&amp; python example.py</code></summary><pre>exit=0
+Audio saved to output.mp3
+</pre></details><details class="step" open><summary>#10 <b>bash</b> <code>cd /home/daytona &amp;&amp; ls -lh output.mp3 &amp;&amp; file output.mp3 &amp;&amp; head -c 4 output.mp3 | xxd</code></summary><pre>exit=127
+-rw-r--r-- 1 daytona daytona 43K Aug 25 10:24 output.mp3
 output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural
-{
-    &quot;format&quot;: {
-        &quot;filename&quot;: &quot;output.mp3&quot;,
-        &quot;nb_streams&quot;: 1,
-        &quot;nb_programs&quot;: 0,
-        &quot;nb_stream_groups&quot;: 0,
-        &quot;format_name&quot;: &quot;mp3&quot;,
-        &quot;format_long_name&quot;: &quot;MP2/3 (MPEG audio layer 2/3)&quot;,
-        &quot;start_time&quot;: &quot;0.025057&quot;,
-        &quot;duration&quot;: &quot;2.768980&quot;,
-        &quot;size&quot;: &quot;44765&quot;,
-        &quot;bit_rate&quot;: &quot;129332&quot;,
-        &quot;probe_score&quot;: 51,
-        &quot;tags&quot;: {
-            &quot;encoder&quot;: &quot;Lavf60.16.101&quot;
-        }
-    }
-}
-</pre></details><details class="step" open><summary>#10 <b>finish</b> <code></code></summary><pre>run finished</pre></details>
+zsh: command not found: xxd
+</pre></details><details class="step" open><summary>#11 <b>finish</b> <code></code></summary><pre>run finished</pre></details>
 </body></html>

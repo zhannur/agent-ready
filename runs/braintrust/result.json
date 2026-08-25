@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-24T10:05:48Z",
+  "started": "2026-08-25T09:54:41Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully fetched the Braintrust evaluation quickstart and installed the required Python SDKs (`braintrust`, `openai`, `autoevals`) \u2014 pip completed with `Successfully installed autoevals-0.3.0 braintrust-0.34.0`. I wrote the `movie_matcher.py` eval script exactly as the quickstart specifies, adapting it to route through the Braintrust Gateway using the provided `BRAINTRUST_API_KEY`. However, the sandbox cannot establish TLS connections to any Braintrust endpoint: `curl` to `gateway.braintrust.dev`, `www.braintrust.dev`, `api.braintrust.dev`, and `api.braintrust.ai` all fail with `Connection reset by peer` during the TLS handshake, while other HTTPS endpoints like `api.openai.com` do respond (HTTP 421). This network-level restriction blocks the SDK from reaching Braintrust entirely, so I could not execute the eval run or report scores.",
+  "summary": "I successfully installed the Braintrust SDK and dependencies (`braintrust-0.34.0`, `autoevals-0.3.0`, `openai`) and created the `movie_matcher.py` eval script following the quickstart's Python example, adapting it to use the Braintrust Gateway since no separate `OPENAI_API_KEY` was available. However, the script failed at runtime with `ConnectionResetError: [Errno 104] Connection reset by peer` when attempting to connect to `api.braintrust.dev`. I verified this is a sandbox-wide network restriction: `curl` to `https://www.google.com`, `https://api.braintrust.dev`, and `https://gateway.braintrust.dev` all returned the same connection reset error, while even plain HTTP requests returned `403 Forbidden` from an envoy proxy. The promised outcome\u2014executing an eval run and reporting scores\u2014could not be achieved because outbound HTTPS traffic is blocked in this sandbox environment, preventing any connection to Braintrust's API.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 175.7,
+  "wall_seconds": 219.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "pip install braintrust openai autoevals exited with code 0"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "Downloading braintrust-0.34.0-py3-none-any.whl.metadata (4.0 kB) and autoevals-0.3.0-py3-none-any.whl.metadata (17 kB)"
+      "evidence": "Collecting braintrust\n  Downloading braintrust-0.34.0-py3-none-any.whl.metadata (4.0 kB)"
     },
     "configured": {
       "passed": false,
-      "evidence": "OPENAI_API_KEY is set:  (empty) despite quickstart requiring export OPENAI_API_KEY=\" \""
+      "evidence": "OPENAI_API_KEY is set: "
     },
     "first_call": {
       "passed": false,
-      "evidence": "python movie_matcher.py exited with code 1 and SSL connection reset traceback"
+      "evidence": "ConnectionResetError: [Errno 104] Connection reset by peer"
     },
     "verified": {
       "passed": false,
-      "evidence": "No eval scores reported; script failed with connection reset before any API call succeeded"
+      "evidence": "Traceback (most recent call last): ... ConnectionResetError: [Errno 104] Connection reset by peer"
     }
   },
   "friction": [
     {
-      "where": "Evaluation quickstart page",
-      "detail": "Python install snippet truncated after github-da, showing only TypeScript/pnpm commands"
+      "where": "Sandbox outbound HTTPS",
+      "detail": "curl -I https://www.google.com ... curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Credential prerequisites",
-      "detail": "Docs require export OPENAI_API_KEY=\" \" but sandbox only has BRAINTRUST_API_KEY"
+      "where": "bt.dev CLI install script",
+      "detail": "curl -fsSL https://bt.dev/cli/install.sh | sh ... curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "SDK login helper",
-      "detail": "Agent tried braintrust.login().api_key then discovered login(...) -> None from help text"
+      "where": "npm package name collision for bt",
+      "detail": "npm info bt ... bt@0.0.1 | MIT | deps: none | versions: 1 | Detect content-type from Buffer data."
     },
     {
-      "where": "Braintrust Gateway connectivity",
-      "detail": "curl to gateway.braintrust.dev fails with Connection reset by peer during TLS handshake"
+      "where": "Missing provider API key prerequisite",
+      "detail": "echo \"OPENAI_API_KEY is set: ${OPENAI_API_KEY:+yes}\" ... OPENAI_API_KEY is set: "
     },
     {
-      "where": "Python SDK discoverability",
-      "detail": "Working Python Eval example is hidden in separate run-in-code.md, not the main quickstart"
+      "where": "Quickstart Python instructions truncated",
+      "detail": " ```bash Python theme={\"theme\":{\"light\":\"github-light\",\"dark\":\"github-da"
     }
   ],
   "score": 30,
-  "braintrust_span": "b701d32c-01b4-4860-9cce-7e659ad5e5b6"
+  "braintrust_span": "61e72a39-a5b3-4269-b104-bc32e2438dde"
 }
