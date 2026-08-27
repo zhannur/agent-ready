@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-26T09:59:27Z",
+  "started": "2026-08-27T19:55:57Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully fetched the Braintrust evaluation quickstart docs and installed the Python SDK (`braintrust`, `openai`, `autoevals`) \u2014 pip reported \"Successfully installed autoevals-0.3.0 braintrust-0.34.0\". I also wrote the `movie_matcher.py` eval script exactly as the quickstart specifies, adapting it to use the Braintrust Gateway with the provided `BRAINTRUST_API_KEY`. However, the sandbox has a network-level TLS connectivity issue: every HTTPS request to Braintrust endpoints (`api.braintrust.dev`, `gateway.braintrust.dev`, `www.braintrust.dev`) fails during the TLS handshake with `Connection reset by peer`, as demonstrated by repeated curl and openssl tests. Because the SDK cannot reach the Braintrust API, the eval cannot execute and no scores can be reported.",
+  "summary": "I successfully fetched the Braintrust evaluation quickstart docs and installed the Python SDK (`braintrust`, `openai`, `autoevals`) without errors. I wrote the `movie_matcher.py` eval script exactly as documented, adapting it to use the Braintrust Gateway (since no `OPENAI_API_KEY` was available in the environment). However, the run was blocked by network connectivity: HTTPS connections to `gateway.braintrust.dev` and `api.braintrust.dev` fail with TLS handshake \"Connection reset by peer\" errors (verified with `curl -v`), while basic internet connectivity like `ping 8.8.8.8` and DNS resolution for `braintrust.dev` work fine. Because the sandbox cannot reach Braintrust's servers, the eval could not execute or report scores.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 174.0,
+  "wall_seconds": 285.2,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "python3 --version\nPython 3.14.4"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.34.0"
+      "evidence": "Downloading braintrust-0.35.0-py3-none-any.whl.metadata (4.0 kB)\nDownloading autoevals-0.3.0-py3-none-any.whl.metadata (17 kB)\nexit=0"
     },
     "configured": {
       "passed": false,
-      "evidence": "OPENAI_API_KEY is set: no"
+      "evidence": "OPENAI_API_KEY is set:  (empty) \u2014 quickstart requires export OPENAI_API_KEY=\" \" # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc."
     },
     "first_call": {
       "passed": false,
-      "evidence": "cd /home/daytona && export PATH=\"$HOME/.local/bin:$PATH\" && braintrust eval movie_matcher.py 2>&1\nexit=1\n...OpenSSL SSL_connect: Connection reset by peer..."
+      "evidence": "python3 movie_matcher.py exited with 1: OpenSSL SSL_connect: Connection reset by peer in connection to gateway.braintrust.dev:443"
     },
     "verified": {
       "passed": false,
-      "evidence": "braintrust eval movie_matcher.py ... exit=1 ... no scores reported"
+      "evidence": "No eval scores reported; curl to gateway.braintrust.dev returned Connection reset by peer and exit=0 with 000Connection failed"
     }
   },
   "friction": [
     {
-      "where": "Missing provider API key prerequisite",
-      "detail": "OPENAI_API_KEY is set: no"
+      "where": "Missing AI provider API key prerequisite",
+      "detail": "OPENAI_API_KEY is set:  (empty) despite quickstart requiring it alongside BRAINTRUST_API_KEY"
     },
     {
-      "where": "bt CLI install step fails due to network",
-      "detail": "curl -fsSL https://bt.dev/cli/install.sh | sh\nexit=0\ncurl: (35) Recv failure: Connection reset by peer"
+      "where": "Network/TLS connectivity to Braintrust servers blocked",
+      "detail": "curl: (35) Recv failure: Connection reset by peer connecting to gateway.braintrust.dev:443"
     },
     {
-      "where": "Sandbox cannot complete TLS handshake to Braintrust endpoints",
-      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to api.braintrust.dev:443"
+      "where": "Documentation URL discovery",
+      "detail": "Agent tried multiple URLs (/docs/start/eval, /docs/start/evaluation-quickstart, /docs/evaluate/quickstart, etc.) before locating the correct page"
     },
     {
-      "where": "Unexpected Python CLI filename convention",
-      "detail": "Reading movie_matcher.py because it was specified directly. Rename it to eval_*.py to include it automatically when you specify a directory."
+      "where": "Truncated Python install snippet in fetched docs",
+      "detail": "````bash Python theme={\"theme\":{\"light\":\"github-light\",\"dark\":\"github-da` \u2014 the pip install command was cut off in the fetched documentation"
     },
     {
-      "where": "Docs mix TypeScript/pnpm and Python paths without clear language switch",
-      "detail": "pnpm add braintrust openai autoevals ts-node ... bt eval my_eval.eval.ts"
+      "where": "Dual API key setup complexity",
+      "detail": "Quickstart requires both BRAINTRUST_API_KEY and OPENAI_API_KEY (or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc.) to be exported before running"
     }
   ],
   "score": 30,
-  "braintrust_span": "d3ae7f2c-9181-4655-b839-6c6c5474fba2"
+  "braintrust_span": "f0cb9bbe-5da6-499f-b320-79f20fb76526"
 }

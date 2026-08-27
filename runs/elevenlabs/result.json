@@ -1,18 +1,18 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-08-26T10:20:40Z",
+  "started": "2026-08-27T20:22:33Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv SDKs, created example.py with the quickstart code, and ran it. The API call succeeded and generated a valid 41KB MP3 audio file (MPEG ADTS layer III, 128 kbps, 44.1 kHz, monaural) from the text \"The first move is what sets everything in motion.\" using the George voice (JBFqnCBsd6RMkjVDRZzb) and eleven_v3 model.",
-  "deviations": "The quickstart example uses `play(audio)` to play audio through speakers, but the sandbox has no audio output hardware. I replaced the `play(audio)` call with code that saves the audio stream to a file (`output.mp3`) instead. This is the only deviation \u2014 the core text-to-speech generation worked exactly as documented.",
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created example.py with the quickstart code, and ran it. The script generated a valid MP3 audio file (output.mp3, 43,511 bytes, MPEG ADTS layer III, 128 kbps, 44.1 kHz) from the text \"The first move is what sets everything in motion.\" using the George voice (JBFqnCBsd6RMkjVDRZzb) and the eleven_v3 model.",
+  "deviations": "The quickstart example uses `play(audio)` to play audio through speakers, but the sandbox is headless with no audio output device. I deviated by saving the returned audio stream to a file (`output.mp3`) instead, which is a more appropriate verification for this environment and still demonstrates the core text-to-speech generation working correctly.",
   "steps": 7,
-  "wall_seconds": 36.6,
+  "wall_seconds": 53.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "cd /home/daytona && pip install elevenlabs python-dotenv exit=0"
+      "evidence": "Defaulting to user installation because normal site-packages is not writeable"
     },
     "installed": {
       "passed": true,
@@ -20,7 +20,7 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "python example.py exit=0 and Audio saved to output.mp3 proves the API key was present and valid"
+      "evidence": "ELEVENLABS_API_KEY is set: yes"
     },
     "first_call": {
       "passed": true,
@@ -31,20 +31,7 @@
       "evidence": "output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural"
     }
   },
-  "friction": [
-    {
-      "where": "Documentation fetch returned noisy HTML navigation instead of clean quickstart instructions",
-      "detail": "ElevenAPI quickstart | ElevenLabs Documentation ... Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page."
-    },
-    {
-      "where": "Sandbox missing mpv audio player forced a deviation from the quickstart playback example",
-      "detail": "mpv not found ... # Save audio to file instead of playing (no spe"
-    },
-    {
-      "where": "Credential wiring step is implicit with no visible export or .env file creation",
-      "detail": "api_key=os.getenv(\"ELEVENLABS_API_KEY\")"
-    }
-  ],
+  "friction": [],
   "score": 100,
-  "braintrust_span": "5d76f8eb-3c74-4396-bf84-23baeb3bd1fd"
+  "braintrust_span": "1660f90f-7847-4fcc-a034-7a9ebe0ebfb2"
 }

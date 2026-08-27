@@ -1,18 +1,18 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-08-25T10:24:02Z",
+  "started": "2026-08-27T20:20:47Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
   "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 298.1,
+  "wall_seconds": 348.2,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
+      "evidence": "Defaulting to user installation because normal site-packages is not writeable"
     },
     "installed": {
       "passed": true,
@@ -20,39 +20,39 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "API URL: https://app.daytona.io/api"
+      "evidence": "DAYTONA_API_KEY=***REDACTED***"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: 940ce6a8-84e7-44d2-b4f4-813b84a8413f"
+      "evidence": "Sandbox created with ID: 88e02200-a63c-448e-bcde-336e0cf9590d"
     },
     "verified": {
       "passed": false,
-      "evidence": "curl: (35) Recv failure: Connection reset by peer"
+      "evidence": "Attempt 10 failed: DaytonaConnectionError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by pe"
     }
   },
   "friction": [
     {
-      "where": "Toolbox proxy TLS handshake",
-      "detail": "* OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443"
-    },
-    {
-      "where": "CLI help command startup",
-      "detail": "2026-08-25T10:21:04Z ERR Error occurred error=\"listen tcp :22222: bind: address already in use\""
-    },
-    {
-      "where": "SDK version drift",
-      "detail": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
-    },
-    {
-      "where": "Module version introspection",
+      "where": "SDK version introspection",
       "detail": "AttributeError: module 'daytona' has no attribute '__version__'"
     },
     {
-      "where": "Sandbox readiness signaling",
-      "detail": "Waiting... 30/30, state: SandboxState.STARTED"
+      "where": "Sandbox list return type",
+      "detail": "TypeError: object of type 'PaginatedSandboxes' has no len()"
+    },
+    {
+      "where": "Daytona CLI port conflict",
+      "detail": "Error occurred error=\"listen tcp :22222: bind: address already in use\""
+    },
+    {
+      "where": "Toolbox proxy connectivity",
+      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443"
+    },
+    {
+      "where": "Outdated pre-installed SDK",
+      "detail": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     }
   ],
   "score": 70,
-  "braintrust_span": "4b7276a3-d6a0-4c75-ab44-f22a642e44ca"
+  "braintrust_span": "1f87cbf4-6b3a-413c-8988-0afa87f20acd"
 }
