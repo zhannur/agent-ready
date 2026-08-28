@@ -106,8 +106,8 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 </style></head><body>
 <h1 class="wordmark"><a href="index.html" style="color:inherit">agent-ready</a> · elevenlabs
 <span style="color:#46d17a">100/100</span></h1>
-<p class="meta" style="margin:.6rem 0 1.4rem">7 steps ·
-53.0s · agent <code>kimi-k2p6</code> ·
+<p class="meta" style="margin:.6rem 0 1.4rem">9 steps ·
+42.1s · agent <code>kimi-k2p6</code> ·
 <a href="https://github.com/zhannur/agent-ready/blob/main/runs/elevenlabs/transcript.jsonl">raw JSONL</a></p>
 <details class="step" open><summary>#1 <b>fetch_url</b> <code>https://elevenlabs.io/docs/quickstart</code></summary><pre> ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page. Search / Connect Blog Help Center API Pricing Sign up Overview ElevenCreative ElevenAgents ElevenAPI Reception.ai API reference Changelog Help Center Login Overview ElevenCreative ElevenAgents ElevenAPI Reception.ai API reference Changelog Help Center Get started Quickstart Agents Quickstart Choosing the right model Tutorials 
 
@@ -136,7 +136,7 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 and/or ffmpeg . 3 Make your first request SDK CLI Create a new file named example.py or example.mts , depending on your language of choice and add the following code: Python TypeScript 1 from dotenv import load_dotenv 2 from elevenlabs . client import ElevenLabs 3 from elevenlabs . play import play 4 import os 5 6 load_dotenv () 7 8 elevenlabs = ElevenLabs ( 9 api_key = os . getenv ( &amp;quot; ELEVENLABS_API_KEY &amp;quot; ), 10 ) 11 12 audio = elevenlabs . text_to_speech . convert ( 13 text = &amp;quot; The first move is what sets everything in motion. &amp;quot; , 14 voice_id = &amp;quot; JBFqnCBsd6RMkjVDRZzb &amp;quot; , # &amp;quot;George&amp;quot; - browse voices at elevenlabs.io/app/voice-library 15 model_id = &amp;quot; eleven_v3 &amp;quot; , 16 output_format = &amp;quot; mp3_44100_128 &amp;quot; , 17 ) 18 19 play ( audio ) Then run it: Python TypeScript 1 python example . py You should hear the audio play through your speakers. 
  Next steps 
 
- Stream audio Reduce latency by streaming audio as it generates rather than waiting for the complete file Browse voices Explore 10,000+ voices and swap the example voice ID for one that fits your use case Clone a voice Create a custom voice from a short audio recording Was this page helpful? Yes No How to choose the right model This guide shows you how to choose the right ElevenLabs model for your use case. Next Built with Login </pre></details><details class="step" open><summary>#2 <b>bash</b> <code>cd /home/daytona &amp;&amp; pip install elevenlabs python-dotenv</code></summary><pre>exit=0
+ Stream audio Reduce latency by streaming audio as it generates rather than waiting for the complete file Browse voices Explore 10,000+ voices and swap the example voice ID for one that fits your use case Clone a voice Create a custom voice from a short audio recording Was this page helpful? Yes No How to choose the right model This guide shows you how to choose the right ElevenLabs model for your use case. Next Built with Login </pre></details><details class="step" open><summary>#2 <b>bash</b> <code>pip install elevenlabs python-dotenv</code></summary><pre>exit=0
 Defaulting to user installation because normal site-packages is not writeable
 Collecting elevenlabs
   Downloading elevenlabs-2.65.0-py3-none-any.whl.metadata (15 kB)
@@ -157,18 +157,22 @@ Requirement already satisfied: typing-inspection&gt;=0.4.2 in /usr/local/lib/pyt
 Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.14/site-packages (from requests&gt;=2.20-&gt;elevenlabs) (3.4.7)
 Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.14/site-packages (from requests&gt;=2.20-&gt;elevenlabs) (2.7.0)
 Downloading elevenlabs-2.65.0-py3-none-any.whl (2.1 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 158.9 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 7.1 MB/s  0:00:00
 Installing collected packages: elevenlabs
 Successfully installed elevenlabs-2.65.0
 
 [notice] A new release of pip is available: 26.0.1 -&gt; 26.2.1
 [notice] To update, run: pip install --upgrade pip
-</pre></details><details class="step" open><summary>#3 <b>bash</b> <code>echo &quot;ELEVENLABS_API_KEY is set: ${ELEVENLABS_API_KEY:+yes}&quot;</code></summary><pre>exit=0
-ELEVENLABS_API_KEY is set: yes
-</pre></details><details class="step" open><summary>#4 <b>write_file</b> <code>/home/daytona/example.py</code></summary><pre>wrote /home/daytona/example.py (625 bytes)</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>cd /home/daytona &amp;&amp; python example.py</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#3 <b>bash</b> <code>echo &quot;API key exists: $([ -n &quot;$ELEVENLABS_API_KEY&quot; ] &amp;&amp; echo yes || echo no)&quot;</code></summary><pre>exit=0
+API key exists: yes
+</pre></details><details class="step" open><summary>#4 <b>bash</b> <code>which mpv ffmpeg</code></summary><pre>exit=1
+mpv not found
+/usr/bin/ffmpeg
+</pre></details><details class="step" open><summary>#5 <b>write_file</b> <code>/home/daytona/example.py</code></summary><pre>wrote /home/daytona/example.py (485 bytes)</pre></details><details class="step" open><summary>#6 <b>bash</b> <code>cd /home/daytona &amp;&amp; python example.py</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#7 <b>write_file</b> <code>/home/daytona/example_save.py</code></summary><pre>wrote /home/daytona/example_save.py (964 bytes)</pre></details><details class="step" open><summary>#8 <b>bash</b> <code>cd /home/daytona &amp;&amp; python example_save.py</code></summary><pre>exit=0
 Audio saved to output.mp3
-</pre></details><details class="step" open><summary>#6 <b>bash</b> <code>cd /home/daytona &amp;&amp; ls -la output.mp3 &amp;&amp; file output.mp3</code></summary><pre>exit=0
--rw-r--r-- 1 daytona daytona 43511 Aug 27 20:21 output.mp3
-output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural
-</pre></details><details class="step" open><summary>#7 <b>finish</b> <code></code></summary><pre>run finished</pre></details>
+File size: 44765 bytes
+File header (hex): 49443304
+Valid MP3 file detected!
+</pre></details><details class="step" open><summary>#9 <b>finish</b> <code></code></summary><pre>run finished</pre></details>
 </body></html>
