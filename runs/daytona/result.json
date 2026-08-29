@@ -1,14 +1,14 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-08-28T21:12:21Z",
+  "started": "2026-08-29T14:51:34Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully created multiple Daytona sandboxes via the Python SDK\u2014real sandbox IDs like `ce04e711-b6e5-49e4-86e9-f7913a3c4707` were returned and verified via the REST API in `started` state. However, every attempt to execute code inside a sandbox via `sandbox.process.exec(\"echo 'Hello, World!'\")` failed with a `ConnectionResetError: [Errno 104] Connection reset by peer` when the SDK tried to connect to the toolbox proxy at `proxy.app.daytona.io:443`. I also confirmed the proxy endpoint itself was unreachable from the sandbox environment using `curl`. I deviated from the quickstart by upgrading the SDK from 0.134.0 to 0.207.0, adding sleep delays, and enabling deprecated polling mode, but the network-level connection reset to the proxy endpoint blocked the promised outcome of running code inside the sandbox.",
+  "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 265.8,
+  "wall_seconds": 504.8,
   "checkpoints": {
     "env_ready": {
       "passed": true,
@@ -16,7 +16,7 @@
     },
     "installed": {
       "passed": true,
-      "evidence": "Version: 0.207.0"
+      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     },
     "configured": {
       "passed": true,
@@ -24,35 +24,35 @@
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created: 604380e9-9dd4-4f59-8d9a-481622768b89"
+      "evidence": "Sandbox created: id=eaa0121e-8bb4-42dd-86ff-f75c88bd5bc7"
     },
     "verified": {
       "passed": false,
-      "evidence": "every attempt to execute code inside a sandbox via sandbox.process.exec(\"echo 'Hello, World!'\") failed with a ConnectionResetError: [Errno 104] Connection reset by peer"
+      "evidence": "DaytonaConnectionError: read ECONNRESET"
     }
   },
   "friction": [
     {
-      "where": "Pre-installed SDK version is outdated and must be upgraded",
-      "detail": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
+      "where": "Python SDK class name/version drift",
+      "detail": "ImportError: cannot import name 'CreateSandboxParams' from 'daytona' (/usr/local/lib/python3.14/site-packages/daytona/__init__.py). Did you mean: 'CreateSandboxBaseParams'?"
     },
     {
-      "where": "Programmatic version check is unsupported",
-      "detail": "AttributeError: module 'daytona' has no attribute '__version__'"
+      "where": "TypeScript SDK method naming mismatch",
+      "detail": "TypeError: sandbox.process.exec is not a function"
     },
     {
-      "where": "Toolbox proxy endpoint is unreachable from the sandbox environment",
+      "where": "Sandbox proxy unreachable despite 'started' state",
       "detail": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Quickstart's minimal Daytona() constructor fails at runtime",
-      "detail": "config = DaytonaConfig(\n        api_url=\"https://app.daytona.io/api\",\n        use_deprecated_polling=True\n    )"
+      "where": "Daytona CLI port conflicts inside sandbox",
+      "detail": "listen tcp :22222: bind: address already in use"
     },
     {
-      "where": "daytona CLI --version crashes with port conflicts instead of printing version",
-      "detail": "Error occurred error=\"listen tcp :33333: bind: address already in use\""
+      "where": "Cryptic connection errors on code execution",
+      "detail": "Attempt 1 failed: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   ],
   "score": 70,
-  "braintrust_span": "714ef91c-38c8-4518-b291-7d8e16ac1a70"
+  "braintrust_span": "68c20223-9ad3-4ac3-92a2-cc31a7ff7b2d"
 }

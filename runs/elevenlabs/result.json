@@ -1,18 +1,18 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-08-28T21:14:28Z",
+  "started": "2026-08-29T14:53:33Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs SDK and python-dotenv, created the example script, and generated a valid MP3 audio file from text using the ElevenLabs Text-to-Speech API. The output file (output.mp3) is 44,765 bytes and has a valid MP3 header (ID3 tag), confirming the text-to-speech generation works correctly.",
-  "deviations": "The original quickstart uses `play(audio)` to play audio through speakers. Since the sandbox has no audio output device, I created a modified script that saves the generated audio to a file (output.mp3) and verifies it as a valid MP3. This is a necessary adaptation for a headless environment while still demonstrating the core promised outcome: text-to-speech generating an audio file from text.",
-  "steps": 9,
-  "wall_seconds": 42.1,
+  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs SDK and python-dotenv, created example.py following the quickstart code, and ran it. The script successfully called the ElevenLabs text-to-speech API and generated a valid MP3 audio file (output.mp3, 43,511 bytes, MPEG ADTS layer III, 128 kbps, 44.1 kHz, mono). The `play()` function also reported success. The promised outcome \u2014 Text-to-speech generates an audio file from text \u2014 is verified.",
+  "deviations": "The quickstart's `play(audio)` line was modified to first collect audio chunks into a list so they could be saved to a file for verification, then replayed for the `play()` call. This was necessary because the audio generator is consumed on first iteration. Additionally, the sandbox has no audio hardware, so while `play()` reported success, actual speaker playback was not verified \u2014 but the core outcome (generating an audio file from text) was fully achieved and confirmed via `file` command showing a valid MP3.",
+  "steps": 8,
+  "wall_seconds": 45.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Defaulting to user installation because normal site-packages is not writeable... Collecting elevenlabs... Downloading elevenlabs-2.65.0-py3-none-any.whl"
+      "evidence": "cd /home/daytona && pip install elevenlabs python-dotenv exited with code 0"
     },
     "installed": {
       "passed": true,
@@ -20,31 +20,35 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "API key exists: yes"
+      "evidence": "python example.py exited 0 and produced audio without any authentication error"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to output.mp3"
+      "evidence": "Audio saved to output.mp3\nFile size: 43511 bytes"
     },
     "verified": {
       "passed": true,
-      "evidence": "Valid MP3 file detected!"
+      "evidence": "output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural"
     }
   },
   "friction": [
     {
-      "where": "Missing audio player prerequisite",
-      "detail": "The quickstart's `play()` function requires `mpv`, which is not installed in the sandbox: `mpv not found`"
+      "where": "Initial code write truncated the quickstart snippet",
+      "detail": "First write_file ended with model_id=\"eleve and only 816 bytes, requiring a second write to reach 1090 bytes."
     },
     {
-      "where": "Quickstart assumes interactive audio output",
-      "detail": "The default quickstart example uses `play(audio)` for speakers, which fails in headless environments: `The original quickstart uses `play(audio)` to play audio through speakers. Since`"
+      "where": "Quickstart docs returned noisy HTML instead of clean instructions",
+      "detail": "fetch_url output was a wall of navigation links: ElevenAPI quickstart | ElevenLabs Documentation... Overview ElevenCreative ElevenAgents..."
     },
     {
-      "where": "Initial example lacks verifiable artifact",
-      "detail": "The first script only plays audio and emits no stdout or file, making success invisible in a sandbox: `from elevenlabs.play import play`"
+      "where": "Audio playback requires a system player not mentioned in prerequisites",
+      "detail": "which mpv || which ffmpeg || echo \"No audio players found\" returned mpv not found."
+    },
+    {
+      "where": "API key configuration step is implicit",
+      "detail": "Script uses api_key=os.getenv(\"ELEVENLABS_API_KEY\") but transcript shows no .env file creation or export command before the successful run."
     }
   ],
   "score": 100,
-  "braintrust_span": "3d160318-9c08-4693-9ab5-222aa44dd137"
+  "braintrust_span": "12ff3614-96bd-489a-b5e6-92c3a51448e9"
 }
