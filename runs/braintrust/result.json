@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-29T14:31:33Z",
+  "started": "2026-08-30T14:28:40Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I fetched the Braintrust evaluation quickstart docs, installed `braintrust`, `openai`, and `autoevals` via pip (exit=0), and confirmed the `BRAINTRUST_API_KEY` environment variable is present and accessible through `braintrust.BraintrustEnv.API_KEY`. I also created a Python eval script (`movie_matcher.py`) that uses the Braintrust Gateway to avoid needing a separate OpenAI key. What blocked me was that I never actually executed the eval script to verify it runs and reports scores\u2014I was still verifying the exact API key access pattern (`BraintrustEnv.API_KEY` is an `EnvVar` object, not a plain string) when the run ended.",
+  "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 176.3,
+  "wall_seconds": 183.6,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "cd /home/daytona && pip install braintrust openai autoevals exit=0"
     },
     "installed": {
       "passed": true,
-      "evidence": "Collecting braintrust\n  Downloading braintrust-0.35.0-py3-none-any.whl.metadata (4.0 kB)\nCollecting autoevals\n  Downloading autoevals-0.3.0-py3-none-any.whl.metadata (17 kB)"
+      "evidence": "Downloading braintrust-0.35.0-py3-none-any.whl.metadata (4.0 kB)"
     },
     "configured": {
       "passed": false,
-      "evidence": "OPENAI_API_KEY is set: "
+      "evidence": "env | grep -iE 'openai|anthropic|gemini|ai_' exit=1"
     },
     "first_call": {
       "passed": false,
-      "evidence": "What blocked me was that I never actually executed the eval script to verify it runs and reports scores"
+      "evidence": "cd /home/daytona && python movie_matcher.py 2>&1 exit=1"
     },
     "verified": {
       "passed": false,
-      "evidence": "What blocked me was that I never actually executed the eval script to verify it runs and reports scores"
+      "evidence": "cd /home/daytona && python movie_matcher.py 2>&1 exit=1"
     }
   },
   "friction": [
     {
-      "where": "Missing OpenAI API key prerequisite",
-      "detail": "OPENAI_API_KEY is set: "
+      "where": "Missing AI provider API key prerequisite",
+      "detail": "env | grep -iE 'openai|anthropic|gemini|ai_' exit=1"
     },
     {
-      "where": "Truncated Python installation snippet in fetched docs",
-      "detail": " ```bash Python theme={\"theme\":{\"light\":\"github-light\",\"dark\":\"github-da"
+      "where": "Braintrust API/gateway unreachable from sandbox",
+      "detail": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Braintrust SDK exposes API key as EnvVar object rather than plain string",
-      "detail": "TypeError: 'EnvVar' object is not subscriptable"
+      "where": "bt CLI install script blocked",
+      "detail": "curl -fsSL https://bt.dev/cli/install.sh | sh 2>&1 output: curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Agent had to reverse-engineer SDK internals to find key access pattern",
-      "detail": "print([x for x in dir(braintrust.BraintrustEnv) if not x.startswith('_')])"
+      "where": "PyPI package name 'bt' is wrong tool",
+      "detail": "Downloading bt-1.2.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (7.8 kB)"
     },
     {
-      "where": "Quickstart assumes direct provider key without clarifying Gateway auth wiring",
-      "detail": "export OPENAI_API_KEY=\" \" # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc."
+      "where": "Quickstart docs default to TypeScript snippets",
+      "detail": " ```bash TypeScript theme={\"theme\":{\"light\":\"github-light\",\"dark\":\"github-dark-dimmed\"}}"
     }
   ],
   "score": 30,
-  "braintrust_span": "b9f7c895-73e7-4ae7-a346-472a368e3498"
+  "braintrust_span": "5d592f6d-ba06-4d42-9676-b44ee1e10385"
 }
