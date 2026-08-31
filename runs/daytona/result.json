@@ -1,58 +1,63 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-08-29T14:51:34Z",
+  "started": "2026-08-31T17:20:53Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I successfully installed the Daytona Python SDK and demonstrably created sandboxes via the SDK\u2014`daytona.create()` returned live sandbox IDs with state `SandboxState.STARTED` (e.g., `94382e07-edb0-4ac0-94ba-e61138f81f2b`), and `daytona.list()` correctly enumerated running sandboxes. I also verified the REST API directly via curl to `https://app.daytona.io/api/sandbox` with the provided `DAYTONA_API_KEY`. However, I was blocked from executing code inside any sandbox because the toolbox proxy endpoint (`https://proxy.app.daytona.io/toolbox`) consistently returned \"Connection reset by peer\" from within this environment, causing `sandbox.process.exec()` and `code_run()` to fail with `ConnectionResetError`. I also had to deviate from the docs, which reference `sandbox.process.execute()`, because the installed SDK actually exposes the method as `exec()`.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 504.8,
+  "wall_seconds": 245.6,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4"
+      "evidence": "python3 -c \"from daytona import Daytona\" executed with exit=0, showing the Python 3 runtime and package manager are available"
     },
     "installed": {
       "passed": true,
-      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
+      "evidence": "from daytona import Daytona succeeded in a python3 -c command"
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY is set: yes"
+      "evidence": "DAYTONA_API_KEY=***REDACTED*** is present in the environment and daytona = Daytona() initialized without explicit config"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created: id=eaa0121e-8bb4-42dd-86ff-f75c88bd5bc7"
+      "evidence": "Sandbox created: 80b39408-2ee0-4200-9d8c-6f495d2307ca with Sandbox state: SandboxState.STARTED"
     },
     "verified": {
       "passed": false,
-      "evidence": "DaytonaConnectionError: read ECONNRESET"
+      "evidence": "Attempt 1/10 failed: DaytonaError through Attempt 10/10 failed: DaytonaError; sandbox.process.exec and code_run never succeeded, so code did not demonstrably run inside the sandbox"
     }
   },
   "friction": [
     {
-      "where": "Python SDK class name/version drift",
-      "detail": "ImportError: cannot import name 'CreateSandboxParams' from 'daytona' (/usr/local/lib/python3.14/site-packages/daytona/__init__.py). Did you mean: 'CreateSandboxBaseParams'?"
+      "where": "SDK docs method name",
+      "detail": "Documentation references sandbox.process.execute() but the installed SDK exposes exec()",
+      "quote": "I also had to deviate from the docs, which reference `sandbox.process.execute()`, because the installed SDK actually exposes the method as `exec()`."
     },
     {
-      "where": "TypeScript SDK method naming mismatch",
-      "detail": "TypeError: sandbox.process.exec is not a function"
+      "where": "Toolbox proxy connectivity",
+      "detail": "HTTPS connections to the sandbox toolbox proxy are reset by peer, blocking all code execution",
+      "quote": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Sandbox proxy unreachable despite 'started' state",
-      "detail": "curl: (35) Recv failure: Connection reset by peer"
+      "where": "Sandbox readiness gap",
+      "detail": "SDK reports STARTED state but provides no wait_for_ready helper and the toolbox is not actually reachable",
+      "quote": "Has wait_for_ready: False"
     },
     {
-      "where": "Daytona CLI port conflicts inside sandbox",
-      "detail": "listen tcp :22222: bind: address already in use"
+      "where": "Local daytona binary",
+      "detail": "The local daytona binary starts daemon servers instead of acting as a CLI",
+      "quote": "Starting recording dashboard component=recordings_dashboard port=33333"
     },
     {
-      "where": "Cryptic connection errors on code execution",
-      "detail": "Attempt 1 failed: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "where": "CLI documentation link",
+      "detail": "Official CLI documentation URL returns 404",
+      "quote": "404 \u00b7 Daytona"
     }
   ],
   "score": 70,
-  "braintrust_span": "68c20223-9ad3-4ac3-92a2-cc31a7ff7b2d"
+  "braintrust_span": "c3280abc-79f6-4a07-882c-7f3c43d82cfe"
 }

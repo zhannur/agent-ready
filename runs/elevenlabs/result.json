@@ -1,50 +1,50 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-08-30T14:53:38Z",
+  "started": "2026-08-31T17:22:42Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. The SDK was installed, the example script was created and executed, and a valid MP3 audio file (41KB, MPEG ADTS layer III, 128 kbps, 44.1 kHz) was generated from the text \"The first move is what sets everything in motion.\" The file is saved at /home/daytona/output.mp3.",
-  "deviations": "The quickstart example uses `play(audio)` to play audio through speakers. Since this is a headless sandbox without audio playback capability, I substituted `save(audio, \"/home/daytona/output.mp3\")` to save the generated audio to a file instead. This is the only deviation \u2014 all other steps (installing the SDK, loading the API key from environment, using the same voice_id, model_id, output_format, and text) followed the quickstart exactly.",
-  "steps": 6,
-  "wall_seconds": 29.9,
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example script, and generated a valid MP3 audio file (output.mp3, 43KB, MPEG ADTS layer III, 128 kbps, 44.1 kHz, monaural) from the text \"The first move is what sets everything in motion.\" using the George voice (JBFqnCBsd6RMkjVDRZzb) and the eleven_v3 model.",
+  "deviations": "The quickstart's example code calls `play(audio)` to play audio through speakers. Since the sandbox is a headless environment with no audio output hardware, I replaced the `play(audio)` call with code that writes the audio stream to a file (`output.mp3`). The core API authentication and text-to-speech generation code matches the quickstart exactly.",
+  "steps": 7,
+  "wall_seconds": 33.3,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "cd /home/daytona && pip install elevenlabs python-dotenv ... exit=0"
+      "evidence": "Defaulting to user installation because normal site-packages is not writeable... Requirement already satisfied: python-dotenv... exit=0"
     },
     "installed": {
       "passed": true,
-      "evidence": "Downloading elevenlabs-2.65.0-py3-none-any.whl.metadata (15 kB) ... Successfully installed"
+      "evidence": "Downloading elevenlabs-2.65.0-py3-none-any.whl.metadata (15 kB)... exit=0"
     },
     "configured": {
       "passed": true,
-      "evidence": "python example.py ... exit=0 ... Audio saved to /home/daytona/output.mp3 (the script requires ELEVENLABS_API_KEY and would fail without it)"
+      "evidence": "ELEVENLABS_API_KEY is set: yes"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to /home/daytona/output.mp3"
+      "evidence": "Audio saved to output.mp3"
     },
     "verified": {
       "passed": true,
-      "evidence": "file /home/daytona/output.mp3 ... Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural"
+      "evidence": "output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural"
     }
   },
   "friction": [
     {
-      "where": "Quickstart playback step",
-      "detail": "The quickstart example uses `play(audio)` to play audio through speakers. Since this is a headless sandbox without..."
+      "where": "Quickstart example assumes local audio playback",
+      "detail": "The quickstart's example code calls `play(audio)` to play a"
     },
     {
-      "where": "Credential setup",
-      "detail": "Script loads `ELEVENLABS_API_KEY` via `load_dotenv()` and `os.getenv`, but the transcript never shows creating the `.env` file or exporting the key."
+      "where": "Voice ID requires manual lookup in voice library",
+      "detail": "voice_id=\"JBFqnCBsd6RMkjVDRZzb\",  # \"George\" - browse voices at elevenlabs.io/app/voice-library"
     },
     {
-      "where": "Documentation parsing",
-      "detail": "Fetched quickstart page returns dense HTML navigation text rather than clean code instructions: 'ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt...'"
+      "where": "Fetched docs page is noisy HTML instead of clean quickstart steps",
+      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page."
     }
   ],
   "score": 100,
-  "braintrust_span": "dcbb1c1c-5ed0-426f-9c8f-f30a0434b2d1"
+  "braintrust_span": "ef05f494-d85a-4a3b-89d6-8050ef3e8fb9"
 }
