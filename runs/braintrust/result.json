@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-08-31T17:07:40Z",
+  "started": "2026-09-01T14:15:48Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully fetched the Braintrust evaluation quickstart docs and installed the Python SDK and dependencies (`braintrust`, `openai`, `autoevals`), with pip reporting \u201cSuccessfully installed autoevals-0.3.0 braintrust-0.35.0 \u2026\u201d. I also wrote the `movie_matcher.py` eval script exactly as the quickstart specifies. However, the sandbox cannot establish any outbound TLS connection: `curl -v https://gateway.braintrust.dev` fails with \u201cConnection reset by peer\u201d during the TLS handshake, and even `curl https://google.com` fails the same way. Non-TLS HTTP requests return `403 Forbidden` from an `envoy` proxy, confirming the sandbox blocks external HTTPS traffic. Because the Braintrust SDK must log in to `api.braintrust.dev` and the OpenAI client must reach the gateway to call a model, the eval cannot execute and no scores can be produced.",
+  "summary": "I successfully installed the Braintrust SDK and dependencies (`braintrust-0.35.0`, `autoevals-0.3.0`, `openai`) and wrote the `movie_matcher.py` eval script exactly per the quickstart, adapting it to use the Braintrust Gateway with the provided `BRAINTRUST_API_KEY`. However, the sandbox has a fundamental outbound network connectivity issue: every HTTPS connection is reset during the TLS handshake, as demonstrated by `curl` tests to `gateway.braintrust.dev`, `api.braintrust.dev`, and even `google.com` all returning `Connection reset by peer`. Because of this, the Python script cannot reach either the Braintrust API or the Gateway to run the LLM calls, so no eval run could be executed and no scores were reported. The setup is complete and correct, but the network block makes the promised outcome impossible to verify.",
   "deviations": "",
-  "steps": 40,
-  "wall_seconds": 148.5,
+  "steps": 46,
+  "wall_seconds": 327.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4"
+      "evidence": "Python 3.14.4 / pip 26.0.1 present and functional"
     },
     "installed": {
       "passed": true,
-      "evidence": "/home/daytona/.local/lib/python3.14/site-packages/braintrust/__init__.py"
+      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.35.0"
     },
     "configured": {
       "passed": false,
-      "evidence": "env | grep -i -E \"openai|anthropic|gemini|ai_\" exit=1"
+      "evidence": "OPENAI_API_KEY is set:  (empty) while quickstart mandates export OPENAI_API_KEY=\" \""
     },
     "first_call": {
       "passed": false,
-      "evidence": "Traceback (most recent call last):"
+      "evidence": "python3 movie_matcher.py exited with code 1 due to TLS connection reset"
     },
     "verified": {
       "passed": false,
-      "evidence": "[bash] args={\"command\": \"cd /home/daytona && python3 movie_matcher.py\"} exit=1"
+      "evidence": "No eval scores or experiment summary were produced; script failed"
     }
   },
   "friction": [
     {
-      "where": "Missing AI provider API key",
-      "detail": "Quickstart instructs export OPENAI_API_KEY but the sandbox only has BRAINTRUST_API_KEY and grep for openai/anthropic/gemini returns exit=1"
+      "where": "Sandbox blocks all outbound HTTPS/TLS connections",
+      "detail": "curl: (35) Recv failure: Connection reset by peer in connection to gateway.braintrust.dev:443"
     },
     {
-      "where": "bt CLI install fails due to network block",
-      "detail": "curl -fsSL https://bt.dev/cli/install.sh | sh prints curl: (35) Recv failure: Connection reset by peer"
+      "where": "Python install snippet truncated in evaluation quickstart",
+      "detail": "```bash Python theme={\"theme\":{\"light\":\"github-light\",\"dark\":\"github-da\""
     },
     {
-      "where": "Sandbox blocks all outbound HTTPS",
-      "detail": "curl -v https://gateway.braintrust.dev fails with OpenSSL SSL_connect: Connection reset by peer and even https://google.com fails identically"
+      "where": "Conflicting auth guidance between quickstart and Gateway docs",
+      "detail": "export OPENAI_API_KEY=\" \" # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc. vs Add your provider API key in Braintrust so the Gateway can call it on your behalf \u2014 you won't need to set your provider key locally."
     },
     {
-      "where": "HTTP fallback blocked by envoy proxy",
-      "detail": "curl http://httpbin.org/get returns < HTTP/1.1 403 Forbidden and < server: envoy"
+      "where": "pip install warns braintrust CLI is off PATH",
+      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
     },
     {
-      "where": "Ambiguous API base URLs",
-      "detail": "Script uses base_url=https://gateway.braintrust.dev while SDK source references api_url: https://api.braintrust.ai and api.braintrust.dev"
+      "where": "Developer must inspect SDK docstrings because docs are incomplete",
+      "detail": "python3 -c \"import braintrust; help(braintrust.Eval)\" 2>&1 | head -40"
     }
   ],
   "score": 30,
-  "braintrust_span": "6a128ef4-2852-46a2-971b-0f756df8ade9"
+  "braintrust_span": "2268c813-22bc-4c84-b9a6-986bac6d5252"
 }

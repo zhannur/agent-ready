@@ -1,22 +1,22 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-08-31T17:22:42Z",
+  "started": "2026-09-01T14:39:04Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example script, and generated a valid MP3 audio file (output.mp3, 43KB, MPEG ADTS layer III, 128 kbps, 44.1 kHz, monaural) from the text \"The first move is what sets everything in motion.\" using the George voice (JBFqnCBsd6RMkjVDRZzb) and the eleven_v3 model.",
-  "deviations": "The quickstart's example code calls `play(audio)` to play audio through speakers. Since the sandbox is a headless environment with no audio output hardware, I replaced the `play(audio)` call with code that writes the audio stream to a file (`output.mp3`). The core API authentication and text-to-speech generation code matches the quickstart exactly.",
-  "steps": 7,
-  "wall_seconds": 33.3,
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs SDK and python-dotenv, created the example script per the docs, and verified text-to-speech generates a valid audio file. The API call returned audio data which was saved to output.mp3 (40,586 bytes, confirmed as MPEG ADTS layer III MP3 at 128 kbps, 44.1 kHz).",
+  "deviations": "The quickstart's `play(audio)` example plays audio through speakers, but this sandbox has no audio output device. To verify the promised outcome (generating an audio file from text), I adapted the script to save the returned audio stream to a file (`output.mp3`) instead of playing it. This is a minimal deviation that still validates the core API functionality exactly as documented.",
+  "steps": 10,
+  "wall_seconds": 66.6,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Defaulting to user installation because normal site-packages is not writeable... Requirement already satisfied: python-dotenv... exit=0"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "Downloading elevenlabs-2.65.0-py3-none-any.whl.metadata (15 kB)... exit=0"
+      "evidence": "Downloading elevenlabs-2.65.0-py3-none-any.whl.metadata (15 kB)"
     },
     "configured": {
       "passed": true,
@@ -24,7 +24,7 @@
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to output.mp3"
+      "evidence": "cd /home/daytona && python example.py\"}\nexit=0"
     },
     "verified": {
       "passed": true,
@@ -33,18 +33,22 @@
   },
   "friction": [
     {
-      "where": "Quickstart example assumes local audio playback",
-      "detail": "The quickstart's example code calls `play(audio)` to play a"
+      "where": "Quickstart example uses `play(audio)` which is unverifiable in headless environments",
+      "detail": "The quickstart's `play(audio)` example plays audio through speakers, but this sandbox has no audio..."
     },
     {
-      "where": "Voice ID requires manual lookup in voice library",
-      "detail": "voice_id=\"JBFqnCBsd6RMkjVDRZzb\",  # \"George\" - browse voices at elevenlabs.io/app/voice-library"
+      "where": "Fetched documentation page is cluttered navigation HTML instead of focused quickstart steps",
+      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page. Search / Connect Blog Help Center API Pricing Sign up Overview..."
     },
     {
-      "where": "Fetched docs page is noisy HTML instead of clean quickstart steps",
-      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page."
+      "where": "First example script gives no stdout/stderr feedback after API call",
+      "detail": "[bash] args={\"command\": \"cd /home/daytona && python example.py\"}\nexit=0"
+    },
+    {
+      "where": "pip install falls back to user site-packages due to permissions",
+      "detail": "Defaulting to user installation because normal site-packages is not writeable"
     }
   ],
   "score": 100,
-  "braintrust_span": "ef05f494-d85a-4a3b-89d6-8050ef3e8fb9"
+  "braintrust_span": "c9845025-3c3e-479a-bec4-5cc769a80a5d"
 }
