@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-09-01T14:36:06Z",
+  "started": "2026-09-02T14:12:45Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
   "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 285.3,
+  "wall_seconds": 350.7,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "[bash] args={\"command\": \"cd /home/daytona && python3 daytona_quickstart.py\"}"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "/usr/local/lib/python3.14/site-packages/daytona/__init__.py"
+      "evidence": "Version: 0.207.1"
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY=***REDACTED***"
+      "evidence": "DAYTONA_API_KEY is set: yes"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created: 0429354d-3d3a-4d09-8a39-f17122ef9978"
+      "evidence": "Sandbox created with ID: 326b1316-19ca-4e07-8128-75bb2225498f\nSandbox state: SandboxState.STARTED"
     },
     "verified": {
       "passed": false,
-      "evidence": "Error: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "evidence": "Traceback (most recent call last):\n  File \"/usr/local/lib/python3.14/ssl.py\", line 1076, in _create\n    self.do_handshake()"
     }
   },
   "friction": [
     {
-      "where": "daytona --version",
-      "detail": "ERR Error occurred error=\"listen tcp :22220: bind: address already in use\""
+      "where": "sandbox.process.exec() step",
+      "detail": "Core quickstart action fails with a low-level SSL handshake traceback instead of running code: \"File \\\"/usr/local/lib/python3.14/ssl.py\\\", line 1076, in _create\\n    self.do_handshake()\""
     },
     {
-      "where": "toolbox proxy TLS",
-      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443"
+      "where": "daytona --version / --help",
+      "detail": "CLI emits internal server logs and port-binding errors instead of clean help output: \"2026-09-02T14:07:40Z ERR Error occurred error=\\\"listen tcp :33333: bind: address already in use\\\"\""
     },
     {
-      "where": "SDK code_run error",
-      "detail": "Error: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "where": "pip install daytona",
+      "detail": "Pre-installed SDK is an outdated version (0.134.0), forcing a manual upgrade to 0.207.1: \"Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)\""
     },
     {
-      "where": "SDK source inspection",
-      "detail": "grep -r \"get_toolbox_base_url\" /usr/local/lib/python3.14/site-packages/daytona/ --include=\"*.py\""
+      "where": "Sandbox object inspection",
+      "detail": "Debugging the sandbox object hits missing attributes that seem logical from docs: \"AttributeError: 'Sandbox' object has no attribute 'info'\" and \"AttributeError: 'Sandbox' object has no attribute '_api_client'. Did you mean: '_http_client'?\"\""
     },
     {
-      "where": "sandbox network context",
-      "detail": "DAYTONA_SANDBOX_ID=c4e5bf44-6fb2-4e35-b0b8-79b8b4f45760"
+      "where": "Toolbox proxy connectivity",
+      "detail": "The advertised toolbox proxy URL is unreachable, blocking command execution: \"000Connection failed\""
     }
   ],
   "score": 70,
-  "braintrust_span": "1fe8b491-9e87-4999-bbc7-9ba02cd18c58"
+  "braintrust_span": "6dbccf29-3a15-4d30-966c-7ac4fb07d5a9"
 }

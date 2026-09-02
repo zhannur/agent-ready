@@ -1,14 +1,14 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-09-01T14:39:04Z",
+  "started": "2026-09-02T14:15:31Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs SDK and python-dotenv, created the example script per the docs, and verified text-to-speech generates a valid audio file. The API call returned audio data which was saved to output.mp3 (40,586 bytes, confirmed as MPEG ADTS layer III MP3 at 128 kbps, 44.1 kHz).",
-  "deviations": "The quickstart's `play(audio)` example plays audio through speakers, but this sandbox has no audio output device. To verify the promised outcome (generating an audio file from text), I adapted the script to save the returned audio stream to a file (`output.mp3`) instead of playing it. This is a minimal deviation that still validates the core API functionality exactly as documented.",
-  "steps": 10,
-  "wall_seconds": 66.6,
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the Python SDK (`elevenlabs` and `python-dotenv`), created the example script using the provided code, and ran it. The API call succeeded and generated a valid MP3 audio file (`output.mp3`, 43KB, MPEG ADTS layer III, 128 kbps, 44.1 kHz, Monaural) from the text \"The first move is what sets everything in motion.\"",
+  "deviations": "The quickstart's `play(audio)` call was replaced with file-saving logic (`with open(\"output.mp3\", \"wb\")`) because the sandbox has no audio output device/speakers. The core API request and audio generation remained exactly as documented.",
+  "steps": 9,
+  "wall_seconds": 67.2,
   "checkpoints": {
     "env_ready": {
       "passed": true,
@@ -16,15 +16,15 @@
     },
     "installed": {
       "passed": true,
-      "evidence": "Downloading elevenlabs-2.65.0-py3-none-any.whl.metadata (15 kB)"
+      "evidence": "Downloading elevenlabs-2.66.0-py3-none-any.whl.metadata (15 kB)"
     },
     "configured": {
       "passed": true,
-      "evidence": "ELEVENLABS_API_KEY is set: yes"
+      "evidence": "API key set: yes"
     },
     "first_call": {
       "passed": true,
-      "evidence": "cd /home/daytona && python example.py\"}\nexit=0"
+      "evidence": "Audio saved to output.mp3"
     },
     "verified": {
       "passed": true,
@@ -33,22 +33,26 @@
   },
   "friction": [
     {
-      "where": "Quickstart example uses `play(audio)` which is unverifiable in headless environments",
-      "detail": "The quickstart's `play(audio)` example plays audio through speakers, but this sandbox has no audio..."
+      "where": "Documentation fetched as noisy HTML with navigation clutter",
+      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt... Search / Connect Blog Help Center API Pricing Sign up Overview ElevenCreative ElevenAgents ElevenAPI Reception.ai API reference Changelog Help Center Login Overview..."
     },
     {
-      "where": "Fetched documentation page is cluttered navigation HTML instead of focused quickstart steps",
-      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page. Search / Connect Blog Help Center API Pricing Sign up Overview..."
+      "where": "Quickstart code uses interactive play() unsuitable for headless sandboxes",
+      "detail": "from elevenlabs.play import play"
     },
     {
-      "where": "First example script gives no stdout/stderr feedback after API call",
-      "detail": "[bash] args={\"command\": \"cd /home/daytona && python example.py\"}\nexit=0"
+      "where": "Quickstart lacks file-saving example, requiring deviation",
+      "detail": "The quickstart's `play(audio)` call was replaced with file-sa"
     },
     {
-      "where": "pip install falls back to user site-packages due to permissions",
+      "where": "pip install defaults to user install because system site-packages is not writeable",
       "detail": "Defaulting to user installation because normal site-packages is not writeable"
+    },
+    {
+      "where": "Voice ID requires browsing external voice library instead of being self-contained",
+      "detail": "voice_id=\"JBFqnCBsd6RMkjVDRZzb\",  # \"George\" - browse voices at elevenlabs.io/app/voice-library"
     }
   ],
   "score": 100,
-  "braintrust_span": "c9845025-3c3e-479a-bec4-5cc769a80a5d"
+  "braintrust_span": "04aa960e-828b-4515-a347-140dda0b29e0"
 }

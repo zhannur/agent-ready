@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-09-01T14:15:48Z",
+  "started": "2026-09-02T13:44:42Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Braintrust SDK and dependencies (`braintrust-0.35.0`, `autoevals-0.3.0`, `openai`) and wrote the `movie_matcher.py` eval script exactly per the quickstart, adapting it to use the Braintrust Gateway with the provided `BRAINTRUST_API_KEY`. However, the sandbox has a fundamental outbound network connectivity issue: every HTTPS connection is reset during the TLS handshake, as demonstrated by `curl` tests to `gateway.braintrust.dev`, `api.braintrust.dev`, and even `google.com` all returning `Connection reset by peer`. Because of this, the Python script cannot reach either the Braintrust API or the Gateway to run the LLM calls, so no eval run could be executed and no scores were reported. The setup is complete and correct, but the network block makes the promised outcome impossible to verify.",
+  "summary": "run ended without finish()",
   "deviations": "",
-  "steps": 46,
-  "wall_seconds": 327.0,
+  "steps": 40,
+  "wall_seconds": 244.8,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4 / pip 26.0.1 present and functional"
+      "evidence": "Python 3.14.4 and pip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.35.0"
+      "evidence": "pip install braintrust openai autoevals exited 0 and downloaded braintrust-0.36.0-py3-none-any.whl"
     },
     "configured": {
-      "passed": false,
-      "evidence": "OPENAI_API_KEY is set:  (empty) while quickstart mandates export OPENAI_API_KEY=\" \""
+      "passed": true,
+      "evidence": "BRAINTRUST_API_KEY is set: yes and BRAINTRUST_API_KEY=***REDACTED*** present in environment"
     },
     "first_call": {
       "passed": false,
-      "evidence": "python3 movie_matcher.py exited with code 1 due to TLS connection reset"
+      "evidence": "python3 movie_matcher.py exited 1 with ssl.py traceback ending in Connection reset by peer to api.braintrust.dev"
     },
     "verified": {
       "passed": false,
-      "evidence": "No eval scores or experiment summary were produced; script failed"
+      "evidence": "No successful eval execution or score output appears in transcript; script failed and was never re-run"
     }
   },
   "friction": [
     {
-      "where": "Sandbox blocks all outbound HTTPS/TLS connections",
-      "detail": "curl: (35) Recv failure: Connection reset by peer in connection to gateway.braintrust.dev:443"
+      "where": "Missing AI provider API key prerequisite",
+      "detail": "OPENAI_API_KEY is set:  (empty) despite quickstart instructing export OPENAI_API_KEY=\" \""
     },
     {
-      "where": "Python install snippet truncated in evaluation quickstart",
-      "detail": "```bash Python theme={\"theme\":{\"light\":\"github-light\",\"dark\":\"github-da\""
+      "where": "Opaque TLS failure to Braintrust API",
+      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to api.braintrust.dev:443"
     },
     {
-      "where": "Conflicting auth guidance between quickstart and Gateway docs",
-      "detail": "export OPENAI_API_KEY=\" \" # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc. vs Add your provider API key in Braintrust so the Gateway can call it on your behalf \u2014 you won't need to set your provider key locally."
+      "where": "Inconsistent sandbox network egress",
+      "detail": "curl to https://github.com/ returned 200 but curl to https://api.braintrust.dev/ fails with TLS reset, confusing debugging"
     },
     {
-      "where": "pip install warns braintrust CLI is off PATH",
-      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
+      "where": "Offline eval mode hidden in SDK help",
+      "detail": "Agent only discovered :param no_send_logs: Do not send logs to Braintrust via help(braintrust.Eval) after the failure"
     },
     {
-      "where": "Developer must inspect SDK docstrings because docs are incomplete",
-      "detail": "python3 -c \"import braintrust; help(braintrust.Eval)\" 2>&1 | head -40"
+      "where": "General HTTP egress restricted",
+      "detail": "curl -4 ... http://httpbin.org/get returned 403, indicating broad sandbox network restrictions"
     }
   ],
-  "score": 30,
-  "braintrust_span": "2268c813-22bc-4c84-b9a6-986bac6d5252"
+  "score": 45,
+  "braintrust_span": "d7660270-486a-46e5-abed-0ad1a9cd9c89"
 }
