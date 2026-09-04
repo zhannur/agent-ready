@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-09-02T13:44:42Z",
+  "started": "2026-09-04T13:36:41Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
   "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 244.8,
+  "wall_seconds": 256.1,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4 and pip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)\nv25.9.0\n11.12.1"
     },
     "installed": {
       "passed": true,
-      "evidence": "pip install braintrust openai autoevals exited 0 and downloaded braintrust-0.36.0-py3-none-any.whl"
+      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.37.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-8.0.4 sseclient-py-1.9.0 text-unidecode-1.3"
     },
     "configured": {
-      "passed": true,
-      "evidence": "BRAINTRUST_API_KEY is set: yes and BRAINTRUST_API_KEY=***REDACTED*** present in environment"
+      "passed": false,
+      "evidence": "env | grep -i \"OPENAI\\|ANTHROPIC\\|GEMINI\\|MODEL\\|AI\" | sed 's/=.*$/=*****/' returned only GTK_MODULES=***** and BRAINTRUST_API_KEY=*****, missing the AI provider key the quickstart requires"
     },
     "first_call": {
       "passed": false,
-      "evidence": "python3 movie_matcher.py exited 1 with ssl.py traceback ending in Connection reset by peer to api.braintrust.dev"
+      "evidence": "cd /home/daytona && python3 movie_matcher.py 2>&1\" exit=1 with Traceback ending in ssl.py do_handshake failure"
     },
     "verified": {
       "passed": false,
-      "evidence": "No successful eval execution or score output appears in transcript; script failed and was never re-run"
+      "evidence": "python3 movie_matcher.py exited with code 1 and the transcript contains no eval scores or experiment link"
     }
   },
   "friction": [
     {
-      "where": "Missing AI provider API key prerequisite",
-      "detail": "OPENAI_API_KEY is set:  (empty) despite quickstart instructing export OPENAI_API_KEY=\" \""
+      "where": "Missing AI provider prerequisite",
+      "detail": "The quickstart instructs to export OPENAI_API_KEY (or similar) but the environment only contained BRAINTRUST_API_KEY: \"env | grep -i \\\"OPENAI\\|ANTHROPIC\\|GEMINI\\|MODEL\\|AI\\\" | sed 's/=.*$/=*****/'\" returned just GTK_MODULES=***** and BRAINTRUST_API_KEY=*****."
     },
     {
-      "where": "Opaque TLS failure to Braintrust API",
-      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to api.braintrust.dev:443"
+      "where": "Sandbox TLS connectivity to Braintrust API",
+      "detail": "Every HTTPS attempt to api.braintrust.dev failed with connection reset by peer while github.com worked, yielding cryptic SSL errors: \"* OpenSSL SSL_connect: Connection reset by peer in connection to api.braintrust.dev:443\"."
     },
     {
-      "where": "Inconsistent sandbox network egress",
-      "detail": "curl to https://github.com/ returned 200 but curl to https://api.braintrust.dev/ fails with TLS reset, confusing debugging"
+      "where": "Python package PATH warning",
+      "detail": "After pip install, the braintrust CLI script was placed off-PATH, which can confuse first-time users: \"WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH.\""
     },
     {
-      "where": "Offline eval mode hidden in SDK help",
-      "detail": "Agent only discovered :param no_send_logs: Do not send logs to Braintrust via help(braintrust.Eval) after the failure"
+      "where": "Documentation fetch timeouts",
+      "detail": "The agent repeatedly hit read timeouts trying to load the eval quickstart pages: \"[fetch_url] args={\\\"url\\\": \\\"https://www.braintrust.dev/docs/start/eval\\\"} tool error: The read operation timed out\"."
     },
     {
-      "where": "General HTTP egress restricted",
-      "detail": "curl -4 ... http://httpbin.org/get returned 403, indicating broad sandbox network restrictions"
+      "where": "Incomplete Python quickstart docs",
+      "detail": "The Python install/code snippet was truncated in the fetched docs, forcing users to infer the Python setup: \"````bash Python theme={\\\"theme\\\":{\\\"light\\\":\\\"github-light\\\",\\\"dark\\\":\\\"github-da\"."
     }
   ],
-  "score": 45,
-  "braintrust_span": "d7660270-486a-46e5-abed-0ad1a9cd9c89"
+  "score": 30,
+  "braintrust_span": "4ab375c2-c8fd-41ba-9dc9-0b3857b78543"
 }
