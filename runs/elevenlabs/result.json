@@ -1,18 +1,18 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-09-02T14:15:31Z",
+  "started": "2026-09-05T13:15:04Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the Python SDK (`elevenlabs` and `python-dotenv`), created the example script using the provided code, and ran it. The API call succeeded and generated a valid MP3 audio file (`output.mp3`, 43KB, MPEG ADTS layer III, 128 kbps, 44.1 kHz, Monaural) from the text \"The first move is what sets everything in motion.\"",
-  "deviations": "The quickstart's `play(audio)` call was replaced with file-saving logic (`with open(\"output.mp3\", \"wb\")`) because the sandbox has no audio output device/speakers. The core API request and audio generation remained exactly as documented.",
-  "steps": 9,
-  "wall_seconds": 67.2,
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs SDK and python-dotenv, created example.py with the exact code from the quickstart, and executed it. The API call returned audio data successfully. To verify in the sandbox (which has no speakers), I also saved the returned audio stream to output.mp3 \u2014 the file is 43,511 bytes and confirmed by `file` to be a valid MPEG ADTS layer III MP3 at 128 kbps, 44.1 kHz, monaural. The promised outcome (text-to-speech generates an audio file from text) is demonstrably working.",
+  "deviations": "The quickstart instructs using `play(audio)` to play through speakers. In the sandbox environment (no audio output device), the script ran successfully but produced no audible output. To verify the outcome, I saved the returned audio stream to a file (`output.mp3`) and confirmed it is a valid MP3. This is the only deviation \u2014 necessary due to sandbox hardware limitations.",
+  "steps": 7,
+  "wall_seconds": 38.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "cd /home/daytona && pip install elevenlabs python-dotenv\" exit=0"
     },
     "installed": {
       "passed": true,
@@ -20,11 +20,11 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "API key set: yes"
+      "evidence": "api_key=os.getenv(\"ELEVENLABS_API_KEY\")"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to output.mp3"
+      "evidence": "cd /home/daytona && python example.py\" exit=0"
     },
     "verified": {
       "passed": true,
@@ -33,26 +33,26 @@
   },
   "friction": [
     {
-      "where": "Documentation fetched as noisy HTML with navigation clutter",
-      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt... Search / Connect Blog Help Center API Pricing Sign up Overview ElevenCreative ElevenAgents ElevenAPI Reception.ai API reference Changelog Help Center Login Overview..."
+      "where": "Documentation fetch returns HTML navigation noise instead of quickstart instructions",
+      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page."
     },
     {
-      "where": "Quickstart code uses interactive play() unsuitable for headless sandboxes",
+      "where": "Sandbox has no audio output, making the quickstart's default playback path unverifiable",
+      "detail": "To verify in the sandbox (which has no speakers), I also saved the returned audio stream to output.mp3"
+    },
+    {
+      "where": "No visible step shows how to set the ELEVENLABS_API_KEY before running the script",
+      "detail": "api_key=os.getenv(\"ELEVENLABS_API_KEY\")"
+    },
+    {
+      "where": "First script execution produces no visible output, giving no feedback that audio was generated",
+      "detail": "[bash] args={\"command\": \"cd /home/daytona && python example.py\"}\nexit=0\n\n[bash]"
+    },
+    {
+      "where": "Quickstart code imports play utility that is unsuitable for headless/server environments",
       "detail": "from elevenlabs.play import play"
-    },
-    {
-      "where": "Quickstart lacks file-saving example, requiring deviation",
-      "detail": "The quickstart's `play(audio)` call was replaced with file-sa"
-    },
-    {
-      "where": "pip install defaults to user install because system site-packages is not writeable",
-      "detail": "Defaulting to user installation because normal site-packages is not writeable"
-    },
-    {
-      "where": "Voice ID requires browsing external voice library instead of being self-contained",
-      "detail": "voice_id=\"JBFqnCBsd6RMkjVDRZzb\",  # \"George\" - browse voices at elevenlabs.io/app/voice-library"
     }
   ],
   "score": 100,
-  "braintrust_span": "04aa960e-828b-4515-a347-140dda0b29e0"
+  "braintrust_span": "edd8471e-4b0b-4f57-b843-379641593fad"
 }
