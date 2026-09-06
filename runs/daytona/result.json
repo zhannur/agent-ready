@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-09-02T14:12:45Z",
+  "started": "2026-09-06T13:22:23Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
   "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 350.7,
+  "wall_seconds": 327.3,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "which daytona || echo \"daytona CLI not found\" -> /usr/local/bin/daytona"
     },
     "installed": {
       "passed": true,
-      "evidence": "Version: 0.207.1"
+      "evidence": "python3 -c \"from daytona import Daytona; help(Daytona.__init__)\" returns help text without ImportError"
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY is set: yes"
+      "evidence": "env shows DAYTONA_API_KEY=***REDACTED*** and daytona.create() returns a sandbox ID without authentication error"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: 326b1316-19ca-4e07-8128-75bb2225498f\nSandbox state: SandboxState.STARTED"
+      "evidence": "Sandbox created with ID: 27add03d-efdf-47d9-ad85-778c0365f258"
     },
     "verified": {
       "passed": false,
-      "evidence": "Traceback (most recent call last):\n  File \"/usr/local/lib/python3.14/ssl.py\", line 1076, in _create\n    self.do_handshake()"
+      "evidence": "Running simple command inside the sandbox... Attempt 1 failed: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   },
   "friction": [
     {
-      "where": "sandbox.process.exec() step",
-      "detail": "Core quickstart action fails with a low-level SSL handshake traceback instead of running code: \"File \\\"/usr/local/lib/python3.14/ssl.py\\\", line 1076, in _create\\n    self.do_handshake()\""
+      "where": "SDK sandbox process execution / code_run",
+      "detail": "All attempts to run code inside the created sandbox fail with ConnectionResetError: 'Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))'"
     },
     {
-      "where": "daytona --version / --help",
-      "detail": "CLI emits internal server logs and port-binding errors instead of clean help output: \"2026-09-02T14:07:40Z ERR Error occurred error=\\\"listen tcp :33333: bind: address already in use\\\"\""
+      "where": "daytona CLI binary behavior",
+      "detail": "The daytona command runs a local server instead of acting as a management CLI and dies with port conflicts: 'Error occurred error=\"listen tcp :22220: bind: address already in use\"'"
     },
     {
-      "where": "pip install daytona",
-      "detail": "Pre-installed SDK is an outdated version (0.134.0), forcing a manual upgrade to 0.207.1: \"Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)\""
+      "where": "Sandbox object cleanup method",
+      "detail": "Attempting to call sandbox.remove() raises AttributeError because the method does not exist: 'AttributeError: 'Sandbox' object has no attribute 'remove'. Did you mean: 'recover'?'"
     },
     {
-      "where": "Sandbox object inspection",
-      "detail": "Debugging the sandbox object hits missing attributes that seem logical from docs: \"AttributeError: 'Sandbox' object has no attribute 'info'\" and \"AttributeError: 'Sandbox' object has no attribute '_api_client'. Did you mean: '_http_client'?\"\""
+      "where": "Toolbox proxy endpoint routing",
+      "detail": "Direct API call to the sandbox toolbox exec endpoint via app.daytona.io returns 404, suggesting wrong URL: 'Cannot POST /api/sandbox/537f5aae-11af-43db-8715-ecf4785a8072/toolbox/process/exec'"
     },
     {
-      "where": "Toolbox proxy connectivity",
-      "detail": "The advertised toolbox proxy URL is unreachable, blocking command execution: \"000Connection failed\""
+      "where": "TLS connectivity to toolbox proxy",
+      "detail": "Even raw curl cannot complete TLS handshake to proxy.app.daytona.io, indicating a network/proxy outage rather than SDK misuse: 'curl: (35) Recv failure: Connection reset by peer'"
     }
   ],
   "score": 70,
-  "braintrust_span": "6dbccf29-3a15-4d30-966c-7ac4fb07d5a9"
+  "braintrust_span": "a0937117-1919-4882-9d4d-7c3080795f9b"
 }

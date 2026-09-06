@@ -1,18 +1,18 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-09-05T12:45:16Z",
+  "started": "2026-09-06T12:56:58Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I successfully fetched the Braintrust evaluation quickstart docs and installed the Python SDK (`braintrust-0.37.0`, `autoevals-0.3.0`, `openai`) via pip. I created the `movie_matcher.py` eval script following the quickstart's Python example with the `ExactMatch` scorer and five movie test cases. However, the run was blocked by a network connectivity issue: every HTTPS request to `braintrust.dev` (and even `google.com`) failed with `ConnectionResetError` during the TLS handshake, while plain HTTP to `example.com` returned a 403. This sandbox-level outbound HTTPS restriction prevented the SDK from reaching the Braintrust API to create the experiment and report scores. I noted the `no_send_logs=True` parameter in the SDK that could run the eval locally without API calls, but ran out of budget before testing it.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 156.2,
+  "wall_seconds": 185.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "PYTHON_VERSION=3.14.4"
+      "evidence": "Python 3.14.4"
     },
     "installed": {
       "passed": true,
@@ -20,39 +20,39 @@
     },
     "configured": {
       "passed": false,
-      "evidence": "env | grep -i openai (exit=1)"
+      "evidence": "OPENAI_API_KEY is set: "
     },
     "first_call": {
       "passed": false,
-      "evidence": "curl: (35) Recv failure: Connection reset by peer"
+      "evidence": "exit=1"
     },
     "verified": {
       "passed": false,
-      "evidence": "cd /home/daytona && python movie_matcher.py (exit=1)"
+      "evidence": "exit=1"
     }
   },
   "friction": [
     {
-      "where": "Quickstart omits actual eval code",
-      "detail": "Set up your environment and [run evals](/docs/evaluate/run-in-code) with the Braintrust SDK."
+      "where": "Sandbox blocks all outbound HTTPS connections",
+      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
     },
     {
-      "where": "Missing AI provider key prerequisite",
-      "detail": "export OPENAI_API_KEY=\" \" # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc."
+      "where": "Missing AI provider API key required by quickstart",
+      "detail": "OPENAI_API_KEY is set: "
     },
     {
-      "where": "Sandbox network blocks Braintrust API",
-      "detail": "curl: (35) Recv failure: Connection reset by peer"
+      "where": "pip defaults to user install and requires manual PYTHONPATH",
+      "detail": "Defaulting to user installation because normal site-packages is not writeable"
     },
     {
-      "where": "HTTP fallback returns 403",
-      "detail": "Internet is restricted on Tier 1 and Tier 2."
+      "where": "Run-in-code docs show only TypeScript snippet",
+      "detail": "Eval(\"My Project\", { experimentName: \"My experiment\", data: initDataset(\"My Project\", { dataset: \"My dataset\" }), task: async (input) => { ... }, scores: [Factuality], ... });"
     },
     {
-      "where": "Python install snippet truncated",
-      "detail": "```bash Python theme={\"theme\":{\"light\":\"github-light\",\"dark\":\"github-da"
+      "where": "SDK offline flag is hidden in help text instead of quickstart",
+      "detail": "no_send_logs: bool = False, ... Do not send logs to Braintrust. When True, the evaluation runs locally"
     }
   ],
   "score": 30,
-  "braintrust_span": "4823bb2f-a277-44b1-aa14-f178334074d7"
+  "braintrust_span": "302fb82c-0712-4872-84a8-3d14c17480f3"
 }

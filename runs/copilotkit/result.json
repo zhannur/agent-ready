@@ -1,58 +1,58 @@
 {
   "name": "copilotkit",
   "url": "https://docs.copilotkit.ai/quickstart",
-  "started": "2026-09-05T13:09:32Z",
+  "started": "2026-09-06T13:15:40Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully scaffolded a Next.js app, installed `@copilotkit/react-core` and `@copilotkit/runtime`, and wired up the CopilotKit provider, runtime handler, and `CopilotSidebar` component per the quickstart docs. TypeScript type-checking passed cleanly (`npx tsc --noEmit` exited 0). However, the production build (`next build`) was killed by the system\u2014log shows \"Killed\" after \"Creating an optimized production build ...\"\u2014so I never reached a running server or verified the `/api/copilotkit` endpoint responds. The blocker appears to be an out-of-memory condition during the Turbopack build.",
+  "summary": "I successfully scaffolded a Next.js app (`my-copilot-app`) and installed the CopilotKit packages (`@copilotkit/react-core` and `@copilotkit/runtime`), with npm confirming \"added 1166 packages, and audited 1532 packages.\" However, I was blocked from completing the quickstart because no API keys\u2014neither `OPENAI_API_KEY` nor `CPK_INTELLIGENCE_API_KEY`\u2014were present in the sandbox environment, despite the instructions stating credentials were already exported. Additionally, I could not fetch the full quickstart documentation from `docs.copilotkit.ai` due to TLS connection resets and HTTP 403 restrictions, so I lacked the complete, up-to-date code examples needed to wire up the runtime route and provider.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 1392.2,
+  "wall_seconds": 1032.4,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "node --version && npm --version exited 0 with v25.9.0 and 11.12.1"
+      "evidence": "v25.9.0\n11.12.1"
     },
     "installed": {
       "passed": true,
-      "evidence": "added 1166 packages, and audited 1532 packages in 2m"
+      "evidence": "added 1166 packages, and audited 1532 packages in 1m"
     },
     "configured": {
-      "passed": true,
-      "evidence": "npx tsc --noEmit exited 0 after wiring .env.local, route.ts, layout.tsx, and page.tsx"
+      "passed": false,
+      "evidence": "No KEY env vars found"
     },
     "first_call": {
       "passed": false,
-      "evidence": "Creating an optimized production build ... Killed \u2014 build never completed so no runtime/core action succeeded"
+      "evidence": "I was blocked from completing the quickstart because no API keys\u2014neither OPENAI_API_KEY nor CPK_INTELLIGENCE_API_KEY\u2014were present in the sandbox environment"
     },
     "verified": {
       "passed": false,
-      "evidence": "build.log ends with 'Killed'; no served app or verified copilot endpoint"
+      "evidence": "src/app/favicon.ico\nsrc/app/globals.css\nsrc/app/page.tsx\nsrc/app/layout.tsx"
     }
   },
   "friction": [
     {
-      "where": "Fetching quickstart documentation",
-      "detail": "curl: (35) Recv failure: Connection reset by peer"
+      "where": "Missing API key prerequisite",
+      "detail": "An OpenAI API key (or Anthropic/Google \u2014 see Model Selection ) ... No KEY env vars found"
     },
     {
-      "where": "Missing prerequisite API key",
-      "detail": "No relevant API keys found in environment"
+      "where": "Documentation site blocked",
+      "detail": "curl: (35) Recv failure: Connection reset by peer ... HTTP/1.1 403 Forbidden ... Internet is restricted on Tier 1 and Tier 2."
     },
     {
-      "where": "Next.js production build",
-      "detail": "Creating an optimized production build ... Killed"
+      "where": "Incomplete wiring instructions due to blocked docs",
+      "detail": "I could not fetch the full quickstart documentation from docs.copilotkit.ai due to TLS connection resets and HTTP 403 restrictions, so I lacked the complete, up-to-date code examples needed to wire up the runtime route and provider."
     },
     {
-      "where": "CopilotSidebar TypeScript props",
-      "detail": "error TS2353: Object literal may only specify known properties, and 'title' does not exist in type 'Partial<{ chatInputPlaceholder: string; ... }>'"
+      "where": "Deprecated dependencies in SDK install",
+      "detail": "npm warn deprecated lodash.get@4.4.2: This package is deprecated. Use the optional chaining (?.) operator instead."
     },
     {
-      "where": "Build command execution",
-      "detail": "Failed to execute command: command execution timeout"
+      "where": "Security vulnerabilities in fresh install",
+      "detail": "9 vulnerabilities (4 low, 4 moderate, 1 high)"
     }
   ],
-  "score": 45,
-  "braintrust_span": "d8e5503c-c694-4e18-9d2e-a716d0990140"
+  "score": 30,
+  "braintrust_span": "accebced-333d-4f6b-9118-e64b55198dbb"
 }
