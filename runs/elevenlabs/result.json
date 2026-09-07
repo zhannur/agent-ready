@@ -1,18 +1,18 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-09-06T13:24:08Z",
+  "started": "2026-09-07T15:23:43Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created a Python script that calls the text-to-speech API with the provided ELEVENLABS_API_KEY, and generated a valid MP3 audio file (output.mp3, 44.1 kHz, 128 kbps, mono, ~2.77 seconds). Verified the file with ffprobe confirming it is a proper MPEG audio file.",
-  "deviations": "The quickstart example uses `from elevenlabs.play import play` and `play(audio)` to play audio through speakers. Since the sandbox has no speakers and MPV was not installed, I used `from elevenlabs import save` and `save(audio, \"output.mp3\")` instead to save the audio to a file and verify it. This is a functionally equivalent outcome \u2014 text-to-speech successfully generated an audio file from text.",
-  "steps": 8,
-  "wall_seconds": 37.2,
+  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created example.py with the quickstart code, and ran it. The script successfully generated a valid MP3 audio file (output.mp3, 46KB, MPEG ADTS layer III, 128 kbps, 44.1 kHz, mono) from the text input. The core promised outcome \u2014 text-to-speech generating an audio file from text \u2014 is verified.",
+  "deviations": "1. Did not create a .env file because ELEVENLABS_API_KEY was already exported in the sandbox environment. 2. Added code to save the audio generator to a file (output.mp3) so the result could be verified in this headless sandbox (no speakers). 3. Wrapped the `play(audio)` call in a try/except since the sandbox has no audio output device; the play failure is expected and does not affect the core outcome.",
+  "steps": 7,
+  "wall_seconds": 29.1,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "pip install elevenlabs python-dotenv exited 0, confirming Python and pip were available and functional"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
@@ -20,11 +20,11 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "python example.py exited 0 and produced audio, proving ELEVENLABS_API_KEY was present and loaded via load_dotenv/os.getenv as scripted"
+      "evidence": "api_key=os.getenv(\"ELEVENLABS_API_KEY\"),"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to output.mp3"
+      "evidence": "Audio file generated: output.mp3"
     },
     "verified": {
       "passed": true,
@@ -33,14 +33,26 @@
   },
   "friction": [
     {
-      "where": "Audio playback prerequisite",
-      "detail": "mpv not found"
+      "where": "Documentation fetch returns HTML navigation noise instead of clean quickstart steps",
+      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page. Search / Connect Blog Help Center API Pricing Sign up Overview..."
     },
     {
-      "where": "Quickstart code example assumes local playback",
-      "detail": "The quickstart example uses `from elevenlabs.play import play` and `pla"
+      "where": "Quickstart page interleaves many unrelated product sections, obscuring the TTS guide",
+      "detail": "Text to Speech Speech to Text Speech Engine Music Text to Dialogue Image &amp; Video Voice Changer Voice Isolator Dubbing Sound effects Forced Alignment Concepts..."
+    },
+    {
+      "where": "Agent skipped creating a .env file, suggesting the auth step is easy to miss or bypass",
+      "detail": "Did not create a .env file because ELEV"
+    },
+    {
+      "where": "Sandbox uses a pre-release Python version that could diverge from SDK support docs",
+      "detail": "Python 3.14.4"
+    },
+    {
+      "where": "Docs mention a markdown version only in a meta note, not as the default fetched format",
+      "detail": "For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page."
     }
   ],
   "score": 100,
-  "braintrust_span": "4a4e628e-c036-4380-b7f4-08c605e3f398"
+  "braintrust_span": "f97d018e-f4d9-456b-9a69-4bc0fbc1fae4"
 }

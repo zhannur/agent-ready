@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-09-06T12:56:58Z",
+  "started": "2026-09-07T15:06:38Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully fetched the Braintrust evaluation quickstart docs and installed the Python SDK (`braintrust-0.37.0`, `autoevals-0.3.0`, `openai`) via pip. I created the `movie_matcher.py` eval script following the quickstart's Python example with the `ExactMatch` scorer and five movie test cases. However, the run was blocked by a network connectivity issue: every HTTPS request to `braintrust.dev` (and even `google.com`) failed with `ConnectionResetError` during the TLS handshake, while plain HTTP to `example.com` returned a 403. This sandbox-level outbound HTTPS restriction prevented the SDK from reaching the Braintrust API to create the experiment and report scores. I noted the `no_send_logs=True` parameter in the SDK that could run the eval locally without API calls, but ran out of budget before testing it.",
+  "summary": "I successfully installed the Braintrust SDK and autoevals scorers in both JavaScript and Python, created the eval file from the quickstart, and demonstrated that the eval logic runs and computes scores. Using the Python SDK with `no_send_logs=True` (an offline mode not mentioned in the quickstart), I got real output: **77.78% 'Levenshtein' score** with a score of 1.0 for the \"Foo\" case and 0.5555555555555556 for the \"Bar\" case. What blocked completion was that the Braintrust API (api.braintrust.dev) was unreachable from the sandbox\u2014every TLS handshake was reset by peer, so the SDK could not log in or upload results. The JavaScript quickstart path (`npx braintrust eval`) failed with the same network error, and I had to deviate from the docs by switching to Python and running offline to get any scores at all.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 185.0,
+  "wall_seconds": 161.4,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4"
+      "evidence": "node --version returned v25.9.0 and npm --version returned 11.12.1"
     },
     "installed": {
       "passed": true,
-      "evidence": "Downloading braintrust-0.37.0-py3-none-any.whl.metadata (4.0 kB)"
+      "evidence": "npm install braintrust autoevals returned added 140 packages in 11s"
     },
     "configured": {
-      "passed": false,
-      "evidence": "OPENAI_API_KEY is set: "
+      "passed": true,
+      "evidence": "echo \"API key set: ${BRAINTRUST_API_KEY:+yes}\" returned API key set: yes"
     },
     "first_call": {
       "passed": false,
-      "evidence": "exit=1"
+      "evidence": "BRAINTRUST_API_KEY=\"$BRAINTRUST_API_KEY\" npx braintrust eval tutorial.eval.ts exited with code 1 and output TypeError: fetch failed"
     },
     "verified": {
       "passed": false,
-      "evidence": "exit=1"
+      "evidence": "The quickstart's JS eval command failed with TypeError: fetch failed; scores were only produced later by deviating to Python with no_send_logs=True"
     }
   },
   "friction": [
     {
-      "where": "Sandbox blocks all outbound HTTPS connections",
-      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
+      "where": "Braintrust API endpoint unreachable from sandbox",
+      "detail": "curl -v https://api.braintrust.dev returned curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Missing AI provider API key required by quickstart",
-      "detail": "OPENAI_API_KEY is set: "
+      "where": "JavaScript quickstart CLI fails cryptically when API is unreachable",
+      "detail": "npx braintrust eval tutorial.eval.ts produced only TypeError: fetch failed with no actionable remediation"
     },
     {
-      "where": "pip defaults to user install and requires manual PYTHONPATH",
-      "detail": "Defaulting to user installation because normal site-packages is not writeable"
+      "where": "Vendor documentation website inaccessible",
+      "detail": "curl -vL https://www.braintrust.dev/docs/start returned TLS connect error: Connection reset by peer"
     },
     {
-      "where": "Run-in-code docs show only TypeScript snippet",
-      "detail": "Eval(\"My Project\", { experimentName: \"My experiment\", data: initDataset(\"My Project\", { dataset: \"My dataset\" }), task: async (input) => { ... }, scores: [Factuality], ... });"
+      "where": "Offline/local eval mode not mentioned in JS quickstart README",
+      "detail": "README shows only BRAINTRUST_API_KEY=<YOUR_API_KEY> npx braintrust eval tutorial.eval.ts with no --no-send-logs or offline flag"
     },
     {
-      "where": "SDK offline flag is hidden in help text instead of quickstart",
-      "detail": "no_send_logs: bool = False, ... Do not send logs to Braintrust. When True, the evaluation runs locally"
+      "where": "Python SDK no_send_logs escape hatch is undocumented in the fetched quickstart",
+      "detail": "agent note: Using the Python SDK with no_send_logs=True (an offline mode not mentioned in the quickstart)"
     }
   ],
-  "score": 30,
-  "braintrust_span": "302fb82c-0712-4872-84a8-3d14c17480f3"
+  "score": 45,
+  "braintrust_span": "a306479c-0d76-46ee-b5f7-5a5d42d470e1"
 }
