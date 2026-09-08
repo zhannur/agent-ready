@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-09-06T13:22:23Z",
+  "started": "2026-09-08T14:00:41Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I successfully created multiple Daytona sandboxes via the Python SDK\u2014each returned a valid sandbox ID (e.g., `21a8735a-5baf-4842-9dd7-dc9ae5dc5ced`, `9e9df09f-953f-4ef2-9ca9-7bcc09e72d70`). However, executing code inside the sandbox consistently failed with `ConnectionResetError: [Errno 104] Connection reset by peer` when the SDK tried to connect to the toolbox proxy at `https://proxy.app.daytona.io/toolbox`. I verified this is a network-level issue by confirming that `curl -v https://proxy.app.daytona.io/toolbox` also fails with the same connection reset, while the main API at `https://app.daytona.io/api` connects successfully. The blocker is that the sandbox-to-toolbox proxy network path is unreachable from this environment, preventing the promised outcome of running code inside the sandbox from being demonstrated.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 327.3,
+  "wall_seconds": 346.1,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "which daytona || echo \"daytona CLI not found\" -> /usr/local/bin/daytona"
+      "evidence": "/usr/local/bin/daytona"
     },
     "installed": {
       "passed": true,
-      "evidence": "python3 -c \"from daytona import Daytona; help(Daytona.__init__)\" returns help text without ImportError"
+      "evidence": "class Daytona:"
     },
     "configured": {
       "passed": true,
-      "evidence": "env shows DAYTONA_API_KEY=***REDACTED*** and daytona.create() returns a sandbox ID without authentication error"
+      "evidence": "DAYTONA_API_KEY"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: 27add03d-efdf-47d9-ad85-778c0365f258"
+      "evidence": "Sandbox created with ID: 21a8735a-5baf-4842-9dd7-dc9ae5dc5ced"
     },
     "verified": {
       "passed": false,
-      "evidence": "Running simple command inside the sandbox... Attempt 1 failed: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "evidence": "Error: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   },
   "friction": [
     {
-      "where": "SDK sandbox process execution / code_run",
-      "detail": "All attempts to run code inside the created sandbox fail with ConnectionResetError: 'Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))'"
+      "where": "Network path to toolbox proxy is unreachable from the sandbox",
+      "detail": "* OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443"
     },
     {
-      "where": "daytona CLI binary behavior",
-      "detail": "The daytona command runs a local server instead of acting as a management CLI and dies with port conflicts: 'Error occurred error=\"listen tcp :22220: bind: address already in use\"'"
+      "where": "CLI version/help commands try to start a local server and fail with port conflict",
+      "detail": "Error occurred error=\"listen tcp :22222: bind: address already in use\""
     },
     {
-      "where": "Sandbox object cleanup method",
-      "detail": "Attempting to call sandbox.remove() raises AttributeError because the method does not exist: 'AttributeError: 'Sandbox' object has no attribute 'remove'. Did you mean: 'recover'?'"
+      "where": "Python SDK emits Pydantic v2.11 deprecation warnings when introspecting sandbox objects",
+      "detail": "PydanticDeprecatedSince211: Accessing the 'model_computed_fields' attribute on the instance is deprecated. Instead, you should access this attribute from the model class. Deprecated in Pydantic V2.11 to be removed in V3.0."
     },
     {
-      "where": "Toolbox proxy endpoint routing",
-      "detail": "Direct API call to the sandbox toolbox exec endpoint via app.daytona.io returns 404, suggesting wrong URL: 'Cannot POST /api/sandbox/537f5aae-11af-43db-8715-ecf4785a8072/toolbox/process/exec'"
+      "where": "Toolbox API client is cloned with an empty host, obscuring debugging",
+      "detail": "Config host: "
     },
     {
-      "where": "TLS connectivity to toolbox proxy",
-      "detail": "Even raw curl cannot complete TLS handshake to proxy.app.daytona.io, indicating a network/proxy outage rather than SDK misuse: 'curl: (35) Recv failure: Connection reset by peer'"
+      "where": "Quickstart docs show sandbox.process.exec but execution fails with network reset",
+      "detail": "Error running code: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   ],
   "score": 70,
-  "braintrust_span": "a0937117-1919-4882-9d4d-7c3080795f9b"
+  "braintrust_span": "01f2d58b-821f-4bd7-98d7-bffe50858493"
 }
