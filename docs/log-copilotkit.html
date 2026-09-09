@@ -105,12 +105,11 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 }
 </style></head><body>
 <h1 class="wordmark"><a href="index.html" style="color:inherit">agent-ready</a> · copilotkit
-<span style="color:#e07b39">30/100</span></h1>
+<span style="color:#b3d13b">70/100</span></h1>
 <p class="meta" style="margin:.6rem 0 1.4rem">40 steps ·
-761.2s · agent <code>kimi-k2p6</code> ·
+1118.1s · agent <code>kimi-k2p6</code> ·
 <a href="https://github.com/zhannur/agent-ready/blob/main/runs/copilotkit/transcript.jsonl">raw JSONL</a></p>
-<details class="step" open><summary>#1 <b>fetch_url</b> <code>https://docs.copilotkit.ai/quickstart</code></summary><pre> Quickstart CopilotKit Docs Docs Reference Cookbook Get CopilotKit Intelligence free Talk to an engineer CopilotKit Docs Docs Reference Cookbook Docs Reference Cookbook Frontend React Agent backend CopilotKit Getting Started Introduction Quickstart CopilotKit CLI Build with agents Concepts Architecture Generative UI Which Hook for Which Job OSS vs CopilotKit Intelligence Agentic Protocols Basics Prebuilt Components Rich Threads Overview Threads Drawer Headless Threads Thread &amp;amp; History Lifecycle Synchronize Thread History Self-Managed Persistence Threads &amp;amp; Persistence Architecture Custom Look and Feel Programmatic Control Inspector Generative UI Your Components Tool Rendering MCP Apps A2UI App Control Frontend Tools Shared State Agent Context Built-in Agent Server Tools MCP Servers Model Selection Advanced Configuration Open-source Telemetry Runtime Copilot Runtime Runtime HTTP endpoints Use any model router AgentRunner and persistence Self-managed agents Connect AG-UI agents Deploy to any runtime Authentication Intelligence CopilotKit Intelligence Quickstart Cloud-hosted CopilotKit Intelligence Connect your runtime to Intelligence Self-host CopilotKit Intelligence CopilotKit Intelligence architecture Deploy AWS AgentCore AWS Lambda LangSmith Platform Other Troubleshooting What&amp;#x27;s New Migrate Talk to an engineer CopilotKit&amp;#x27;s Built-in Agent Quickstart Quickstart Get started with CopilotKit&amp;#x27;s Built-in Agent in minutes. Copy agent prompt Copy Markdown Open Build agents that get smarter with every use. Copy prompt Rich Threads keep messages, generative UI, and tool activity available across sessions and devices. Learning turns real usage into skills that improve your agent. Build a new agent or bring one you already have. Any frontend, any backend. 
- Prerequisites # 
+<details class="step" open><summary>#1 <b>fetch_url</b> <code>https://docs.copilotkit.ai/quickstart</code></summary><pre> Quickstart CopilotKit Docs Docs Reference Cookbook Get CopilotKit Intelligence free Talk to an engineer CopilotKit Docs Docs Reference Cookbook Frontend React Agent backend CopilotKit Docs Reference Cookbook Introduction Quickstart Intelligence Basics Chat Rich threads Frontend-tools Generative UI Controlled Declarative Open-ended Interactivity Shared state Human-in-the-loop WebMCP Agent capabilities Built-in Agent Automatic Learning User Memories Sub-agents Intelligence Overview Get started Rich Threads Automatic Learning User Memories Hosting Backend Runtime Deployment Debugging Learn Concepts Cookbook Reference Other Contributing Troubleshooting Open-source telemetry Talk to an engineer Quickstart Quickstart Build a working AI chat with CopilotKit in minutes. Copy prompt Copy a prompt that guides your coding agent through CopilotKit setup. Prerequisites # 
  Before you begin, you&amp;#x27;ll need the following: 
 
  An OpenAI API key (or Anthropic/Google — see Model Selection ) 
@@ -118,10 +117,10 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
  Your favorite package manager 
 
  Getting started # 
- Create a free account # Sign up for a free developer account for CopilotKit Intelligence to get a license key. You&amp;#x27;ll use it later to enable persistent threads and the inspector. Create your frontend # CopilotKit works with any React-based frontend. We&amp;#x27;ll use Next.js for this example. npx create-next-app@latest my-copilot-app 
- cd my-copilot-app Already have an app? Skip this step and install CopilotKit into your existing React or Next.js project. The CopilotKit CLI ( npx copilotkit@latest create , aliased as init ) scaffolds a brand-new project in its own directory — it does not add CopilotKit to an app you already have. Install CopilotKit packages # npm install @copilotkit/react-core @copilotkit/runtime The components used below ( CopilotKit , CopilotSidebar ) and the
+ Create your frontend # CopilotKit&amp;#x27;s React components work with Next.js, React Router, Remix, TanStack Start, Vite, and other React apps. This walkthrough uses Next.js because it can host the frontend and runtime in one project. npx create-next-app@latest my-copilot-app 
+ cd my-copilot-app Already have an app? Keep your current setup and install CopilotKit there. Use the React SPA guide for a client-only Vite app, or deploy the runtime to your server framework with the React Router or TanStack Start examples. The CopilotKit CLI ( npx copilotkit@latest create , aliased as init ) creates a separate project; it does not modify an existing app. Install CopilotKit packages # npm install @copilotkit/react-core @copilotkit/runtime The components used below ( CopilotKitProvider , CopilotSidebar ) and the
 stylesheet all come from @copilotkit/react-core/v2 , so
- @copilotkit/react-ui is not needed for this setup. Configure your environment # Create a .env file and add your OpenAI API key: .env OPENAI_API_KEY=your_openai_api_key What about other models? This example uses OpenAI&amp;#x27;s GPT-4o. See Model Selection for Anthropic, Google, or custom model setup. Setup Copilot Runtime # Create an API route with the BuiltInAgent and CopilotRuntime : Already have an agent? Do not use BuiltInAgent BuiltInAgent is CopilotKit&amp;#x27;s own agent — it calls the model
+ @copilotkit/react-ui is not needed for this setup. Configure your environment # Create a .env file and add your OpenAI API key: .env OPENAI_API_KEY=your_openai_api_key What about other models? This example uses an OpenAI model. See Model Selection for Anthropic, Google, or custom model setup. Setup Copilot Runtime # Create an API route with the BuiltInAgent and CopilotRuntime : Already have an agent? Do not use BuiltInAgent BuiltInAgent is CopilotKit&amp;#x27;s own agent — it calls the model
 directly. Registering it as default means chat talks to it, not to
 any agent you already wrote. It replaces your agent rather than
 connecting to it. If you already have a LangGraph, CrewAI, Mastra, ADK, Pydantic AI or
@@ -130,7 +129,6 @@ wiring from your framework&amp;#x27;s quickstart, which registers your
 agent instead — for example
  LangGraph (Python) . Pick yours from
  the docs landing . app/api/copilotkit/[[...slug]]/route.ts import { 
- CopilotKitIntelligence, 
  CopilotRuntime, 
  createCopilotRuntimeHandler, 
  } from &amp;quot;@copilotkit/runtime/v2&amp;quot; ; 
@@ -142,14 +140,6 @@ agent instead — for example
 
  const runtime = new CopilotRuntime ({ 
  agents: { default: builtInAgent }, //, 
- intelligence: new CopilotKitIntelligence ({ 
- apiKey: process.env. CPK_INTELLIGENCE_API_KEY ! , 
- }), 
- // Threads are per-user. Without this, every visitor shares one history. 
- identifyUser : ( request ) =&amp;gt; ({ 
- id: request.headers. get ( &amp;quot;x-user-id&amp;quot; ) ?? &amp;quot;anonymous&amp;quot; , 
- name: request.headers. get ( &amp;quot;x-user-name&amp;quot; ) ?? &amp;quot;Anonymous&amp;quot; , 
- }), 
  }); 
 
  const handler = createCopilotRuntimeHandler ({ 
@@ -158,177 +148,72 @@ agent instead — for example
  }); 
 
  export const GET = handler; 
- export const POST = handler; The runtime reads the project API key from step 1. Add it to the app that serves
-this route: .env.local CPK_INTELLIGENCE_API_KEY=cpk-... Running without the Intelligence Platform? Drop the intelligence and identifyUser options and the runtime falls back
-to SSE mode with an in-memory runner. Chat still works, but Threads and the
-Inspector stay locked and the key is never read. See
- Connect your runtime to Intelligence for the
-full constructor and how to confirm the key is in use. Configure CopilotKit Provider # Wrap your application with the CopilotKit provider: Which provider goes with which handler? &amp;lt;CopilotKit&amp;gt; here is the backward-compatible wrapper, and every released
-version pins it to the single-route transport — which is why it needs the
-explicit useSingleEndpoint={false} below to reach the multi-route
- createCopilotRuntimeHandler route above. &amp;lt;CopilotKitProvider&amp;gt; is the v2
-provider from the same package and detects the transport from /info on
-its own. They are not aliases — see
- Provider and handler pairs . app/layout.tsx import { CopilotKit } from &amp;quot;@copilotkit/react-core/v2&amp;quot; ; 
+ export const POST = handler; Configure CopilotKit Provider # Wrap your application with the CopilotKit provider: app/layout.tsx import { CopilotKitProvider } from &amp;quot;@copilotkit/react-core/v2&amp;quot; ; 
  import &amp;quot;@copilotkit/react-core/v2/styles.css&amp;quot; ; 
  import &amp;#x27;./globals.css&amp;#x27; ; 
 
- // ... </pre></details><details class="step" open><summary>#2 <b>fetch_url</b> <code>https://docs.copilotkit.ai/quickstart</code></summary><pre> Quickstart CopilotKit Docs Docs Reference Cookbook Get CopilotKit Intelligence free Talk to an engineer CopilotKit Docs Docs Reference Cookbook Docs Reference Cookbook Frontend React Agent backend CopilotKit Getting Started Introduction Quickstart CopilotKit CLI Build with agents Concepts Architecture Generative UI Which Hook for Which Job OSS vs CopilotKit Intelligence Agentic Protocols Basics Prebuilt Components Rich Threads Overview Threads Drawer Headless Threads Thread &amp;amp; History Lifecycle Synchronize Thread History Self-Managed Persistence Threads &amp;amp; Persistence Architecture Custom Look and Feel Programmatic Control Inspector Generative UI Your Components Tool Rendering MCP Apps A2UI App Control Frontend Tools Shared State Agent Context Built-in Agent Server Tools MCP Servers Model Selection Advanced Configuration Open-source Telemetry Runtime Copilot Runtime Runtime HTTP endpoints Use any model router AgentRunner and persistence Self-managed agents Connect AG-UI agents Deploy to any runtime Authentication Intelligence CopilotKit Intelligence Quickstart Cloud-hosted CopilotKit Intelligence Connect your runtime to Intelligence Self-host CopilotKit Intelligence CopilotKit Intelligence architecture Deploy AWS AgentCore AWS Lambda LangSmith Platform Other Troubleshooting What&amp;#x27;s New Migrate Talk to an engineer CopilotKit&amp;#x27;s Built-in Agent Quickstart Quickstart Get started with CopilotKit&amp;#x27;s Built-in Agent in minutes. Copy agent prompt Copy Markdown Open Build agents that get smarter with every use. Copy prompt Rich Threads keep messages, generative UI, and tool activity available across sessions and devices. Learning turns real usage into skills that improve your agent. Build a new agent or bring one you already have. Any frontend, any backend. 
- Prerequisites # 
- Before you begin, you&amp;#x27;ll need the following: 
+ // ... 
 
- An OpenAI API key (or Anthropic/Google — see Model Selection ) 
- Node.js 20+ 
- Your favorite package manager 
+ export default function RootLayout ({ children } : { children : React . ReactNode }) { 
+ return ( 
+ &amp;lt; html lang = &amp;quot;en&amp;quot; &amp;gt; 
+ &amp;lt; body &amp;gt; 
+ &amp;lt; CopilotKitProvider runtimeUrl = &amp;quot;/api/copilotkit&amp;quot; &amp;gt; 
+ {children} 
+ &amp;lt;/ CopilotKitProvider &amp;gt; 
+ &amp;lt;/ body &amp;gt; 
+ &amp;lt;/ html &amp;gt; 
+ ); 
+ } This relative runtimeUrl assumes Next.js serves the runtime /api/copilotkit resolves only because Next.js serves your app and the runtime from the
+same origin. A client-only frontend has no shared origin, so it needs a standalone runtime
+server of its own and an absolute runtimeUrl such as
+ http://localhost:8200/api/copilotkit . The per-frontend guides at /react-spa , /vue ,
+ /angular and /react-native each show that setup. Add the chat interface # Add the CopilotSidebar component to your page: app/page.tsx import { CopilotSidebar } from &amp;quot;@copilotkit/react-core/v2&amp;quot; ; 
 
- Getting started # 
- Create a free account # Sign up for a free developer account for CopilotKit Intelligence to get a license key. You&amp;#x27;ll use it later to enable persistent threads and the inspector. Create your frontend # CopilotKit works with any React-based frontend. We&amp;#x27;ll use Next.js for this example. npx create-next-app@latest my-copilot-app 
- cd my-copilot-app Already have an app? Skip this step and install CopilotKit into your existing React or Next.js project. The CopilotKit CLI ( npx copilotkit@latest create , aliased as init ) scaffolds a brand-new project in its own directory — it does not add CopilotKit to an app you already have. Install CopilotKit packages # npm install @copilotkit/react-core @copilotkit/runtime The components used below ( CopilotKit , CopilotSidebar ) and the
-stylesheet all come from @copilotkit/react-core/v2 , so
- @copilotkit/react-ui is not needed for this setup. Configure your environment # Create a .env file and add your OpenAI API key: .env OPENAI_API_KEY=your_openai_api_key What about other models? This example uses OpenAI&amp;#x27;s GPT-4o. See Model Selection for Anthropic, Google, or custom model setup. Setup Copilot Runtime # Create an API route with the BuiltInAgent and CopilotRuntime : Already have an agent? Do not use BuiltInAgent BuiltInAgent is CopilotKit&amp;#x27;s own agent — it calls the model
-directly. Registering it as default means chat talks to it, not to
-any agent you already wrote. It replaces your agent rather than
-connecting to it. If you already have a LangGraph, CrewAI, Mastra, ADK, Pydantic AI or
-other agent, take the frontend steps from this page but get the runtime
-wiring from your framework&amp;#x27;s quickstart, which registers your 
-agent instead — for example
- LangGraph (Python) . Pick yours from
- the docs landing . app/api/copilotkit/[[...slug]]/route.ts import { 
- CopilotKitIntelligence, 
- CopilotRuntime, 
- createCopilotRuntimeHandler, 
- } from &amp;quot;@copilotkit/runtime/v2&amp;quot; ; 
- import { BuiltInAgent } from &amp;quot;@copilotkit/runtime/v2&amp;quot; ; 
-
- const builtInAgent = new BuiltInAgent ({ 
- model: &amp;quot;openai:gpt-5.4-mini&amp;quot; , 
- }); 
-
- const runtime = new CopilotRuntime ({ 
- agents: { default: builtInAgent }, //, 
- intelligence: new CopilotKitIntelligence ({ 
- apiKey: process.env. CPK_INTELLIGENCE_API_KEY ! , 
- }), 
- // Threads are per-user. Without this, every visitor shares one history. 
- identifyUser : ( request ) =&amp;gt; ({ 
- id: request.headers. get ( &amp;quot;x-user-id&amp;quot; ) ?? &amp;quot;anonymous&amp;quot; , 
- name: request.headers. get ( &amp;quot;x-user-name&amp;quot; ) ?? &amp;quot;Anonymous&amp;quot; , 
- }), 
- }); 
-
- const handler = createCopilotRuntimeHandler ({ 
- runtime, 
- basePath: &amp;quot;/api/copilotkit&amp;quot; , 
- }); 
-
- export const GET = handler; 
- export const POST = handler; The runtime reads the project API key from step 1. Add it to the app that serves
-this route: .env.local CPK_INTELLIGENCE_API_KEY=cpk-... Running without the Intelligence Platform? Drop the intelligence and identifyUser options and the runtime falls back
-to SSE mode with an in-memory runner. Chat still works, but Threads and the
-Inspector stay locked and the key is never read. See
- Connect your runtime to Intelligence for the
-full constructor and how to confirm the key is in use. Configure CopilotKit Provider # Wrap your application with the CopilotKit provider: Which provider goes with which handler? &amp;lt;CopilotKit&amp;gt; here is the backward-compatible wrapper, and every released
-version pins it to the single-route transport — which is why it needs the
-explicit useSingleEndpoint={false} below to reach the multi-route
- createCopilotRuntimeHandler route above. &amp;lt;CopilotKitProvider&amp;gt; is the v2
-provider from the same package and detects the transport from /info on
-its own. They are not aliases — see
- Provider and handler pairs . app/layout.tsx import { CopilotKit } from &amp;quot;@copilotkit/react-core/v2&amp;quot; ; 
- import &amp;quot;@copilotkit/react-core/v2/styles.css&amp;quot; ; 
- import &amp;#x27;./globals.css&amp;#x27; ; 
-
- // ... </pre></details><details class="step" open><summary>#3 <b>bash</b> <code>curl -s https://docs.copilotkit.ai/quickstart | tail -n 200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#4 <b>bash</b> <code>curl -sL https://docs.copilotkit.ai/quickstart | grep -o &#x27;&lt;p&gt;.*&lt;/p&gt;&#x27; | head -20</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>curl -sL -H &quot;User-Agent: Mozilla/5.0&quot; https://docs.copilotkit.ai/quickstart | wc -c</code></summary><pre>exit=0
-0
-</pre></details><details class="step" open><summary>#6 <b>bash</b> <code>wget -qO- --user-agent=&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36&quot; https://docs.copilotkit.ai/quickstart 2&gt;&amp;1 | head -100</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>curl -sL -H &quot;User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot; -H &quot;Accept: </code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#8 <b>bash</b> <code>curl -v -sL -H &quot;User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot; https://d</code></summary><pre>exit=0
-* Host docs.copilotkit.ai:443 was resolved.
-* IPv6: (none)
-* IPv4: 69.46.46.113
-*   Trying 69.46.46.113:443...
-* ALPN: curl offers h2,http/1.1
-} [5 bytes data]
-* TLSv1.3 (OUT), TLS handshake, Client hello (1):
-} [1573 bytes data]
-*  CAfile: /etc/ssl/certs/ca-certificates.crt
-*  CApath: /etc/ssl/certs
-* Recv failure: Connection reset by peer
-* TLS connect error: error:00000000:lib(0)::reason(0)
-* OpenSSL SSL_connect: Connection reset by peer in connection to docs.copilotkit.ai:443 
-* closing connection #0
-</pre></details><details class="step" open><summary>#9 <b>bash</b> <code>curl -k -sL -H &quot;User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36&quot; https://docs.copilotkit.ai/quickstart 2&gt;&amp;1 | head -200</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#10 <b>bash</b> <code>curl -sL http://docs.copilotkit.ai/quickstart 2&gt;&amp;1 | head -200</code></summary><pre>exit=0
-Internet is restricted on Tier 1 and Tier 2.
-</pre></details><details class="step" open><summary>#11 <b>bash</b> <code>node --version &amp;&amp; npm --version</code></summary><pre>exit=0
+ export default function Page () { 
+ return ( 
+ &amp;lt; main &amp;gt; 
+ &amp;lt; h1 &amp;gt;Your App&amp;lt;/ h1 &amp;gt; 
+ &amp;lt; CopilotSidebar /&amp;gt; 
+ &amp;lt;/ main &amp;gt; 
+ ); 
+ } Start the development server # npm pnpm yarn bun npm run dev pnpm dev yarn dev bun dev Start chatting # Your AI agent is now ready to use! Try asking it some questions: Can you tell me a joke? Can you help me understand AI? What do you think about React? Troubleshooting 
+ If you&amp;#x27;re having connection issues, try using 0.0.0.0 or 127.0.0.1 instead of localhost 
+ Check that your API key is correctly set in the .env file 
+ Make sure the runtime endpoint path matches the runtimeUrl in your CopilotKit provider 
+ Open Inspector and confirm setup # On localhost, click the Inspector button in the corner of the app. 
+ Open Agents , then Agent . Your agent is listed. 
+ Send a chat message. Open Agents , then AG-UI Events . Events are moving. 
+ Open Threads . The list is unlocked (Intelligence is on), or locked with Enable Intelligence (Intelligence is off). 
+ More detail: Inspector . 
+ Keep conversations between visits # 
+ Your sample chat is running. When you need production conversation history,
+CopilotKit Intelligence can keep each user&amp;#x27;s messages, generated interfaces,
+and tool activity available across sessions and devices. 
+ Your sample chat is running Add persistent threads, analytics, inspection, and lear</pre></details><details class="step" open><summary>#2 <b>bash</b> <code>node --version &amp;&amp; npm --version</code></summary><pre>exit=0
 v25.9.0
 11.12.1
-</pre></details><details class="step" open><summary>#12 <b>fetch_url</b> <code>https://docs.copilotkit.ai/quickstart</code></summary><pre> Quickstart CopilotKit Docs Docs Reference Cookbook Get CopilotKit Intelligence free Talk to an engineer CopilotKit Docs Docs Reference Cookbook Docs Reference Cookbook Frontend React Agent backend CopilotKit Getting Started Introduction Quickstart CopilotKit CLI Build with agents Concepts Architecture Generative UI Which Hook for Which Job OSS vs CopilotKit Intelligence Agentic Protocols Basics Prebuilt Components Rich Threads Overview Threads Drawer Headless Threads Thread &amp;amp; History Lifecycle Synchronize Thread History Self-Managed Persistence Threads &amp;amp; Persistence Architecture Custom Look and Feel Programmatic Control Inspector Generative UI Your Components Tool Rendering MCP Apps A2UI App Control Frontend Tools Shared State Agent Context Built-in Agent Server Tools MCP Servers Model Selection Advanced Configuration Open-source Telemetry Runtime Copilot Runtime Runtime HTTP endpoints Use any model router AgentRunner and persistence Self-managed agents Connect AG-UI agents Deploy to any runtime Authentication Intelligence CopilotKit Intelligence Quickstart Cloud-hosted CopilotKit Intelligence Connect your runtime to Intelligence Self-host CopilotKit Intelligence CopilotKit Intelligence architecture Deploy AWS AgentCore AWS Lambda LangSmith Platform Other Troubleshooting What&amp;#x27;s New Migrate Talk to an engineer CopilotKit&amp;#x27;s Built-in Agent Quickstart Quickstart Get started with CopilotKit&amp;#x27;s Built-in Agent in minutes. Copy agent prompt Copy Markdown Open Build agents that get smarter with every use. Copy prompt Rich Threads keep messages, generative UI, and tool activity available across sessions and devices. Learning turns real usage into skills that improve your agent. Build a new agent or bring one you already have. Any frontend, any backend. 
- Prerequisites # 
- Before you begin, you&amp;#x27;ll need the following: 
+</pre></details><details class="step" open><summary>#3 <b>bash</b> <code>cd /home/daytona &amp;&amp; npx create-next-app@latest my-copilot-app --typescript --tailwind --eslint --app --src-dir=false --import-alias=&quot;@/*&quot; --</code></summary><pre>exit=0
+npm warn exec The following package was not found and will be installed: create-next-app@16.3.4
 
- An OpenAI API key (or Anthropic/Google — see Model Selection ) 
- Node.js 20+ 
- Your favorite package manager 
+Using defaults for unprovided options:
 
- Getting started # 
- Create a free account # Sign up for a free developer account for CopilotKit Intelligence to get a license key. You&amp;#x27;ll use it later to enable persistent threads and the inspector. Create your frontend # CopilotKit works with any React-based frontend. We&amp;#x27;ll use Next.js for this example. npx create-next-app@latest my-copilot-app 
- cd my-copilot-app Already have an app? Skip this step and install CopilotKit into your existing React or Next.js project. The CopilotKit CLI ( npx copilotkit@latest create , aliased as init ) scaffolds a brand-new project in its own directory — it does not add CopilotKit to an app you already have. Install CopilotKit packages # npm install @copilotkit/react-core @copilotkit/runtime The components used below ( CopilotKit , CopilotSidebar ) and the
-stylesheet all come from @copilotkit/react-core/v2 , so
- @copilotkit/react-ui is not needed for this setup. Configure your environment # Create a .env file and add your OpenAI API key: .env OPENAI_API_KEY=your_openai_api_key What about other models? This example uses OpenAI&amp;#x27;s GPT-4o. See Model Selection for Anthropic, Google, or custom model setup. Setup Copilot Runtime # Create an API route with the BuiltInAgent and CopilotRuntime : Already have an agent? Do not use BuiltInAgent BuiltInAgent is CopilotKit&amp;#x27;s own agent — it calls the model
-directly. Registering it as default means chat talks to it, not to
-any agent you already wrote. It replaces your agent rather than
-connecting to it. If you already have a LangGraph, CrewAI, Mastra, ADK, Pydantic AI or
-other agent, take the frontend steps from this page but get the runtime
-wiring from your framework&amp;#x27;s quickstart, which registers your 
-agent instead — for example
- LangGraph (Python) . Pick yours from
- the docs landing . app/api/copilotkit/[[...slug]]/route.ts import { 
- CopilotKitIntelligence, 
- CopilotRuntime, 
- createCopilotRuntimeHandler, 
- } from &amp;quot;@copilotkit/runtime/v2&amp;quot; ; 
- import { BuiltInAgent } from &amp;quot;@copilotkit/runtime/v2&amp;quot; ; 
+  --ts                    TypeScript (use --js for JavaScript)
+  --no-react-compiler     No React Compiler (use --react-compiler for React Compiler)
+  --no-src-dir            No src/ directory (use --src-dir for src/ directory)
+  --agents-md             AGENTS.md (use --no-agents-md for No AGENTS.md)
 
- const builtInAgent = new BuiltInAgent ({ 
- model: &amp;quot;openai:gpt-5.4-mini&amp;quot; , 
- }); 
+Creating a new Next.js app in /home/daytona/my-copilot-app.
 
- const runtime = new CopilotRuntime ({ 
- agents: { default: builtInAgent }, //, 
- intelligence: new CopilotKitIntelligence ({ 
- apiKey: process.env. CPK_INTELLIGENCE_API_KEY ! , 
- }), 
- // Threads are per-user. Without this, every visitor shares one history. 
- identifyUser : ( request ) =&amp;gt; ({ 
- id: request.headers. get ( &amp;quot;x-user-id&amp;quot; ) ?? &amp;quot;anonymous&amp;quot; , 
- name: request.headers. get ( &amp;quot;x-user-name&amp;quot; ) ?? &amp;quot;Anonymous&amp;quot; , 
- }), 
- }); 
+Using npm.
 
- const handler = createCopilotRuntimeHandler ({ 
- runtime, 
- basePath: &amp;quot;/api/copilotkit&amp;quot; , 
- }); 
+Initializing project with template: app-tw 
 
- export const GET = handler; 
- export const POST = handler; The runtime reads the project API key from step 1. Add it to the app that serves
-this route: .env.local CPK_INTELLIGENCE_API_KEY=cpk-... Running without the Intelligence Platform? Drop the intelligence and identifyUser options and the runtime falls back
-to SSE mode with an in-memory runner. Chat still works, but Threads and the
-Inspector stay locked and the key is never read. See
- Connect your runtime to Intelligence for the
-full constructor and how to confirm the key is in use. Configure CopilotKit Provider # Wrap your application with the CopilotKit provider: Which provider goes with which handler? &amp;lt;CopilotKit&amp;gt; here is the backward-compatible wrapper, and every released
-version pins it to the single-route transport — which is why it needs the
-explicit useSingleEndpoint={false} below to reach the multi-route
- createCopilotRuntimeHandler route above. &amp;lt;CopilotKitProvider&amp;gt; is the v2
-provider from the same package and detects the transport from /info on
-its own. They are not aliases — see
- Provider and handler pairs . app/layout.tsx import { CopilotKit } from &amp;quot;@copilotkit/react-core/v2&amp;quot; ; 
- import &amp;quot;@copilotkit/react-core/v2/styles.css&amp;quot; ; 
- import &amp;#x27;./globals.css&amp;#x27; ; 
 
- // ... </pre></details><details class="step" open><summary>#13 <b>bash</b> <code>cd /home/daytona &amp;&amp; npx create-next-app@latest my-copilot-app --typescript --tailwind --eslint --app --src-dir=false --import-alias=&quot;@/*&quot; --</code></summary><pre>exit=0
+Installing dependencies:
+- next
+- react
+- react-dom
 
 Installing devDependencies:
 - @tailwindcss/postcss
@@ -342,7 +227,7 @@ Installing devDependencies:
 
 npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
 
-added 365 packages, and audited 366 packages in 46s
+added 365 packages, and audited 366 packages in 38s
 
 147 packages are looking for funding
   run `npm fund` for details
@@ -359,280 +244,71 @@ npm notice New minor version of npm available! 11.12.1 -&gt; 11.19.1
 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.19.1
 npm notice To update run: npm install -g npm@11.19.1
 npm notice
-</pre></details><details class="step" open><summary>#14 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; npm install @copilotkit/react-core @copilotkit/runtime 2&gt;&amp;1 | tail -20</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#4 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; npm install @copilotkit/react-core @copilotkit/runtime</code></summary><pre>exit=0
 npm warn deprecated lodash.get@4.4.2: This package is deprecated. Use the optional chaining (?.) operator instead.
 npm warn deprecated hast@1.0.0: Renamed to rehype
 npm warn deprecated node-domexception@1.0.0: Use your platform&#x27;s native DOMException instead
 
-added 1167 packages, and audited 1533 packages in 1m
+added 1167 packages, and audited 1533 packages in 2m
 
 355 packages are looking for funding
   run `npm fund` for details
 
-8 vulnerabilities (4 low, 3 moderate, 1 high)
+8 vulnerabilities (7 moderate, 1 high)
 
 To address all issues, run:
   npm audit fix
 
 Run `npm audit` for details.
-</pre></details><details class="step" open><summary>#15 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; cat &gt; .env &lt;&lt; &#x27;EOF&#x27;
-OPENAI_API_KEY=$OPENAI_API_KEY
-EOF
-cat .env</code></summary><pre>exit=0
-OPENAI_API_KEY=$OPENAI_API_KEY
-</pre></details><details class="step" open><summary>#16 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; echo &quot;OPENAI_API_KEY=${OPENAI_API_KEY}&quot; &gt; .env &amp;&amp; cat .env</code></summary><pre>exit=0
-OPENAI_API_KEY=
-</pre></details><details class="step" open><summary>#17 <b>bash</b> <code>env | grep -i key | head -20</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#18 <b>bash</b> <code>env | grep -iE &#x27;openai|anthropic|google|api|key|token|secret|cpk&#x27; | head -20</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#19 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; ls -la app/</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>env | grep -i openai || echo &quot;No OPENAI_API_KEY in env&quot;</code></summary><pre>exit=0
+No OPENAI_API_KEY in env
+</pre></details><details class="step" open><summary>#6 <b>bash</b> <code>env | grep -i api || env | grep -i key || echo &quot;No API keys found in env&quot;</code></summary><pre>exit=0
+No API keys found in env
+</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>env | sort</code></summary><pre>exit=0
+DAYTONA_AMD_KFD_TOPOLOGY_WAIT=
+DAYTONA_ORGANIZATION_ID=00000000-0000-0000-0000-000000000000
+DAYTONA_OTEL_ENDPOINT=https://otel-collector.app.daytona.io
+DAYTONA_REGION_ID=us
+DAYTONA_SANDBOX_ID=1712cd9d-9e03-437e-a018-cb913f785591
+DAYTONA_SANDBOX_SNAPSHOT=cr.app.daytona.io/sbox/daytona-edb66f95f2f09a28a029a0e03d516cf5482ef13a218e93ab1d80954f6ee7ebbb:daytona
+DAYTONA_SANDBOX_USER=daytona
+DAYTONA_USER_HOME_AS_WORKDIR=true
+GTK_MODULES=gail:atk-bridge
+HOME=/home/daytona
+HOSTNAME=1712cd9d-9e03-437e-a018-cb913f785591
+LANG=en_US.UTF-8
+LC_ALL=en_US.UTF-8
+LOGNAME=daytona
+NO_AT_BRIDGE=0
+NVM_DIR=/usr/local/share/nvm
+NVM_SYMLINK_CURRENT=true
+OLDPWD=/home/daytona
+PATH=/usr/local/python/current/bin:/usr/local/py-utils/bin:/usr/local/jupyter:/usr/local/share/nvm/current/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PIPX_BIN_DIR=/usr/local/py-utils/bin
+PIPX_HOME=/usr/local/py-utils
+PWD=/home/daytona
+PYTHON_PATH=/usr/local/python/current
+PYTHON_SHA256=d923c51303e38e249136fc1bdf3568d56ecb03214efdef48516176d3d7faaef8
+PYTHON_VERSION=3.14.4
+QT_ACCESSIBILITY=1
+SHLVL=1
+_=/usr/bin/env
+</pre></details><details class="step" open><summary>#8 <b>bash</b> <code>cat ~/.env 2&gt;/dev/null || cat ~/.bashrc | grep -i key || cat ~/.profile | grep -i key || echo &quot;No key files found&quot;</code></summary><pre>exit=0
+No key files found
+</pre></details><details class="step" open><summary>#9 <b>bash</b> <code>find / -maxdepth 3 -name &quot;*.env&quot; -o -name &quot;.env*&quot; 2&gt;/dev/null | head -20</code></summary><pre>exit=0
+/tmp/dev-container-features/devcontainer-features.builtin.env
+</pre></details><details class="step" open><summary>#10 <b>write_file</b> <code>/home/daytona/my-copilot-app/.env</code></summary><pre>wrote /home/daytona/my-copilot-app/.env (39 bytes)</pre></details><details class="step" open><summary>#11 <b>bash</b> <code>ls -la /home/daytona/my-copilot-app/app/ &amp;&amp; ls -la /home/daytona/my-copilot-app/app/api/ 2&gt;/dev/null || echo &quot;No api dir yet&quot;</code></summary><pre>exit=0
 total 44
-drwxr-xr-x 2 daytona daytona    98 Sep  8 13:40 .
-drwxr-xr-x 6 daytona daytona  4096 Sep  8 13:42 ..
--rw-r--r-- 1 daytona daytona 25931 Sep  8 13:40 favicon.ico
--rw-r--r-- 1 daytona daytona   488 Sep  8 13:40 globals.css
--rw-r--r-- 1 daytona daytona   690 Sep  8 13:40 layout.tsx
--rw-r--r-- 1 daytona daytona  3076 Sep  8 13:40 page.tsx
-</pre></details><details class="step" open><summary>#20 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; mkdir -p app/api/copilotkit/\[\[...slug\]\]</code></summary><pre>exit=0
-</pre></details><details class="step" open><summary>#21 <b>write_file</b> <code>/home/daytona/my-copilot-app/app/api/copilotkit/[[...slug]]/route.ts</code></summary><pre>wrote /home/daytona/my-copilot-app/app/api/copilotkit/[[...slug]]/route.ts (473 bytes)</pre></details><details class="step" open><summary>#22 <b>bash</b> <code>cat /home/daytona/my-copilot-app/app/layout.tsx</code></summary><pre>exit=0
-import type { Metadata } from &quot;next&quot;;
-import { Geist, Geist_Mono } from &quot;next/font/google&quot;;
-import &quot;./globals.css&quot;;
-
-const geistSans = Geist({
-  variable: &quot;--font-geist-sans&quot;,
-  subsets: [&quot;latin&quot;],
-});
-
-const geistMono = Geist_Mono({
-  variable: &quot;--font-geist-mono&quot;,
-  subsets: [&quot;latin&quot;],
-});
-
-export const metadata: Metadata = {
-  title: &quot;Create Next App&quot;,
-  description: &quot;Generated by create next app&quot;,
-};
-
-export default function RootLayout({ children }: LayoutProps&lt;&quot;/&quot;&gt;) {
-  return (
-    &lt;html
-      lang=&quot;en&quot;
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    &gt;
-      &lt;body className=&quot;min-h-full flex flex-col&quot;&gt;{children}&lt;/body&gt;
-    &lt;/html&gt;
-  );
-}
-</pre></details><details class="step" open><summary>#23 <b>fetch_url</b> <code>https://docs.copilotkit.ai/quickstart</code></summary><pre> Quickstart CopilotKit Docs Docs Reference Cookbook Get CopilotKit Intelligence free Talk to an engineer CopilotKit Docs Docs Reference Cookbook Docs Reference Cookbook Frontend React Agent backend CopilotKit Getting Started Introduction Quickstart CopilotKit CLI Build with agents Concepts Architecture Generative UI Which Hook for Which Job OSS vs CopilotKit Intelligence Agentic Protocols Basics Prebuilt Components Rich Threads Overview Threads Drawer Headless Threads Thread &amp;amp; History Lifecycle Synchronize Thread History Self-Managed Persistence Threads &amp;amp; Persistence Architecture Custom Look and Feel Programmatic Control Inspector Generative UI Your Components Tool Rendering MCP Apps A2UI App Control Frontend Tools Shared State Agent Context Built-in Agent Server Tools MCP Servers Model Selection Advanced Configuration Open-source Telemetry Runtime Copilot Runtime Runtime HTTP endpoints Use any model router AgentRunner and persistence Self-managed agents Connect AG-UI agents Deploy to any runtime Authentication Intelligence CopilotKit Intelligence Quickstart Cloud-hosted CopilotKit Intelligence Connect your runtime to Intelligence Self-host CopilotKit Intelligence CopilotKit Intelligence architecture Deploy AWS AgentCore AWS Lambda LangSmith Platform Other Troubleshooting What&amp;#x27;s New Migrate Talk to an engineer CopilotKit&amp;#x27;s Built-in Agent Quickstart Quickstart Get started with CopilotKit&amp;#x27;s Built-in Agent in minutes. Copy agent prompt Copy Markdown Open Build agents that get smarter with every use. Copy prompt Rich Threads keep messages, generative UI, and tool activity available across sessions and devices. Learning turns real usage into skills that improve your agent. Build a new agent or bring one you already have. Any frontend, any backend. 
- Prerequisites # 
- Before you begin, you&amp;#x27;ll need the following: 
-
- An OpenAI API key (or Anthropic/Google — see Model Selection ) 
- Node.js 20+ 
- Your favorite package manager 
-
- Getting started # 
- Create a free account # Sign up for a free developer account for CopilotKit Intelligence to get a license key. You&amp;#x27;ll use it later to enable persistent threads and the inspector. Create your frontend # CopilotKit works with any React-based frontend. We&amp;#x27;ll use Next.js for this example. npx create-next-app@latest my-copilot-app 
- cd my-copilot-app Already have an app? Skip this step and install CopilotKit into your existing React or Next.js project. The CopilotKit CLI ( npx copilotkit@latest create , aliased as init ) scaffolds a brand-new project in its own directory — it does not add CopilotKit to an app you already have. Install CopilotKit packages # npm install @copilotkit/react-core @copilotkit/runtime The components used below ( CopilotKit , CopilotSidebar ) and the
-stylesheet all come from @copilotkit/react-core/v2 , so
- @copilotkit/react-ui is not needed for this setup. Configure your environment # Create a .env file and add your OpenAI API key: .env OPENAI_API_KEY=your_openai_api_key What about other models? This example uses OpenAI&amp;#x27;s GPT-4o. See Model Selection for Anthropic, Google, or custom model setup. Setup Copilot Runtime # Create an API route with the BuiltInAgent and CopilotRuntime : Already have an agent? Do not use BuiltInAgent BuiltInAgent is CopilotKit&amp;#x27;s own agent — it calls the model
-directly. Registering it as default means chat talks to it, not to
-any agent you already wrote. It replaces your agent rather than
-connecting to it. If you already have a LangGraph, CrewAI, Mastra, ADK, Pydantic AI or
-other agent, take the frontend steps from this page but get the runtime
-wiring from your framework&amp;#x27;s quickstart, which registers your 
-agent instead — for example
- LangGraph (Python) . Pick yours from
- the docs landing . app/api/copilotkit/[[...slug]]/route.ts import { 
- CopilotKitIntelligence, 
- CopilotRuntime, 
- createCopilotRuntimeHandler, 
- } from &amp;quot;@copilotkit/runtime/v2&amp;quot; ; 
- import { BuiltInAgent } from &amp;quot;@copilotkit/runtime/v2&amp;quot; ; 
-
- const builtInAgent = new BuiltInAgent ({ 
- model: &amp;quot;openai:gpt-5.4-mini&amp;quot; , 
- }); 
-
- const runtime = new CopilotRuntime ({ 
- agents: { default: builtInAgent }, //, 
- intelligence: new CopilotKitIntelligence ({ 
- apiKey: process.env. CPK_INTELLIGENCE_API_KEY ! , 
- }), 
- // Threads are per-user. Without this, every visitor shares one history. 
- identifyUser : ( request ) =&amp;gt; ({ 
- id: request.headers. get ( &amp;quot;x-user-id&amp;quot; ) ?? &amp;quot;anonymous&amp;quot; , 
- name: request.headers. get ( &amp;quot;x-user-name&amp;quot; ) ?? &amp;quot;Anonymous&amp;quot; , 
- }), 
- }); 
-
- const handler = createCopilotRuntimeHandler ({ 
- runtime, 
- basePath: &amp;quot;/api/copilotkit&amp;quot; , 
- }); 
-
- export const GET = handler; 
- export const POST = handler; The runtime reads the project API key from step 1. Add it to the app that serves
-this route: .env.local CPK_INTELLIGENCE_API_KEY=cpk-... Running without the Intelligence Platform? Drop the intelligence and identifyUser options and the runtime falls back
-to SSE mode with an in-memory runner. Chat still works, but Threads and the
-Inspector stay locked and the key is never read. See
- Connect your runtime to Intelligence for the
-full constructor and how to confirm the key is in use. Configure CopilotKit Provider # Wrap your application with the CopilotKit provider: Which provider goes with which handler? &amp;lt;CopilotKit&amp;gt; here is the backward-compatible wrapper, and every released
-version pins it to the single-route transport — which is why it needs the
-explicit useSingleEndpoint={false} below to reach the multi-route
- createCopilotRuntimeHandler route above. &amp;lt;CopilotKitProvider&amp;gt; is the v2
-provider from the same package and detects the transport from /info on
-its own. They are not aliases — see
- Provider and handler pairs . app/layout.tsx import { CopilotKit } from &amp;quot;@copilotkit/react-core/v2&amp;quot; ; 
- import &amp;quot;@copilotkit/react-core/v2/styles.css&amp;quot; ; 
- import &amp;#x27;./globals.css&amp;#x27; ; 
-
- // ... </pre></details><details class="step" open><summary>#24 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; npm ls @copilotkit/react-core @copilotkit/runtime 2&gt;&amp;1</code></summary><pre>exit=0
-my-copilot-app@0.1.0 /home/daytona/my-copilot-app
-├── @copilotkit/react-core@1.70.1
-└── @copilotkit/runtime@1.70.1
-
-</pre></details><details class="step" open><summary>#25 <b>bash</b> <code>ls /home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/</code></summary><pre>exit=0
-dist
-LICENSE
-package.json
-README.md
-skills
-</pre></details><details class="step" open><summary>#26 <b>bash</b> <code>ls /home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/</code></summary><pre>exit=0
-copilotkit-CtF2clxZ.d.cts
-copilotkit-CtF2clxZ.d.cts.map
-copilotkit-CxLT6zFx.cjs
-copilotkit-CxLT6zFx.cjs.map
-copilotkit-DiUK2Bhq.mjs
-copilotkit-DiUK2Bhq.mjs.map
-copilotkit-DsWuxPUQ.d.mts
-copilotkit-DsWuxPUQ.d.mts.map
-index.cjs
-index.cjs.map
-index.d.cts
-index.d.cts.map
-index.d.mts
-index.d.mts.map
-index.mjs
-index.mjs.map
-index.umd.js
-index.umd.js.map
-v2
-</pre></details><details class="step" open><summary>#27 <b>bash</b> <code>ls /home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/v2/</code></summary><pre>exit=0
-context.cjs
-context.cjs.map
-context.d.cts
-context.d.cts.map
-context.d.mts
-context.d.mts.map
-context.mjs
-context.mjs.map
-headless.cjs
-headless.cjs.map
-headless.d.cts
-headless.d.cts.map
-headless.d.mts
-headless.d.mts.map
-headless.mjs
-headless.mjs.map
-index.cjs
-index.css
-index.d.cts
-index.d.mts
-index.mjs
-index.umd.js
-index.umd.js.map
-</pre></details><details class="step" open><summary>#28 <b>bash</b> <code>cat /home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/v2/index.d.mts | head -100</code></summary><pre>exit=0
-import { $ as useRenderTool, $t as CopilotPopupView, A as UseAttachmentsReturn, An as CopilotChatUserMessageProps, At as MCPAppsActivityRenderer, B as useMemories, Bn as CopilotChatConfigurationProviderProps, Bt as CopilotChatAttachmentRenderer, C as MemoryScope, Cn as CopilotChatSuggestionView, Ct as OpenGenerativeUIActivityRenderer, D as UseLearningContainersArgs, Dn as CopilotChatReasoningMessage, Dt as OpenGenerativeUIToolRenderer, E as useLearningContainersInCurrentThread, En as CopilotChatSuggestionPillProps, Et as OpenGenerativeUIContentSchema, F as LearnFromUserActionInput, Fn as CopilotChatToolCallsViewProps, Ft as CopilotKitInspectorProps, G as AgentContextInput, Gn as AudioRecorderState, Gt as Thread, H as useInterrupt, Hn as CopilotChatLabels, Ht as CopilotThreadsDrawer, I as LearnFromUserActionResult, In as CopilotChatInput, It as WildcardToolCallRender, J as useCapabilities, Jt as useThreads, K as JsonSerializable, Kn as CopilotChatAudioRecorder, Kt as UseThreadsInput, L as UseLearnFromUserActionRecorder, Ln as CopilotChatInputProps, Lt as Attachment, M as LearnFromUserActionInCurrentThreadInput, Mn as CopilotChatAssistantMessageProps, Mt as ɵMcpFollowUpHost, N as UseLearnFromUserActionInCurrentThreadRecorder, Nn as CopilotChatFeedbackMessage, Nt as ɵrunMcpFollowUp, O as useLearningContainers, On as CopilotChatReasoningMessageProps, Ot as MCPAppsActivityContent, P as useLearnFromUserActionInCurrentThread, Pn as CopilotChatToolCallsView, Pt as CopilotKitInspector, Q as useDefaultRenderTool, Qt as CopilotSidebarProps, R as useLearnFromUserAction, Rn as ToolsMenuItem, Rt as AttachmentModality, S as MemoryKind, Sn as IntelligenceIndicatorViewProps, St as GenerateSandboxedUiArgsSchema, T as UseLearningContainersInCurrentThreadArgs, Tn as CopilotChatSuggestionPill, Tt as OpenGenerativeUIContent, U as useConfigureSuggestions, Un as useCopilotChatConfiguration, Ut as CopilotThreadsDrawerProps, V as UseInterruptConfig, Vn as CopilotChatConfigurationValue, Vt as CopilotChatAttachmentQueue, W as useSuggestions, Wn as AudioRecorderError, Wt as CopilotThreadsDrawerRowRenderer, X as useAgent, Xt as CopilotPopupProps, Y as UseAgentUpdate, Yt as CopilotPopup, Z as useHumanInTheLoop, Zt as CopilotSidebar, _ as useCopilotKit, _n as IntelligenceIndicator, _t as useRenderCustomMessages, a as A2UIMessageRendererOptions, an as CopilotChatToggleButton, at as Interrupt, b as Memory, bn as IntelligenceIndicatorStatus, bt as useRenderToolCall, c as CopilotKitCoreReact, cn as DefaultOpenIcon, ct as InterruptHandlerProps, d as InspectorAnchor, dn as CopilotChatView, dt as ResumeEntry, en as CopilotPopupViewProps, et as useComponent, f as SandboxFunctionsContext, fn as CopilotChatViewProps, ft as defineToolCallRenderer, g as CopilotKitProviderProps, gn as INTELLIGENCE_TURN_HEAD, gt as ReactToolCallRenderer, h as CopilotKitProvider, hn as CopilotChatMessageViewProps, ht as ReactActivityMessageRenderer, i as A2UIActionInterceptor, in as CopilotModalHeaderProps, it as INTERRUPT_EVENT_NAME, j as useAttachments, jn as CopilotChatAssistantMessage, jt as MCPAppsActivityType, k as UseAttachmentsProps, kn as CopilotChatUserMessage, kt as MCPAppsActivityContentSchema, l as CopilotKitCoreReactConfig, ln as CopilotChat, lt as InterruptRenderProps, m as CopilotKitContextValue, mn as CopilotChatMessageView, mt as ReactFrontendTool, nn as CopilotSidebarViewProps, nt as useRenderActivityMessage, o as A2UIUserAction, on as CopilotChatToggleButtonProps, ot as InterruptCancelFn, p as useSandboxFunctions, pn as AutoScrollMode, pt as ReactHumanInTheLoop, q as useAgentContext, qt as UseThreadsResult, r as CopilotKitProps, rn as CopilotModalHeader, rt as SandboxFunction, s as createA2UIMessageRenderer, sn as DefaultCloseIcon, st as InterruptEvent, t as CopilotKit, tn as CopilotSidebarView, tt as useFrontendTool, u as CopilotKitCoreReactSubscriber, un as CopilotChatProps, ut as InterruptResolveFn, v as useLicenseContext, vn as IntelligenceIndicatorProps, vt as ReactCustomMessageRenderer, w as NewMemory, wn as CopilotChatSuggestionViewProps, wt as OpenGenerativeUIActivityType, x as MemoryChanges, xn as IntelligenceIndicatorView, xt as GenerateSandboxedUiArgs, y as A2UIRecoveryRendererOptions, yn as getIntelligenceTurnAnchors, yt as ReactCustomMessageRendererPosition, z as UseMemoriesResult, zn as CopilotChatConfigurationProvider, zt as AttachmentsConfig } from &quot;../copilotkit-DsWuxPUQ.mjs&quot;;
-import { Theme as A2UITheme, defaultTheme as a2uiDefaultTheme } from &quot;@copilotkit/a2ui-renderer&quot;;
-export * from &quot;@copilotkit/core&quot;;
-export * from &quot;@ag-ui/client&quot;;
-export { type A2UIActionInterceptor, type A2UIMessageRendererOptions, type A2UIRecoveryRendererOptions, type A2UITheme, type A2UIUserAction, AgentContextInput, Attachment, AttachmentModality, AttachmentsConfig, AudioRecorderError, AudioRecorderState, AutoScrollMode, CopilotChat, CopilotChatAssistantMessage, CopilotChatAssistantMessageProps, CopilotChatAttachmentQueue, CopilotChatAttachmentRenderer, CopilotChatAudioRecorder, CopilotChatConfigurationProvider, CopilotChatConfigurationProviderProps, CopilotChatConfigurationValue, CopilotChatFeedbackMessage, CopilotChatInput, CopilotChatInputProps, CopilotChatLabels, CopilotChatMessageView, CopilotChatMessageViewProps, CopilotChatProps, CopilotChatReasoningMessage, CopilotChatReasoningMessageProps, CopilotChatSuggestionPill, CopilotChatSuggestionPillProps, CopilotChatSuggestionView, CopilotChatSuggestionViewProps, CopilotChatToggleButton, DefaultCloseIcon as CopilotChatToggleButtonCloseIcon, DefaultOpenIcon as CopilotChatToggleButtonOpenIcon, CopilotChatToggleButtonProps, CopilotChatToolCallsView, CopilotChatToolCallsViewProps, CopilotChatUserMessage, CopilotChatUserMessageProps, CopilotChatView, CopilotChatViewProps, CopilotKit, CopilotKitContextValue, CopilotKitCoreReact, CopilotKitCoreReactConfig, CopilotKitCoreReactSubscriber, CopilotKitInspector, CopilotKitInspectorProps, type CopilotKitProps, CopilotKitProvider, CopilotKitP</pre></details><details class="step" open><summary>#29 <b>bash</b> <code>grep -r &quot;CopilotSidebar&quot; /home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/v2/ | head -5</code></summary><pre>exit=0
-/home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/v2/headless.cjs:* CopilotChatInput and CopilotSidebarView.
-/home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/v2/index.cjs:exports.CopilotSidebar = require_copilotkit.CopilotSidebar;
-/home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/v2/index.cjs:Object.defineProperty(exports, &#x27;CopilotSidebarView&#x27;, {
-/home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/v2/index.cjs:    return require_copilotkit.CopilotSidebarView;
-/home/daytona/my-copilot-app/node_modules/@copilotkit/react-core/dist/v2/index.d.cts:import { $ as useRenderTool, $t as CopilotPopupView, A as UseAttachmentsReturn, An as CopilotChatUserMessageProps, At as MCPAppsActivityRenderer, B as useMemories, Bn as CopilotChatConfigurationProviderProps, Bt as CopilotChatAttachmentRenderer, C as MemoryScope, Cn as CopilotChatSuggestionView, Ct as OpenGenerativeUIActivityRenderer, D as UseLearningContainersArgs, Dn as CopilotChatReasoningMessage, Dt as OpenGenerativeUIToolRenderer, E as useLearningContainersInCurrentThread, En as CopilotChatSuggestionPillProps, Et as OpenGenerativeUIContentSchema, F as LearnFromUserActionInput, Fn as CopilotChatToolCallsViewProps, Ft as CopilotKitInspectorProps, G as AgentContextInput, Gn as AudioRecorderState, Gt as Thread, H as useInterrupt, Hn as CopilotChatLabels, Ht as CopilotThreadsDrawer, I as LearnFromUserActionResult, In as CopilotChatInput, It as WildcardToolCallRender, J as useCapabilities, Jt as useThreads, K as JsonSerializable, Kn as CopilotChatAudioRecorder, Kt as UseThreadsInput, L as UseLearnFromUserActionRecorder, Ln as CopilotChatInputProps, Lt as Attachment, M as LearnFromUserActionInCurrentThreadInput, Mn as CopilotChatAssistantMessageProps, Mt as ɵMcpFollowUpHost, N as UseLearnFromUserActionInCurrentThreadRecorder, Nn as CopilotChatFeedbackMessage, Nt as ɵrunMcpFollowUp, O as useLearningContainers, On as CopilotChatReasoningMessageProps, Ot as MCPAppsActivityContent, P as useLearnFromUserActionInCurrentThread, Pn as CopilotChatToolCallsView, Pt as CopilotKitInspector, Q as useDefaultRenderTool, Qt as CopilotSidebarProps, R as useLearnFromUserAction, Rn as ToolsMenuItem, Rt as AttachmentModality, S as MemoryKind, Sn as IntelligenceIndicatorViewProps, St as GenerateSandboxedUiArgsSchema, T as UseLearningContainersInCurrentThreadArgs, Tn as CopilotChatSuggestionPill, Tt as OpenGenerativeUIContent, U as useConfigureSuggestions, Un as useCopilotChatConfiguration, Ut as CopilotThreadsDrawerProps, V as UseInterruptConfig, Vn as CopilotChatConfigurationValue, Vt as CopilotChatAttachmentQueue, W as useSuggestions, Wn as AudioRecorderError, Wt as CopilotThreadsDrawerRowRenderer, X as useAgent, Xt as CopilotPopupProps, Y as UseAgentUpdate, Yt as CopilotPopup, Z as useHumanInTheLoop, Zt as CopilotSidebar, _ as CopilotKitCoreReact, _n as IntelligenceIndicator, _t as useRenderCustomMessages, a as A2UIMessageRendererOptions, an as CopilotChatToggleButton, at as Interrupt, b as Memory, bn as IntelligenceIndicatorStatus, bt as useRenderToolCall, c as InspectorAnchor, cn as DefaultOpenIcon, ct as InterruptHandlerProps, d as CopilotKitProvider, dn as CopilotChatView, dt as ResumeEntry, en as CopilotPopupViewProps, et as useComponent, f as CopilotKitProviderProps, fn as CopilotChatViewProps, ft as defineToolCallRenderer, g as useLicenseContext, gn as INTELLIGENCE_TURN_HEAD, gt as ReactToolCallRenderer, h as useCopilotKit, hn as CopilotChatMessageViewProps, ht as ReactActivityMessageRenderer, i as A2UIActionInterceptor, in as CopilotModalHeaderProps, it as INTERRUPT_EVENT_NAME, j as useAttachments, jn as CopilotChatAssistantMessage, jt as MCPAppsActivityType, k as UseAttachmentsProps, kn as CopilotChatUserMessage, kt as MCPAppsActivityContentSchema, l as SandboxFunctionsContext, ln as CopilotChat, lt as InterruptRenderProps, m as CopilotKitContextValue, mn as CopilotChatMessageView, mt as ReactFrontendTool, nn as CopilotSidebarViewProps, nt as useRenderActivityMessage, o as A2UIUserAction, on as CopilotChatToggleButtonProps, ot as InterruptCancelFn, p as A2UIRecoveryRendererOptions, pn as AutoScrollMode, pt as ReactHumanInTheLoop, q as useAgentContext, qt as UseThreadsResult, r as CopilotKitProps, rn as CopilotModalHeader, rt as SandboxFunction, s as createA2UIMessageRenderer, sn as DefaultCloseIcon, st as InterruptEvent, t as CopilotKit, tn as CopilotSidebarView, tt as useFrontendTool, u as useSandboxFunctions, un as CopilotChatProps, ut as InterruptResolveFn, v as CopilotKitCoreReactConfig, vn as IntelligenceIndicatorProps, vt as ReactCustomMessageRenderer, w as NewMemory, wn as CopilotChatSuggestionViewProps, wt as OpenGenerativeUIActivityType, x as MemoryChanges, xn as IntelligenceIndicatorView, xt as GenerateSandboxedUiArgs, y as CopilotKitCoreReactSubscriber, yn as getIntelligenceTurnAnchors, yt as ReactCustomMessageRendererPosition, z as UseMemoriesResult, zn as CopilotChatConfigurationProvider, zt as AttachmentsConfig } from &quot;../copilotkit-CtF2clxZ.cjs&quot;;
-</pre></details><details class="step" open><summary>#30 <b>write_file</b> <code>/home/daytona/my-copilot-app/app/layout.tsx</code></summary><pre>wrote /home/daytona/my-copilot-app/app/layout.tsx (959 bytes)</pre></details><details class="step" open><summary>#31 <b>bash</b> <code>cat /home/daytona/my-copilot-app/app/page.tsx</code></summary><pre>exit=0
-import Image from &quot;next/image&quot;;
-
-export default function Home() {
-  return (
-    &lt;div className=&quot;flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black&quot;&gt;
-      &lt;main className=&quot;flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start&quot;&gt;
-        &lt;Image
-          className=&quot;dark:invert h-5 w-[100px]&quot;
-          src=&quot;/next.svg&quot;
-          alt=&quot;Next.js logo&quot;
-          width={100}
-          height={20}
-          priority
-        /&gt;
-        &lt;div className=&quot;flex flex-col items-center gap-6 text-center sm:items-start sm:text-left&quot;&gt;
-          &lt;h1 className=&quot;max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50&quot;&gt;
-            To get started, edit the{&quot; &quot;}
-            &lt;code className=&quot;rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]&quot;&gt;
-              page.tsx
-            &lt;/code&gt;{&quot; &quot;}
-            file.
-          &lt;/h1&gt;
-          &lt;p className=&quot;max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400&quot;&gt;
-            Looking for a starting point or more instructions? Head over to{&quot; &quot;}
-            &lt;a
-              href=&quot;https://vercel.com/templates?framework=next.js&amp;utm_source=create-next-app&amp;utm_medium=appdir-template-tw&amp;utm_campaign=create-next-app&quot;
-              className=&quot;font-medium text-zinc-950 dark:text-zinc-50&quot;
-            &gt;
-              Templates
-            &lt;/a&gt;{&quot; &quot;}
-            or the{&quot; &quot;}
-            &lt;a
-              href=&quot;https://nextjs.org/learn?utm_source=create-next-app&amp;utm_medium=appdir-template-tw&amp;utm_campaign=create-next-app&quot;
-              className=&quot;font-medium text-zinc-950 dark:text-zinc-50&quot;
-            &gt;
-              Learning
-            &lt;/a&gt;{&quot; &quot;}
-            center.
-          &lt;/p&gt;
-        &lt;/div&gt;
-        &lt;div className=&quot;flex flex-col gap-4 text-base font-medium sm:flex-row&quot;&gt;
-          &lt;a
-            className=&quot;flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]&quot;
-            href=&quot;https://vercel.com/new?utm_source=create-next-app&amp;utm_medium=appdir-template-tw&amp;utm_campaign=create-next-app&quot;
-            target=&quot;_blank&quot;
-            rel=&quot;noopener noreferrer&quot;
-          &gt;
-            &lt;Image
-              className=&quot;dark:invert h-[14px] w-4&quot;
-              src=&quot;/vercel.svg&quot;
-              alt=&quot;Vercel logomark&quot;
-              width={16}
-              height={14}
-            /&gt;
-            Deploy Now
-          &lt;/a&gt;
-          &lt;a
-            className=&quot;flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]&quot;
-            href=&quot;https://nextjs.org/docs?utm_source=create-next-app&amp;utm_medium=appdir-template-tw&amp;utm_campaign=create-next-app&quot;
-            target=&quot;_blank&quot;
-            rel=&quot;noopener noreferrer&quot;
-          &gt;
-            Documentation
-          &lt;/a&gt;
-        &lt;/div&gt;
-      &lt;/main&gt;
-    &lt;/div&gt;
-  );
-}
-</pre></details><details class="step" open><summary>#32 <b>write_file</b> <code>/home/daytona/my-copilot-app/app/page.tsx</code></summary><pre>wrote /home/daytona/my-copilot-app/app/page.tsx (807 bytes)</pre></details><details class="step" open><summary>#33 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; npm run build 2&gt;&amp;1 | tail -50</code></summary><pre>tool error: Failed to execute command: command execution timeout</pre></details><details class="step" open><summary>#34 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; npm run build 2&gt;&amp;1 | tail -80</code></summary><pre>tool error: Failed to execute command: command execution timeout</pre></details><details class="step" open><summary>#35 <b>bash</b> <code>ps aux | grep -E &#x27;npm|node|next&#x27; | head -20</code></summary><pre>exit=0
-daytona      521  0.0  0.0   6520  2368 ?        S    13:51   0:00 grep -E npm|node|next
-</pre></details><details class="step" open><summary>#36 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; npx next build 2&gt;&amp;1</code></summary><pre>exit=137
-▲ Next.js 16.3.4 (Turbopack)
-- Environments: .env
-✓ Running next.config.ts took 80ms
-
-  Creating an optimized production build ...
-Killed
-</pre></details><details class="step" open><summary>#37 <b>bash</b> <code>cat /home/daytona/my-copilot-app/next.config.ts</code></summary><pre>exit=0
+drwxr-xr-x 2 daytona daytona    98 Sep  9 13:45 .
+drwxr-xr-x 6 daytona daytona  4096 Sep  9 13:48 ..
+-rw-r--r-- 1 daytona daytona 25931 Sep  9 13:45 favicon.ico
+-rw-r--r-- 1 daytona daytona   488 Sep  9 13:45 globals.css
+-rw-r--r-- 1 daytona daytona   690 Sep  9 13:45 layout.tsx
+-rw-r--r-- 1 daytona daytona  3076 Sep  9 13:45 page.tsx
+No api dir yet
+</pre></details><details class="step" open><summary>#12 <b>bash</b> <code>mkdir -p /home/daytona/my-copilot-app/app/api/copilotkit/\[\[...slug\]\]</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#13 <b>write_file</b> <code>/home/daytona/my-copilot-app/app/api/copilotkit/[[...slug]]/route.ts</code></summary><pre>wrote /home/daytona/my-copilot-app/app/api/copilotkit/[[...slug]]/route.ts (452 bytes)</pre></details><details class="step" open><summary>#14 <b>write_file</b> <code>/home/daytona/my-copilot-app/app/layout.tsx</code></summary><pre>wrote /home/daytona/my-copilot-app/app/layout.tsx (890 bytes)</pre></details><details class="step" open><summary>#15 <b>write_file</b> <code>/home/daytona/my-copilot-app/app/page.tsx</code></summary><pre>wrote /home/daytona/my-copilot-app/app/page.tsx (184 bytes)</pre></details><details class="step" open><summary>#16 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; npm run build 2&gt;&amp;1 | tail -80</code></summary><pre>tool error: Failed to execute command: command execution timeout</pre></details><details class="step" open><summary>#17 <b>bash</b> <code>ps aux | grep -i next | grep -v grep</code></summary><pre>exit=1
+</pre></details><details class="step" open><summary>#18 <b>bash</b> <code>cat /home/daytona/my-copilot-app/next.config.ts</code></summary><pre>exit=0
 import type { NextConfig } from &quot;next&quot;;
 
 const nextConfig: NextConfig = {
@@ -640,28 +316,175 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-</pre></details><details class="step" open><summary>#38 <b>bash</b> <code>free -h</code></summary><pre>exit=0
-               total        used        free      shared  buff/cache   available
-Mem:           755Gi       141Gi        59Gi       1.2Gi       566Gi       613Gi
-Swap:             0B          0B          0B
-</pre></details><details class="step" open><summary>#39 <b>bash</b> <code>ulimit -a</code></summary><pre>exit=0
--t: cpu time (seconds)              unlimited
--f: file size (blocks)              unlimited
--d: data seg size (kbytes)          unlimited
--s: stack size (kbytes)             8192
--c: core file size (blocks)         unlimited
--m: resident set size (kbytes)      unlimited
--u: processes                       unlimited
--n: file descriptors                1048576
--l: locked-in-memory size (kbytes)  8192
--v: address space (kbytes)          unlimited
--x: file locks                      unlimited
--i: pending signals                 3093055
--q: bytes in POSIX msg queues       819200
--e: max nice                        0
--r: max rt priority                 0
--N 15: rt cpu time (microseconds)   unlimited
-</pre></details><details class="step" open><summary>#40 <b>bash</b> <code>cat /sys/fs/cgroup/memory/memory.limit_in_bytes 2&gt;/dev/null || cat /sys/fs/cgroup/memory.max 2&gt;/dev/null || echo &quot;No cgroup memory limit fou</code></summary><pre>exit=0
-1073741824
-</pre></details><div class="note">I successfully scaffolded the Next.js app (`npx create-next-app` completed with &quot;Success! Created my-copilot-app&quot;), installed the CopilotKit packages (`npm install @copilotkit/react-core @copilotkit/runtime` added 1167 packages), and wired up the runtime route, layout provider, and page component exactly as the quickstart specifies. However, the build was blocked by the sandbox&#x27;s 1 GB cgroup memory limit: `npx next build` was repeatedly killed with exit code 137 (SIGKILL/OOM) during &quot;Creating an optimized production build,&quot; and `cat /sys/fs/cgroup/memory.max` confirmed the hard limit is `1073741824` bytes. The app could not be built or served, so I could not verify the working copilot endpoint.</div>
+</pre></details><details class="step" open><summary>#19 <b>write_file</b> <code>/home/daytona/my-copilot-app/next.config.ts</code></summary><pre>wrote /home/daytona/my-copilot-app/next.config.ts (129 bytes)</pre></details><details class="step" open><summary>#20 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; timeout 300 npm run build &gt; /tmp/build.log 2&gt;&amp;1 &amp;
+BUILD_PID=$!
+sleep 5
+ps aux | grep -E &quot;next|node&quot; | gre</code></summary><pre>exit=0
+daytona      484  0.0  0.0   2672  1872 ?        SN   13:52   0:00 sh -c next build
+daytona      485 94.1  0.0 20807708 612316 ?     SNl  13:52   0:04 next-build (v16.3.4)
+Build PID: 465
+</pre></details><details class="step" open><summary>#21 <b>bash</b> <code>sleep 60 &amp;&amp; tail -100 /tmp/build.log</code></summary><pre>exit=0
+
+&gt; my-copilot-app@0.1.0 build
+&gt; next build
+
+▲ Next.js 16.3.4 (Turbopack)
+- Environments: .env
+✓ Running next.config.ts took 101ms
+
+  Creating an optimized production build ...
+</pre></details><details class="step" open><summary>#22 <b>bash</b> <code>sleep 120 &amp;&amp; tail -200 /tmp/build.log</code></summary><pre>exit=0
+
+&gt; my-copilot-app@0.1.0 build
+&gt; next build
+
+▲ Next.js 16.3.4 (Turbopack)
+- Environments: .env
+✓ Running next.config.ts took 101ms
+
+  Creating an optimized production build ...
+</pre></details><details class="step" open><summary>#23 <b>bash</b> <code>ps aux | grep -E &quot;next|node&quot; | grep -v grep &amp;&amp; echo &quot;---&quot; &amp;&amp; tail -50 /tmp/build.log</code></summary><pre>exit=0
+daytona      484  0.0  0.0   2672  1872 ?        SN   13:52   0:00 sh -c next build
+daytona      485 30.7  0.1 20776792 942356 ?     SNl  13:52   1:00 next-build (v16.3.4)
+daytona      514  0.1  0.0 1549824 90268 ?       SNl  13:53   0:00 node /home/daytona/my-copilot-app/.next/build/chunks/pool_entry-[turbopack-node]_transforms_postcss_ts_0tp-k2v._.js 35251
+---
+
+&gt; my-copilot-app@0.1.0 build
+&gt; next build
+
+▲ Next.js 16.3.4 (Turbopack)
+- Environments: .env
+✓ Running next.config.ts took 101ms
+
+  Creating an optimized production build ...
+</pre></details><details class="step" open><summary>#24 <b>bash</b> <code>sleep 180 &amp;&amp; tail -200 /tmp/build.log</code></summary><pre>exit=0
+
+&gt; my-copilot-app@0.1.0 build
+&gt; next build
+
+▲ Next.js 16.3.4 (Turbopack)
+- Environments: .env
+✓ Running next.config.ts took 101ms
+
+  Creating an optimized production build ...
+</pre></details><details class="step" open><summary>#25 <b>bash</b> <code>ps aux | grep -E &quot;next|node&quot; | grep -v grep</code></summary><pre>exit=1
+</pre></details><details class="step" open><summary>#26 <b>bash</b> <code>cat /tmp/build.log</code></summary><pre>exit=0
+
+&gt; my-copilot-app@0.1.0 build
+&gt; next build
+
+▲ Next.js 16.3.4 (Turbopack)
+- Environments: .env
+✓ Running next.config.ts took 101ms
+
+  Creating an optimized production build ...
+</pre></details><details class="step" open><summary>#27 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; timeout 600 npm run build 2&gt;&amp;1</code></summary><pre>exit=137
+
+&gt; my-copilot-app@0.1.0 build
+&gt; next build
+
+▲ Next.js 16.3.4 (Turbopack)
+- Environments: .env
+✓ Running next.config.ts took 70ms
+
+  Creating an optimized production build ...
+Killed
+</pre></details><details class="step" open><summary>#28 <b>bash</b> <code>cd /home/daytona/my-copilot-app &amp;&amp; timeout 120 npm run dev &gt; /tmp/dev.log 2&gt;&amp;1 &amp;
+sleep 10
+tail -50 /tmp/dev.log
+</code></summary><pre>exit=0
+
+&gt; my-copilot-app@0.1.0 dev
+&gt; next dev
+
+▲ Next.js 16.3.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.20.0.62:3000
+- Environments: .env
+✓ Ready in 382ms
+✓ Running next.config.ts took 133ms
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js&#x27; roadmap and prioritize features.
+You can learn more, including how to opt-out if you&#x27;d not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+
+</pre></details><details class="step" open><summary>#29 <b>bash</b> <code>curl -s http://localhost:3000/api/copilotkit -X GET | head -50</code></summary><pre>exit=0
+{&quot;error&quot;:&quot;Not found&quot;}</pre></details><details class="step" open><summary>#30 <b>bash</b> <code>curl -s -I http://localhost:3000/api/copilotkit -X GET | head -20</code></summary><pre>exit=0
+HTTP/1.1 404 Not Found
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+content-type: application/json
+Date: Wed, 09 Sep 2026 14:01:31 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+</pre></details><details class="step" open><summary>#31 <b>bash</b> <code>find /home/daytona/my-copilot-app/app/api -type f -o -type d</code></summary><pre>exit=0
+/home/daytona/my-copilot-app/app/api
+/home/daytona/my-copilot-app/app/api/copilotkit
+/home/daytona/my-copilot-app/app/api/copilotkit/[[...slug]]
+/home/daytona/my-copilot-app/app/api/copilotkit/[[...slug]]/route.ts
+</pre></details><details class="step" open><summary>#32 <b>bash</b> <code>curl -s http://localhost:3000/api/copilotkit/info -X GET | head -20</code></summary><pre>exit=0
+{&quot;version&quot;:&quot;1.70.3&quot;,&quot;agents&quot;:{&quot;default&quot;:{&quot;name&quot;:&quot;default&quot;,&quot;description&quot;:&quot;&quot;,&quot;className&quot;:&quot;BuiltInAgent&quot;,&quot;capabilities&quot;:{&quot;tools&quot;:{&quot;supported&quot;:true,&quot;clientProvided&quot;:true},&quot;transport&quot;:{&quot;streaming&quot;:true},&quot;humanInTheLoop&quot;:{&quot;interrupts&quot;:true}}}},&quot;audioFileTranscriptionEnabled&quot;:false,&quot;mode&quot;:&quot;sse&quot;,&quot;threadEndpoints&quot;:{&quot;list&quot;:true,&quot;inspect&quot;:true,&quot;mutations&quot;:false,&quot;realtimeMetadata&quot;:false},&quot;suggestions&quot;:true,&quot;a2uiEnabled&quot;:false,&quot;openGenerativeUIEnabled&quot;:false,&quot;telemetryDisabled&quot;:false}</pre></details><details class="step" open><summary>#33 <b>bash</b> <code>curl -s http://localhost:3000 | head -30</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#34 <b>bash</b> <code>curl -s http://localhost:3000 | wc -c &amp;&amp; curl -s http://localhost:3000 | head -5</code></summary><pre>exit=0
+0
+</pre></details><details class="step" open><summary>#35 <b>bash</b> <code>cat /tmp/dev.log</code></summary><pre>exit=0
+
+&gt; my-copilot-app@0.1.0 dev
+&gt; next dev
+
+▲ Next.js 16.3.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.20.0.62:3000
+- Environments: .env
+✓ Ready in 382ms
+✓ Running next.config.ts took 133ms
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js&#x27; roadmap and prioritize features.
+You can learn more, including how to opt-out if you&#x27;d not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+
+○ Compiling /api/copilotkit/[[...slug]] ...
+[CopilotKit Runtime] telemetry enabled — see https://docs.copilotkit.ai/telemetry to opt out (set COPILOTKIT_TELEMETRY_DISABLED=true).
+[CopilotKit Runtime] telemetry enabled — see https://docs.copilotkit.ai/telemetry to opt out (set COPILOTKIT_TELEMETRY_DISABLED=true).
+ GET /api/copilotkit 404 in 6.2s (next.js: 6.0s, application-code: 178ms)
+ GET /api/copilotkit 404 in 30ms (next.js: 24ms, application-code: 6ms)
+[CopilotKit Runtime] telemetry enabled — see https://docs.copilotkit.ai/telemetry to opt out (set COPILOTKIT_TELEMETRY_DISABLED=true).
+ GET /api/copilotkit/info 200 in 16ms (next.js: 11ms, application-code: 4ms)
+[CopilotKit Runtime] telemetry enabled — see https://docs.copilotkit.ai/telemetry to opt out (set COPILOTKIT_TELEMETRY_DISABLED=true).
+○ Compiling / ...
+[?25h
+</pre></details><details class="step" open><summary>#36 <b>bash</b> <code>sleep 15 &amp;&amp; curl -s http://localhost:3000 | head -20</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#37 <b>bash</b> <code>cat /tmp/dev.log | tail -30</code></summary><pre>exit=0
+
+&gt; my-copilot-app@0.1.0 dev
+&gt; next dev
+
+▲ Next.js 16.3.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.20.0.62:3000
+- Environments: .env
+✓ Ready in 382ms
+✓ Running next.config.ts took 133ms
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js&#x27; roadmap and prioritize features.
+You can learn more, including how to opt-out if you&#x27;d not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+
+○ Compiling /api/copilotkit/[[...slug]] ...
+[CopilotKit Runtime] telemetry enabled — see https://docs.copilotkit.ai/telemetry to opt out (set COPILOTKIT_TELEMETRY_DISABLED=true).
+[CopilotKit Runtime] telemetry enabled — see https://docs.copilotkit.ai/telemetry to opt out (set COPILOTKIT_TELEMETRY_DISABLED=true).
+ GET /api/copilotkit 404 in 6.2s (next.js: 6.0s, application-code: 178ms)
+ GET /api/copilotkit 404 in 30ms (next.js: 24ms, application-code: 6ms)
+[CopilotKit Runtime] telemetry enabled — see https://docs.copilotkit.ai/telemetry to opt out (set COPILOTKIT_TELEMETRY_DISABLED=true).
+ GET /api/copilotkit/info 200 in 16ms (next.js: 11ms, application-code: 4ms)
+[CopilotKit Runtime] telemetry enabled — see https://docs.copilotkit.ai/telemetry to opt out (set COPILOTKIT_TELEMETRY_DISABLED=true).
+○ Compiling / ...
+[?25h
+</pre></details><details class="step" open><summary>#38 <b>bash</b> <code>sleep 30 &amp;&amp; curl -s http://localhost:3000 | head -20</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#39 <b>bash</b> <code>cat /tmp/dev.log | grep -E &quot;error|Error|ERR|failed|Failed|FAIL&quot;</code></summary><pre>exit=1
+</pre></details><details class="step" open><summary>#40 <b>bash</b> <code>ps aux | grep -E &quot;next|node&quot; | grep -v grep</code></summary><pre>exit=1
+</pre></details><div class="note">I successfully created the Next.js app, installed CopilotKit packages, configured the runtime endpoint, and started the dev server. The copilot endpoint demonstrably works: a `GET` to `/api/copilotkit/info` returned HTTP 200 with JSON confirming the `BuiltInAgent` was registered (`{&quot;version&quot;:&quot;1.70.3&quot;,&quot;agents&quot;:{&quot;default&quot;:{&quot;name&quot;:&quot;default&quot;,&quot;className&quot;:&quot;BuiltInAgent&quot;...}}`). However, the production build was killed by the OOM killer (exit 137) after hanging for minutes, and the root frontend route `/` returned empty content, suggesting the page compilation stalled or failed. I also had to deviate from the docs by using a placeholder `OPENAI_API_KEY` since no real key was present in the sandbox environment.</div>
 </body></html>
