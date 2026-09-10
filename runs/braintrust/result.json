@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-09-09T13:45:35Z",
+  "started": "2026-09-10T13:39:31Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
-  "outcome": "verified",
-  "summary": "Successfully completed the Braintrust quickstart end-to-end. Installed the braintrust SDK (v0.37.0), created eval_hello.py exactly as documented, and executed an eval run via the SDK CLI. The eval ran over 2 test cases and reported a 50.00% 'is_equal' score, which is correct: 'Foo'\u2192'Hi Foo' matched, 'Bar'\u2192'Hi Bar' did not match expected 'Hello Bar'.",
-  "deviations": "The sandbox environment blocks outbound HTTPS connections to www.braintrust.dev (TLS handshake gets 'Connection reset by peer'), so running with the API key fails. To make the quickstart work, I used `braintrust eval --no-send-logs eval_hello.py` instead of the documented `BRAINTRUST_API_KEY=... braintrust eval eval_hello.py`. The `--no-send-logs` flag runs the eval entirely offline, computing and reporting scores locally without uploading to Braintrust.",
-  "steps": 27,
-  "wall_seconds": 154.3,
+  "outcome": "stuck",
+  "summary": "run ended without finish()",
+  "deviations": "",
+  "steps": 40,
+  "wall_seconds": 183.4,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "Python 3.14.4"
     },
     "installed": {
       "passed": true,
-      "evidence": "Successfully installed braintrust-0.37.0 chevron-0.14.0 python-slugify-9.0.0 sseclient-py-1.9.0 text-unidecode-1.3"
+      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.38.0"
     },
     "configured": {
-      "passed": true,
-      "evidence": "API Key set: yes\nAPI Key length: 51"
+      "passed": false,
+      "evidence": "OPENAI_API_KEY is set: no"
     },
     "first_call": {
-      "passed": true,
-      "evidence": "Say Hi Bot (tasks): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 1181.66it/s]"
+      "passed": false,
+      "evidence": "self.do_handshake()"
     },
     "verified": {
-      "passed": true,
-      "evidence": "=========================SUMMARY=========================\n50.00% 'is_equal' score"
+      "passed": false,
+      "evidence": "exit=1"
     }
   },
   "friction": [
     {
-      "where": "PATH not including local bin directory after pip install",
-      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
+      "where": "Missing AI provider API key",
+      "detail": "Quickstart requires export OPENAI_API_KEY=\" \" but environment check shows OPENAI_API_KEY is set: no"
     },
     {
-      "where": "Sandbox network restriction causing cryptic TLS handshake failures",
-      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
+      "where": "bt CLI install script unreachable",
+      "detail": "curl -fsSL https://bt.dev/cli/install.sh | sh failed with curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Quickstart does not mention --no-send-logs for offline/local runs",
-      "detail": "braintrust eval eval_hello.py fails with TLS errors until --no-send-logs is discovered in CLI help"
+      "where": "pip install PATH warning",
+      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH"
     },
     {
-      "where": "Agent had to prepend PATH export to every braintrust command",
-      "detail": "cd /home/daytona && export PATH=\"$HOME/.local/bin:$PATH\" && braintrust eval ..."
+      "where": "Ambiguous API endpoints in SDK source",
+      "detail": "logger.py references https://api.braintrust.ai while otel/__init__.py defaults to https://api.braintrust.dev"
     },
     {
-      "where": "Quickstart example intentionally produces a failing score that looks like an error",
-      "detail": "=========================SUMMARY=========================\n50.00% 'is_equal' score"
+      "where": "Sandbox network blocks Braintrust gateway",
+      "detail": "curl -v https://gateway.braintrust.dev fails with TLS connect error: error:00000000:lib(0)::reason(0)"
     }
   ],
-  "score": 100,
-  "braintrust_span": "5579f1ba-db8f-44e9-8434-4b5edb4c2020"
+  "score": 30,
+  "braintrust_span": "7cf60501-e849-4d12-ae2a-693a98afc5f8"
 }

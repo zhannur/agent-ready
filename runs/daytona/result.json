@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-09-08T14:00:41Z",
+  "started": "2026-09-10T14:03:15Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully created multiple Daytona sandboxes via the Python SDK\u2014each returned a valid sandbox ID (e.g., `21a8735a-5baf-4842-9dd7-dc9ae5dc5ced`, `9e9df09f-953f-4ef2-9ca9-7bcc09e72d70`). However, executing code inside the sandbox consistently failed with `ConnectionResetError: [Errno 104] Connection reset by peer` when the SDK tried to connect to the toolbox proxy at `https://proxy.app.daytona.io/toolbox`. I verified this is a network-level issue by confirming that `curl -v https://proxy.app.daytona.io/toolbox` also fails with the same connection reset, while the main API at `https://app.daytona.io/api` connects successfully. The blocker is that the sandbox-to-toolbox proxy network path is unreachable from this environment, preventing the promised outcome of running code inside the sandbox from being demonstrated.",
+  "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 346.1,
+  "wall_seconds": 307.8,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "/usr/local/bin/daytona"
+      "evidence": "File \"/usr/local/lib/python3.14/site-packages/urllib3/connection.py\""
     },
     "installed": {
       "passed": true,
-      "evidence": "class Daytona:"
+      "evidence": "/usr/local/bin/daytona: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked"
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY"
+      "evidence": "DAYTONA_API_KEY set: True"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: 21a8735a-5baf-4842-9dd7-dc9ae5dc5ced"
+      "evidence": "Sandbox created: id=592ed58a-aecc-4e47-8893-917e1e65c71a"
     },
     "verified": {
       "passed": false,
-      "evidence": "Error: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "evidence": "Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   },
   "friction": [
     {
-      "where": "Network path to toolbox proxy is unreachable from the sandbox",
-      "detail": "* OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443"
+      "where": "SDK sandbox proxy connectivity",
+      "detail": "Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     },
     {
-      "where": "CLI version/help commands try to start a local server and fail with port conflict",
+      "where": "Daytona CLI local server startup",
       "detail": "Error occurred error=\"listen tcp :22222: bind: address already in use\""
     },
     {
-      "where": "Python SDK emits Pydantic v2.11 deprecation warnings when introspecting sandbox objects",
-      "detail": "PydanticDeprecatedSince211: Accessing the 'model_computed_fields' attribute on the instance is deprecated. Instead, you should access this attribute from the model class. Deprecated in Pydantic V2.11 to be removed in V3.0."
+      "where": "Environment variable naming",
+      "detail": "DAYTONA_API_URL: NOT SET"
     },
     {
-      "where": "Toolbox API client is cloned with an empty host, obscuring debugging",
-      "detail": "Config host: "
+      "where": "CLI binary name mismatch",
+      "detail": "daytona-cli not found"
     },
     {
-      "where": "Quickstart docs show sandbox.process.exec but execution fails with network reset",
-      "detail": "Error running code: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "where": "Lazy toolbox URL loader signature",
+      "detail": "load error: ToolboxApiClientProxyLazyBaseUrl.load_toolbox_base_url() takes 1 positional argument but 2 were given"
     }
   ],
   "score": 70,
-  "braintrust_span": "01f2d58b-821f-4bd7-98d7-bffe50858493"
+  "braintrust_span": "54ab3f90-eada-488f-8a66-1ba3cd4e3d36"
 }
