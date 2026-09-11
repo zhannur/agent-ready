@@ -1,18 +1,18 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-09-10T14:05:16Z",
+  "started": "2026-09-11T13:47:36Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example script using the exact API code from the quickstart (text_to_speech.convert with voice_id JBFqnCBsd6RMkjVDRZzb, model_id eleven_v3, output_format mp3_44100_128), and ran it. The script successfully generated a 40KB output.mp3 file (verified as MPEG ADTS layer III, 128 kbps, 44.1 kHz, Monaural) from the text \"The first move is what sets everything in motion.\"",
-  "deviations": "The quickstart example uses `play(audio)` to play audio through speakers. Since the sandbox has no audio output hardware, I saved the returned audio stream to a file (`output.mp3`) instead. The core API request and authentication were exactly as documented.",
-  "steps": 6,
-  "wall_seconds": 26.0,
+  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs SDK and python-dotenv, created the example script using the provided code (with a minor sandbox-appropriate modification), and successfully generated a valid MP3 audio file (output.mp3, 43KB, MPEG ADTS layer III, 128 kbps, 44.1 kHz) from the text \"The first move is what sets everything in motion.\"",
+  "deviations": "The quickstart's example uses `play(audio)` to play audio through speakers. Since the sandbox has no audio output hardware, I modified the script to write the audio stream to a file (`output.mp3`) instead. This is the only deviation, and it was necessary to verify the TTS generation in a headless environment.",
+  "steps": 8,
+  "wall_seconds": 37.9,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "cd /home/daytona && pip install elevenlabs python-dotenv ... exit=0"
+      "evidence": "pip install elevenlabs python-dotenv returned exit=0, showing Python and pip were ready"
     },
     "installed": {
       "passed": true,
@@ -20,11 +20,11 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "Audio saved to output.mp3"
+      "evidence": "ELEVENLABS_API_KEY is set: yes and the script loaded it via os.getenv after load_dotenv"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to output.mp3"
+      "evidence": "python example.py returned exit=0 with output Audio saved to output.mp3"
     },
     "verified": {
       "passed": true,
@@ -33,14 +33,18 @@
   },
   "friction": [
     {
-      "where": "Documentation fetch returned HTML navigation instead of readable quickstart instructions",
-      "detail": "For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page."
+      "where": "System package installation for audio playback",
+      "detail": "apt-get install -y mpv failed with E: List directory /var/lib/apt/lists/partial is missing. - Acquire (13: Permission denied)"
     },
     {
-      "where": "Auth configuration step is missing from the visible transcript",
-      "detail": "api_key=os.getenv(\"ELEVENLABS_API_KEY\")"
+      "where": "Missing audio player dependency",
+      "detail": "which mpv returned mpv not found twice, preventing the quickstart's play(audio) path"
+    },
+    {
+      "where": "Quickstart example assumes local audio output",
+      "detail": "The quickstart's example uses play(audio) to play audio through speaker but the sandbox required saving to file instead"
     }
   ],
   "score": 100,
-  "braintrust_span": "0dcaef4d-c378-4f65-904f-64bf86a958a0"
+  "braintrust_span": "e5296a38-98dc-4d36-9901-e2a8a340ce1e"
 }

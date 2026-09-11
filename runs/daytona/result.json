@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-09-10T14:03:15Z",
+  "started": "2026-09-11T13:45:56Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
   "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 307.8,
+  "wall_seconds": 451.4,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "File \"/usr/local/lib/python3.14/site-packages/urllib3/connection.py\""
+      "evidence": "python3 daytona_quickstart.py executes and Python 3.14 site-packages path is used"
     },
     "installed": {
       "passed": true,
-      "evidence": "/usr/local/bin/daytona: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked"
+      "evidence": "from daytona import Daytona succeeds and /usr/local/bin/daytona is present"
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY set: True"
+      "evidence": "Daytona() instantiates and d.create() returns sandbox IDs without authentication errors"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created: id=592ed58a-aecc-4e47-8893-917e1e65c71a"
+      "evidence": "Sandbox created with ID: 4a04851d-17d0-4403-9b5a-350abd9f3351"
     },
     "verified": {
       "passed": false,
-      "evidence": "Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "evidence": "All attempts to run code inside the sandbox fail with ConnectionResetError(104, 'Connection reset by peer'); no exec output is ever produced"
     }
   },
   "friction": [
     {
-      "where": "SDK sandbox proxy connectivity",
-      "detail": "Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "where": "SDK method name mismatch",
+      "detail": "AttributeError: 'Process' object has no attribute 'execute' \u2014 quickstart/docs reference 'execute' but SDK method is 'exec'"
     },
     {
-      "where": "Daytona CLI local server startup",
-      "detail": "Error occurred error=\"listen tcp :22222: bind: address already in use\""
+      "where": "Resource quota limit",
+      "detail": "daytona.common.errors.DaytonaError: Failed to create sandbox: Total CPU limit exceeded. Maximum allowed: 10."
     },
     {
-      "where": "Environment variable naming",
-      "detail": "DAYTONA_API_URL: NOT SET"
+      "where": "Sandbox network readiness",
+      "detail": "Repeated 'ConnectionResetError(104, 'Connection reset by peer')' on process.exec despite state showing STARTED and wait_for_sandbox_start returning"
     },
     {
-      "where": "CLI binary name mismatch",
-      "detail": "daytona-cli not found"
+      "where": "Missing filesystem methods",
+      "detail": "'FileSystem' object has no attribute 'write_file' \u2014 docs imply fs.write_file exists but SDK only has upload_file/create_folder"
     },
     {
-      "where": "Lazy toolbox URL loader signature",
-      "detail": "load error: ToolboxApiClientProxyLazyBaseUrl.load_toolbox_base_url() takes 1 positional argument but 2 were given"
+      "where": "CLI port conflicts",
+      "detail": "daytona --version emits 'listen tcp :33333: bind: address already in use' and help commands crash"
     }
   ],
   "score": 70,
-  "braintrust_span": "54ab3f90-eada-488f-8a66-1ba3cd4e3d36"
+  "braintrust_span": "db657f7b-29bc-439c-8ce5-4df512258b56"
 }

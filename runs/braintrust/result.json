@@ -1,22 +1,22 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-09-10T13:39:31Z",
+  "started": "2026-09-11T13:36:16Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
   "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 183.4,
+  "wall_seconds": 138.8,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.38.0"
+      "evidence": "All imports successful"
     },
     "configured": {
       "passed": false,
@@ -24,35 +24,35 @@
     },
     "first_call": {
       "passed": false,
-      "evidence": "self.do_handshake()"
+      "evidence": "OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
     },
     "verified": {
       "passed": false,
-      "evidence": "exit=1"
+      "evidence": "Connection reset by peer"
     }
   },
   "friction": [
     {
-      "where": "Missing AI provider API key",
-      "detail": "Quickstart requires export OPENAI_API_KEY=\" \" but environment check shows OPENAI_API_KEY is set: no"
+      "where": "Missing AI provider API key prerequisite",
+      "detail": "OPENAI_API_KEY is set: no"
     },
     {
-      "where": "bt CLI install script unreachable",
-      "detail": "curl -fsSL https://bt.dev/cli/install.sh | sh failed with curl: (35) Recv failure: Connection reset by peer"
+      "where": "Braintrust API endpoint unreachable from sandbox",
+      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
     },
     {
-      "where": "pip install PATH warning",
-      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH"
+      "where": "SDK version verification",
+      "detail": "AttributeError: module 'braintrust' has no attribute '__version__'"
     },
     {
-      "where": "Ambiguous API endpoints in SDK source",
-      "detail": "logger.py references https://api.braintrust.ai while otel/__init__.py defaults to https://api.braintrust.dev"
+      "where": "Quickstart defaults to TypeScript/pnpm",
+      "detail": "pnpm add braintrust openai autoevals ts-node"
     },
     {
-      "where": "Sandbox network blocks Braintrust gateway",
-      "detail": "curl -v https://gateway.braintrust.dev fails with TLS connect error: error:00000000:lib(0)::reason(0)"
+      "where": "CLI-centric quickstart instructions",
+      "detail": "bt eval my_eval.eval.ts"
     }
   ],
   "score": 30,
-  "braintrust_span": "7cf60501-e849-4d12-ae2a-693a98afc5f8"
+  "braintrust_span": "deedce1a-ca11-49c2-a659-5826977c1797"
 }

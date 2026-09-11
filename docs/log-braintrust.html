@@ -107,7 +107,7 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 <h1 class="wordmark"><a href="index.html" style="color:inherit">agent-ready</a> · braintrust
 <span style="color:#e07b39">30/100</span></h1>
 <p class="meta" style="margin:.6rem 0 1.4rem">40 steps ·
-183.4s · agent <code>kimi-k2p6</code> ·
+138.8s · agent <code>kimi-k2p6</code> ·
 <a href="https://github.com/zhannur/agent-ready/blob/main/runs/braintrust/transcript.jsonl">raw JSONL</a></p>
 <details class="step" open><summary>#1 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start</code></summary><pre> Get started with Braintrust - Braintrust Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Braintrust home page Search... ⌘ K Ask Assistant ⌘ I Request demo Start building Start building Search... Navigation Start Get started with Braintrust Guides Integrations SDKs Reference Cookbook Troubleshooting Changelog Start Introduction Braintrust workflow Quickstart Loop agent Plans and limits Instrument Overview Tracing User feedback Attachments Observe Overview Logs Patterns Topics Dashboards Alerts Annotate Overview Human review Custom views Labels and corrections Datasets Exports Evaluate Overview Prompts Scorers and classifiers Playgrounds Experiments Remote evals Online scoring Best practices Deploy Overview Prompts Functions Braintrust Gateway Environments Monitoring Streaming Admin Overview Organizations Projects AI providers Audit logging Access control Billing Data management Deployment Authentication Personal settings Service health Best practices Evaluating agents Writing scorers PM workflows Security Start Get started with Braintrust Copy page Copy page Copy page Copy page Braintrust is the active observability platform for instrumenting, understanding, and improving agents. By actively applying intelligence to agent traces and automatically surfacing the most critical patterns, Braintrust gives teams the visibility to understand how agents behave in production and the tools to improve them. 
  To get started, create a Braintrust account . 
@@ -115,7 +115,43 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
  Log your first trace Integrate with AI providers and frameworks to send traces to Braintrust Run your first eval Measure and improve AI application quality with playgrounds and evals Connect your coding agent Install the bt CLI to set up, instrument, and run Braintrust with your coding agent Start your first Loop thread Ask Braintrust’s AI agent to investigate your data and build scorers, datasets, and dashboards 
  ​ Workflow 
  Follow Braintrust’s structured workflow to build, evaluate, and improve AI applications: 
- Instrument Capture traces from your AI application Observe Analyze logs and identify patterns Annotate Add human feedback and build datasets Evaluate Test changes with experiments Deploy Ship changes and monitor production Admin Manage organizations, projects, and access control Was this page helpful? Yes No Braintrust workflow Next Braintrust home page github x discord youtube Pricing Blog Careers Status github x discord youtube Powered by This documentation is built and hosted on Mintlify, a developer documentation platform Assistant Responses are generated using AI and may contain mistakes. Contact support </pre></details><details class="step" open><summary>#2 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/llms.txt</code></summary><pre># Braintrust
+ Instrument Capture traces from your AI application Observe Analyze logs and identify patterns Annotate Add human feedback and build datasets Evaluate Test changes with experiments Deploy Ship changes and monitor production Admin Manage organizations, projects, and access control Was this page helpful? Yes No Braintrust workflow Next Braintrust home page github x discord youtube Pricing Blog Careers Status github x discord youtube Powered by This documentation is built and hosted on Mintlify, a developer documentation platform Assistant Responses are generated using AI and may contain mistakes. Contact support </pre></details><details class="step" open><summary>#2 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start/eval</code></summary><pre> </pre></details><details class="step" open><summary>#3 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start/quickstart</code></summary><pre> </pre></details><details class="step" open><summary>#4 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluate/quickstart</code></summary><pre> </pre></details><details class="step" open><summary>#5 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluate</code></summary><pre> Evaluate systematically - Braintrust Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Braintrust home page Search... ⌘ K Ask Assistant ⌘ I Request demo Start building Start building Search... Navigation Evaluate Evaluate systematically Guides Integrations SDKs Reference Cookbook Troubleshooting Changelog Start Introduction Braintrust workflow Quickstart Loop agent Plans and limits Instrument Overview Tracing User feedback Attachments Observe Overview Logs Patterns Topics Dashboards Alerts Annotate Overview Human review Custom views Labels and corrections Datasets Exports Evaluate Overview Prompts Scorers and classifiers Playgrounds Experiments Remote evals Online scoring Best practices Deploy Overview Prompts Functions Braintrust Gateway Environments Monitoring Streaming Admin Overview Organizations Projects AI providers Audit logging Access control Billing Data management Deployment Authentication Personal settings Service health Best practices Evaluating agents Writing scorers PM workflows Security On this page Offline evaluation Iterate in playgrounds Run experiments Online evaluation Anatomy of an evaluation Next steps Evaluate Evaluate systematically Copy page Copy page Measure AI application quality, detect regressions before they reach production, and build confidence that your system is improving over time. Copy page Copy page AI systems behave differently from traditional software: the same input can produce different outputs, there’s rarely a single correct answer, and a change that improves one metric can silently degrade another. Systematic evaluation is how you measure quality, detect regressions before they reach users, and build confidence that your system is actually improving over time. 
+ Braintrust supports evaluation at every stage of AI development — from rapid iteration in the browser to systematic experiments to continuous production monitoring. The full evaluation cycle: 
+
+ Iterate in playgrounds — Prototype prompts, models, scorers, or custom agent code 
+ Promote to an experiment — Lock in an immutable snapshot when you find a good configuration 
+ Automate in CI/CD — Run evals on every pull request to catch regressions 
+ Score in production — Monitor live traffic continuously with online scoring rules 
+ Feed back — Pull interesting production traces into datasets to improve offline test coverage 
+
+ ​ Offline evaluation 
+ Offline evaluation runs against known datasets before deployment. Because you control the inputs and can define expected outputs, you can use code-based scorers or LLM-as-a-judge — and results are reproducible and comparable over time. 
+ ​ Iterate in playgrounds 
+ Playgrounds are a browser-based environment for rapid iteration. Run evaluations in real time, compare configurations side by side, and share results with teammates via URL. Results are mutable — re-running a playground overwrites previous generations, which is ideal for fast iteration. 
+ When your task can’t be expressed as a prompt, connect custom agent code to the playground via remote evals or sandboxes . The iteration workflow stays the same. 
+ When you’ve found a good configuration, promote it to an experiment to capture an immutable snapshot. 
+ ​ Run experiments 
+ Experiments are the immutable, comparable record of your eval runs. Run them from code or in the UI, track progress over time, and integrate into CI/CD to catch regressions before they reach production. 
+ ​ Online evaluation 
+ Online scoring evaluates production traces automatically as they’re logged, running asynchronously with no impact on latency. Because there’s no ground truth for live requests, it relies on LLM-as-a-judge scorers to assess quality. Use it to monitor for regressions, catch edge cases you haven’t seen before, and surface real user interactions that become new test cases. 
+ ​ Anatomy of an evaluation 
+ Every evaluation has three parts: 
+
+ Data — a dataset of test cases with inputs, optional expected outputs, and metadata. Build datasets from production logs, user feedback, or manual curation. 
+
+ Task — the function being evaluated. Typically an LLM call, but can be any logic: a multi-step agent, a retrieval pipeline, or a custom workflow. 
+
+ Scorers and classifiers — scorers measure quality with numeric scores, while classifiers apply categorical labels. To build them, use built-in autoevals , LLM-as-a-judge , or custom code . 
+
+ ​ Next steps 
+
+ Test prompts and models in the playground 
+ Test complex agents in the playground via remote evals or sandboxes 
+ Run experiments with the SDK or in the UI 
+ Run in CI/CD to catch regressions automatically 
+ Score production traces with online scoring rules 
+ Best practices for reliable evaluations 
+ Was this page helpful? Yes No Export annotated data Previous Create prompts Next Braintrust home page github x discord youtube Pricing Blog Careers Status github x discord youtube Powered by This documentation is built and hosted on Mintlify, a developer documentation platform Assistant Responses are generated using AI and may contain mistakes. Contact support </pre></details><details class="step" open><summary>#6 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/llms.txt</code></summary><pre># Braintrust
 
 &gt; Braintrust is the active observability platform for instrumenting, understanding, and improving agents. By actively applying intelligence to agent traces and automatically surfacing the most critical patterns, Braintrust gives teams the visibility to understand how agents behave in production and the tools to improve them.
 
@@ -140,6 +176,7 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 - [Baseten](https://braintrust.dev/docs/integrations/ai-providers/baseten.md): Baseten model provider configuration and integration guide
 - [Cerebras](https://braintrust.dev/docs/integrations/ai-providers/cerebras.md): Cerebras model provider configuration and integration guide
 - [Cohere](https://braintrust.dev/docs/integrations/ai-providers/cohere.md): Trace Cohere SDK calls in Braintrust to debug prompts, evaluate models, and monitor production usage
+- [ElevenLabs](https://braintrust.dev/docs/integrations/ai-providers/elevenlabs.md): Trace ElevenLabs SDK calls in Braintrust to debug audio generation, evaluate models, and monitor production usage
 - [Fireworks](https://braintrust.dev/docs/integrations/ai-providers/fireworks.md): Fireworks AI model provider configuration and integration guide
 - [Groq](https://braintrust.dev/docs/integrations/ai-providers/groq.md): Trace Groq SDK calls and use Groq models in Braintrust
 - [Hugging Face](https://braintrust.dev/docs/integrations/ai-providers/huggingface.md): Trace Hugging Face Inference, Transformers.js, and local Transformers pipeline calls in Braintrust to debug prompts, evaluate models, and monitor production usage
@@ -171,99 +208,67 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 - [LangChain4j](https://braintrust.dev/docs/integrations/sdk-integrations/langchain4j.md): Trace LangChain4j calls in Braintrust to debug prompts, evaluate models, and monitor production usage
 - [LangSmith](https://braintrust.dev/docs/integrations/sdk-integrations/langsmith.md): Trace LangSmith applications in Braintrust to observe and evaluate LLM calls, chains, and tools
 - [LlamaIndex](https://braintrust.dev/docs/integrations/sdk-integrations/llamaindex.md): Trace LlamaIndex calls in Braintrust to debug prompts, evaluate models, and monitor RAG pipelines
-- [Agno](https://braintrust.dev/docs/integrations/sdk-integrations/agno.md): Trace Agno agents, teams, and workflows in Braintrust to debug prompts, evaluate models, and monitor production usage
-- [Apollo </pre></details><details class="step" open><summary>#3 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start/quickstart</code></summary><pre> </pre></details><details class="step" open><summary>#4 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluate/quickstart</code></summary><pre> </pre></details><details class="step" open><summary>#5 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluate/index.md</code></summary><pre>&gt; ## Documentation Index
-&gt; Fetch the complete documentation index at: https://braintrust.dev/docs/llms.txt
-&gt; Use this file to discover all available pages before exploring further.
+- [Agn</pre></details><details class="step" open><summary>#7 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/_llms/guides.md</code></summary><pre># Braintrust: Guides
 
-# Evaluate systematically
+&gt; Braintrust is the active observability platform for instrumenting, understanding, and improving agents. By actively applying intelligence to agent traces and automatically surfacing the most critical patterns, Braintrust gives teams the visibility to understand how agents behave in production and the tools to improve them.
 
-&gt; Measure AI application quality, detect regressions before they reach production, and build confidence that your system is improving over time.
+## Guides
 
-AI systems behave differently from traditional software: the same input can produce different outputs, there&#x27;s rarely a single correct answer, and a change that improves one metric can silently degrade another. Systematic evaluation is how you measure quality, detect regressions before they reach users, and build confidence that your system is actually improving over time.
+- [Security](https://braintrust.dev/docs/security.md)
 
-Braintrust supports evaluation at every stage of AI development — from rapid iteration in the browser to systematic experiments to continuous production monitoring. The full evaluation cycle:
+### Start
 
-1. **Iterate in playgrounds** — Prototype prompts, models, scorers, or custom agent code
-2. **Promote to an experiment** — Lock in an immutable snapshot when you find a good configuration
-3. **Automate in CI/CD** — Run evals on every pull request to catch regressions
-4. **Score in production** — Monitor live traffic continuously with online scoring rules
-5. **Feed back** — Pull interesting production traces into datasets to improve offline test coverage
+- [Get started with Braintrust](https://braintrust.dev/docs/index.md)
+- [Braintrust workflow](https://braintrust.dev/docs/workflow.md): Understand how to trace, evaluate, and improve AI applications with Braintrust
+- [Plans and limits](https://braintrust.dev/docs/plans-and-limits.md): Choose the right Braintrust plan for your needs
 
-## Offline evaluation
+#### Quickstart
 
-Offline evaluation runs against known datasets before deployment. Because you control the inputs and can define expected outputs, you can use [code-based scorers](/docs/evaluate/write-scorers) or [LLM-as-a-judge](/docs/evaluate/llm-as-a-judge) — and results are reproducible and comparable over time.
+- [Tracing quickstart](https://braintrust.dev/docs/tracing-quickstart.md): Instrument your AI application with a coding agent and verify that traces appear in Braintrust.
+- [Evaluation quickstart](https://braintrust.dev/docs/evaluation-quickstart.md): Systematically measure AI quality. Compare approaches, catch regressions before deployment, and validate improvements with data instead of intuition.
 
-### Iterate in playgrounds
+#### Loop agent
 
-[Playgrounds](/docs/evaluate/playgrounds) are a browser-based environment for rapid iteration. Run evaluations in real time, compare configurations side by side, and share results with teammates via URL. Results are mutable — re-running a playground overwrites previous generations, which is ideal for fast iteration.
+- [Get started with Loop](https://braintrust.dev/docs/loop/index.md): Braintrust&#x27;s AI agent investigates your project data, creates and edits objects with your approval, and runs on a schedule when you&#x27;re not watching.
+- [What Loop can do](https://braintrust.dev/docs/loop/capabilities.md): Query logs, diagnose traces, write scorers, run experiments, and build dashboards through natural language, with example prompts for every task.
+- [Run Loop on a schedule](https://braintrust.dev/docs/loop/automations.md): Configure a Loop automation to investigate your project on a schedule, control what it&#x27;s allowed to change, and send results to Slack or a webhook.
+- [Manage Loop threads and limits](https://braintrust.dev/docs/loop/manage.md): Rename and delete threads, and learn how Loop&#x27;s per-user sandboxes start, sleep, and count against your plan&#x27;s concurrency limit.
 
-When your task can&#x27;t be expressed as a prompt, connect custom agent code to the playground via [remote evals or sandboxes](/docs/evaluate/remote-evals). The iteration workflow stays the same.
+### Instrument
 
-When you&#x27;ve found a good configuration, promote it to an experiment to capture an immutable snapshot.
+- [Instrument your application](https://braintrust.dev/docs/instrument/index.md): Add tracing to your AI application to capture LLM calls, application logic, and user feedback — the foundation for observability and evaluation.
+- [Capture user feedback](https://braintrust.dev/docs/instrument/user-feedback.md): Attach ratings, corrections, and comments from users to traces to measure real-world quality and power feedback-driven evaluations.
+- [Log attachments](https://braintrust.dev/docs/instrument/attachments.md): Attach images, audio, PDFs, and other binary files to traces and experiments to review multimodal inputs and outputs in context.
 
-### Run experiments
+#### Tracing
 
-Experiments are the immutable, comparable record of your eval runs. [Run them](/docs/evaluate/run-evaluations) from code or in the UI, track progress over time, and integrate into CI/CD to catch regressions before they reach production.
+- [Trace LLM calls](https://braintrust.dev/docs/instrument/trace-llm-calls.md): Enable auto-instrumentation once and every call to a supported AI provider is logged — inputs, outputs, latency, token usage, and costs.
+- [Trace application logic](https://braintrust.dev/docs/instrument/trace-application-logic.md): Trace retrieval steps, tool calls, preprocessing, and business logic in spans to get full end-to-end visibility into your AI application&#x27;s behavior.
+- [Advanced tracing patterns](https://braintrust.dev/docs/instrument/advanced-tracing.md): Implement distributed tracing across services, mask sensitive data, customize span rendering, and tune performance for high-throughput AI applications.
 
-## Online evaluation
+### Observe
 
-[Online scoring](/docs/evaluate/score-online) evaluates production traces automatically as they&#x27;re logged, running asynchronously with no impact on latency. Because there&#x27;s no ground truth for live requests, it relies on [LLM-as-a-judge](/docs/evaluate/llm-as-a-judge) scorers to assess quality. Use it to monitor for regressions, catch edge cases you haven&#x27;t seen before, and surface real user interactions that become new test cases.
+- [Observe your application](https://braintrust.dev/docs/observe/index.md): Turn every production request into a searchable trace. Filter, analyze, and drill into real-time data to identify issues and gather signal for improving your AI system.
+- [Set up alerts](https://braintrust.dev/docs/observe/alerts.md): Configure log, time window, and environment alerts with webhooks or Slack notifications
 
-## Anatomy of an evaluation
+#### Logs
 
-Every evaluation has three parts:
+- [View your logs](https://braintrust.dev/docs/observe/view-logs.md): Browse and inspect production traces, create custom columns to surface relevant data, and organize logs with tags for faster triage and analysis.
+- [Filter and search logs](https://braintrust.dev/docs/observe/filter.md): Narrow down to exactly the traces you need using metadata filters, SQL queries, or the API. Pull out specific production data for debugging, analysis, or dataset creation.
+- [Examine traces](https://braintrust.dev/docs/observe/examine-traces.md): Open any trace to inspect its spans, inputs, outputs, and timing. Explore trace views, translate content, navigate origins, and share results.
+- [Debug a trace](https://braintrust.dev/docs/observe/debug-traces.md): Diagnose why a trace failed using evidence from spans, tool calls, and model outputs, or summarize a long agent trace into the work it performed.
 
-* **Data** — a dataset of test cases with inputs, optional expected outputs, and metadata. Build [datasets](/docs/annotate/datasets) from production logs, user feedback, or manual curation.
+#### Patterns
 
-* **Task** — the function being evaluated. Typically an LLM call, but can be any logic: a multi-step agent, a retrieval pipeline, or a custom workflow.
+- [Patterns](https://braintrust.dev/docs/observe/patterns/index.md): Let Loop investigate your traces on a schedule and record recurring problems and trends as patterns, each with supporting evidence and a suggested fix.
+- [Enable Patterns](https://braintrust.dev/docs/observe/patterns/enable.md): Turn on pattern discovery for a project, choose where results are delivered, and tune the schedule and scope of the Loop automation behind it.
+- [Review and act on patterns](https://braintrust.dev/docs/observe/patterns/review.md): Read a pattern and its evidence, turn it into a scorer or classifier you can monitor, hand it to a coding agent, and close it when it&#x27;s resolved.
 
-* **Scorers and classifiers** — [scorers](/docs/evaluate/write-scorers) measure quality with numeric scores, while [classifiers](/docs/evaluate/write-scorers#classifiers) apply categorical labels. To build them, use built-in [autoevals](/docs/evaluate/autoevals), [LLM-as-a-judge](/docs/evaluate/llm-as-a-judge), or [custom code](/docs/evaluate/custom-code).
+#### Topics
 
-## Next steps
-
-* [Test prompts and models](/docs/evaluate/playgrounds) in the playground
-* [Test complex agents](/docs/evaluate/remote-evals) in the playground via remote evals or sandboxes
-* [Run experiments](/docs/evaluate/run-evaluations) with the SDK or in the UI
-* [Run in CI/CD](/docs/evaluate/run-in-ci) to catch regressions automatically
-* [Score production traces](/docs/evaluate/score-online) with online scoring rules
-* [Best practices](/docs/evaluate/best-practices) for reliable evaluations
-</pre></details><details class="step" open><summary>#6 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluate/run-evaluations</code></summary><pre> Experiments - Braintrust Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Braintrust home page Search... ⌘ K Ask Assistant ⌘ I Request demo Start building Start building Search... Navigation Experiments Experiments Guides Integrations SDKs Reference Cookbook Troubleshooting Changelog Start Introduction Braintrust workflow Quickstart Loop agent Plans and limits Instrument Overview Tracing User feedback Attachments Observe Overview Logs Patterns Topics Dashboards Alerts Annotate Overview Human review Custom views Labels and corrections Datasets Exports Evaluate Overview Prompts Scorers and classifiers Playgrounds Experiments Overview Run in code Run in the UI Run in CI/CD Advanced techniques Analyze results Remote evals Online scoring Best practices Deploy Overview Prompts Functions Braintrust Gateway Environments Monitoring Streaming Admin Overview Organizations Projects AI providers Audit logging Access control Billing Data management Deployment Authentication Personal settings Service health Best practices Evaluating agents Writing scorers PM workflows Security On this page Create an experiment Analyze results Next steps Experiments Experiments Copy page Copy page Choose how to run evaluations, in code, the UI, or CI/CD, and turn each run into a permanent record you can compare and share. Copy page Copy page An experiment is an immutable snapshot of an evaluation run: permanently stored, comparable over time, and shareable across your team. Unlike playground runs, which overwrite previous results for fast iteration, experiments preserve exact results so you can measure improvements, catch regressions, and build confidence in your changes. 
- ​ Create an experiment 
- Choose the approach that fits your workflow. Each one produces the same kind of experiment, comparable to any other in your project. 
-
- Run in code with the SDK. The most flexible path, with full control over your task, data, and scorers, and the one to use when you want evals versioned alongside your application. 
- Run in the UI , without writing code, from an existing dataset or by promoting a playground run. 
- Run in CI/CD , to catch regressions automatically on every pull request. 
-
- For advanced SDK techniques like trials, hill climbing, attachments, and tracing, see Advanced eval techniques . 
- ​ Analyze results 
- Once an experiment finishes, dig into the results: 
-
- Interpret results to read the experiment table and drill into individual traces. 
- Compare experiments to measure improvements and regressions between runs. 
-
- ​ Next steps 
-
- Run experiments in code with the SDK 
- Write scorers to measure quality 
- Build datasets to power your evaluations 
- Evaluation best practices for reliable, high-signal evals 
- Was this page helpful? Yes No Iterate in playgrounds Previous Run experiments in code Next Braintrust home page github x discord youtube Pricing Blog Careers Status github x discord youtube Powered by This documentation is built and hosted on Mintlify, a developer documentation platform Assistant Responses are generated using AI and may contain mistakes. Contact support </pre></details><details class="step" open><summary>#7 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluate/run-evaluations/run-in-code</code></summary><pre> </pre></details><details class="step" open><summary>#8 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/start/quickstart.md</code></summary><pre>&gt; ## Documentation Index
-&gt; Fetch the documentation index at: https://braintrust.dev/docs/llms.txt
-&gt; Use this file to discover all available pages before exploring further.
-&gt; For broader context, fetch the full documentation at: https://braintrust.dev/docs/llms-full.txt (large file).
-
-# Page Not Found
-
-The requested page could not be found.
-
-## Related topics
-
-- [Tracing quickstart](https://braintrust.dev/docs/tracing-quickstart.md)
-- [Evaluation quickstart](https://braintrust.dev/docs/evaluation-quickstart.md)
-- [CLI quickstart](https://braintrust.dev/docs/reference/cli/quickstart.md)
-</pre></details><details class="step" open><summary>#9 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluation-quickstart.md</code></summary><pre>&gt; ## Documentation Index
+- [Topics](https://braintrust.dev/docs/observe/topics/index.md): Automatically classify logs by user intent, sentiment, and issues, then turn what you find into evaluation datasets, scorers, and review queues.
+- [Enable Topics](https://braintrust.dev/docs/observe/topics/enable.md): Confirm your traces render with the Thread preprocessor, enable Topics, and adapt traces that need a custom preprocessor.
+- [Review insights from Topics](https://braintrust.dev/docs/observe/topics/review-insights.md): Find patterns i</pre></details><details class="step" open><summary>#8 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluation-quickstart.md</code></summary><pre>&gt; ## Documentation Index
 &gt; Fetch the complete documentation index at: https://braintrust.dev/docs/llms.txt
 &gt; Use this file to discover all available pages before exploring further.
 
@@ -441,185 +446,10 @@ Each evaluation consists of three components:
  &quot;expected&quot;: &quot;Se7en&quot;,
  },
  {
- &quot;input&quot;: &quot;A thief who</pre></details><details class="step" open><summary>#10 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluation-quickstart.md</code></summary><pre>&gt; ## Documentation Index
-&gt; Fetch the complete documentation index at: https://braintrust.dev/docs/llms.txt
-&gt; Use this file to discover all available pages before exploring further.
-
-# Evaluation quickstart
-
-&gt; Systematically measure AI quality. Compare approaches, catch regressions before deployment, and validate improvements with data instead of intuition.
-
-[Evaluations](/docs/evaluate) let you systematically measure AI quality. Compare approaches, catch regressions before deployment, and validate improvements with data instead of intuition.
-
-Each evaluation consists of three components:
-
-* **Data** - A dataset of test cases with inputs and expected outputs
-* **Task** - An AI function you want to test
-* **Scores** - Scoring functions that measure output quality
-
- Set up your environment and [run evals](/docs/evaluate/run-in-code) with the Braintrust SDK.
-
- ## 1. Sign up
-
- If you don&#x27;t have a Braintrust account, sign up for free at [braintrust.dev](https://www.braintrust.dev/signup).
-
- ## 2. Get API keys
-
- Create API keys for:
-
- * [Braintrust](https://www.braintrust.dev/app/settings?subroute=api-keys)
- * Your AI provider or framework ([OpenAI](https://platform.openai.com/api-keys), [Anthropic](https://console.anthropic.com/settings/keys), [Gemini](https://aistudio.google.com/app/apikey), [etc.](/docs/integrations))
-
- Set them as environment variables:
-
- ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- export BRAINTRUST_API_KEY=&quot; &quot;
- export OPENAI_API_KEY=&quot; &quot; # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc.
- ```
-
- ## 3. Install SDKs
-
- Install the Braintrust SDK and required libraries:
-
- ```bash TypeScript theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- # pnpm
- pnpm add braintrust openai autoevals ts-node
- # npm
- npm install braintrust openai autoevals ts-node
-
- # Install the bt CLI (macOS and Linux)
- curl -fsSL https://bt.dev/cli/install.sh | sh
- ```
-
- ```bash Python theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- pip install braintrust openai autoevals
-
- # Install the bt CLI (macOS and Linux)
- curl -fsSL https://bt.dev/cli/install.sh | sh
- ```
-
- ```bash Go theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- go get github.com/braintrustdata/braintrust-sdk-go
- go get github.com/braintrustdata/braintrust-sdk-go/trace/contrib/openai
- go get github.com/openai/openai-go
- ```
-
- ```bash Ruby theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- # Add to your Gemfile
- gem &quot;braintrust&quot;
- gem &quot;openai&quot;
-
- # Install:
- bundle install
- ```
-
- ```bash Java theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- // Add to build.gradle dependencies{} block
- // (in production, pin specific versions)
- implementation &#x27;dev.braintrust:braintrust-sdk-java:+&#x27;
- implementation &#x27;com.openai:openai-java:+&#x27;
- ```
-
- ```bash C# theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- # Add to .csproj file
- dotnet add package Braintrust.Sdk
- dotnet add package Braintrust.Sdk.OpenAI
- dotnet add package OpenAI
- ```
-
- ## 4. Run an eval
-
- Build an evaluation that identifies movies from plot descriptions. You&#x27;ll define a set of test cases with movie plot descriptions as inputs and expected titles as outputs, write a task function with a [prompt](/docs/evaluate/write-prompts) to identify movies, and use a [scorer](/docs/evaluate/write-scorers) to measure accuracy.
-
- Create an evaluation that defines your dataset, task, and scorer (built-in `ExactMatch` scorer for Python and TypeScript, equivalent code-based scorer for other languages).
-
- ```typescript movie-matcher.eval.ts theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- import { Eval } from &quot;braintrust&quot;;
- import { ExactMatch } from &quot;autoevals&quot;;
- import OpenAI from &quot;openai&quot;;
-
- const client = new OpenAI();
-
- Eval(&quot;Evaluation quickstart&quot;, {
- experimentName: &quot;Movie matcher (TypeScript)&quot;,
- // Data: Test cases with inputs and expected outputs
- data: [
- {
- input: &quot;A detective investigates a series of murders based on the seven deadly sins.&quot;,
- expected: &quot;Se7en&quot;,
- },
- {
- input: &quot;A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.&quot;,
- expected: &quot;Inception&quot;,
- },
- {
- input: &quot;A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.&quot;,
- expected: &quot;The Matrix&quot;,
- },
- {
- input: &quot;A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him as top toy in a boy&#x27;s room.&quot;,
- expected: &quot;Toy Story&quot;,
- },
- {
- input: &quot;An orphaned boy discovers he&#x27;s a wizard on his 11th birthday when Hagrid escorts him to magic-teaching Hogwarts School.&quot;,
- expected: &quot;Harry Potter and the Sorcerer&#x27;s Stone&quot;,
- },
- ],
-
- // Task: The function being evaluated
- task: async (input) =&gt; {
- const response = await client.responses.create({
- model: &quot;gpt-5-mini&quot;,
- input: [
- {
- role: &quot;system&quot;,
- content: &quot;Based on the following description, identify the movie.&quot;
- },
- { role: &quot;user&quot;, content: input }
- ],
- });
- return response.output_text;
- },
-
- // Scores: Metrics to measure quality
- scores: [ExactMatch],
- });
- ```
-
- ```python movie_matcher.py theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- import braintrust
- from braintrust import Eval
- from autoevals import ExactMatch
- from openai import OpenAI
-
- braintrust.auto_instrument()
-
- client = OpenAI()
-
- def task(input):
- response = client.responses.create(
- model=&quot;gpt-5-mini&quot;,
- input=[
- {
- &quot;role&quot;: &quot;system&quot;,
- &quot;content&quot;: &quot;Based on the following description, identify the movie.&quot;
- },
- {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: input}
- ],
- )
- return response.output_text
-
- Eval(
- &quot;Evaluation quickstart&quot;,
- experiment_name=&quot;Movie matcher (Python)&quot;,
- # Data: Test cases with inputs and expected outputs
- data=[
- {
- &quot;input&quot;: &quot;A detective investigates a series of murders based on the seven deadly sins.&quot;,
- &quot;expected&quot;: &quot;Se7en&quot;,
- },
- {
- &quot;input&quot;: &quot;A thief who</pre></details><details class="step" open><summary>#11 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluate/run-in-code.md</code></summary><pre>&gt; ## Documentation Index
+ &quot;input&quot;: &quot;A thief who</pre></details><details class="step" open><summary>#9 <b>bash</b> <code>python3 --version &amp;&amp; pip3 --version</code></summary><pre>exit=0
+Python 3.14.4
+pip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)
+</pre></details><details class="step" open><summary>#10 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluate/run-in-code.md</code></summary><pre>&gt; ## Documentation Index
 &gt; Fetch the complete documentation index at: https://braintrust.dev/docs/llms.txt
 &gt; Use this file to discover all available pages before exploring further.
 
@@ -823,248 +653,52 @@ Run evaluation code locally to create an experiment in Braintrust and return sum
  scorers: [
  Braintrust::Scorer.new(&quot;exact_match&quot;) { |expected:, output:| output == expected ? 1.0 : 0.0 }
  ],
- metadata: {model: &quot;gpt-5-m</pre></details><details class="step" open><summary>#12 <b>bash</b> <code>echo &quot;BRAINTRUST_API_KEY is set: $([ -n &quot;$BRAINTRUST_API_KEY&quot; ] &amp;&amp; echo yes || echo no)&quot;
-echo &quot;OPENAI_API_KEY is set: $([ -n &quot;$OPENAI_API_KE</code></summary><pre>exit=0
-BRAINTRUST_API_KEY is set: yes
-OPENAI_API_KEY is set: no
-/usr/local/bin/python3
-Python 3.14.4
-</pre></details><details class="step" open><summary>#13 <b>bash</b> <code>env | grep -i &quot;api_key\|token\|secret&quot; | cut -d= -f1</code></summary><pre>exit=0
-BRAINTRUST_API_KEY
-</pre></details><details class="step" open><summary>#14 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/integrations/ai-providers/openai.md</code></summary><pre>&gt; ## Documentation Index
-&gt; Fetch the complete documentation index at: https://braintrust.dev/docs/llms.txt
-&gt; Use this file to discover all available pages before exploring further.
-
-# OpenAI
-
-&gt; Trace OpenAI SDK calls, evaluate GPT models, and route them through the Braintrust gateway
-
-Braintrust integrates with [OpenAI](https://openai.com) so you can call GPT models from the Braintrust playground, API, and SDKs. Braintrust also traces OpenAI SDK calls from your application, including streaming, structured outputs, and function calling.
-
-## Add OpenAI as an AI provider
-
-To use OpenAI models in the Braintrust playground, API, and gateway, connect OpenAI as a provider in your organization or project AI providers.
-
-1. Go to ** Settings** &gt; [** AI providers**](https://www.braintrust.dev/app/~/configuration/org/secrets).
-2. Click **Organization provider** or **Project provider**, depending on whether you want the provider to be available across every project in the organization or just the current project.
-3. Under **Model providers**, click **OpenAI**.
-4. Choose your authentication method:
- * **API key**: Visit [OpenAI&#x27;s API platform](https://platform.openai.com/api-keys), create a new API key, and paste it into the **Secret** field.
-
- API keys are stored as one-way cryptographic hashes, never in plaintext.
-
- To point this provider at a custom OpenAI endpoint, such as a regional API, expand **More settings** and set these fields.
-
- | Field | What to enter | If you leave it blank |
- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
- | **API base URL** | The API root, such as `https://us.api.openai.com/v1`. Don&#x27;t include a route such as `/chat/completions`. | Braintrust uses the default OpenAI endpoint. |
- | **Endpoint Path** | A single route, including the leading slash, such as `/responses`. Every request goes to that route, whichever API the caller used. | Braintrust appends the route each request targets, so one provider serves both the Chat Completions and Responses APIs. |
-
- Leave **Endpoint Path** blank unless you need to pin this provider to one route.
-
- * **Workload identity federation**: Exchange a Braintrust-signed OIDC token for an OpenAI access token, instead of storing a long-lived OpenAI API key in Braintrust.
-
- Workload identity federation is available only for organization-level providers on Braintrust-hosted organizations with the Braintrust gateway enabled. Project-level providers and self-hosted deployments must use **API key** authentication.
-
-5. If you chose **Workload identity federation**, use the setup values shown in Braintrust to configure OpenAI:
-
- 1. [Create a workload identity provider](https://developers.openai.com/api/docs/guides/workload-identity-federation) in OpenAI. Enter a descriptive **Name**, use the **OIDC issuer URL** and **Audience** shown in Braintrust, and leave uploaded JWKS and attribute transformations disabled.
- 2. From the workload identity provider details page, create a mapping. Use `sub` as the **Key** and the subject pattern shown in Braintrust as the **Value**. Add a mapping attribute for each additional claim shown in Braintrust. Choose the OpenAI **Project**, **Service account**, and **Permissions** Braintrust should use.
- 3. Paste the OpenAI IDs back into Braintrust:
- * **Identity provider ID**: The workload identity provider ID configured for Braintrust.
- * **Service account ID**: The OpenAI service account ID Braintrust should use.
- * **Subject suffix**: A stable suffix for this OpenAI connection. It must match the final part of the subject pattern used in OpenAI.
-
- For general OpenAI concepts and dashboard details, see [OpenAI&#x27;s workload identity federation docs](https://developers.openai.com/api/docs/guides/workload-identity-federation).
-6. Click **Save**.
-
- For the GPT-5 family, whether the `temperature` parameter is configurable depends on the reasoning effort. GPT-5.1 and later accept `temperature` only when reasoning effort is set to `none`. At any higher reasoning effort, and for older GPT-5 models (`gpt-5`, `gpt-5-mini`, `gpt-5-nano`) and GPT-5 Pro, `temperature` isn&#x27;t configurable and is disabled in the Braintrust UI.
-
- Tracing
-
- Braintrust traces OpenAI calls automatically with the `braintrust/hook.mjs` import hook, or manually with `wrapOpenAI`. Either path produces the same spans. Auto-instrumentation is the recommended path for most users.
-
- Using the OpenAI Agents SDK? See the [OpenAI Agents SDK](/docs/integrations/agent-frameworks/openai-agents-sdk) framework docs.
-
- Setup
-
- Install the Braintrust SDK alongside the OpenAI SDK, then configure your API keys.
-
- ```bash pnpm theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- pnpm add braintrust openai
- ```
-
- ```bash npm theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- npm install braintrust openai
- ```
-
- Visit [OpenAI&#x27;s API platform](https://platform.openai.com/api-keys) and create a new API key, then [add it as a Braintrust AI provider](#add-openai-as-an-ai-provider).
-
- ```bash title=&quot;.env&quot; theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- OPENAI_API_KEY= 
- BRAINTRUST_API_KEY= 
-
- # For organizations on the EU data plane, use https://api-eu.braintrust.dev
- # For self-hosted deployments, use your data plane URL
- # BRAINTRUST_API_URL= 
- ```
-
- Auto-instrumentation
-
- To trace OpenAI calls without modifying your application code, initialize Braintrust, create a normal OpenAI client, then run your app with Braintrust&#x27;s import hook to patch the OpenAI SDK at startup.
-
- ```javascript title=&quot;trace-openai-auto.js&quot; theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- import OpenAI from &quot;openai&quot;;
- import { initLogger } from &quot;braintrust&quot;;
-
- initLogger({
- projectName: &quot;My Project&quot;, // Repla</pre></details><details class="step" open><summary>#15 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/deploy/gateway.md</code></summary><pre>&gt; ## Documentation Index
-&gt; Fetch the complete documentation index at: https://braintrust.dev/docs/llms.txt
-&gt; Use this file to discover all available pages before exploring further.
-
-# Use the Braintrust Gateway
-
-&gt; Route requests to any AI provider through a unified LLM API
-
-The Braintrust Gateway provides a unified API to access LLM models from OpenAI, Anthropic, Google, AWS, and other providers. Point your SDKs to the Gateway URL and immediately get automatic caching, observability, and multi-provider support. Use any [supported provider&#x27;s SDK](/docs/integrations/ai-providers) to call any provider&#x27;s models, so you can standardize on one SDK while accessing all available models.
-
-This page uses the Braintrust-hosted Gateway&#x27;s URLs. Self-hosted deployments can run the Gateway inside their own data plane, where it serves the data plane&#x27;s own `/v1/proxy` endpoint instead. See [Deploy the Braintrust Gateway](/docs/admin/self-hosting/configure/networking#braintrust-gateway).
-
- The Braintrust-hosted Gateway (`https://gateway.braintrust.dev`) is in [public preview](/docs/feature-lifecycle#public-preview) and free to use. Braintrust does not provide a service-level agreement (SLA) for the hosted Gateway. If you use it in production, be prepared for changes to behavior, APIs, and configuration. You can monitor uptime on the [Braintrust status page](https://status.braintrust.dev/) under AI Gateway.
-
-## Quickstart
-
- Create a [Braintrust API key](/docs/admin/organizations#manage-api-keys) and set it as an environment variable:
-
- ```bash theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- export BRAINTRUST_API_KEY=&quot; &quot;
- ```
-
- Gateway requests use the permissions of the user or service account that owns the key. To use an [organization-level provider](/docs/admin/ai-providers#organization-ai-providers), the owner needs **Read** access to that provider. To use a [project-level provider](/docs/admin/ai-providers#project-ai-providers), the owner needs **Read** access to the project.
-
- If the Gateway denies a request because the provider is unavailable, confirm that the owner has the required **Read** access.
-
- Add your provider API key in Braintrust so the Gateway can call it on your behalf — you won&#x27;t need to set your provider key locally.
-
- You can do this at the [organization level](/docs/admin/ai-providers#add-an-organization-level-provider) (available across all projects) or the [project level](/docs/admin/ai-providers#add-a-project-level-provider) (overrides organization defaults). See [how project overrides work](/docs/admin/ai-providers#how-project-overrides-work) for the rules that decide which provider a request uses.
-
- Change your SDK&#x27;s base URL to `https://gateway.braintrust.dev` and pass your Braintrust API key as the API key. That&#x27;s it — no other code changes needed.
-
- `https://gateway.braintrust.dev` is the global hosted Gateway endpoint. It uses DNS latency routing and health checks across Braintrust-hosted Gateway regions. Gateway routing is separate from your organization&#x27;s [data plane region](/docs/admin/organizations#data-plane-region). When [logging is enabled](/docs/deploy/gateway#enable-logging), Gateway logs are written to your organization&#x27;s configured data plane.
-
- Set the base URL to `https://gateway.braintrust.dev`.
-
- ```typescript theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- import { OpenAI } from &quot;openai&quot;;
-
- const client = new OpenAI({
- baseURL: &quot;https://gateway.braintrust.dev&quot;,
- apiKey: process.env.BRAINTRUST_API_KEY,
- });
-
- async function main() {
- const response = await client.responses.create({
- model: &quot;gpt-5-mini&quot;,
- input: [
- { role: &quot;user&quot;, content: &quot;Say hello!&quot; },
- ],
- });
-
- console.log(response.output_text);
- }
-
- main();
- ```
-
- ```python theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- import os
-
- from openai import OpenAI
-
- client = OpenAI(
- base_url=&quot;https://gateway.braintrust.dev&quot;,
- api_key=os.environ[&quot;BRAINTRUST_API_KEY&quot;],
- )
-
- response = client.responses.create(
- model=&quot;gpt-5-mini&quot;,
- input=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello!&quot;}],
- )
-
- print(response.output_text)
- ```
-
- Set the base URL to `https://gateway.braintrust.dev`. The `anthropic-version` and `x-api-key` headers are not required when using a Braintrust API key.
-
- ```typescript theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- import Anthropic from &quot;@anthropic-ai/sdk&quot;;
-
- const client = new Anthropic({
- baseURL: &quot;https://gateway.braintrust.dev&quot;,
- apiKey: process.env.BRAINTRUST_API_KEY,
- });
-
- async function main() {
- const response = await client.messages.create({
- model: &quot;claude-haiku-4-5&quot;,
- messages: [{ role: &quot;user&quot;, content: &quot;Say hello!&quot; }],
- });
- console.log(response.content[0].type === &quot;text&quot; ? response.content[0].text : &quot;&quot;);
- }
-
- main();
- ```
-
- ```python theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- import os
-
- from anthropic import Anthropic
-
- client = Anthropic(
- base_url=&quot;https://gateway.braintrust.dev&quot;,
- api_key=os.environ[&quot;BRAINTRUST_API_KEY&quot;],
- )
-
- response = client.messages.create(
- model=&quot;claude-haiku-4-5&quot;,
- messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Say hello!&quot;}],
- )
- print(response.content[0].text)
- ```
-
- Set the base URL to `https://gateway.braintrust.dev` and pass your Braintrust API key as the API key.
-
- ```typescript theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- import { GoogleGenAI } from &quot;@google/genai&quot;;
-
- const client = new GoogleGenAI({
- apiKey: process.env.BRAINTRUST_API_KEY,
- httpOptions: {
- baseUrl: &quot;https://gateway.braintrust.dev&quot;,
- },
- });
-
- async function main() {
- const response = await client.models.generateContent({
- model: &quot;gemini-2.5-flash&quot;,
- contents: &quot;Say hello!&quot;,
- });
- console.log(response.text);
- }
-
- main();
- ```
-
- ```python theme={&quot;theme&quot;:{&quot;light&quot;:&quot;github-light&quot;,&quot;dark&quot;:&quot;github-dark-dimmed&quot;}}
- import os
-
- from google import genai
-
- client = genai.Client(
- api_key=os.environ[&quot;BRAINTRUST_API_KEY&quot;],
- http_options={&quot;base_url&quot;: &quot;https://gateway.</pre></details><details class="step" open><summary>#16 <b>bash</b> <code>cd /home/daytona &amp;&amp; pip install braintrust openai autoevals 2&gt;&amp;1 | tail -20</code></summary><pre>exit=0
-Downloading braintrust-0.38.0-py3-none-any.whl (1.0 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.0/1.0 MB 175.4 MB/s  0:00:00
+ metadata: {model: &quot;gpt-5-m</pre></details><details class="step" open><summary>#11 <b>bash</b> <code>cd /home/daytona &amp;&amp; pip install braintrust openai autoevals</code></summary><pre>exit=0
+Defaulting to user installation because normal site-packages is not writeable
+Collecting braintrust
+  Downloading braintrust-0.39.0-py3-none-any.whl.metadata (4.0 kB)
+Requirement already satisfied: openai in /usr/local/lib/python3.14/site-packages (2.33.0)
+Collecting autoevals
+  Downloading autoevals-0.3.0-py3-none-any.whl.metadata (17 kB)
+Requirement already satisfied: requests in /usr/local/lib/python3.14/site-packages (from braintrust) (2.32.5)
+Collecting chevron (from braintrust)
+  Downloading chevron-0.14.0-py3-none-any.whl.metadata (4.9 kB)
+Requirement already satisfied: tqdm in /usr/local/lib/python3.14/site-packages (from braintrust) (4.67.3)
+Requirement already satisfied: exceptiongroup&gt;=1.2.0 in /usr/local/lib/python3.14/site-packages (from braintrust) (1.3.1)
+Requirement already satisfied: jsonschema in /usr/local/lib/python3.14/site-packages (from braintrust) (4.26.0)
+Requirement already satisfied: packaging in /usr/local/lib/python3.14/site-packages (from braintrust) (25.0)
+Collecting sseclient-py (from braintrust)
+  Downloading sseclient_py-1.9.0-py3-none-any.whl.metadata (1.9 kB)
+Collecting python-slugify (from braintrust)
+  Downloading python_slugify-9.0.0-py3-none-any.whl.metadata (11 kB)
+Requirement already satisfied: typing_extensions&gt;=4.1.0 in /usr/local/lib/python3.14/site-packages (from braintrust) (4.15.0)
+Requirement already satisfied: wrapt in /usr/local/lib/python3.14/site-packages (from braintrust) (2.1.2)
+Requirement already satisfied: anyio&lt;5,&gt;=3.5.0 in /usr/local/lib/python3.14/site-packages (from openai) (4.13.0)
+Requirement already satisfied: distro&lt;2,&gt;=1.7.0 in /usr/local/lib/python3.14/site-packages (from openai) (1.9.0)
+Requirement already satisfied: httpx&lt;1,&gt;=0.23.0 in /usr/local/lib/python3.14/site-packages (from openai) (0.28.1)
+Requirement already satisfied: jiter&lt;1,&gt;=0.10.0 in /usr/local/lib/python3.14/site-packages (from openai) (0.11.1)
+Requirement already satisfied: pydantic&lt;3,&gt;=1.9.0 in /usr/local/lib/python3.14/site-packages (from openai) (2.13.4)
+Requirement already satisfied: sniffio in /usr/local/lib/python3.14/site-packages (from openai) (1.3.1)
+Requirement already satisfied: idna&gt;=2.8 in /usr/local/lib/python3.14/site-packages (from anyio&lt;5,&gt;=3.5.0-&gt;openai) (3.15)
+Requirement already satisfied: certifi in /usr/local/lib/python3.14/site-packages (from httpx&lt;1,&gt;=0.23.0-&gt;openai) (2026.4.22)
+Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.14/site-packages (from httpx&lt;1,&gt;=0.23.0-&gt;openai) (1.0.9)
+Requirement already satisfied: h11&gt;=0.16 in /usr/local/lib/python3.14/site-packages (from httpcore==1.*-&gt;httpx&lt;1,&gt;=0.23.0-&gt;openai) (0.16.0)
+Requirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;3,&gt;=1.9.0-&gt;openai) (0.7.0)
+Requirement already satisfied: pydantic-core==2.46.4 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;3,&gt;=1.9.0-&gt;openai) (2.46.4)
+Requirement already satisfied: typing-inspection&gt;=0.4.2 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;3,&gt;=1.9.0-&gt;openai) (0.4.2)
+Collecting polyleven (from autoevals)
+  Downloading polyleven-0.11.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (4.2 kB)
+Requirement already satisfied: pyyaml in /usr/local/lib/python3.14/site-packages (from autoevals) (6.0.3)
+Requirement already satisfied: attrs&gt;=22.2.0 in /usr/local/lib/python3.14/site-packages (from jsonschema-&gt;braintrust) (26.1.0)
+Requirement already satisfied: jsonschema-specifications&gt;=2023.03.6 in /usr/local/lib/python3.14/site-packages (from jsonschema-&gt;braintrust) (2025.9.1)
+Requirement already satisfied: referencing&gt;=0.28.4 in /usr/local/lib/python3.14/site-packages (from jsonschema-&gt;braintrust) (0.37.0)
+Requirement already satisfied: rpds-py&gt;=0.25.0 in /usr/local/lib/python3.14/site-packages (from jsonschema-&gt;braintrust) (0.30.0)
+Collecting text-unidecode&gt;=1.3 (from python-slugify-&gt;braintrust)
+  Downloading text_unidecode-1.3-py2.py3-none-any.whl.metadata (2.4 kB)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.14/site-packages (from requests-&gt;braintrust) (3.4.7)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.14/site-packages (from requests-&gt;braintrust) (2.7.0)
+Downloading braintrust-0.39.0-py3-none-any.whl (1.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.0/1.0 MB 344.7 MB/s  0:00:00
 Downloading autoevals-0.3.0-py3-none-any.whl (73 kB)
 Downloading chevron-0.14.0-py3-none-any.whl (11 kB)
 Downloading polyleven-0.11.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (21 kB)
@@ -1079,193 +713,131 @@ Installing collected packages: text-unidecode, chevron, sseclient-py, python-slu
   WARNING: The script braintrust is installed in &#x27;/home/daytona/.local/bin&#x27; which is not on PATH.
   Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
 
-Successfully installed autoevals-0.3.0 braintrust-0.38.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-9.0.0 sseclient-py-1.9.0 text-unidecode-1.3
+Successfully installed autoevals-0.3.0 braintrust-0.39.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-9.0.0 sseclient-py-1.9.0 text-unidecode-1.3
 
 [notice] A new release of pip is available: 26.0.1 -&gt; 26.2.1
 [notice] To update, run: pip install --upgrade pip
-</pre></details><details class="step" open><summary>#17 <b>write_file</b> <code>/home/daytona/movie_matcher.py</code></summary><pre>wrote /home/daytona/movie_matcher.py (1740 bytes)</pre></details><details class="step" open><summary>#18 <b>bash</b> <code>cd /home/daytona &amp;&amp; export PATH=&quot;$HOME/.local/bin:$PATH&quot; &amp;&amp; which bt 2&gt;/dev/null || echo &quot;bt CLI not found&quot;</code></summary><pre>exit=0
-bt not found
-bt CLI not found
-</pre></details><details class="step" open><summary>#19 <b>bash</b> <code>cd /home/daytona &amp;&amp; curl -fsSL https://bt.dev/cli/install.sh | sh 2&gt;&amp;1</code></summary><pre>exit=0
-curl: (35) Recv failure: Connection reset by peer
-</pre></details><details class="step" open><summary>#20 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 movie_matcher.py 2&gt;&amp;1</code></summary><pre>exit=1
+</pre></details><details class="step" open><summary>#12 <b>bash</b> <code>echo &quot;BRAINTRUST_API_KEY is set: $([ -n &quot;$BRAINTRUST_API_KEY&quot; ] &amp;&amp; echo yes || echo no)&quot; &amp;&amp; echo &quot;OPENAI_API_KEY is set: $([ -n &quot;$OPENAI_API</code></summary><pre>exit=0
+BRAINTRUST_API_KEY is set: yes
+OPENAI_API_KEY is set: no
+</pre></details><details class="step" open><summary>#13 <b>bash</b> <code>env | grep -i &quot;api_key\|apikey&quot; | sed &#x27;s/=.*$/=***hidden***/&#x27;</code></summary><pre>exit=0
+BRAINTRUST_API_KEY=***hidden***
+</pre></details><details class="step" open><summary>#14 <b>bash</b> <code>env | grep -i &quot;key\|token\|secret&quot; | sed &#x27;s/=.*$/=***hidden***/&#x27;</code></summary><pre>exit=0
+BRAINTRUST_API_KEY=***hidden***
+</pre></details><details class="step" open><summary>#15 <b>bash</b> <code>env | grep -i &quot;openai\|anthropic\|gemini\|azure\|groq\|together\|mistral\|cohere\|claude&quot; | sed &#x27;s/=.*$/=***hidden***/&#x27;</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#16 <b>bash</b> <code>env | sort | sed &#x27;s/=.*$/=***hidden***/&#x27;</code></summary><pre>exit=0
+BRAINTRUST_API_KEY=***hidden***
+DAYTONA_AMD_KFD_TOPOLOGY_WAIT=***hidden***
+DAYTONA_ORGANIZATION_ID=***hidden***
+DAYTONA_OTEL_ENDPOINT=***hidden***
+DAYTONA_REGION_ID=***hidden***
+DAYTONA_SANDBOX_ID=***hidden***
+DAYTONA_SANDBOX_SNAPSHOT=***hidden***
+DAYTONA_SANDBOX_USER=***hidden***
+DAYTONA_USER_HOME_AS_WORKDIR=***hidden***
+GTK_MODULES=***hidden***
+HOME=***hidden***
+HOSTNAME=***hidden***
+LANG=***hidden***
+LC_ALL=***hidden***
+LOGNAME=***hidden***
+NO_AT_BRIDGE=***hidden***
+NVM_DIR=***hidden***
+NVM_SYMLINK_CURRENT=***hidden***
+OLDPWD=***hidden***
+PATH=***hidden***
+PIPX_BIN_DIR=***hidden***
+PIPX_HOME=***hidden***
+PWD=***hidden***
+PYTHON_PATH=***hidden***
+PYTHON_SHA256=***hidden***
+PYTHON_VERSION=***hidden***
+QT_ACCESSIBILITY=***hidden***
+SHLVL=***hidden***
+_=***hidden***
+</pre></details><details class="step" open><summary>#17 <b>bash</b> <code>env | grep -iE &quot;(openai|anthropic|gemini|azure|groq|together|mistral|cohere|claude|xai|perplexity|fireworks|replicate|ollama|bedrock|vertex|</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#18 <b>bash</b> <code>env | grep -vE &quot;^(HOME|HOSTNAME|LANG|LC_ALL|LOGNAME|PATH|PWD|SHLVL|OLDPWD|_|GTK_MODULES|QT_ACCESSIBILITY|NO_AT_BRIDGE|DAYTONA|NVM|PIPX|PYTHO</code></summary><pre>exit=0
+BRAINTRUST_API_KEY=***hidden***
+</pre></details><details class="step" open><summary>#19 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/evaluate/write-scorers.md</code></summary><pre>&gt; ## Documentation Index
+&gt; Fetch the complete documentation index at: https://braintrust.dev/docs/llms.txt
+&gt; Use this file to discover all available pages before exploring further.
+
+# Evaluate output quality with scorers and classifiers
+
+&gt; Build scorers and classifiers to evaluate AI outputs with numeric scores or categorical labels, in experiments and in production.
+
+Scorers evaluate AI output quality by assigning scores between 0 and 1 based on criteria you define, like factual accuracy, helpfulness, or correct formatting. Classifiers categorize AI output by assigning a categorical label instead of a numeric score, along a dimension you define, like intent, sentiment, or topic.
+
+Run scorers and classifiers on [experiment](/docs/evaluate/run-evaluations) test cases, or apply them continuously with [online scoring](/docs/evaluate/score-online) on production traces. Results show up alongside your experiments and logs, so you can monitor quality over time, filter by category, and add the most useful examples back into your datasets.
+
+## Scorers
+
+Scorers return a numeric score between 0 and 1, measuring qualities like factual accuracy, helpfulness, or correct formatting. Use a scorer to:
+
+* Track quality over time.
+* Compute average quality scores.
+* Set pass/fail thresholds.
+* Rank and compare outputs.
+
+A scorer receives the `input`, `output`, `expected`, `metadata`, and `trace` for each result, and returns a number between 0 and 1 (optionally with a `name` and `metadata`).
+
+There are three types of scorers:
+
+* [**Autoevals**](/docs/evaluate/autoevals): Pre-built, battle-tested scorers for common evaluation tasks like factuality checking, semantic similarity, and format validation. Best for standard evaluation needs where reliable scorers already exist.
+* [**LLM-as-a-judge**](/docs/evaluate/llm-as-a-judge): Use language models to evaluate outputs based on natural language criteria and instructions. Best for subjective judgments like tone, helpfulness, or creativity that are difficult to encode in deterministic code.
+* [**Custom code**](/docs/evaluate/custom-code): Write custom evaluation logic with full control over the scoring algorithm. Best for specific business rules, pattern matching, or calculations unique to your use case.
+
+## Classifiers
+
+Classifiers receive the same arguments as a scorer, but they return a classification (a categorical label) instead of a numeric score. A label groups outputs into categories without ranking them, so unlike a score it implies no relative quality. Use a classifier to:
+
+* Categorize outputs by a dimension like sentiment, intent, or issue type.
+* Filter results by category.
+* Build evaluation datasets from the outputs in a category.
+
+A classification has a `name` (the group it belongs to, such as `intent`), an `id` (the value within that group, such as `password_reset`), an optional `label` for display (such as `Password reset`), and optional `metadata`.
+
+In the experiments and logs tables and in playground results, each classifier appears as its own column under a `classifications.` prefix that you can sort and filter. In experiments and playgrounds, you can also group rows by a classifier column. See [Interpret evaluation results](/docs/evaluate/interpret-results#show-and-hide-columns) for details.
+
+There are two types of classifiers:
+
+* [**LLM-as-a-judge**](/docs/evaluate/llm-as-a-judge#apply-classification-labels): Use a language model to choose a label from a fixed set based on natural language criteria. Best for subjective or semantic categories like intent, sentiment, or topic, where the right label depends on understanding the content.
+* [**Custom code**](/docs/evaluate/custom-code#apply-classification-labels): Write logic that returns a label directly. Best for deterministic categories you can derive from explicit rules, patterns, or computed values.
+
+ Classifiers require TypeScript SDK v3.9.0+, Python SDK v0.16.0+, Go SDK v0.8.0+, Java SDK v0.3.12+, Ruby SDK v0.4.0+, or C# SDK v0.2.8+. On self-hosted deployments, classifiers require data plane v2.0 or later.
+
+ To classify logs automatically instead of defining your own classifier, use [Topics](/docs/observe/topics), which generates classifications from your production traffic.
+
+## Where to define scorers and classifiers
+
+You can define scorers in three places, and classifiers in two of them (inline in your eval or in the UI):
+
+* **Inline in SDK code**: Define scorers directly in your evaluation scripts. Best for local development, access to complex dependencies, or application-specific logic tightly coupled to your codebase.
+* **Pushed via CLI**: Define TypeScript or Python scorers in code files and push them to Braintrust. Best for version control in Git, team-wide sharing across projects, and automatic evaluation of production logs.
+* **Created in UI**: Build TypeScript or Python scorers in the Braintrust web interface. Best for rapid prototyping and simple [LLM-as-a-judge](/docs/evaluate/llm-as-a-judge) scorers and classifiers.
+
+Most teams prototype in the UI, develop complex scorers inline, then push production-ready scorers to Braintrust for team-wide use.
+
+ In the SDKs, scorers and classifiers are distinct function types, with a dedicated parameter for classifiers separate from scorers. In the UI, you create a classifier by setting a scorer&#x27;s **Output type** to **Classification**.
+
+## Inputs to scorers and classifiers
+
+Scorers and classifiers are built for one of two input shapes:
+
+* **Span**: Runs on an individual span, such as a single LLM response or tool call. Each matching span is evaluated independently.
+* **Trace**: Runs once on an entire trace after it completes, with access to all of its spans.
+
+A trace-level scorer can evaluate more than one span. To do this, [LLM-as-a-judge](/docs/evaluate/llm-as-a-judge#score-traces) scorers use thread variables such as `{{thread}}`, and [custom code](/docs/evaluate/custom-code#score-traces) scorers read the `trace` argument.
+
+When setting </pre></details><details class="step" open><summary>#20 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;import braintrust; print(braintrust.__version__)&quot;</code></summary><pre>exit=1
 Traceback (most recent call last):
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
-    response = self._make_request(
-        conn,
-    ...&lt;10 lines&gt;...
-        **response_kw,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
-    raise new_e
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
-    self._validate_conn(conn)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
-    conn.connect()
-    ~~~~~~~~~~~~^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
-    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
-        sock=sock,
-    ...&lt;14 lines&gt;...
-        assert_fingerprint=self.assert_fingerprint,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 975, in _ssl_wrap_socket_and_match_hostname
-    ssl_sock = ssl_wrap_socket(
-        sock=sock,
-    ...&lt;8 lines&gt;...
-        tls_in_tls=tls_in_tls,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 433, in ssl_wrap_socket
-    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 477, in _ssl_wrap_socket_impl
-    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
-           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 455, in wrap_socket
-    return self.sslsocket_class._create(
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-        sock=sock,
-        ^^^^^^^^^^
-    ...&lt;5 lines&gt;...
-        session=session
-        ^^^^^^^^^^^^^^^
-    )
-    ^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1076, in _create
-    self.do_handshake()
-    ~~~~~~~~~~~~~~~~~^^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1372, in do_handshake
-    self._sslobj.do_handshake()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
-ConnectionResetError: [Errno 104] Connection reset by peer
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File &quot;/usr/local/lib/python3.14/site-packages/requests/adapters.py&quot;, line 644, in send
-    resp = conn.urlopen(
-        method=request.method,
-    ...&lt;9 lines&gt;...
-        chunked=chunked,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 842, in urlopen
-    retries = retries.increment(
-        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/retry.py&quot;, line 498, in increment
-    raise reraise(type(error), error, _stacktrace)
-          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/util.py&quot;, line 38, in reraise
-    raise value.with_traceback(tb)
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
-    response = self._make_request(
-        conn,
-    ...&lt;10 lines&gt;...
-        **response_kw,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 488, in _make_request
-    raise new_e
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 464, in _make_request
-    self._validate_conn(conn)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 1106, in _validate_conn
-    conn.connect()
-    ~~~~~~~~~~~~^^
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 796, in connect
-    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
-        sock=sock,
-    ...&lt;14 lines&gt;...
-        assert_fingerprint=self.assert_fingerprint,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connection.py&quot;, line 975, in _ssl_wrap_socket_and_match_hostname
-    ssl_sock = ssl_wrap_socket(
-        sock=sock,
-    ...&lt;8 lines&gt;...
-        tls_in_tls=tls_in_tls,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 433, in ssl_wrap_socket
-    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
-  File &quot;/usr/local/lib/python3.14/site-packages/urllib3/util/ssl_.py&quot;, line 477, in _ssl_wrap_socket_impl
-    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
-           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 455, in wrap_socket
-    return self.sslsocket_class._create(
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-        sock=sock,
-        ^^^^^^^^^^
-    ...&lt;5 lines&gt;...
-        session=session
-        ^^^^^^^^^^^^^^^
-    )
-    ^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1076, in _create
-    self.do_handshake()
-    ~~~~~~~~~~~~~~~~~^^
-  File &quot;/usr/local/lib/python3.14/ssl.py&quot;, line 1372, in do_handshake
-    self._sslobj.do_handshake()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
-urllib3.exceptions.ProtocolError: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/api/_transport.py&quot;, line 308, in request
-    response = self.session.request(
-        method,
-    ...&lt;7 lines&gt;...
-        **kwargs,
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/requests/sessions.py&quot;, line 589, in request
-    resp = self.send(prep, **send_kwargs)
-  File &quot;/usr/local/lib/python3.14/site-packages/requests/sessions.py&quot;, line 703, in send
-    r = adapter.send(request, **kwargs)
-  File &quot;/usr/local/lib/python3.14/site-packages/requests/adapters.py&quot;, line 659, in send
-    raise ConnectionError(err, request=request)
-requests.exceptions.ConnectionError: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
-
-The above excepti</pre></details><details class="step" open><summary>#21 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
-import braintrust
-print(&#x27;Braintrust version:&#x27;, braintrust.__version__)
-print(&#x27;Default API URL:&#x27;, getattr(br</code></summary><pre>exit=1
-Traceback (most recent call last):
-  File &quot;&lt;string&gt;&quot;, line 3, in &lt;module&gt;
-    print(&#x27;Braintrust version:&#x27;, braintrust.__version__)
-                                 ^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+    import braintrust; print(braintrust.__version__)
+                             ^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: module &#x27;braintrust&#x27; has no attribute &#x27;__version__&#x27;
-</pre></details><details class="step" open><summary>#22 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
-import braintrust
-print(dir(braintrust))
-&quot; 2&gt;&amp;1</code></summary><pre>exit=0
-[&#x27;ABC&#x27;, &#x27;AISecret&#x27;, &#x27;AUDIT_METADATA_FIELD&#x27;, &#x27;AUDIT_SOURCE_FIELD&#x27;, &#x27;Acl&#x27;, &#x27;AclObjectType&#x27;, &#x27;Agent&#x27;, &#x27;Any&#x27;, &#x27;AnyModelParams&#x27;, &#x27;ApiKey&#x27;, &#x27;AsyncIterator&#x27;, &#x27;AsyncScoringControl&#x27;, &#x27;AsyncScoringState&#x27;, &#x27;Attachment&#x27;, &#x27;AttachmentMetadata&#x27;, &#x27;AttachmentReference&#x27;, &#x27;AttachmentStatus&#x27;, &#x27;AuditResource&#x27;, &#x27;AutomationStatus&#x27;, &#x27;BACKGROUND_LOGGER_BASE_SLEEP_TIME_S&#x27;, &#x27;BAGGAGE_HEADER&#x27;, &#x27;BRAINTRUST_PARAMS&#x27;, &#x27;BRAINTRUST_PARENT_KEY&#x27;, &#x27;BT_IS_ASYNC_ATTRIBUTE&#x27;, &#x27;BaseAttachment&#x27;, &#x27;BaseExperiment&#x27;, &#x27;BatchedFacetData&#x27;, &#x27;BraintrustAPIError&#x27;, &#x27;BraintrustAttachmentReference&#x27;, &#x27;BraintrustClient&#x27;, &#x27;BraintrustConsoleChunk&#x27;, &#x27;BraintrustEnv&#x27;, &#x27;BraintrustErrorChunk&#x27;, &#x27;BraintrustHTTPError&#x27;, &#x27;BraintrustInvokeError&#x27;, &#x27;BraintrustJSONDecodeError&#x27;, &#x27;BraintrustJsonChunk&#x27;, &#x27;BraintrustModelParams&#x27;, &#x27;BraintrustOpenApiClient&#x27;, &#x27;BraintrustProgressChunk&#x27;, &#x27;BraintrustState&#x27;, &#x27;BraintrustStream&#x27;, &#x27;BraintrustStreamChunk&#x27;, &#x27;BraintrustTextChunk&#x27;, &#x27;BraintrustTransportError&#x27;, &#x27;CallEvent&#x27;, &#x27;Callable&#x27;, &#x27;ChatCompletionContentPart&#x27;, &#x27;ChatCompletionContentPartFileFile&#x27;, &#x27;ChatCompletionContentPartFileWithTitle&#x27;, &#x27;ChatCompletionContentPartImageWithTitle&#x27;, &#x27;ChatCompletionContentPartText&#x27;, &#x27;ChatCompletionContentPartTextWithTitle&#x27;, &#x27;ChatCompletionMessageParam&#x27;, &#x27;ChatCompletionMessageReasoning&#x27;, &#x27;ChatCompletionMessageToolCall&#x27;, &#x27;ChatCompletionOpenAIMessageParam&#x27;, &#x27;ChatCompletionTool&#x27;, &#x27;Classification&#x27;, &#x27;ClassifierBuilder&#x27;, &#x27;CodeBundle&#x27;, &#x27;CodeFunction&#x27;, &#x27;CodeParameters&#x27;, &#x27;CodePrompt&#x27;, &#x27;DATA_API_VERSION&#x27;, &#x27;DEFAULT_APP_URL&#x27;, &#x27;DEFAULT_FETCH_BATCH_SIZE&#x27;, &#x27;DEFAULT_IS_LEGACY_DATASET&#x27;, &#x27;DEFAULT_MAX_REQUEST_SIZE&#x27;, &#x27;DEFAULT_QUEUE_SIZE&#x27;, &#x27;DEFAULT_RETRYABLE_STATUSES&#x27;, &#x27;DataSummary&#x27;, &#x27;Dataset&#x27;, &#x27;DatasetEvent&#x27;, &#x27;DatasetPipeline&#x27;, &#x27;DatasetPipelineDefinition&#x27;, &#x27;DatasetPipelineRow&#x27;, &#x27;DatasetPipelineScope&#x27;, &#x27;DatasetPipelineSource&#x27;, &#x27;DatasetPipelineTarget&#x27;, &#x27;DatasetPipelineTransform&#x27;, &#x27;DatasetPipelineTransformArgs&#x27;, &#x27;DatasetPipelineTransformResult&#x27;, &#x27;DatasetRef&#x27;, &#x27;DatasetSnapshot&#x27;, &#x27;DatasetSummary&#x27;, &#x27;DiskCache&#x27;, &#x27;EnvVar&#x27;, &#x27;Eval&#x27;, &#x27;EvalAsync&#x27;, &#x27;EvalCase&#x27;, &#x27;EvalHooks&#x27;, &#x27;EvalParameters&#x27;, &#x27;Evaluator&#x27;, &#x27;Experiment&#x27;, &#x27;ExperimentDatasetEvent&#x27;, &#x27;ExperimentDatasetIterator&#x27;, &#x27;ExperimentEvent&#x27;, &#x27;ExperimentIdentifier&#x27;, &#x27;ExperimentSummary&#x27;, &#x27;Exportable&#x27;, &#x27;ExtendedSavedFunctionId&#x27;, &#x27;ExternalAttachment&#x27;, &#x27;ExternalAttachmentReference&#x27;, &#x27;F&#x27;, &#x27;FacetData&#x27;, &#x27;FacetPreprocessorId&#x27;, &#x27;Function&#x27;, &#x27;FunctionData&#x27;, &#x27;FunctionFormat&#x27;, &#x27;FunctionId&#x27;, &#x27;FunctionIdRef&#x27;, &#x27;FunctionObjectType&#x27;, &#x27;FunctionOutputType&#x27;, &#x27;FunctionTypeEnum&#x27;, &#x27;FunctionTypeEnumNullish&#x27;, &#x27;GLOBAL_PROJECT&#x27;, &#x27;Generator&#x27;, &#x27;Generic&#x27;, &#x27;GitMetadataSettings&#x27;, &#x27;GraphData&#x27;, &#x27;GraphEdge&#x27;, &#x27;GraphNode&#x27;, &#x27;Group&#x27;, &#x27;GroupScope&#x27;, &#x27;HTTPAdapter&#x27;, &#x27;HTTPConnection&#x27;, &#x27;HTTP_REQUEST_THREAD_POOL&#x27;, &#x27;INVOKE_API_VERSION&#x27;, &#x27;IS_MERGE_FIELD&#x27;, &#x27;IfExists&#x27;, &#x27;ImagePart&#x27;, &#x27;ImageRenderingMode&#x27;, &#x27;InvokeFunction&#x27;, &#x27;InvokeParent&#x27;, &#x27;Iterable&#x27;, &#x27;Iterator&#x27;, &#x27;JSONAttachment&#x27;, &#x27;LOGS3_OVERFLOW_REFERENCE_TYPE&#x27;, &#x27;LRUCache&#x27;, &#x27;LazyValue&#x27;, &#x27;Literal&#x27;, &#x27;LogItemWithMeta&#x27;, &#x27;LogQueue&#x27;, &#x27;Logger&#x27;, &#x27;LoginResult&#x27;, &#x27;Logs3OverflowInputRow&#x27;, &#x27;MAX_BTQL_ITERATIONS&#x27;, &#x27;MCPServer&#x27;, &#x27;Mapping&#x27;, &#x27;MarkAsyncWrapper&#x27;, &#x27;MessageRole&#x27;, &#x27;Metadata&#x27;, &#x27;MetricSummary&#x27;, &#x27;ModeType&#x27;, &#x27;ModelParams&#x27;, &#x27;MutableMapping&#x27;, &#x27;NOOP_SPAN&#x27;, &#x27;NOOP_SPAN_PERMALINK&#x27;, &#x27;NamedScore&#x27;, &#x27;NamedScoreDict&#x27;, &#x27;NullableSavedFunctionId&#x27;, &#x27;OBJECT_DELETE_FIELD&#x27;, &#x27;OBJECT_ID_KEYS&#x27;, &#x27;ObjectFetcher&#x27;, &#x27;ObjectIterator&#x27;, &#x27;ObjectMetadata&#x27;, &#x27;ObjectReference&#x27;, &#x27;ObjectReferenceNullish&#x27;, &#x27;ObjectType&#x27;, &#x27;OnlineScoreConfig&#x27;, &#x27;OrgAutomation&#x27;, &#x27;OrgProjectMetadata&#x27;, &#x27;Organization&#x27;, &#x27;OrganizationInfo&#x27;, &#x27;ParametersBuilder&#x27;, &#x27;ParametersCache&#x27;, &#x27;ParametersRef&#x27;, &#x27;ParentSpanIds&#x27;, &#x27;Permission&#x27;, &#x27;PreprocessorId&#x27;, &#x27;Project&#x27;, &#x27;ProjectAutomation&#x27;, &#x27;ProjectBuilder&#x27;, &#x27;ProjectDatasetMetadata&#x27;, &#x27;ProjectExperimentMetadata&#x27;, &#x27;ProjectGroup&#x27;, &#x27;ProjectIdCache&#x27;, &#x27;ProjectLogsEvent&#x27;, &#x27;ProjectScore&#x27;, &#x27;ProjectScoreCategories&#x27;, &#x27;ProjectScoreCategory&#x27;, &#x27;ProjectScoreCondition&#x27;, &#x27;ProjectScoreConfig&#x27;, &#x27;ProjectScoreType&#x27;, &#x27;ProjectSettings&#x27;, &#x27;ProjectTag&#x27;, &#x27;Prompt&#x27;, &#x27;PromptBlockData&#x27;, &#x27;PromptBlockDataNullish&#x27;, &#x27;PromptBuilder&#x27;, &#x27;PromptCache&#x27;, &#x27;PromptData&#x27;, &#x27;PromptDataNullish&#x27;, &#x27;PromptMessage&#x27;, &#x27;PromptOptions&#x27;, &#x27;PromptOptionsNullish&#x27;, &#x27;PromptParserNullish&#x27;, &#x27;PromptSchema&#x27;, &#x27;PromptSessionEvent&#x27;, &#x27;PropagatedState&#x27;, &#x27;REDACTION_FIELDS&#x27;, &#x27;ReadonlyAttachment&#x27;, &#x27;ReadonlyExperiment&#x27;, &#x27;RegisterSandboxResult&#x27;, &#x27;RegisteredSandboxFunction&#x27;, &#x27;RemoteEvalParameters&#x27;, &#x27;RepoInfo&#x27;, &#x27;Reporter&#x27;, &#x27;ResponseFormat&#x27;, &#x27;ResponseFormatJsonSchema&#x27;, &#x27;ResponseFormatNullish&#x27;, &#x27;RetentionObjectType&#x27;, &#x27;RetryRequestExceptionsAdapter&#x27;, &#x27;Role&#x27;, &#x27;RunEval&#x27;, &#x27;SSEClient&#x27;, &#x27;SSEConsoleEventData&#x27;, &#x27;SSEProgressEventData&#x27;, &#x27;SandboxConfig&#x27;, &#x27;SavedFunctionId&#x27;, &#x27;Score&#x27;, &#x27;ScoreDict&#x27;, &#x27;ScoreObject&#x27;, &#x27;ScoreResult&#x27;, &#x27;ScoreSummary&#x27;, &#x27;ScorerBuilder&#x27;, &#x27;Sequence&#x27;, &#x27;SerializableDataClass&#x27;, &#x27;ServiceToken&#x27;, &#x27;Span&#x27;, &#x27;SpanAttributes&#x27;, &#x27;SpanComponentsV3&#x27;, &#x27;SpanComponentsV4&#x27;, &#x27;SpanIFrame&#x27;, &#x27;SpanIds&#x27;, &#x27;SpanImpl&#x27;, &#x27;SpanInternalOptions&#x27;, &#x27;SpanObjectTypeV3&#x27;, &#x27;SpanOriginEnvironment&#x27;, &#x27;SpanScope&#x27;, &#x27;SpanType&#x27;, &#x27;SpanTypeAttribute&#x27;, &#x27;StreamingMode&#x27;, &#x27;SummaryResult&#x27;, &#x27;SummarySkipped&#x27;, &#x27;SummarySuccess&#x27;, &#x27;T&#x27;, &#x27;TEST_API_KEY&#x27;, &#x27;TMapping&#x27;, &#x27;TMutableMapping&#x27;, &#x27;TRACEPARENT_HEADER&#x27;, &#x27;TRACESTATE_HEADER&#x27;, &#x27;TRANSACTION_ID_FIELD&#x27;, &#x27;TextPart&#x27;, &#x27;ToolBuilder&#x27;, &#x27;ToolFunctionDefinition&#x27;, &#x27;TopicAutomationConfig&#x27;, &#x27;TopicAutomationDataScope&#x27;, &#x27;TopicAutomationFacetModel&#x27;, &#x27;TopicDigestAutomationConfig&#x27;, &#x27;TopicMapData&#x27;, &#x27;TopicMapFunctionAutomation&#x27;, &#x27;TopicMapGenerationSettings&#x27;, &#x27;TraceScope&#x27;, &#x27;TracebackType&#x27;, &#x27;TracedThreadPoolExecutor&#x27;, &#x27;TriggeredFunctionState&#x27;, &#x27;TypeVar&#x27;, &#x27;TypedDict&#x27;, &#x27;UploadStatus&#x27;, &#x27;User&#x27;, &#x27;VALID_SOURCES&#x27;, &#x27;View&#x27;, &#x27;ViewData&#x27;, &#x27;ViewDataSearch&#x27;, &#x27;ViewOptions&#x27;, &#x27;WindowedAutomationConfig&#x27;, &#x27;__builtins__&#x27;, &#x27;__cached__&#x27;, &#x27;__doc__&#x27;, &#x27;__file__&#x27;, &#x27;__loader__&#x27;, &#x27;__name__&#x27;, &#x27;__package__&#x27;, &#x27;__path__&#x27;, &#x27;__spec__&#x27;, &#x27;_generated_types&#x27;, &#x27;_internal_get_global_state&#x27;, &#x27;_internal_reset_global_state&#x27;, &#x27;_internal_with_custom_background_logger&#x27;, &#x27;abstractmethod&#x27;, &#x27;add_azure_blob_headers&#x27;, &#x27;api&#x27;, &#x27;api_conn&#x27;, &#x27;app_conn&#x27;, &#x27;asyncio&#x27;, &#x27;atexit&#x27;, &#x27;audit&#x27;, &#x27;auto&#x27;, &#x27;auto_instrument&#x27;, &#x27;base64&#x27;, &#x27;batch_ite</pre></details><details class="step" open><summary>#23 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
-import braintrust
-print(&#x27;DEFAULT_APP_URL:&#x27;, braintrust.DEFAULT_APP_URL)
-&quot; 2&gt;&amp;1</code></summary><pre>exit=0
-DEFAULT_APP_URL: https://www.braintrust.dev
-</pre></details><details class="step" open><summary>#24 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
-import braintrust
-# Check for API URL constants
-for attr in dir(braintrust):
-    if &#x27;URL&#x27; in attr or &#x27;API&#x27; </code></summary><pre>exit=0
-DEFAULT_APP_URL: https://www.braintrust.dev
-TEST_API_KEY: ___TEST_API_KEY__
-</pre></details><details class="step" open><summary>#25 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
-import braintrust
-import inspect
-print(inspect.getfile(braintrust))
-&quot; 2&gt;&amp;1</code></summary><pre>exit=0
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/__init__.py
-</pre></details><details class="step" open><summary>#26 <b>bash</b> <code>cd /home/daytona &amp;&amp; grep -r &quot;api.braintrust&quot; ~/.local/lib/python3.14/site-packages/braintrust/ 2&gt;/dev/null | head -20</code></summary><pre>exit=0
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/logger.py:        api_url = BraintrustEnv.API_URL.get(&quot;https://api.braintrust.ai&quot;)
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_logger.py:    state.proxy_url = &quot;https://api.braintrust.dev&quot;
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_logger.py:    assert state.proxy_conn().base_url == &quot;https://api.braintrust.dev&quot;
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_otel.py:        assert exporter._endpoint == &quot;https://api.braintrust.dev/otel/v1/traces&quot;
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_sandbox.py:    state.api_url = &quot;https://api.braintrust.dev&quot;
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_sandbox.py:    state.proxy_url = &quot;https://api.braintrust.dev&quot;
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/btx/span_fetcher.py:    return os.environ.get(&quot;BRAINTRUST_API_URL&quot;, &quot;https://api.braintrust.dev&quot;).rstrip(&quot;/&quot;)
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/otel/__init__.py:    - BRAINTRUST_API_URL: Base URL for Braintrust API (defaults to https://api.braintrust.dev).
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/otel/__init__.py:        base_url = os.environ.get(&quot;BRAINTRUST_API_URL&quot;, &quot;https://api.braintrust.dev&quot;)
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/otel/__init__.py:            api_url: Base URL for Braintrust API. Defaults to BRAINTRUST_API_URL env var or https://api.braintrust.dev.
-</pre></details><details class="step" open><summary>#27 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 movie_matcher.py 2&gt;&amp;1</code></summary><pre>exit=1
+</pre></details><details class="step" open><summary>#21 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;import braintrust; import autoevals; import openai; print(&#x27;All imports successful&#x27;)&quot;</code></summary><pre>exit=0
+All imports successful
+</pre></details><details class="step" open><summary>#22 <b>write_file</b> <code>{&quot;path&quot;: &quot;/home/daytona/movie_matcher.py&quot;, &quot;content&quot;: &quot;from braintrust import Eval\nfrom autoevals import ExactMatch\n\n# A simple determini</code></summary><pre>wrote /home/daytona/movie_matcher.py (2411 bytes)</pre></details><details class="step" open><summary>#23 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 movie_matcher.py</code></summary><pre>exit=1
 Traceback (most recent call last):
   File &quot;/usr/local/lib/python3.14/site-packages/urllib3/connectionpool.py&quot;, line 788, in urlopen
     response = self._make_request(
@@ -1400,274 +972,64 @@ Traceback (most recent call last):
     raise ConnectionError(err, request=request)
 requests.exceptions.ConnectionError: (&#x27;Connection aborted.&#x27;, ConnectionResetError(104, &#x27;Connection reset by peer&#x27;))
 
-The above excepti</pre></details><details class="step" open><summary>#28 <b>bash</b> <code>curl -v https://gateway.braintrust.dev 2&gt;&amp;1 | head -30</code></summary><pre>exit=0
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host gateway.braintrust.dev:443 was resolved.
-* IPv6: (none)
-* IPv4: 52.72.221.190, 107.22.199.182, 44.196.203.175
-*   Trying 52.72.221.190:443...
-* ALPN: curl offers h2,http/1.1
-} [5 bytes data]
-* TLSv1.3 (OUT), TLS handshake, Client hello (1):
-} [1577 bytes data]
-*  CAfile: /etc/ssl/certs/ca-certificates.crt
-*  CApath: /etc/ssl/certs
-* Recv failure: Connection reset by peer
-* TLS connect error: error:00000000:lib(0)::reason(0)
-* OpenSSL SSL_connect: Connection reset by peer in connection to gateway.braintrust.dev:443 
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-* closing connection #0
-curl: (35) Recv failure: Connection reset by peer
-</pre></details><details class="step" open><summary>#29 <b>bash</b> <code>curl -v https://api.braintrust.ai 2&gt;&amp;1 | head -30</code></summary><pre>exit=0
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Could not resolve host: api.braintrust.ai
-* shutting down connection #0
-curl: (6) Could not resolve host: api.braintrust.ai
-</pre></details><details class="step" open><summary>#30 <b>bash</b> <code>curl -v https://api.braintrust.dev 2&gt;&amp;1 | head -30</code></summary><pre>exit=0
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host api.braintrust.dev:443 was resolved.
-* IPv6: 2600:9000:23ca:d000:e:a922:ae40:93a1, 2600:9000:23ca:c600:e:a922:ae40:93a1, 2600:9000:23ca:7800:e:a922:ae40:93a1, 2600:9000:23ca:6200:e:a922:ae40:93a1, 2600:9000:23ca:7e00:e:a922:ae40:93a1, 2600:9000:23ca:a00:e:a922:ae40:93a1, 2600:9000:23ca:5200:e:a922:ae40:93a1, 2600:9000:23ca:8800:e:a922:ae40:93a1
-* IPv4: 108.139.29.20, 108.139.29.103, 108.139.29.82, 108.139.29.63
-*   Trying [2600:9000:23ca:d000:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:d000:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:c600:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:c600:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:7800:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:7800:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:6200:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:6200:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:7e00:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:7e00:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:a00:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:a00:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:5200:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:5200:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:8800:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:8800:e:a922:ae40:93a1: Network is unreachable
-*   Trying 108.139.29.20:443...
-* ALPN: curl offers h2,http/1.1
-} [5 bytes data]
-* TLSv1.3 (OUT), TLS handshake, Client hello (1):
-} [1573 bytes data]
-*  CAfile: /etc/ssl/certs/ca-certificates.crt
-*  CApath: /etc/ssl/certs
-* Recv failure: Connection reset by peer
-* TLS connect error: error:00000000:lib(0)::reason(0)
-</pre></details><details class="step" open><summary>#31 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
-import braintrust
-# Check for test mode or offline mode
-for attr in dir(braintrust):
-    if &#x27;test&#x27; in attr.</code></summary><pre>exit=0
-TEST_API_KEY
-</pre></details><details class="step" open><summary>#32 <b>bash</b> <code>cd /home/daytona &amp;&amp; grep -r &quot;test_mode\|offline\|dry_run\|mock&quot; ~/.local/lib/python3.14/site-packages/braintrust/ 2&gt;/dev/null | head -20</code></summary><pre>exit=0
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/conftest.py:from unittest.mock import MagicMock
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/conftest.py:def mock_project_ids():
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/conftest.py:    mock = MagicMock(spec=ProjectIdCache)
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/conftest.py:    mock.get.return_value = &quot;project-123&quot;
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/conftest.py:    mock.get_by_name.return_value = &quot;project-123&quot;
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/conftest.py:    return mock
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_bt_json.py:    def test_model_dump_no_pydantic_serializer_warnings(self):
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_framework.py:from unittest.mock import MagicMock, patch
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_framework.py:    state.span_cache.start.reset_mock()
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_framework.py:    state.span_cache.stop.reset_mock()
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_framework2.py:from unittest.mock import MagicMock, patch
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_framework2.py:    mock_state = MagicMock()
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_framework2.py:    mock_state.org_name = &quot;test-org&quot;
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_framework2.py:    mock_state.api_client.return_value.projects.post_project.return_value = {
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_framework2.py:    with patch(&quot;braintrust.logger._state&quot;, mock_state):
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_framework2.py:    mock_state.api_client.return_value.projects.post_project.assert_called_once_with(
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_framework2.py:    mock_state.app_conn.assert_not_called()
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_framework2.py:    def test_code_prompt_to_function_definition_includes_metadata(self, mock_project_ids):
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_framework2.py:        func_def = prompt.to_function_definition(None, mock_project_ids)
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/test_framework2.py:    def test_code_prompt_to_function_definition_excludes_metadata_when_none(self, mock_project_ids):
-</pre></details><details class="step" open><summary>#33 <b>bash</b> <code>cd /home/daytona &amp;&amp; grep -r &quot;class Eval\|def Eval&quot; ~/.local/lib/python3.14/site-packages/braintrust/ 2&gt;/dev/null | head -20</code></summary><pre>exit=0
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/framework.py:class EvalCase(SerializableDataClass, Generic[Input, Expected]):
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/framework.py:class EvalResult(SerializableDataClass, Generic[Input, Output, Expected]):
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/framework.py:class EvalHooks(abc.ABC, Generic[Expected]):
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/framework.py:class EvalScorerArgs(SerializableDataClass, Generic[Input, Output, Expected]):
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/framework.py:class Evaluator(Generic[Input, Output, Expected]):
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/framework.py:class EvalResultWithSummary(SerializableDataClass, Generic[Input, Output, Expected]):
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/framework.py:class EvaluatorInstance(SerializableDataClass, Generic[Input, Output, Expected, EvalReport]):
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/framework.py:class EvaluatorFile(SerializableDataClass):
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/framework.py:async def EvalAsync(
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/framework.py:def Eval(
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/framework.py:class EvalThreadPoolSingleton:
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/cli/eval.py:class EvaluatorOpts:
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/cli/eval.py:class EvaluatorState:
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/devserver/eval_hooks.py:class EvalHooks:
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/integrations/agno/patchers.py:class EvalSuitePatcher(CompositeFunctionWrapperPatcher):
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/types/_eval.py:class EvalCaseDictNoOutput(Generic[Input], TypedDict):
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/types/_eval.py:class EvalCaseDict(Generic[Input, Expected], EvalCaseDictNoOutput[Input]):
-</pre></details><details class="step" open><summary>#34 <b>bash</b> <code>cd /home/daytona &amp;&amp; grep -A 50 &quot;^def Eval(&quot; ~/.local/lib/python3.14/site-packages/braintrust/framework.py 2&gt;/dev/null | head -60</code></summary><pre>exit=0
-def Eval(
-    name: str,
-    data: EvalData[Input, Expected],
-    task: EvalTask[Input, Output, Expected],
-    scores: Sequence[EvalScorer[Input, Output, Expected]] | None = None,
-    classifiers: Sequence[EvalClassifier[Input, Output, Expected]] | None = None,
-    experiment_name: str | None = None,
-    trial_count: int = 1,
-    metadata: Metadata | None = None,
-    tags: Sequence[str] | None = None,
-    is_public: bool = False,
-    update: bool = False,
-    reporter: ReporterDef[Input, Output, Expected, EvalReport] | None = None,
-    timeout: float | None = None,
-    max_concurrency: int | None = None,
-    project_id: str | None = None,
-    base_experiment_name: str | None = None,
-    base_experiment_id: str | None = None,
-    git_metadata_settings: GitMetadataSettings | None = None,
-    repo_info: RepoInfo | None = None,
-    error_score_handler: ErrorScoreHandler[Input, Expected] | None = None,
-    description: str | None = None,
-    summarize_scores: bool = True,
-    no_send_logs: bool = False,
-    parameters: EvalParameters | RemoteEvalParameters | None = None,
-    on_start: Callable[[ExperimentSummary], None] | None = None,
-    stream: Callable[[SSEProgressEvent], None] | None = None,
-    parent: str | None = None,
-    state: BraintrustState | None = None,
-    enable_cache: bool = True,
-) -&gt; EvalResultWithSummary[Input, Output, Expected]:
-    &quot;&quot;&quot;
-    A function you can use to define an evaluator. This is a convenience wrapper around the `Evaluator` class.
-
-    For callers running in an async context, use `EvalAsync()` instead.
-
-    Example:
-    ```python
-    Eval(
-        name=&quot;my-evaluator&quot;,
-        data=lambda: [
-            EvalCase(input=1, expected=2),
-            EvalCase(input=2, expected=4),
-        ],
-        task=lambda input, hooks: input * 2,
-        scores=[
-            NumericDiff,
-        ],
+The above excepti</pre></details><details class="step" open><summary>#24 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 movie_matcher.py 2&gt;&amp;1 | tail -50</code></summary><pre>exit=0
+        ^^^^^^^^^^^^^^^^^^^^
     )
-    ```
-
-</pre></details><details class="step" open><summary>#35 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 -c &quot;
-import braintrust
-# Check the logger module for API URL configuration
-import braintrust.logger as logger
-im</code></summary><pre>exit=0
-100:         self.api_url: str | None = None
-98:         self.org_id: str | None = None
-99:         self.org_name: str | None = None
-101:         self.proxy_url: str | None = None
-102:         self.is_universal_api: bool = False
-103:         self.logged_in: bool = False
-104:         self.git_metadata_settings: GitMetadataSettings | None = None
-105: 
-106:         self._app_conn: HTTPConnection | None = None
-107:         self._api_conn: HTTPConnection | None = None
-108:         self._proxy_conn: HTTPConnection | None = None
-109:         self._client: BraintrustClient | None = None
----
-250:             if not self.api_url:
-248:     def api_conn(self):
-249:         if not self._api_conn:
-251:                 raise RuntimeError(&quot;Must initialize api_url before requesting api_conn&quot;)
-252:             self._api_conn = HTTPConnection(self.api_url, adapter=_http_adapter)
-253:         return self._api_conn
-254: 
-255:     def proxy_conn(self):
-256:         if not self.proxy_url:
-257:             return self.api_conn()
-258: 
-259:         if not self._proxy_conn:
----
-251:                 raise RuntimeError(&quot;Must initialize api_url before requesting api_conn&quot;)
-249:         if not self._api_conn:
-250:             if not self.api_url:
-252:             self._api_conn = HTTPConnection(self.api_url, adapter=_http_adapter)
-253:         return self._api_conn
-254: 
-255:     def proxy_conn(self):
-256:         if not self.proxy_url:
-257:             return self.api_conn()
-258: 
-259:         if not self._proxy_conn:
-260:             if not self.proxy_url:
----
-252:             self._api_conn = HTTPConnection(self.api_url, adapter=_http_adapter)
-250:             if not self.api_url:
-251:                 raise RuntimeError(&quot;Must initialize api_url before requesting api_conn&quot;)
-253:         return self._api_conn
-254: 
-255:     def proxy_conn(self):
-256:         if not self.proxy_url:
-257:             return self.api_conn()
-258: 
-259:         if not self._proxy_conn:
-260:             if not self.proxy_url:
-</pre></details><details class="step" open><summary>#36 <b>bash</b> <code>cd /home/daytona &amp;&amp; grep -n &quot;api_url&quot; ~/.local/lib/python3.14/site-packages/braintrust/logger.py 2&gt;/dev/null | head -30</code></summary><pre>exit=0
-602:        self.api_url: str | None = None
-752:            if not self.api_url:
-753:                raise RuntimeError(&quot;Must initialize api_url before requesting api_conn&quot;)
-754:            self._api_conn = HTTPConnection(self.api_url, adapter=_http_adapter)
-2395:        api_url = BraintrustEnv.API_URL.get(&quot;https://api.braintrust.ai&quot;)
-2400:            api_url=api_url,
-2410:            api_url=api_url,
-2414:        return client, LoginResult(organization=organization, api_url=api_url, proxy_url=proxy_url, response={})
-2428:def _authenticated_api_conn(api_url: str, api_key: str) -&gt; HTTPConnection:
-2429:    conn = HTTPConnection(api_url, adapter=_http_adapter)
-2445:        return _authenticated_api_conn(login_result.api_url, options.api_key)
-2480:    state.api_url = login_result.api_url
-2494:    conn = _authenticated_api_conn(login_result.api_url, api_key)
-3147:            state.api_url = BraintrustEnv.API_URL.get(orgs.get(&quot;api_url&quot;))
-</pre></details><details class="step" open><summary>#37 <b>bash</b> <code>cd /home/daytona &amp;&amp; grep -n &quot;class BraintrustEnv\|API_URL&quot; ~/.local/lib/python3.14/site-packages/braintrust/logger.py 2&gt;/dev/null | head -20</code></summary><pre>exit=0
-2395:        api_url = BraintrustEnv.API_URL.get(&quot;https://api.braintrust.ai&quot;)
-3147:            state.api_url = BraintrustEnv.API_URL.get(orgs.get(&quot;api_url&quot;))
-</pre></details><details class="step" open><summary>#38 <b>bash</b> <code>cd /home/daytona &amp;&amp; grep -rn &quot;class BraintrustEnv\|API_URL&quot; ~/.local/lib/python3.14/site-packages/braintrust/ 2&gt;/dev/null | grep -v test | h</code></summary><pre>exit=0
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/env.py:215:class BraintrustEnv:
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/env.py:217:    API_URL = EnvVar(&quot;BRAINTRUST_API_URL&quot;, EnvParser.STRING)
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/logger.py:2395:        api_url = BraintrustEnv.API_URL.get(&quot;https://api.braintrust.ai&quot;)
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/logger.py:3147:            state.api_url = BraintrustEnv.API_URL.get(orgs.get(&quot;api_url&quot;))
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/api/auth.py:109:        resolved_api_url = api_url or self._api_url or BraintrustEnv.API_URL.get(organization.api_url)
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/api/client.py:75:            api_url=api_url or BraintrustEnv.API_URL.get(None),
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/api/client.py:123:        resolved_api_url = api_url or BraintrustEnv.API_URL.get(None)
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/btx/span_fetcher.py:168:    return os.environ.get(&quot;BRAINTRUST_API_URL&quot;, &quot;https://api.braintrust.dev&quot;).rstrip(&quot;/&quot;)
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/otel/__init__.py:209:    - BRAINTRUST_API_URL: Base URL for Braintrust API (defaults to https://api.braintrust.dev).
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/otel/__init__.py:224:            url: OTLP endpoint URL. Defaults to {BRAINTRUST_API_URL}/otel/v1/traces.
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/otel/__init__.py:230:        base_url = os.environ.get(&quot;BRAINTRUST_API_URL&quot;, &quot;https://api.braintrust.dev&quot;)
-/home/daytona/.local/lib/python3.14/site-packages/braintrust/otel/__init__.py:356:            api_url: Base URL for Braintrust API. Defaults to BRAINTRUST_API_URL env var or https://api.braintrust.dev.
-</pre></details><details class="step" open><summary>#39 <b>bash</b> <code>curl -v https://api.braintrust.ai/v1 2&gt;&amp;1 | head -30</code></summary><pre>exit=0
+    ^
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/framework.py&quot;, line 1039, in Eval
+    f = _EvalCommon(
+        name=name,
+    ...&lt;27 lines&gt;...
+        enable_cache=enable_cache,
+    )
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/framework.py&quot;, line 779, in _EvalCommon
+    experiment = init_experiment(
+        project_name=evaluator.project_name if evaluator.project_id is None else None,
+    ...&lt;13 lines&gt;...
+        state=state,
+    )
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/framework.py&quot;, line 1261, in init_experiment
+    summary = ret.summarize(summarize_scores=False)
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/logger.py&quot;, line 4599, in summarize
+    state = self._get_state()
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/logger.py&quot;, line 4432, in _get_state
+    self._lazy_metadata.get()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/util.py&quot;, line 209, in get
+    res = self.callable()
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/logger.py&quot;, line 1727, in compute_metadata
+    state.login(org_name=org_name, api_key=api_key, app_url=app_url)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/logger.py&quot;, line 737, in login
+    state = login_to_state(
+        app_url=app_url,
+        api_key=api_key,
+        org_name=org_name,
+    )
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/logger.py&quot;, line 2487, in login_to_state
+    client, login_result = _login_with_api_key(app_url=app_url, api_key=api_key, org_name=org_name)
+                           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/logger.py&quot;, line 2430, in _login_with_api_key
+    return client, client.auth.login(org_name=org_name)
+                   ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/api/auth.py&quot;, line 93, in login
+    response = self._transport.request_json(
+        &quot;POST&quot;,
+    ...&lt;2 lines&gt;...
+        retry_mode=RetryMode.SAFE_READ,
+    )
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/api/_transport.py&quot;, line 406, in request_json
+    response = self.request(method, url, **kwargs)
+  File &quot;/home/daytona/.local/lib/python3.14/site-packages/braintrust/api/_transport.py&quot;, line 328, in request
+    raise error from exc
+braintrust.api.errors.BraintrustTransportRetryExhaustedError: POST https://www.braintrust.dev/api/apikey/login failed after 4 attempt(s) without an HTTP response
+</pre></details><details class="step" open><summary>#25 <b>bash</b> <code>curl -v https://www.braintrust.dev/api/apikey/login 2&gt;&amp;1 | head -30</code></summary><pre>exit=0
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Could not resolve host: api.braintrust.ai
-* shutting down connection #0
-curl: (6) Could not resolve host: api.braintrust.ai
-</pre></details><details class="step" open><summary>#40 <b>bash</b> <code>curl -v https://api.braintrust.dev/v1 2&gt;&amp;1 | head -40</code></summary><pre>exit=0
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host api.braintrust.dev:443 was resolved.
-* IPv6: 2600:9000:23ca:6200:e:a922:ae40:93a1, 2600:9000:23ca:8800:e:a922:ae40:93a1, 2600:9000:23ca:5200:e:a922:ae40:93a1, 2600:9000:23ca:7800:e:a922:ae40:93a1, 2600:9000:23ca:d000:e:a922:ae40:93a1, 2600:9000:23ca:c600:e:a922:ae40:93a1, 2600:9000:23ca:7e00:e:a922:ae40:93a1, 2600:9000:23ca:a00:e:a922:ae40:93a1
-* IPv4: 108.139.29.103, 108.139.29.82, 108.139.29.20, 108.139.29.63
-*   Trying [2600:9000:23ca:6200:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:6200:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:8800:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:8800:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:5200:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:5200:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:7800:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:7800:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:d000:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:d000:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:c600:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:c600:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:7e00:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:7e00:e:a922:ae40:93a1: Network is unreachable
-*   Trying [2600:9000:23ca:a00:e:a922:ae40:93a1]:443...
-* Immediate connect fail for 2600:9000:23ca:a00:e:a922:ae40:93a1: Network is unreachable
-*   Trying 108.139.29.103:443...
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host www.braintrust.dev:443 was resolved.
+* IPv6: (none)
+* IPv4: 66.33.60.35, 76.76.21.123
+*   Trying 66.33.60.35:443...
 * ALPN: curl offers h2,http/1.1
 } [5 bytes data]
 * TLSv1.3 (OUT), TLS handshake, Client hello (1):
@@ -1676,9 +1038,214 @@ curl: (6) Could not resolve host: api.braintrust.ai
 *  CApath: /etc/ssl/certs
 * Recv failure: Connection reset by peer
 * TLS connect error: error:00000000:lib(0)::reason(0)
-* OpenSSL SSL_connect: Connection reset by peer in connection to api.braintrust.dev:443 
+* OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
 * closing connection #0
 curl: (35) Recv failure: Connection reset by peer
+</pre></details><details class="step" open><summary>#26 <b>bash</b> <code>env | grep -i braintrust</code></summary><pre>exit=0
+BRAINTRUST_API_KEY=***REDACTED***
+</pre></details><details class="step" open><summary>#27 <b>bash</b> <code>env | grep -iE &quot;(braintrust|proxy|http|https|ssl|tls|ca|cert)&quot; | sed &#x27;s/=.*$/=***hidden***/&#x27;</code></summary><pre>exit=0
+PATH=***hidden***
+DAYTONA_OTEL_ENDPOINT=***hidden***
+DAYTONA_ORGANIZATION_ID=***hidden***
+NVM_DIR=***hidden***
+PYTHON_PATH=***hidden***
+PIPX_HOME=***hidden***
+PIPX_BIN_DIR=***hidden***
+BRAINTRUST_API_KEY=***hidden***
+</pre></details><details class="step" open><summary>#28 <b>bash</b> <code>curl -s https://api.openai.com/v1/models 2&gt;&amp;1 | head -5</code></summary><pre>exit=0
+{
+  &quot;error&quot;: {
+    &quot;message&quot;: &quot;Missing bearer authentication in header&quot;,
+    &quot;type&quot;: &quot;invalid_request_error&quot;,
+    &quot;param&quot;: null,
+</pre></details><details class="step" open><summary>#29 <b>bash</b> <code>curl -v --connect-to www.braintrust.dev:443:76.76.21.123:443 https://www.braintrust.dev/api/apikey/login 2&gt;&amp;1 | head -30</code></summary><pre>exit=0
+* Connecting to hostname: 76.76.21.123
+* Connecting to port: 443
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 76.76.21.123:443...
+* ALPN: curl offers h2,http/1.1
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [1573 bytes data]
+*  CAfile: /etc/ssl/certs/ca-certificates.crt
+*  CApath: /etc/ssl/certs
+* Recv failure: Connection reset by peer
+* TLS connect error: error:00000000:lib(0)::reason(0)
+* OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443 
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+* closing connection #0
+curl: (35) Recv failure: Connection reset by peer
+</pre></details><details class="step" open><summary>#30 <b>bash</b> <code>curl --tlsv1.2 -v https://www.braintrust.dev/api/apikey/login 2&gt;&amp;1 | head -30</code></summary><pre>exit=0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host www.braintrust.dev:443 was resolved.
+* IPv6: (none)
+* IPv4: 76.76.21.142, 66.33.60.66
+*   Trying 76.76.21.142:443...
+* ALPN: curl offers h2,http/1.1
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [1573 bytes data]
+*  CAfile: /etc/ssl/certs/ca-certificates.crt
+*  CApath: /etc/ssl/certs
+* Recv failure: Connection reset by peer
+* TLS connect error: error:00000000:lib(0)::reason(0)
+* OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443 
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+* closing connection #0
+curl: (35) Recv failure: Connection reset by peer
+</pre></details><details class="step" open><summary>#31 <b>bash</b> <code>curl -v http://www.braintrust.dev 2&gt;&amp;1 | head -20</code></summary><pre>exit=0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host www.braintrust.dev:80 was resolved.
+* IPv6: (none)
+* IPv4: 66.33.60.35, 76.76.21.123
+*   Trying 66.33.60.35:80...
+* Connected to www.braintrust.dev (66.33.60.35) port 80
+* using HTTP/1.x
+&gt; GET / HTTP/1.1
+&gt; Host: www.braintrust.dev
+&gt; User-Agent: curl/8.14.1
+&gt; Accept: */*
+&gt; 
+* Request completely sent off
+&lt; HTTP/1.1 403 Forbidden
+&lt; content-length: 45
+&lt; content-type: text/plain
+&lt; date: Fri, 11 Sep 2026 13:34:43 GMT
+&lt; server: envoy
+&lt; 
+</pre></details><details class="step" open><summary>#32 <b>bash</b> <code>curl -v -k https://www.braintrust.dev/api/apikey/login 2&gt;&amp;1 | head -30</code></summary><pre>exit=0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host www.braintrust.dev:443 was resolved.
+* IPv6: (none)
+* IPv4: 66.33.60.35, 76.76.21.123
+*   Trying 66.33.60.35:443...
+* ALPN: curl offers h2,http/1.1
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [1573 bytes data]
+* Recv failure: Connection reset by peer
+* TLS connect error: error:00000000:lib(0)::reason(0)
+* OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443 
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+* closing connection #0
+curl: (35) Recv failure: Connection reset by peer
+</pre></details><details class="step" open><summary>#33 <b>bash</b> <code>curl -s https://api.github.com 2&gt;&amp;1 | head -5</code></summary><pre>exit=0
+{&quot;current_user_url&quot;:&quot;https://api.github.com/user&quot;,&quot;current_user_authorizations_html_url&quot;:&quot;https://github.com/settings/connections/applications{/client_id}&quot;,&quot;authorizations_url&quot;:&quot;https://api.github.com/authorizations&quot;,&quot;code_search_url&quot;:&quot;https://api.github.com/search/code?q={query}{&amp;page,per_page,sort,order}&quot;,&quot;commit_search_url&quot;:&quot;https://api.github.com/search/commits?q={query}{&amp;page,per_page,sort,order}&quot;,&quot;emails_url&quot;:&quot;https://api.github.com/user/emails&quot;,&quot;emojis_url&quot;:&quot;https://api.github.com/emojis&quot;,&quot;events_url&quot;:&quot;https://api.github.com/events&quot;,&quot;feeds_url&quot;:&quot;https://api.github.com/feeds&quot;,&quot;followers_url&quot;:&quot;https://api.github.com/user/followers&quot;,&quot;following_url&quot;:&quot;https://api.github.com/user/following{/target}&quot;,&quot;gists_url&quot;:&quot;https://api.github.com/gists{/gist_id}&quot;,&quot;hub_url&quot;:&quot;https://api.github.com/hub&quot;,&quot;issue_search_url&quot;:&quot;https://api.github.com/search/issues?q={query}{&amp;page,per_page,sort,order}&quot;,&quot;issues_url&quot;:&quot;https://api.github.com/issues&quot;,&quot;keys_url&quot;:&quot;https://api.github.com/user/keys&quot;,&quot;label_search_url&quot;:&quot;https://api.github.com/search/labels?q={query}&amp;repository_id={repository_id}{&amp;page,per_page}&quot;,&quot;notifications_url&quot;:&quot;https://api.github.com/notifications&quot;,&quot;organization_url&quot;:&quot;https://api.github.com/orgs/{org}&quot;,&quot;organization_repositories_url&quot;:&quot;https://api.github.com/orgs/{org}/repos{?type,page,per_page,sort}&quot;,&quot;organization_teams_url&quot;:&quot;https://api.github.com/orgs/{org}/teams&quot;,&quot;public_gists_url&quot;:&quot;https://api.github.com/gists/public&quot;,&quot;rate_limit_url&quot;:&quot;https://api.github.com/rate_limit&quot;,&quot;repository_url&quot;:&quot;https://api.github.com/repos/{owner}/{repo}&quot;,&quot;repository_search_url&quot;:&quot;https://api.github.com/search/repositories?q={query}{&amp;page,per_page,sort,order}&quot;,&quot;current_user_repositories_url&quot;:&quot;https://api.github.com/user/repos{?type,page,per_page,sort}&quot;,&quot;starred_url&quot;:&quot;https://api.github.com/user/starred{/owner}{/repo}&quot;,&quot;starred_gists_url&quot;:&quot;https://api.github.com/gists/starred&quot;,&quot;topic_search_url&quot;:&quot;https://api.github.com/search/topics?q={query}{&amp;page,per_page}&quot;,&quot;user_url&quot;:&quot;https://api.github.com/users/{user}&quot;,&quot;user_organizations_url&quot;:&quot;https://api.github.com/user/orgs&quot;,&quot;user_repositories_url&quot;:&quot;https://api.github.com/users/{user}/repos{?type,page,per_page,sort}&quot;,&quot;user_search_url&quot;:&quot;https://api.github.com/search/users?q={query}{&amp;page,per_page,sort,order}&quot;}</pre></details><details class="step" open><summary>#34 <b>bash</b> <code>openssl s_client -connect www.braintrust.dev:443 -servername www.braintrust.dev 2&gt;&amp;1 | head -30</code></summary><pre>exit=0
+Connecting to 76.76.21.98
+write:errno=104
+CONNECTED(00000003)
+---
+no peer certificate available
+---
+No client certificate CA names sent
+Negotiated TLS1.3 group: &lt;NULL&gt;
+---
+SSL handshake has read 0 bytes and written 1560 bytes
+Verification: OK
+---
+New, (NONE), Cipher is (NONE)
+Protocol: TLSv1.3
+This TLS version forbids renegotiation.
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 0 (ok)
+---
+</pre></details><details class="step" open><summary>#35 <b>bash</b> <code>curl -s https://www.google.com 2&gt;&amp;1 | head -5</code></summary><pre>exit=0
+</pre></details><details class="step" open><summary>#36 <b>bash</b> <code>python3 -c &quot;import braintrust; help(braintrust.login)&quot; 2&gt;&amp;1 | head -40</code></summary><pre>exit=0
+Help on function login in module braintrust.logger:
+
+login(
+    app_url: str | None = None,
+    api_key: str | None = None,
+    org_name: str | None = None,
+    force_login: bool = False
+) -&gt; None
+    Log into Braintrust. This will prompt you for your API token, which you can find at
+    https://www.braintrust.dev/app/token. This method is called automatically by `init()`.
+
+    :param app_url: The URL of the Braintrust App. Defaults to https://www.braintrust.dev.
+    :param api_key: The API key to use. If the parameter is not specified, will try to use the `BRAINTRUST_API_KEY` environment variable. If no API
+    key is specified, will prompt the user to login.
+    :param org_name: (Optional) The name of a specific organization to connect to. This is useful if you belong to multiple.
+    :param force_login: Login again, even if you have already logged in (by default, this function will exit quickly if you have already logged in)
+
+</pre></details><details class="step" open><summary>#37 <b>bash</b> <code>python3 -c &quot;
+import braintrust
+# Try to see what the default app_url is
+print(&#x27;Default app_url:&#x27;, braintrust.logger.DEFAULT_APP_URL if hasat</code></summary><pre>exit=0
+Default app_url: https://www.braintrust.dev
+</pre></details><details class="step" open><summary>#38 <b>bash</b> <code>env | grep -iE &quot;brain|trust|bt_|app_url|endpoint|host|gateway&quot; | sed &#x27;s/=.*$/=***hidden***/&#x27;</code></summary><pre>exit=0
+HOSTNAME=***hidden***
+DAYTONA_OTEL_ENDPOINT=***hidden***
+BRAINTRUST_API_KEY=***hidden***
+</pre></details><details class="step" open><summary>#39 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/deployment.md</code></summary><pre>&gt; ## Documentation Index
+&gt; Fetch the documentation index at: https://braintrust.dev/docs/llms.txt
+&gt; Use this file to discover all available pages before exploring further.
+&gt; For broader context, fetch the full documentation at: https://braintrust.dev/docs/llms-full.txt (large file).
+
+# Page Not Found
+
+The requested page could not be found.
+
+## Related topics
+
+- [Deployment options](https://braintrust.dev/docs/admin/deployment/index.md)
+- [Monitor deployments](https://braintrust.dev/docs/deploy/monitor.md)
+- [Configure your deployment](https://braintrust.dev/docs/admin/self-hosting/configure/index.md)
+</pre></details><details class="step" open><summary>#40 <b>fetch_url</b> <code>https://www.braintrust.dev/docs/admin/deployment/index.md</code></summary><pre>&gt; ## Documentation Index
+&gt; Fetch the complete documentation index at: https://braintrust.dev/docs/llms.txt
+&gt; Use this file to discover all available pages before exploring further.
+
+# Deployment options
+
+&gt; Compare SaaS, BYOC, and self-hosted deployments and choose the right data residency and operational model for your team.
+
+Braintrust supports several deployment options for teams with different requirements around data residency, compliance, operational ownership, and cloud control. This page summarizes the supported options and the responsibility boundaries for each.
+
+## Options at a glance
+
+Braintrust separates the **control plane** from the **data plane**. The control plane is always operated by Braintrust and provides the product UI, authentication, organization metadata, and platform management. The data plane stores and processes your sensitive AI data. The deployment options differ in where the data plane runs and who operates it.
+
+* **SaaS**: Braintrust operates both the control plane and the data plane, and your data is stored in Braintrust-managed infrastructure. Best for teams that want the fastest path with no cloud operations.
+* **BYOC**: Braintrust operates the control plane and the data plane, but the data plane runs inside your dedicated cloud account or project. Best for teams that need customer-owned data residency without owning day-2 operations.
+* **Self-hosted**: Braintrust operates the control plane, and you deploy and operate the data plane in your own cloud using Braintrust&#x27;s published deployment artifacts. Best for teams with platform capacity and a requirement to operate the environment themselves.
+* **Non-standard self-hosted**: Braintrust operates the control plane, and you operate the data plane, but your deployment cannot use the standard artifacts or requires material deviations from the reference architecture. This path needs review because it increases upgrade and support risk.
+
+ SaaS is available on Starter, Pro, and Enterprise plans. BYOC and self-hosted deployments require an Enterprise plan. Non-standard self-hosted deployments also require review to confirm they are viable. See [Manage billing](/docs/admin/billing) for plan details.
+
+## Comparison
+
+| Dimension | SaaS | BYOC | Self-hosted | Non-standard self-hosted |
+| :-------------------------- | :-------------------------------- | :--------------------------------------------- | :-------------------------------------- | :----------------------------------- |
+| Plan availability | Starter, Pro, Enterprise | Enterprise only | Enterprise only | Enterprise only, review required |
+| Data location | Braintrust-managed infrastructure | Your cloud | Your cloud | Your cloud |
+| Data-plane operator | Braintrust | Braintrust | You | You |
+| Infrastructure provisioning | Braintrust | Braintrust, in your account or project | You, using Braintrust artifacts | You, with custom mapping |
+| Upgrade owner | Braintrust | Braintrust | You | You, with more manual work |
+| Operational burden | Lowest | Low | High | Highest |
+| Customization model | Standard service | Standardized managed deployment | Published module or chart configuration | Review required |
+| Best fit | Fastest path, no cloud ops | Customer-owned data boundary without day-2 ops | Customer-operated platform | Standard path blocked by constraints |
+
+## How to choose
+
+* Choose **SaaS** when you don&#x27;t need a customer-owned data boundary and want the lowest operational burden.
+* Choose **BYOC** when sensitive AI data must remain in your cloud account or project, but you want Braintrust to operate the data plane.
+* Choose **self-hosted** when you must operate the environment yourself and can use Braintrust&#x27;s published deployment artifacts.
+* Review **non-standard self-hosted** when you cannot use the standard artifacts or require material architecture changes.
+
+If your organization prohibits external operator access to your cloud environment, BYOC is usually not the right fit. Self-hosted is the cleaner starting point.
+
+## Next steps
+
+* [Bring your own cloud (BYOC)](/docs/admin/deployment/byoc) — Have Braintrust operate the data plane in your cloud account.
+* [Self-hosting Braintrust](/docs/admin/self-hosting) — Deploy and operate the data plane yourself.
+* [Architecture](/docs/admin/self-hosting/architecture) — Understand the control plane, data plane, and where data is stored.
 </pre></details>
 </body></html>
