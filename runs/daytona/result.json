@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-09-11T13:45:56Z",
+  "started": "2026-09-12T13:15:25Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
   "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 451.4,
+  "wall_seconds": 354.5,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "python3 daytona_quickstart.py executes and Python 3.14 site-packages path is used"
+      "evidence": "pip3 show daytona-sdk daytona-api-client-async"
     },
     "installed": {
       "passed": true,
-      "evidence": "from daytona import Daytona succeeds and /usr/local/bin/daytona is present"
+      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     },
     "configured": {
       "passed": true,
-      "evidence": "Daytona() instantiates and d.create() returns sandbox IDs without authentication errors"
+      "evidence": "from daytona import Daytona; d = Daytona(); s = d.create()"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: 4a04851d-17d0-4403-9b5a-350abd9f3351"
+      "evidence": "Sandbox created with ID: 1e391fe5-244d-4e6f-8c45-0acc912813e1"
     },
     "verified": {
       "passed": false,
-      "evidence": "All attempts to run code inside the sandbox fail with ConnectionResetError(104, 'Connection reset by peer'); no exec output is ever produced"
+      "evidence": "curl: (35) Recv failure: Connection reset by peer"
     }
   },
   "friction": [
     {
-      "where": "SDK method name mismatch",
-      "detail": "AttributeError: 'Process' object has no attribute 'execute' \u2014 quickstart/docs reference 'execute' but SDK method is 'exec'"
+      "where": "SDK package version mismatch on first import",
+      "detail": "ImportError: cannot import name 'PaginatedSandboxes' from 'daytona_api_client_async'"
     },
     {
-      "where": "Resource quota limit",
-      "detail": "daytona.common.errors.DaytonaError: Failed to create sandbox: Total CPU limit exceeded. Maximum allowed: 10."
+      "where": "Sandbox method naming/docs mismatch",
+      "detail": "AttributeError: 'Sandbox' object has no attribute 'remove'. Did you mean: 'recover'?"
     },
     {
-      "where": "Sandbox network readiness",
-      "detail": "Repeated 'ConnectionResetError(104, 'Connection reset by peer')' on process.exec despite state showing STARTED and wait_for_sandbox_start returning"
+      "where": "Toolbox proxy endpoint unreachable",
+      "detail": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Missing filesystem methods",
-      "detail": "'FileSystem' object has no attribute 'write_file' \u2014 docs imply fs.write_file exists but SDK only has upload_file/create_folder"
+      "where": "SDK toolbox host resolution fails silently",
+      "detail": "Toolbox API host: "
     },
     {
-      "where": "CLI port conflicts",
-      "detail": "daytona --version emits 'listen tcp :33333: bind: address already in use' and help commands crash"
+      "where": "Direct API endpoint path undocumented",
+      "detail": "Cannot POST /api/sandbox/a9518530-9df4-404c-a558-e4934242c04a/process/execute"
     }
   ],
   "score": 70,
-  "braintrust_span": "db657f7b-29bc-439c-8ce5-4df512258b56"
+  "braintrust_span": "7f156f0e-0190-487c-9798-485a28a8c5ed"
 }

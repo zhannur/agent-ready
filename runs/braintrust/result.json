@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-09-11T13:36:16Z",
+  "started": "2026-09-12T12:54:22Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I successfully installed the Braintrust SDK, OpenAI, and autoevals packages (`Successfully installed autoevals-0.3.0 braintrust-0.39.0...`), and created the `movie_matcher.py` eval script exactly per the quickstart docs. However, the eval run could not execute because the sandbox blocks TLS connections to `api.braintrust.dev`\u2014TCP port 443 opens, but the TLS handshake is reset by the peer (`curl: (35) Recv failure: Connection reset by peer`). This network restriction prevents both the Braintrust SDK and the OpenAI client (via the Braintrust proxy) from reaching the API, so no experiment could be created and no scores could be reported. The `BRAINTRUST_API_KEY` was present in the environment, but the connection itself is the blocker.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 138.8,
+  "wall_seconds": 152.8,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "Defaulting to user installation because normal site-packages is not writeable"
     },
     "installed": {
       "passed": true,
-      "evidence": "All imports successful"
+      "evidence": "Help on function Eval in module braintrust.framework:"
     },
     "configured": {
       "passed": false,
-      "evidence": "OPENAI_API_KEY is set: no"
+      "evidence": "OPENAI_API_KEY is set: "
     },
     "first_call": {
       "passed": false,
-      "evidence": "OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
+      "evidence": "exit=1"
     },
     "verified": {
       "passed": false,
-      "evidence": "Connection reset by peer"
+      "evidence": "curl: (35) Recv failure: Connection reset by peer"
     }
   },
   "friction": [
     {
-      "where": "Missing AI provider API key prerequisite",
-      "detail": "OPENAI_API_KEY is set: no"
+      "where": "Missing OPENAI_API_KEY prerequisite",
+      "detail": "OPENAI_API_KEY is set: "
     },
     {
-      "where": "Braintrust API endpoint unreachable from sandbox",
-      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to www.braintrust.dev:443"
+      "where": "Sandbox network blocks Braintrust API TLS",
+      "detail": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "SDK version verification",
+      "where": "SDK version introspection fails",
       "detail": "AttributeError: module 'braintrust' has no attribute '__version__'"
     },
     {
-      "where": "Quickstart defaults to TypeScript/pnpm",
-      "detail": "pnpm add braintrust openai autoevals ts-node"
+      "where": "Docs require separate AI provider keys without clarifying proxy-only fallback",
+      "detail": "export OPENAI_API_KEY=\" \" # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc."
     },
     {
-      "where": "CLI-centric quickstart instructions",
-      "detail": "bt eval my_eval.eval.ts"
+      "where": "No quickstart guidance for offline/local eval when API is unreachable",
+      "detail": ":param no_send_logs: Do not send logs to Braintrust. When True, the evaluation runs locally and builds a local summary instead of creating an experiment."
     }
   ],
   "score": 30,
-  "braintrust_span": "deedce1a-ca11-49c2-a659-5826977c1797"
+  "braintrust_span": "db4270b1-3101-4b0a-a2f7-60b0757ab551"
 }
