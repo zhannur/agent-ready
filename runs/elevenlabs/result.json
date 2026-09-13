@@ -1,18 +1,18 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-09-12T13:18:29Z",
+  "started": "2026-09-13T14:12:14Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created example.py with the quickstart's text-to-speech code, and ran it. The script successfully generated a 43KB MP3 audio file (MPEG ADTS layer III, 128 kbps, 44.1 kHz) at /home/daytona/output.mp3 from the input text \"The first move is what sets everything in motion.\" using the George voice (JBFqnCBsd6RMkjVDRZzb) and eleven_v3 model.",
-  "deviations": "The quickstart uses `play(audio)` to play audio through speakers. Since the sandbox has no audio output hardware, I substituted `save(audio, \"/home/daytona/output.mp3\")` to write the generated audio to a file instead. This is the only deviation; all other steps (SDK installation, API key from ELEVENLABS_API_KEY env var, voice ID, model ID, output format) followed the quickstart exactly.",
-  "steps": 6,
-  "wall_seconds": 38.0,
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Steps followed exactly as documented:\n\n1. Fetched the quickstart page at https://elevenlabs.io/docs/quickstart\n2. Installed the SDK with `pip install elevenlabs python-dotenv`\n3. Created `example.py` with the exact code from the quickstart (using the pre-exported ELEVENLABS_API_KEY environment variable)\n4. Ran the script with `python example.py` \u2014 audio played successfully via ffplay (already available in the sandbox)\n5. Created a verification script to save the generated audio to `output.mp3` and confirmed it is a valid MP3 file (41,839 bytes, ID3 header detected)\n\nThe promised outcome is fully verified: text-to-speech successfully generated an audio file from text using the ElevenLabs API.",
+  "deviations": "No deviations from the quickstart documentation were required. The sandbox already had ffplay available, so no additional installation was needed for audio playback. The ELEVENLABS_API_KEY was pre-exported in the environment, so no manual .env file creation was necessary.",
+  "steps": 15,
+  "wall_seconds": 63.4,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "cd /home/daytona && pip install elevenlabs python-dotenv"
+      "evidence": "Defaulting to user installation because normal site-packages is not writeable"
     },
     "installed": {
       "passed": true,
@@ -20,31 +20,35 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "Audio saved to /home/daytona/output.mp3"
+      "evidence": "Audio file generated: output.mp3"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to /home/daytona/output.mp3"
+      "evidence": "exit=0"
     },
     "verified": {
       "passed": true,
-      "evidence": "/home/daytona/output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural"
+      "evidence": "Valid MP3 file detected!"
     }
   },
   "friction": [
     {
-      "where": "Missing explicit API-key setup step",
-      "detail": "The script uses api_key=os.getenv(\"ELEVENLABS_API_KEY\") but the transcript never shows an export, .env creation, or other auth step that a first-time developer would need to replicate."
+      "where": "SDK class-level introspection",
+      "detail": "AttributeError: 'property' object has no attribute 'convert' when calling help(ElevenLabs.text_to_speech.convert) on the class instead of an instance."
     },
     {
-      "where": "Cluttered quickstart documentation page",
-      "detail": "The fetched quickstart returns navigation noise instead of concise steps: \"ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt...\""
+      "where": "Audio playback dependency",
+      "detail": "The built-in play() helper requires system ffmpeg/ffplay; source code warns: \"ffplay from ffmpeg not found, necessary to play audio. On mac you can install it with 'brew install ffmpeg'. On linux and windows you can install it from https://ffmpeg.org/\""
     },
     {
-      "where": "Voice ID sourcing",
-      "detail": "The code hardcodes a voice_id with only a comment to browse a library, leaving developers to guess how to obtain a valid ID: \"voice_id=\\\"JBFqnCBsd6RMkjVDRZzb\\\",  # \\\"George\\\" - browse voices at elevenlabs.io/app/voice-library\""
+      "where": "Quickstart example vs file generation promise",
+      "detail": "The initial example.py uses from elevenlabs.play import play and play(audio) for ephemeral playback, forcing the user to discover save(audio, \\\"output.mp3\\\") separately to actually produce the promised audio file."
+    },
+    {
+      "where": "API method signature complexity",
+      "detail": "inspect.signature reveals opaque Ellipsis defaults: model_id: str | None = Ellipsis, language_code: str | None = Ellipsis, voice_settings: elevenlabs.types.voice_settings.VoiceSettings | None = Ellipsis, making it hard to know which parameters are required."
     }
   ],
   "score": 100,
-  "braintrust_span": "3ee6f897-2252-416d-98ef-40ba87c1f19f"
+  "braintrust_span": "66079771-681e-4452-ac95-70f68b9933f9"
 }

@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-09-12T12:54:22Z",
+  "started": "2026-09-13T13:53:01Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Braintrust SDK, OpenAI, and autoevals packages (`Successfully installed autoevals-0.3.0 braintrust-0.39.0...`), and created the `movie_matcher.py` eval script exactly per the quickstart docs. However, the eval run could not execute because the sandbox blocks TLS connections to `api.braintrust.dev`\u2014TCP port 443 opens, but the TLS handshake is reset by the peer (`curl: (35) Recv failure: Connection reset by peer`). This network restriction prevents both the Braintrust SDK and the OpenAI client (via the Braintrust proxy) from reaching the API, so no experiment could be created and no scores could be reported. The `BRAINTRUST_API_KEY` was present in the environment, but the connection itself is the blocker.",
+  "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 152.8,
+  "wall_seconds": 227.7,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Defaulting to user installation because normal site-packages is not writeable"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "Help on function Eval in module braintrust.framework:"
+      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.39.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-9.0.0 sseclient-py-1.9.0 text-unidecode-1.3"
     },
     "configured": {
       "passed": false,
-      "evidence": "OPENAI_API_KEY is set: "
+      "evidence": "OPENAI_API_KEY is set: no"
     },
     "first_call": {
       "passed": false,
-      "evidence": "exit=1"
+      "evidence": "Traceback (most recent call last):"
     },
     "verified": {
       "passed": false,
-      "evidence": "curl: (35) Recv failure: Connection reset by peer"
+      "evidence": "exit=1"
     }
   },
   "friction": [
     {
-      "where": "Missing OPENAI_API_KEY prerequisite",
-      "detail": "OPENAI_API_KEY is set: "
+      "where": "API key prerequisite",
+      "detail": "Quickstart requires OPENAI_API_KEY but sandbox only has Braintrust key: \"OPENAI_API_KEY is set: no\""
     },
     {
-      "where": "Sandbox network blocks Braintrust API TLS",
-      "detail": "curl: (35) Recv failure: Connection reset by peer"
+      "where": "bt CLI install",
+      "detail": "Vendor CLI install script fails with connection reset: \"curl: (35) Recv failure: Connection reset by peer\""
     },
     {
-      "where": "SDK version introspection fails",
-      "detail": "AttributeError: module 'braintrust' has no attribute '__version__'"
+      "where": "PATH warning after pip install",
+      "detail": "Installed executables are off-PATH: \"WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH.\""
     },
     {
-      "where": "Docs require separate AI provider keys without clarifying proxy-only fallback",
-      "detail": "export OPENAI_API_KEY=\" \" # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc."
+      "where": "SDK default URL mismatch",
+      "detail": "SDK hardcodes api.braintrust.ai while docs reference .dev endpoints: \"api_url = BraintrustEnv.API_URL.get(\\\"https://api.braintrust.ai\\\")\""
     },
     {
-      "where": "No quickstart guidance for offline/local eval when API is unreachable",
-      "detail": ":param no_send_logs: Do not send logs to Braintrust. When True, the evaluation runs locally and builds a local summary instead of creating an experiment."
+      "where": "SDK env introspection",
+      "detail": "Attempting to inspect SDK environment fails: \"AttributeError: module 'braintrust.util' has no attribute 'get_env'\""
     }
   ],
   "score": 30,
-  "braintrust_span": "db4270b1-3101-4b0a-a2f7-60b0757ab551"
+  "braintrust_span": "38527c8d-76cb-4379-b461-2f15e81875e3"
 }
