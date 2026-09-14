@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-09-12T13:15:25Z",
+  "started": "2026-09-14T16:24:55Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
   "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 354.5,
+  "wall_seconds": 378.6,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "pip3 show daytona-sdk daytona-api-client-async"
+      "evidence": "cd /home/daytona && pip install --upgrade daytona"
     },
     "installed": {
       "passed": true,
-      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
+      "evidence": "Version: 0.211.2"
     },
     "configured": {
       "passed": true,
-      "evidence": "from daytona import Daytona; d = Daytona(); s = d.create()"
+      "evidence": "DAYTONA_API_KEY exists: True"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: 1e391fe5-244d-4e6f-8c45-0acc912813e1"
+      "evidence": "Sandbox created with ID: c9547b46-71a3-4b5b-a8da-c72790e2b36b"
     },
     "verified": {
       "passed": false,
-      "evidence": "curl: (35) Recv failure: Connection reset by peer"
+      "evidence": "Attempt 1: DaytonaConnectionError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by pe"
     }
   },
   "friction": [
     {
-      "where": "SDK package version mismatch on first import",
-      "detail": "ImportError: cannot import name 'PaginatedSandboxes' from 'daytona_api_client_async'"
+      "where": "SDK version drift",
+      "detail": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     },
     {
-      "where": "Sandbox method naming/docs mismatch",
-      "detail": "AttributeError: 'Sandbox' object has no attribute 'remove'. Did you mean: 'recover'?"
+      "where": "Missing environment configuration",
+      "detail": "DAYTONA_API_URL: NOT SET"
     },
     {
-      "where": "Toolbox proxy endpoint unreachable",
-      "detail": "curl: (35) Recv failure: Connection reset by peer"
+      "where": "Toolbox proxy unreachable from sandbox",
+      "detail": "Recv failure: Connection reset by peer"
     },
     {
-      "where": "SDK toolbox host resolution fails silently",
-      "detail": "Toolbox API host: "
+      "where": "Local Daytona CLI port conflict",
+      "detail": "listen tcp :22222: bind: address already in use"
     },
     {
-      "where": "Direct API endpoint path undocumented",
-      "detail": "Cannot POST /api/sandbox/a9518530-9df4-404c-a558-e4934242c04a/process/execute"
+      "where": "Python SDK docs link broken",
+      "detail": "404 The page you're looking for doesn't exist or has been moved."
     }
   ],
   "score": 70,
-  "braintrust_span": "7f156f0e-0190-487c-9798-485a28a8c5ed"
+  "braintrust_span": "b93405a5-e38a-40f0-b43f-e2c2c6634b55"
 }

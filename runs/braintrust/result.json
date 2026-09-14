@@ -1,14 +1,14 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-09-13T13:53:01Z",
+  "started": "2026-09-14T15:56:49Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I installed the Braintrust SDK, OpenAI, and autoevals successfully (`Successfully installed autoevals-0.3.0 braintrust-0.39.0`). I wrote the `movie_matcher.py` eval script exactly per the quickstart, adapting it to use the Braintrust Gateway with the provided `BRAINTRUST_API_KEY`. However, the sandbox blocks outbound HTTPS: TLS handshakes to `api.braintrust.dev`, `gateway.braintrust.dev`, and even `google.com` all fail with \"Connection reset by peer\" after the Client Hello, while plain HTTP and ICMP reach the internet fine. Because the Braintrust SDK cannot establish a TLS connection to the API, no eval run could execute and no scores were reported.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 227.7,
+  "wall_seconds": 190.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
@@ -16,7 +16,7 @@
     },
     "installed": {
       "passed": true,
-      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.39.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-9.0.0 sseclient-py-1.9.0 text-unidecode-1.3"
+      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.39.0"
     },
     "configured": {
       "passed": false,
@@ -24,35 +24,35 @@
     },
     "first_call": {
       "passed": false,
-      "evidence": "Traceback (most recent call last):"
+      "evidence": "python movie_matcher.py exited with exit=1 after SSL connection reset by peer"
     },
     "verified": {
       "passed": false,
-      "evidence": "exit=1"
+      "evidence": "no eval run could execute and no scores were reported"
     }
   },
   "friction": [
     {
-      "where": "API key prerequisite",
-      "detail": "Quickstart requires OPENAI_API_KEY but sandbox only has Braintrust key: \"OPENAI_API_KEY is set: no\""
+      "where": "Sandbox HTTPS egress",
+      "detail": "curl -4 -v https://api.braintrust.dev fails with 'curl: (35) Recv failure: Connection reset by peer', blocking all API calls"
     },
     {
-      "where": "bt CLI install",
-      "detail": "Vendor CLI install script fails with connection reset: \"curl: (35) Recv failure: Connection reset by peer\""
+      "where": "Missing AI provider key prerequisite",
+      "detail": "OPENAI_API_KEY is set: no \u2014 the quickstart mandates this alongside BRAINTRUST_API_KEY"
     },
     {
-      "where": "PATH warning after pip install",
-      "detail": "Installed executables are off-PATH: \"WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH.\""
+      "where": "pip user install PATH warning",
+      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
     },
     {
-      "where": "SDK default URL mismatch",
-      "detail": "SDK hardcodes api.braintrust.ai while docs reference .dev endpoints: \"api_url = BraintrustEnv.API_URL.get(\\\"https://api.braintrust.ai\\\")\""
+      "where": "Quickstart Python snippet truncated",
+      "detail": "The evaluation quickstart page cuts off the Python install command at '```bash Python theme={...}github-da'"
     },
     {
-      "where": "SDK env introspection",
-      "detail": "Attempting to inspect SDK environment fails: \"AttributeError: module 'braintrust.util' has no attribute 'get_env'\""
+      "where": "Gateway alternative undocumented in quickstart",
+      "detail": "The quickstart only lists external provider keys (export OPENAI_API_KEY=\" \" # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc.) and omits the Braintrust Gateway workaround"
     }
   ],
   "score": 30,
-  "braintrust_span": "38527c8d-76cb-4379-b461-2f15e81875e3"
+  "braintrust_span": "c185dc63-ce37-47d9-92c3-9e1f99bc2b9c"
 }

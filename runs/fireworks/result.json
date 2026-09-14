@@ -1,54 +1,58 @@
 {
   "name": "fireworks",
   "url": "https://docs.fireworks.ai/getting-started/quickstart",
-  "started": "2026-09-13T14:13:56Z",
+  "started": "2026-09-14T16:30:12Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the Fireworks quickstart end-to-end. The API key was already exported in the environment. Installed the OpenAI Python SDK (already present). Created the quickstart script following the docs' Python (OpenAI SDK) example. The model `accounts/fireworks/models/deepseek-v3p1` specified in the quickstart docs returned a 404 NOT_FOUND error, so I substituted `accounts/fireworks/models/glm-5p2` (an available chat model from the models list). The script then ran successfully and returned the chat completion: \"\u00a1Hola!\"",
-  "deviations": "The quickstart docs specify model `accounts/fireworks/models/deepseek-v3p1`, but that model returned 404 NOT_FOUND ('Model not found, inaccessible, and/or not deployed'). I had to query the available models endpoint and substitute with `accounts/fireworks/models/glm-5p2` to get a successful chat completion response.",
-  "steps": 13,
-  "wall_seconds": 44.6,
+  "summary": "Successfully completed the Fireworks AI quickstart end-to-end. Installed the OpenAI Python SDK, created a script following the quickstart pattern, and received a chat completion response \"\u00a1Hola!\" from a Fireworks-hosted model via the API.",
+  "deviations": "The quickstart docs specify model \"accounts/fireworks/models/deepseek-v3p1\" which returned 404 NOT_FOUND. I queried the available models via the /v1/models endpoint and used \"accounts/fireworks/models/gpt-oss-120b\" instead, which worked and returned the chat completion.",
+  "steps": 22,
+  "wall_seconds": 83.4,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "python3 --version && pip3 --version returned Python 3.14.4 and pip 26.0.1"
+      "evidence": "Requirement already satisfied: openai in /usr/local/lib/python3.14/site-packages (2.33.0)"
     },
     "installed": {
       "passed": true,
-      "evidence": "pip install openai reported Requirement already satisfied: openai in /usr/local/lib/python3.14/site-packages (2.33.0)"
+      "evidence": "Requirement already satisfied: openai in /usr/local/lib/python3.14/site-packages (2.33.0)"
     },
     "configured": {
       "passed": true,
-      "evidence": "FIREWORKS_API_KEY is set: yes and the script loaded it via os.environ.get(\"FIREWORKS_API_KEY\")"
+      "evidence": "FIREWORKS_API_KEY is set: yes"
     },
     "first_call": {
       "passed": false,
-      "evidence": "The first python3 fireworks_quickstart.py run with model deepseek-v3p1 exited 1 with openai.NotFoundError: Error code: 404"
+      "evidence": "openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed', 'param': 'model', 'code': 'NOT_FOUND', 'type': 'error'}, 'request_id': 'chatcmpl-0302d10847304333bcd13f409d0587de'}"
     },
     "verified": {
       "passed": true,
-      "evidence": "The final python3 fireworks_quickstart.py run with model glm-5p2 exited 0 and printed \u00a1Hola!"
+      "evidence": "\u00a1Hola!"
     }
   },
   "friction": [
     {
-      "where": "Quickstart documentation model example",
-      "detail": "The docs-specified model string failed immediately: model=\"accounts/fireworks/models/deepseek-v3p1\" produced openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed'..."
+      "where": "Quickstart model string",
+      "detail": "`model = \"accounts/fireworks/models/deepseek-v3p1\"` produced `openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed', 'param': 'model', 'code': 'NOT_FOUND', 'type': 'error'}`."
     },
     {
-      "where": "Models list endpoint vs chat completions",
-      "detail": "A model returned by the API list (deepseek-v4-pro) was also unusable: accounts/fireworks/models/deepseek-v4-pro appeared in the curl list but then produced openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed'..."
+      "where": "Model availability drift",
+      "detail": "`model = \"accounts/fireworks/models/llama-v3p1-8b-instruct\"` also returned `openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed', 'param': 'model', 'code': 'NOT_FOUND', 'type': 'error'}`."
     },
     {
-      "where": "Model discovery workaround",
-      "detail": "The user had to manually query and parse the models endpoint to guess a working substitute: curl -s -H \"Authorization: Bearer $FIREWORKS_API_KEY\" https://api.fireworks.ai/inference/v1/models | head -c 2000"
+      "where": "Listed model still inaccessible",
+      "detail": "After listing models, `model = \"accounts/fireworks/models/deepseek-v4-pro\"` still returned `openai.NotFoundError: Error code: 404 - {'error': {'message': 'Model not found, inaccessible, and/or not deployed', 'param': 'model', 'code': 'NOT_FOUND', 'type': 'error'}`."
     },
     {
-      "where": "Missing deployment/prerequisite note",
-      "detail": "The quickstart example omits any note that the example model may need deployment or be outdated, forcing trial-and-error substitution: model=\"accounts/fireworks/models/deepseek-v3p1\" in the initial script"
+      "where": "Missing prerequisite of valid model ID",
+      "detail": "Had to run `curl -s -H \"Authorization: Bearer $FIREWORKS_API_KEY\" https://api.fireworks.ai/inference/v1/models | head -c 2000` to discover a working model."
+    },
+    {
+      "where": "Trial-and-error required",
+      "detail": "Agent notes: `The quickstart docs specify model \"accounts/fireworks/models/deepseek-v3p1\" which returned 404 NOT_FOUND. I queried the available models via the /v1/models endpoint...`"
     }
   ],
   "score": 75,
-  "braintrust_span": "c5f0a74f-53b0-4efc-a2e1-ab700b4a66f9"
+  "braintrust_span": "1c7a7274-d0db-4a79-99f1-9bc847107301"
 }
