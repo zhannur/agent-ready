@@ -1,18 +1,18 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-09-14T16:28:02Z",
+  "started": "2026-09-15T14:49:41Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs and python-dotenv packages, created the example.py script exactly as documented, and successfully generated a valid MP3 audio file (output.mp3, 43KB, MPEG ADTS layer III 128kbps 44.1kHz) from the text \"The first move is what sets everything in motion.\" using the George voice (JBFqnCBsd6RMkjVDRZzb) and eleven_v3 model.",
-  "deviations": "The quickstart's play(audio) function executed without error but cannot be audibly verified in a headless sandbox with no speakers. To verify the promised outcome (audio generation), I created a second script that writes the returned audio iterator to a file, confirming a real, valid MP3 was produced by the API.",
+  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the Python SDK (elevenlabs + python-dotenv), created the example script using the provided code, and successfully generated an MP3 audio file from text via the ElevenLabs API. The output file /home/daytona/output.mp3 is 46,019 bytes with a valid MP3 header (ID3 tag), confirming the text-to-speech generation worked.",
+  "deviations": "The quickstart's example uses `play(audio)` to stream audio through speakers. Since the sandbox is headless with no audio output, I replaced the `play()` call with code that writes the audio stream to a file and verifies the MP3 header. This is the only deviation \u2014 all other steps (SDK install, API key usage, voice ID, model ID, output format) followed the quickstart exactly.",
   "steps": 9,
-  "wall_seconds": 45.9,
+  "wall_seconds": 33.9,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "cd /home/daytona && pip install elevenlabs python-dotenv"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
@@ -20,35 +20,35 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "ELEVENLABS_API_KEY is set: yes"
+      "evidence": "API key present: yes"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to output.mp3"
+      "evidence": "Audio saved to /home/daytona/output.mp3"
     },
     "verified": {
       "passed": true,
-      "evidence": "output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural"
+      "evidence": "Valid MP3 header detected (ID3 tag)"
     }
   },
   "friction": [
     {
-      "where": "Documentation page returns noisy HTML instead of clean quickstart instructions",
-      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt... Sign up Overview ElevenCreative..."
+      "where": "Fetched documentation is noisy HTML navigation soup rather than clean quickstart instructions",
+      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page."
     },
     {
-      "where": "Default quickstart example uses play(audio) which is unverifiable in a headless sandbox",
-      "detail": "The quickstart's play(audio) function executed witho"
+      "where": "Missing audio playback prerequisite in headless sandbox",
+      "detail": "mpv not found"
     },
     {
-      "where": "Voice ID is hardcoded with only a pointer to the voice library",
-      "detail": "voice_id=\"JBFqnCBsd6RMkjVDRZzb\",  # \"George\" - browse voices at elevenlabs.io/app/voice-library"
+      "where": "System package installation blocked by sandbox permissions",
+      "detail": "E: List directory /var/lib/apt/lists/partial is missing. - Acquire (13: Permission denied)"
     },
     {
-      "where": "Quickstart omits file-saving logic, requiring extra code to verify the output",
-      "detail": "# Save to file instead of playing"
+      "where": "Quickstart example assumes interactive audio playback requiring code modification",
+      "detail": "The quickstart's example uses play(audio) to stream audio through spea"
     }
   ],
   "score": 100,
-  "braintrust_span": "28587d05-47f8-49c9-95b5-77eabafd4465"
+  "braintrust_span": "fc74514d-cd10-4d8f-9d9b-9f90d8bc835d"
 }

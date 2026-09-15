@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-09-14T16:24:55Z",
+  "started": "2026-09-15T14:48:32Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
   "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 378.6,
+  "wall_seconds": 244.5,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "cd /home/daytona && pip install --upgrade daytona"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "Version: 0.211.2"
+      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY exists: True"
+      "evidence": "DAYTONA_API_KEY is set: yes"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: c9547b46-71a3-4b5b-a8da-c72790e2b36b"
+      "evidence": "Sandbox created with ID: a30599c7-a019-4dc1-ad5d-f8050d0cbd25"
     },
     "verified": {
       "passed": false,
-      "evidence": "Attempt 1: DaytonaConnectionError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by pe"
+      "evidence": "Attempt 5 failed: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   },
   "friction": [
     {
-      "where": "SDK version drift",
+      "where": "Sandbox process execution fails with persistent connection reset",
+      "detail": "Attempt 5 failed: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+      "where": "Toolbox proxy endpoint is unreachable from the sandbox network",
+      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443"
+    },
+    {
+      "where": "Daytona CLI --version starts a server and crashes",
+      "detail": "ERR Error occurred error=\"listen tcp :33333: bind: address already in use\""
+    },
+    {
+      "where": "Pre-installed SDK version is outdated and must be upgraded",
       "detail": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     },
     {
-      "where": "Missing environment configuration",
-      "detail": "DAYTONA_API_URL: NOT SET"
-    },
-    {
-      "where": "Toolbox proxy unreachable from sandbox",
-      "detail": "Recv failure: Connection reset by peer"
-    },
-    {
-      "where": "Local Daytona CLI port conflict",
-      "detail": "listen tcp :22222: bind: address already in use"
-    },
-    {
-      "where": "Python SDK docs link broken",
-      "detail": "404 The page you're looking for doesn't exist or has been moved."
+      "where": "Undocumented REST API paths for process execution return 404",
+      "detail": "\"message\":\"Cannot POST /api/sandbox/3d0202a3-6d85-45c7-83b0-b9ae56fa1c60/toolbox/process/execute\""
     }
   ],
   "score": 70,
-  "braintrust_span": "b93405a5-e38a-40f0-b43f-e2c2c6634b55"
+  "braintrust_span": "71a7259f-9272-4f78-b374-25f76bd92a99"
 }

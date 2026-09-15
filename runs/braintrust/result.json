@@ -1,58 +1,54 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-09-14T15:56:49Z",
+  "started": "2026-09-15T14:23:25Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I installed the Braintrust SDK, OpenAI, and autoevals successfully (`Successfully installed autoevals-0.3.0 braintrust-0.39.0`). I wrote the `movie_matcher.py` eval script exactly per the quickstart, adapting it to use the Braintrust Gateway with the provided `BRAINTRUST_API_KEY`. However, the sandbox blocks outbound HTTPS: TLS handshakes to `api.braintrust.dev`, `gateway.braintrust.dev`, and even `google.com` all fail with \"Connection reset by peer\" after the Client Hello, while plain HTTP and ICMP reach the internet fine. Because the Braintrust SDK cannot establish a TLS connection to the API, no eval run could execute and no scores were reported.",
+  "summary": "I successfully fetched the Braintrust evaluation quickstart docs and installed the required Python SDKs (`braintrust-0.40.0`, `autoevals-0.3.0`, `openai-1.72.0`) via pip. I then wrote the `movie_matcher.py` eval script following the quickstart's Python example, adapting it to use the Braintrust Gateway with only the provided `BRAINTRUST_API_KEY`. However, the eval could not execute because all outbound HTTPS connections from the sandbox are blocked at the TLS handshake level\u2014both `curl -v https://api.braintrust.dev` and `curl -v https://gateway.braintrust.dev` fail with `Recv failure: Connection reset by peer` during `SSL_connect`, and the Python script throws the same `ConnectionResetError(104, 'Connection reset by peer')`. No eval run was executed and no scores were reported due to this network restriction.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 190.0,
+  "wall_seconds": 142.6,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "Python 3.14.4"
     },
     "installed": {
       "passed": true,
-      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.39.0"
+      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.40.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-9.0.0 sseclient-py-1.9.0 text-unidecode-1.3"
     },
     "configured": {
-      "passed": false,
-      "evidence": "OPENAI_API_KEY is set: no"
+      "passed": true,
+      "evidence": "export BRAINTRUST_API_KEY='***REDACTED***'"
     },
     "first_call": {
       "passed": false,
-      "evidence": "python movie_matcher.py exited with exit=1 after SSL connection reset by peer"
+      "evidence": "exit=1"
     },
     "verified": {
       "passed": false,
-      "evidence": "no eval run could execute and no scores were reported"
+      "evidence": "No eval run was executed and no scores were reported due to this network restriction."
     }
   },
   "friction": [
     {
-      "where": "Sandbox HTTPS egress",
-      "detail": "curl -4 -v https://api.braintrust.dev fails with 'curl: (35) Recv failure: Connection reset by peer', blocking all API calls"
+      "where": "Documentation link",
+      "detail": "Fetching `https://www.braintrust.dev/docs/start/quickstart/eval.md` returns `# Page Not Found`."
+    },
+    {
+      "where": "Sandbox network egress",
+      "detail": "`curl: (35) Recv failure: Connection reset by peer` when connecting to `api.braintrust.dev:443`."
+    },
+    {
+      "where": "SDK installation PATH",
+      "detail": "`WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH.`"
     },
     {
       "where": "Missing AI provider key prerequisite",
-      "detail": "OPENAI_API_KEY is set: no \u2014 the quickstart mandates this alongside BRAINTRUST_API_KEY"
-    },
-    {
-      "where": "pip user install PATH warning",
-      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
-    },
-    {
-      "where": "Quickstart Python snippet truncated",
-      "detail": "The evaluation quickstart page cuts off the Python install command at '```bash Python theme={...}github-da'"
-    },
-    {
-      "where": "Gateway alternative undocumented in quickstart",
-      "detail": "The quickstart only lists external provider keys (export OPENAI_API_KEY=\" \" # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc.) and omits the Braintrust Gateway workaround"
+      "detail": "Quickstart instructs `export OPENAI_API_KEY=\" \"` but sandbox only supplies `BRAINTRUST_API_KEY`."
     }
   ],
-  "score": 30,
-  "braintrust_span": "c185dc63-ce37-47d9-92c3-9e1f99bc2b9c"
+  "score": 45,
+  "braintrust_span": "54d10b01-b8b5-4d31-b435-cebf0ef55acf"
 }
