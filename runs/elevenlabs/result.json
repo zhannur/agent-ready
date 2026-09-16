@@ -1,14 +1,14 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-09-15T14:49:41Z",
+  "started": "2026-09-16T14:38:23Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Completed the ElevenLabs quickstart end-to-end. Installed the Python SDK (elevenlabs + python-dotenv), created the example script using the provided code, and successfully generated an MP3 audio file from text via the ElevenLabs API. The output file /home/daytona/output.mp3 is 46,019 bytes with a valid MP3 header (ID3 tag), confirming the text-to-speech generation worked.",
-  "deviations": "The quickstart's example uses `play(audio)` to stream audio through speakers. Since the sandbox is headless with no audio output, I replaced the `play()` call with code that writes the audio stream to a file and verifies the MP3 header. This is the only deviation \u2014 all other steps (SDK install, API key usage, voice ID, model ID, output format) followed the quickstart exactly.",
-  "steps": 9,
-  "wall_seconds": 33.9,
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. The text-to-speech API generated a valid MP3 audio file (output.mp3, 41.8KB, MPEG ADTS layer III 128kbps 44.1kHz mono) from the text 'The first move is what sets everything in motion.' using the George voice (JBFqnCBsd6RMkjVDRZzb) and eleven_v3 model.",
+  "deviations": "1. Could not install MPV (no sudo permissions in sandbox), so audio could not be played through speakers as the quickstart suggests. 2. To verify the outcome in this headless sandbox, I saved the returned audio stream to a file (output.mp3) instead of calling play(audio). The core API functionality works exactly as documented.",
+  "steps": 12,
+  "wall_seconds": 60.8,
   "checkpoints": {
     "env_ready": {
       "passed": true,
@@ -20,35 +20,35 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "API key present: yes"
+      "evidence": "ELEVENLABS_API_KEY is set: yes"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to /home/daytona/output.mp3"
+      "evidence": "Audio saved to output.mp3"
     },
     "verified": {
       "passed": true,
-      "evidence": "Valid MP3 header detected (ID3 tag)"
+      "evidence": "output.mp3: Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural"
     }
   },
   "friction": [
     {
-      "where": "Fetched documentation is noisy HTML navigation soup rather than clean quickstart instructions",
-      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page."
-    },
-    {
-      "where": "Missing audio playback prerequisite in headless sandbox",
+      "where": "Missing system audio player (mpv) required by the quickstart's play() example",
       "detail": "mpv not found"
     },
     {
-      "where": "System package installation blocked by sandbox permissions",
+      "where": "Sandbox blocked installation of missing mpv dependency",
       "detail": "E: List directory /var/lib/apt/lists/partial is missing. - Acquire (13: Permission denied)"
     },
     {
-      "where": "Quickstart example assumes interactive audio playback requiring code modification",
-      "detail": "The quickstart's example uses play(audio) to stream audio through spea"
+      "where": "Quickstart example uses play() with no headless fallback, forcing a script rewrite to save-to-file",
+      "detail": "from elevenlabs.play import play"
+    },
+    {
+      "where": "First example script ran silently with no output, obscuring whether the initial API call succeeded",
+      "detail": "python3 example.py exit=0 with no stdout/stderr shown"
     }
   ],
   "score": 100,
-  "braintrust_span": "fc74514d-cd10-4d8f-9d9b-9f90d8bc835d"
+  "braintrust_span": "5b75ac05-4882-4677-9891-3d3a3979908e"
 }

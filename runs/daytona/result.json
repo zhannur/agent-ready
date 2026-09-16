@@ -1,14 +1,14 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-09-15T14:48:32Z",
+  "started": "2026-09-16T14:35:36Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I successfully installed the Daytona Python SDK (v0.214.0) and created a sandbox via the SDK\u2014output proved this worked: `Sandbox created: 27090213-8295-4144-b2c5-1f6bdf306052` with state `SandboxState.STARTED`. However, executing code inside the sandbox via `sandbox.process.exec()` consistently failed with `DaytonaConnectionError` caused by `ConnectionResetError: [Errno 104] Connection reset by peer` when connecting to the toolbox proxy at `https://proxy.app.daytona.io/toolbox`. I confirmed this is a network-level block by reproducing the same `Connection reset by peer` with raw `curl -v` to that endpoint, while the REST API (`app.daytona.io/api`) responded HTTP 200. The quickstart's promised outcome\u2014running code inside the sandbox\u2014was blocked by this proxy connectivity issue, not by any deviation from the documented steps.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 244.5,
+  "wall_seconds": 371.3,
   "checkpoints": {
     "env_ready": {
       "passed": true,
@@ -16,7 +16,7 @@
     },
     "installed": {
       "passed": true,
-      "evidence": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
+      "evidence": "Version: 0.214.0"
     },
     "configured": {
       "passed": true,
@@ -24,35 +24,35 @@
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: a30599c7-a019-4dc1-ad5d-f8050d0cbd25"
+      "evidence": "Sandbox created: 27090213-8295-4144-b2c5-1f6bdf306052\nSandbox state: SandboxState.STARTED"
     },
     "verified": {
       "passed": false,
-      "evidence": "Attempt 5 failed: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "evidence": "Attempt 30 failed: DaytonaConnectionError"
     }
   },
   "friction": [
     {
-      "where": "Sandbox process execution fails with persistent connection reset",
-      "detail": "Attempt 5 failed: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "where": "SDK version drift",
+      "detail": "INSTALLED: 0.134.0\nLATEST:    0.214.0"
     },
     {
-      "where": "Toolbox proxy endpoint is unreachable from the sandbox network",
-      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to proxy.app.daytona.io:443"
+      "where": "Toolbox proxy unreachable from sandbox environment",
+      "detail": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Daytona CLI --version starts a server and crashes",
-      "detail": "ERR Error occurred error=\"listen tcp :33333: bind: address already in use\""
+      "where": "Daytona CLI emits internal debug/bind errors on basic commands",
+      "detail": "ERR Error occurred error=\"listen tcp :22222: bind: address already in use\""
     },
     {
-      "where": "Pre-installed SDK version is outdated and must be upgraded",
-      "detail": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
+      "where": "Quickstart snippet has no retry/readiness handling for process.exec",
+      "detail": "Attempt 1 failed: DaytonaConnectionError ... Attempt 30 failed: DaytonaConnectionError"
     },
     {
-      "where": "Undocumented REST API paths for process execution return 404",
-      "detail": "\"message\":\"Cannot POST /api/sandbox/3d0202a3-6d85-45c7-83b0-b9ae56fa1c60/toolbox/process/execute\""
+      "where": "SDK config parameters not listed in quickstart",
+      "detail": "python3 -c \"from daytona import DaytonaConfig\nimport inspect\nprint(inspect.signature(DaytonaConfig))\""
     }
   ],
   "score": 70,
-  "braintrust_span": "71a7259f-9272-4f78-b374-25f76bd92a99"
+  "braintrust_span": "78603320-fc5e-4005-93fd-c932a43afe2f"
 }

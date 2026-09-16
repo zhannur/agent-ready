@@ -1,14 +1,14 @@
 {
   "name": "copilotkit",
   "url": "https://docs.copilotkit.ai/quickstart",
-  "started": "2026-09-15T14:43:00Z",
+  "started": "2026-09-16T14:28:31Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I got the CopilotKit-powered Next.js app created, packages installed, runtime route configured, provider wrapped, and dev server running. The copilot endpoint is demonstrably working: `GET /api/copilotkit/info` returned HTTP 200 with valid JSON showing runtime version `1.71.2`, the `default` BuiltInAgent, and capabilities. `POST /api/copilotkit/agent/default/run` returned HTTP 400 with schema-validation errors, which proves the endpoint is alive and processing requests (it just expects the proper CopilotKit client protocol, not hand-crafted JSON). I deviated from the docs by changing the docs\u2019 nonexistent model `\"openai:gpt-5.4-mini\"` to `\"openai:gpt-4o-mini\"`, and by using a placeholder `.env` key since no API key was exported in the sandbox. The frontend page loads; the only remaining blocker to a full chat round-trip is a valid OpenAI API key and using the actual CopilotKit client rather than raw `curl`.",
+  "summary": "I followed the CopilotKit quickstart exactly: created the Next.js app (exit 0), installed `@copilotkit/react-core` and `@copilotkit/runtime` (1144 packages added, exit 0), wrote all four required files (`route.ts`, `providers.tsx`, `layout.tsx`, `page.tsx`), and set up the `.env` file. However, I could not get the app to build or serve because the sandbox's ~1.9 GB RAM is insufficient for Next.js 16 + Turbopack + CopilotKit compilation. The kernel OOM-killer repeatedly terminated the `next-server` process during compilation (dmesg showed `Memory cgroup out of memory: Killed process 736 (next-server)`), and `npm run build` also failed with exit 137 (SIGKILL). No HTTP endpoint ever became reachable. The only deviation from the docs was using `gpt-4o-mini` instead of the non-existent `gpt-5.4-mini` model listed in the quickstart, and adding a dummy `OPENAI_API_KEY` since no real key was exported in the environment.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 1076.9,
+  "wall_seconds": 657.8,
   "checkpoints": {
     "env_ready": {
       "passed": true,
@@ -16,43 +16,43 @@
     },
     "installed": {
       "passed": true,
-      "evidence": "added 1162 packages, and audited 1528 packages in 2m"
+      "evidence": "added 1144 packages, and audited 1510 packages in 2m"
     },
     "configured": {
       "passed": true,
-      "evidence": "wrote /home/daytona/my-copilot-app/.env (35 bytes)"
+      "evidence": "wrote /home/daytona/my-copilot-app/.env (40 bytes)"
     },
     "first_call": {
       "passed": false,
-      "evidence": "HTTP Status: 400"
+      "evidence": "daytona      576  0.0  0.0   6528  2024 ?        S    14:25   0:00 grep -i next"
     },
     "verified": {
       "passed": false,
-      "evidence": "Killed"
+      "evidence": "Memory cgroup out of memory: Killed process 736 (next-server)"
     }
   },
   "friction": [
     {
+      "where": "Sandbox memory limit during Next.js compilation",
+      "detail": "Memory cgroup out of memory: Killed process 736 (next-server)"
+    },
+    {
+      "where": "next.config.ts attempts to disable Turbopack",
+      "detail": "Expected object, received boolean at \"turbopack\""
+    },
+    {
       "where": "Missing OpenAI API key prerequisite",
-      "detail": "OPENAI_API_KEY is set: \nLength: 0"
+      "detail": "No OPENAI_API_KEY found in env"
     },
     {
-      "where": "Next.js production build fails or hangs",
-      "detail": "command execution timeout"
+      "where": "npm install deprecation/vulnerability noise",
+      "detail": "6 vulnerabilities (5 moderate, 1 high)"
     },
     {
-      "where": "CopilotKit runtime endpoint path not obvious from docs",
-      "detail": "POST /api/copilotkit 404 in 6.2s"
-    },
-    {
-      "where": "Runtime POST endpoint rejects hand-crafted JSON with strict schema errors",
-      "detail": "{\"error\":\"Invalid request body\",\"details\":\"[\\n  {\\n    \\\"code\\\": \\\"invalid_type\\\""
-    },
-    {
-      "where": "SDK install emits deprecation warnings and vulnerabilities",
-      "detail": "npm warn deprecated lodash.get@4.4.2"
+      "where": "Build OOM-killed even with constrained Node heap",
+      "detail": "NODE_OPTIONS=\"--max-old-space-size=1536\" npm run build ... Killed"
     }
   ],
   "score": 45,
-  "braintrust_span": "7eb0d448-1fe8-4c78-b0cd-23be9223d057"
+  "braintrust_span": "c45eac76-d659-4d36-9f82-dbdbb1e473c1"
 }
