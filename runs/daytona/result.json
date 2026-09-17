@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-09-16T14:35:36Z",
+  "started": "2026-09-17T14:45:44Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Daytona Python SDK (v0.214.0) and created a sandbox via the SDK\u2014output proved this worked: `Sandbox created: 27090213-8295-4144-b2c5-1f6bdf306052` with state `SandboxState.STARTED`. However, executing code inside the sandbox via `sandbox.process.exec()` consistently failed with `DaytonaConnectionError` caused by `ConnectionResetError: [Errno 104] Connection reset by peer` when connecting to the toolbox proxy at `https://proxy.app.daytona.io/toolbox`. I confirmed this is a network-level block by reproducing the same `Connection reset by peer` with raw `curl -v` to that endpoint, while the REST API (`app.daytona.io/api`) responded HTTP 200. The quickstart's promised outcome\u2014running code inside the sandbox\u2014was blocked by this proxy connectivity issue, not by any deviation from the documented steps.",
+  "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 371.3,
+  "wall_seconds": 194.9,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "python3 -m venv /home/daytona/venv && source /home/daytona/venv/bin/activate && pip install daytona-sdk==0.214.0"
     },
     "installed": {
       "passed": true,
-      "evidence": "Version: 0.214.0"
+      "evidence": "from daytona import Daytona; print('Import OK')"
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY is set: yes"
+      "evidence": "Sandbox created: 8f396fb5-8527-4428-9c91-0d2b3ab09f3e"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created: 27090213-8295-4144-b2c5-1f6bdf306052\nSandbox state: SandboxState.STARTED"
+      "evidence": "Sandbox created: 8f396fb5-8527-4428-9c91-0d2b3ab09f3e"
     },
     "verified": {
       "passed": false,
-      "evidence": "Attempt 30 failed: DaytonaConnectionError"
+      "evidence": "urllib3.exceptions.ProtocolError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   },
   "friction": [
     {
-      "where": "SDK version drift",
-      "detail": "INSTALLED: 0.134.0\nLATEST:    0.214.0"
+      "where": "Python package version mismatch between daytona and daytona-sdk",
+      "detail": "ImportError: cannot import name 'PaginatedSandboxes' from 'daytona_api_client_async' ... Did you mean: 'PaginatedSnapshots'?"
     },
     {
-      "where": "Toolbox proxy unreachable from sandbox environment",
-      "detail": "curl: (35) Recv failure: Connection reset by peer"
+      "where": "System pip uninstall requires root permissions",
+      "detail": "PermissionError: [Errno 13] Permission denied: '/usr/local/lib/python3.14/site-packages/daytona-0.134.0.dist-info/'"
     },
     {
-      "where": "Daytona CLI emits internal debug/bind errors on basic commands",
-      "detail": "ERR Error occurred error=\"listen tcp :22222: bind: address already in use\""
+      "where": "Deprecated daytona_sdk package still suggested by old docs or muscle memory",
+      "detail": "DeprecationWarning: The 'daytona_sdk' package is deprecated and will eventually be discontinued. Please migrate to the 'daytona' package"
     },
     {
-      "where": "Quickstart snippet has no retry/readiness handling for process.exec",
-      "detail": "Attempt 1 failed: DaytonaConnectionError ... Attempt 30 failed: DaytonaConnectionError"
+      "where": "SDK API method name differs from quickstart snippet",
+      "detail": "AttributeError: 'Process' object has no attribute 'execute'"
     },
     {
-      "where": "SDK config parameters not listed in quickstart",
-      "detail": "python3 -c \"from daytona import DaytonaConfig\nimport inspect\nprint(inspect.signature(DaytonaConfig))\""
+      "where": "Sandbox proxy endpoint unreachable due to TLS/connection reset",
+      "detail": "curl: (35) Recv failure: Connection reset by peer in connection to proxy.app.daytona.io:443"
     }
   ],
   "score": 70,
-  "braintrust_span": "78603320-fc5e-4005-93fd-c932a43afe2f"
+  "braintrust_span": "bcf56ef0-35be-4108-92da-5273bffb9caa"
 }

@@ -1,14 +1,14 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-09-16T14:16:02Z",
+  "started": "2026-09-17T14:21:03Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
   "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 212.8,
+  "wall_seconds": 164.8,
   "checkpoints": {
     "env_ready": {
       "passed": true,
@@ -16,43 +16,43 @@
     },
     "installed": {
       "passed": true,
-      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.40.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-9.0.0 sseclient-py-1.9.0 text-unidecode-1.3"
+      "evidence": "bt 0.20.0"
     },
     "configured": {
       "passed": false,
-      "evidence": "No OPENAI_API_KEY found"
+      "evidence": "env | grep -iE 'openai|anthropic|gemini|ai_' | cut -d= -f1 produced no output, while quickstart requires 'export OPENAI_API_KEY=\" \" # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc.'"
     },
     "first_call": {
       "passed": false,
-      "evidence": "File \"/usr/local/lib/python3.14/ssl.py\", line 1076, in _create self.do_handshake()"
+      "evidence": "POST https://www.braintrust.dev/api/apikey/login failed after 4 attempt(s) without an HTTP response"
     },
     "verified": {
       "passed": false,
-      "evidence": "exit=1"
+      "evidence": "exit=1 from bt eval movie_matcher.py, no scores reported"
     }
   },
   "friction": [
     {
       "where": "Missing AI provider API key prerequisite",
-      "detail": "No OPENAI_API_KEY found"
+      "detail": "Quickstart instructs 'export OPENAI_API_KEY=\" \" # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc.' but sandbox only had BRAINTRUST_API_KEY: 'env | grep -iE 'openai|anthropic|gemini|ai_' | cut -d= -f1' returned nothing."
     },
     {
-      "where": "Braintrust Gateway unreachable from sandbox",
-      "detail": "000Connection failed"
+      "where": "Network/TLS blocked to Braintrust API",
+      "detail": "Sandbox could not complete TLS handshake to run the eval: '* OpenSSL SSL_connect: Connection reset by peer in connection to braintrust.dev:443'"
     },
     {
-      "where": "Python 3.14 pre-release SSL compatibility",
-      "detail": "Python 3.14.4 ... File \"/usr/local/lib/python3.14/ssl.py\", line 1076, in _create self.do_handshake()"
+      "where": "bt CLI install script shell compatibility",
+      "detail": "Install script uses bash [[ syntax but is piped to sh, causing syntax errors: 'sh: 40: [[: not found' ... 'sh: 137: [[: not found'"
     },
     {
-      "where": "SDK requires deep source-code inspection to debug connection issues",
-      "detail": "grep -n \"api_url\\|app_url\\|base_url\\|BRAINTRUST\" /home/daytona/.local/lib/python3.14/site-packages/braintrust/logger.py | head -50"
+      "where": "Python 3.14 version drift",
+      "detail": "Sandbox uses an unusually new Python that may lack ecosystem support: 'Python 3.14.4'"
     },
     {
-      "where": "Pip install warns about scripts not on PATH",
-      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
+      "where": "Documentation discoverability",
+      "detail": "Agent had to fetch multiple URLs to locate the evaluation quickstart, e.g. repeated '[fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/start/eval\"}' before finding /docs/evaluation-quickstart.md"
     }
   ],
   "score": 30,
-  "braintrust_span": "48b93e78-92ae-4cb8-9ae4-47761a086a9d"
+  "braintrust_span": "9003655e-e9c7-4908-b65e-cb71462cd58f"
 }

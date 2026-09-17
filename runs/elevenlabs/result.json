@@ -1,18 +1,18 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-09-16T14:38:23Z",
+  "started": "2026-09-17T14:48:52Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. The text-to-speech API generated a valid MP3 audio file (output.mp3, 41.8KB, MPEG ADTS layer III 128kbps 44.1kHz mono) from the text 'The first move is what sets everything in motion.' using the George voice (JBFqnCBsd6RMkjVDRZzb) and eleven_v3 model.",
-  "deviations": "1. Could not install MPV (no sudo permissions in sandbox), so audio could not be played through speakers as the quickstart suggests. 2. To verify the outcome in this headless sandbox, I saved the returned audio stream to a file (output.mp3) instead of calling play(audio). The core API functionality works exactly as documented.",
-  "steps": 12,
-  "wall_seconds": 60.8,
+  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the SDK (`pip install elevenlabs python-dotenv`), created `example.py` following the quickstart's Python code, and ran it. The script authenticated with the `ELEVENLABS_API_KEY` environment variable, called `text_to_speech.convert()` with the example text \"The first move is what sets everything in motion.\", voice_id \"JBFqnCBsd6RMkjVDRZzb\", model_id \"eleven_v3\", and output_format \"mp3_44100_128\". The API returned audio data which was saved to `output.mp3` (40,586 bytes). The file was verified as a valid MP3 (`Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural`). The `play()` function also executed successfully.",
+  "deviations": "Minor adaptation: collected the audio generator into a list so the output could be both saved to a file (for verifiable proof in the sandbox) and passed to `play()`. The quickstart focuses on playing audio through speakers, but saving to file was necessary to demonstrably verify the outcome in this environment.",
+  "steps": 8,
+  "wall_seconds": 52.9,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "Defaulting to user installation because normal site-packages is not writeable"
     },
     "installed": {
       "passed": true,
@@ -20,11 +20,11 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "ELEVENLABS_API_KEY is set: yes"
+      "evidence": "Audio saved to output.mp3 (40586 bytes)"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Audio saved to output.mp3"
+      "evidence": "Audio played successfully"
     },
     "verified": {
       "passed": true,
@@ -33,22 +33,18 @@
   },
   "friction": [
     {
-      "where": "Missing system audio player (mpv) required by the quickstart's play() example",
-      "detail": "mpv not found"
+      "where": "Documentation fetch returned garbled HTML/navigation text instead of clean quickstart instructions",
+      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page. Search / Connect Blog Help Center API Pricing Sign up Overview ElevenCreative ElevenAgents ElevenAPI Reception.ai API reference Changelog Help Center Login Overview ElevenCreative ElevenAgents ElevenAPI Reception.ai API reference Changelog Help Center Get started Quickstart Agents Quickstart Choosing the right model Tutorials"
     },
     {
-      "where": "Sandbox blocked installation of missing mpv dependency",
-      "detail": "E: List directory /var/lib/apt/lists/partial is missing. - Acquire (13: Permission denied)"
+      "where": "Agent overwrote example.py three times in quick succession",
+      "detail": "wrote /home/daytona/example.py (710 bytes)"
     },
     {
-      "where": "Quickstart example uses play() with no headless fallback, forcing a script rewrite to save-to-file",
-      "detail": "from elevenlabs.play import play"
-    },
-    {
-      "where": "First example script ran silently with no output, obscuring whether the initial API call succeeded",
-      "detail": "python3 example.py exit=0 with no stdout/stderr shown"
+      "where": "pip install defaulted to user installation because system site-packages was not writeable",
+      "detail": "Defaulting to user installation because normal site-packages is not writeable"
     }
   ],
   "score": 100,
-  "braintrust_span": "5b75ac05-4882-4677-9891-3d3a3979908e"
+  "braintrust_span": "555c39d6-7722-4632-bab6-d82f055c3fbe"
 }

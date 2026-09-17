@@ -106,8 +106,8 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 </style></head><body>
 <h1 class="wordmark"><a href="index.html" style="color:inherit">agent-ready</a> · fireworks
 <span style="color:#b3d13b">75/100</span></h1>
-<p class="meta" style="margin:.6rem 0 1.4rem">18 steps ·
-70.2s · agent <code>kimi-k2p6</code> ·
+<p class="meta" style="margin:.6rem 0 1.4rem">9 steps ·
+42.4s · agent <code>kimi-k2p6</code> ·
 <a href="https://github.com/zhannur/agent-ready/blob/main/runs/fireworks/transcript.jsonl">raw JSONL</a></p>
 <details class="step" open><summary>#1 <b>fetch_url</b> <code>https://docs.fireworks.ai/getting-started/quickstart</code></summary><pre> Serverless Quickstart - Fireworks AI Docs Documentation Index Fetch the complete documentation index at: /llms.txt Use this file to discover all available pages before exploring further. Skip to main content Fireworks AI Docs home page Documentation API &amp;amp; SDK Reference CLI Reference Demos Changelog Resources Community Status Dashboard Dashboard Search... Navigation Get Started Serverless Quickstart Search... ⌘ K Get Started Overview Serverless Quickstart Deployments Quickstart Which model should I use? Concepts Serverless Inference Overview Serverless Serving Paths Serverless Pricing Reserved Throughput Serverless Rate Limits US-only Serverless Deployments Deployments Overview Autoscaling Custom models Quantization Advanced Models &amp;amp; Inference Text Models Vision Models Embeddings &amp;amp; Reranking Tool Calling Reasoning Reliability and Error Handling Batch API Advanced Training Training Overview Agent Skills Models Cost estimator Evaluating Trained Models Deploying Trained Models Managed Training Overview Supervised Fine-Tuning - Text Thinking history in training Preference Optimization Reinforcement Fine-Tuning Single-Turn Training Remote Agents Remote Environments RL rollout cost comparison Training API Overview Serverless Training Dedicated Training Training Shapes Cookbook Overview Cookbook: Supervised Fine-Tuning Cookbook: Preference Optimization Cookbook: Reinforcement Learning Cookbook: Agentic Reinforcement Learning Cookbook: Distillation Cookbook: Reference Bring Your Own Trainer Fire Pass Fire Pass Setup Fireworks Nexus Per-User Usage Limits Provider Keys (Bring Your Own) FireRouter FireConnect Administration Managing users Custom SSO Service Accounts Account quotas Exporting Billing Metrics Exporting Usage Costs Usage &amp;amp; Cost Breakdown Enterprise features Security &amp;amp; Compliance Data Security &amp;amp; Privacy Secure Training Zero Data Retention Audit &amp;amp; Access Logs Integrations Microsoft Foundry LiteLLM Bring Your Own Cluster Development Setup with Fireworks Docs MCP Agent Frameworks MLOps &amp;amp; Observability Reference Glossary On this page Step 1: Create and export an API key Step 2: Make your first Serverless API call Common use cases Streaming responses Function calling Structured outputs (JSON mode) Reasoning Vision models Learn more about Serverless Next steps Get Started Serverless Quickstart Copy page Copy page Make your first Serverless API call in minutes Copy page Copy page Serverless is the fastest way to get started with using open models. This quickstart will help you make your first API call in minutes. 
  ​ Step 1: Create and export an API key 
@@ -194,9 +194,11 @@ pre { background: var(--inset); border: 1px solid var(--line); border-radius: 8p
 
  const client = new Anthropic ({ 
  apiKey: process . env . FIREWORKS_API_KEY , 
- baseURL: &amp;quot;https://a</pre></details><details class="step" open><summary>#2 <b>bash</b> <code>python3 --version &amp;&amp; pip3 --version</code></summary><pre>exit=0
+ baseURL: &amp;quot;https://a</pre></details><details class="step" open><summary>#2 <b>bash</b> <code>echo &quot;Checking environment...&quot; &amp;&amp; python3 --version &amp;&amp; pip3 --version &amp;&amp; echo &quot;FIREWORKS_API_KEY is set: ${FIREWORKS_API_KEY:+yes}&quot;</code></summary><pre>exit=0
+Checking environment...
 Python 3.14.4
 pip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)
+FIREWORKS_API_KEY is set: yes
 </pre></details><details class="step" open><summary>#3 <b>bash</b> <code>pip install openai</code></summary><pre>exit=0
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: openai in /usr/local/lib/python3.14/site-packages (2.33.0)
@@ -218,11 +220,11 @@ Requirement already satisfied: typing-inspection&gt;=0.4.2 in /usr/local/lib/pyt
 
 [notice] A new release of pip is available: 26.0.1 -&gt; 26.2.1
 [notice] To update, run: pip install --upgrade pip
-</pre></details><details class="step" open><summary>#4 <b>write_file</b> <code>/home/daytona/quickstart.py</code></summary><pre>wrote /home/daytona/quickstart.py (392 bytes)</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 quickstart.py</code></summary><pre>exit=1
+</pre></details><details class="step" open><summary>#4 <b>write_file</b> <code>/home/daytona/quickstart.py</code></summary><pre>wrote /home/daytona/quickstart.py (400 bytes)</pre></details><details class="step" open><summary>#5 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 quickstart.py</code></summary><pre>exit=1
 Traceback (most recent call last):
   File &quot;/home/daytona/quickstart.py&quot;, line 9, in &lt;module&gt;
     response = client.chat.completions.create(
-        model=&quot;accounts/fireworks/models/deepseek-v3p1&quot;,
+        model = &quot;accounts/fireworks/models/deepseek-v3p1&quot;,
     ...&lt;3 lines&gt;...
         }],
     )
@@ -243,8 +245,44 @@ Traceback (most recent call last):
                            ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File &quot;/usr/local/lib/python3.14/site-packages/openai/_base_client.py&quot;, line 1087, in request
     raise self._make_status_error_from_response(err.response) from None
-openai.NotFoundError: Error code: 404 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Model not found, inaccessible, and/or not deployed&#x27;, &#x27;param&#x27;: &#x27;model&#x27;, &#x27;code&#x27;: &#x27;NOT_FOUND&#x27;, &#x27;type&#x27;: &#x27;error&#x27;}, &#x27;request_id&#x27;: &#x27;chatcmpl-fe73ab625291473882c41bbd794ee0a5&#x27;}
-</pre></details><details class="step" open><summary>#6 <b>bash</b> <code>curl -s -H &quot;Authorization: Bearer $FIREWORKS_API_KEY&quot; https://api.fireworks.ai/inference/v1/models | python3 -c &quot;import sys,json; data=json.</code></summary><pre>exit=0
+openai.NotFoundError: Error code: 404 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Model not found, inaccessible, and/or not deployed&#x27;, &#x27;param&#x27;: &#x27;model&#x27;, &#x27;code&#x27;: &#x27;NOT_FOUND&#x27;, &#x27;type&#x27;: &#x27;error&#x27;}, &#x27;request_id&#x27;: &#x27;chatcmpl-0c7884d0a8be462699a16910c1b77b72&#x27;}
+</pre></details><details class="step" open><summary>#6 <b>bash</b> <code>cd /home/daytona &amp;&amp; cat &gt; quickstart.py &lt;&lt; &#x27;EOF&#x27;
+import os
+from openai import OpenAI
+
+client = OpenAI(
+    api_key = os.environ.get(&quot;FIREWOR</code></summary><pre>exit=1
+Traceback (most recent call last):
+  File &quot;/home/daytona/quickstart.py&quot;, line 9, in &lt;module&gt;
+    response = client.chat.completions.create(
+        model = &quot;accounts/fireworks/models/llama-v3p1-8b-instruct&quot;,
+    ...&lt;3 lines&gt;...
+        }],
+    )
+  File &quot;/usr/local/lib/python3.14/site-packages/openai/_utils/_utils.py&quot;, line 287, in wrapper
+    return func(*args, **kwargs)
+  File &quot;/usr/local/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py&quot;, line 1211, in create
+    return self._post(
+           ~~~~~~~~~~^
+        &quot;/chat/completions&quot;,
+        ^^^^^^^^^^^^^^^^^^^^
+    ...&lt;47 lines&gt;...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File &quot;/usr/local/lib/python3.14/site-packages/openai/_base_client.py&quot;, line 1314, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/usr/local/lib/python3.14/site-packages/openai/_base_client.py&quot;, line 1087, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Model not found, inaccessible, and/or not deployed&#x27;, &#x27;param&#x27;: &#x27;model&#x27;, &#x27;code&#x27;: &#x27;NOT_FOUND&#x27;, &#x27;type&#x27;: &#x27;error&#x27;}, &#x27;request_id&#x27;: &#x27;chatcmpl-9a7b0ec1f2424a5aa87b2c2310b96a01&#x27;}
+</pre></details><details class="step" open><summary>#7 <b>bash</b> <code>cd /home/daytona &amp;&amp; cat &gt; quickstart.py &lt;&lt; &#x27;EOF&#x27;
+import os
+from openai import OpenAI
+
+client = OpenAI(
+    api_key = os.environ.get(&quot;FIREWOR</code></summary><pre>exit=0
 accounts/fireworks/models/glm-5p2
 accounts/fireworks/routers/glm-5p2-fast
 accounts/fireworks/models/kimi-k2p6
@@ -255,164 +293,12 @@ accounts/fireworks/models/gpt-oss-120b
 accounts/fireworks/models/deepseek-v4-pro
 accounts/fireworks/models/qwen3p7-plus
 accounts/fireworks/models/nemotron-3-ultra-nvfp4
-accounts/fireworks/models/qwen3-reranker-8b
-accounts/fireworks/models/qwen3-embedding-8b
-accounts/fireworks/models/kimi-k3
-accounts/fireworks/routers/kimi-k3-fast
-accounts/fireworks/models/deepseek-v4-flash-0731
-accounts/fireworks/models/muse-glimmer-30b
-accounts/fireworks/models/qwen3p8-max
-accounts/fireworks/models/deepseek-v4-pro-0813
-accounts/fireworks/models/glm-5p3
-accounts/fireworks/routers/glm-5p3-fast
-accounts/fireworks/models/glm-5p3-flash
-accounts/fireworks/models/deepseek-v4-flash-vision-exp
-accounts/fireworks/models/deepseek-v4p1-flash
-accounts/fireworks/models/qwen3p8-2p4t-a95b
-accounts/fireworks/models/nemotron-lightning-3p5-30b-a3b
-accounts/fireworks/models/inkling
-</pre></details><details class="step" open><summary>#7 <b>write_file</b> <code>/home/daytona/quickstart.py</code></summary><pre>wrote /home/daytona/quickstart.py (394 bytes)</pre></details><details class="step" open><summary>#8 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 quickstart.py</code></summary><pre>exit=1
-Traceback (most recent call last):
-  File &quot;/home/daytona/quickstart.py&quot;, line 9, in &lt;module&gt;
-    response = client.chat.completions.create(
-        model=&quot;accounts/fireworks/models/deepseek-v4-pro&quot;,
-    ...&lt;3 lines&gt;...
-        }],
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/openai/_utils/_utils.py&quot;, line 287, in wrapper
-    return func(*args, **kwargs)
-  File &quot;/usr/local/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py&quot;, line 1211, in create
-    return self._post(
-           ~~~~~~~~~~^
-        &quot;/chat/completions&quot;,
-        ^^^^^^^^^^^^^^^^^^^^
-    ...&lt;47 lines&gt;...
-        stream_cls=Stream[ChatCompletionChunk],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File &quot;/usr/local/lib/python3.14/site-packages/openai/_base_client.py&quot;, line 1314, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
-                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/openai/_base_client.py&quot;, line 1087, in request
-    raise self._make_status_error_from_response(err.response) from None
-openai.NotFoundError: Error code: 404 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Model not found, inaccessible, and/or not deployed&#x27;, &#x27;param&#x27;: &#x27;model&#x27;, &#x27;code&#x27;: &#x27;NOT_FOUND&#x27;, &#x27;type&#x27;: &#x27;error&#x27;}, &#x27;request_id&#x27;: &#x27;chatcmpl-2d76565604624951a53dcc87a332fe47&#x27;}
-</pre></details><details class="step" open><summary>#9 <b>write_file</b> <code>/home/daytona/quickstart.py</code></summary><pre>wrote /home/daytona/quickstart.py (391 bytes)</pre></details><details class="step" open><summary>#10 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 quickstart.py</code></summary><pre>exit=1
-Traceback (most recent call last):
-  File &quot;/home/daytona/quickstart.py&quot;, line 9, in &lt;module&gt;
-    response = client.chat.completions.create(
-        model=&quot;accounts/fireworks/models/qwen3p7-plus&quot;,
-    ...&lt;3 lines&gt;...
-        }],
-    )
-  File &quot;/usr/local/lib/python3.14/site-packages/openai/_utils/_utils.py&quot;, line 287, in wrapper
-    return func(*args, **kwargs)
-  File &quot;/usr/local/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py&quot;, line 1211, in create
-    return self._post(
-           ~~~~~~~~~~^
-        &quot;/chat/completions&quot;,
-        ^^^^^^^^^^^^^^^^^^^^
-    ...&lt;47 lines&gt;...
-        stream_cls=Stream[ChatCompletionChunk],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File &quot;/usr/local/lib/python3.14/site-packages/openai/_base_client.py&quot;, line 1314, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
-                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/usr/local/lib/python3.14/site-packages/openai/_base_client.py&quot;, line 1087, in request
-    raise self._make_status_error_from_response(err.response) from None
-openai.NotFoundError: Error code: 404 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Model not found, inaccessible, and/or not deployed&#x27;, &#x27;param&#x27;: &#x27;model&#x27;, &#x27;code&#x27;: &#x27;NOT_FOUND&#x27;, &#x27;type&#x27;: &#x27;error&#x27;}, &#x27;request_id&#x27;: &#x27;chatcmpl-9cf74c41458f4833920fdfb73b2307ef&#x27;}
-</pre></details><details class="step" open><summary>#11 <b>bash</b> <code>pip install --pre fireworks-ai</code></summary><pre>exit=0
-Defaulting to user installation because normal site-packages is not writeable
-Collecting fireworks-ai
-  Downloading fireworks_ai-1.2.11-py3-none-any.whl.metadata (26 kB)
-Requirement already satisfied: aiohttp in /usr/local/lib/python3.14/site-packages (from fireworks-ai) (3.13.5)
-Requirement already satisfied: anyio&lt;5,&gt;=3.5.0 in /usr/local/lib/python3.14/site-packages (from fireworks-ai) (4.13.0)
-Requirement already satisfied: distro&lt;2,&gt;=1.7.0 in /usr/local/lib/python3.14/site-packages (from fireworks-ai) (1.9.0)
-Collecting httpx-aiohttp&gt;=0.1.9 (from fireworks-ai)
-  Downloading httpx_aiohttp-0.2.0-py3-none-any.whl.metadata (3.1 kB)
-Requirement already satisfied: httpx&lt;1,&gt;=0.23.0 in /usr/local/lib/python3.14/site-packages (from fireworks-ai) (0.28.1)
-Collecting pydantic&lt;2.13,&gt;=1.9.0 (from fireworks-ai)
-  Downloading pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
-Requirement already satisfied: sniffio in /usr/local/lib/python3.14/site-packages (from fireworks-ai) (1.3.1)
-Requirement already satisfied: typing-extensions&lt;5,&gt;=4.14 in /usr/local/lib/python3.14/site-packages (from fireworks-ai) (4.15.0)
-Requirement already satisfied: idna&gt;=2.8 in /usr/local/lib/python3.14/site-packages (from anyio&lt;5,&gt;=3.5.0-&gt;fireworks-ai) (3.15)
-Requirement already satisfied: certifi in /usr/local/lib/python3.14/site-packages (from httpx&lt;1,&gt;=0.23.0-&gt;fireworks-ai) (2026.4.22)
-Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.14/site-packages (from httpx&lt;1,&gt;=0.23.0-&gt;fireworks-ai) (1.0.9)
-Requirement already satisfied: h11&gt;=0.16 in /usr/local/lib/python3.14/site-packages (from httpcore==1.*-&gt;httpx&lt;1,&gt;=0.23.0-&gt;fireworks-ai) (0.16.0)
-Requirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;2.13,&gt;=1.9.0-&gt;fireworks-ai) (0.7.0)
-Collecting pydantic-core==2.41.5 (from pydantic&lt;2.13,&gt;=1.9.0-&gt;fireworks-ai)
-  Downloading pydantic_core-2.41.5-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
-Requirement already satisfied: typing-inspection&gt;=0.4.2 in /usr/local/lib/python3.14/site-packages (from pydantic&lt;2.13,&gt;=1.9.0-&gt;fireworks-ai) (0.4.2)
-Requirement already satisfied: aiohappyeyeballs&gt;=2.5.0 in /usr/local/lib/python3.14/site-packages (from aiohttp-&gt;fireworks-ai) (2.6.1)
-Requirement already satisfied: aiosignal&gt;=1.4.0 in /usr/local/lib/python3.14/site-packages (from aiohttp-&gt;fireworks-ai) (1.4.0)
-Requirement already satisfied: attrs&gt;=17.3.0 in /usr/local/lib/python3.14/site-packages (from aiohttp-&gt;fireworks-ai) (26.1.0)
-Requirement already satisfied: frozenlist&gt;=1.1.1 in /usr/local/lib/python3.14/site-packages (from aiohttp-&gt;fireworks-ai) (1.8.0)
-Requirement already satisfied: multidict&lt;7.0,&gt;=4.5 in /usr/local/lib/python3.14/site-packages (from aiohttp-&gt;fireworks-ai) (6.7.1)
-Requirement already satisfied: propcache&gt;=0.2.0 in /usr/local/lib/python3.14/site-packages (from aiohttp-&gt;fireworks-ai) (0.5.2)
-Requirement already satisfied: yarl&lt;2.0,&gt;=1.17.0 in /usr/local/lib/python3.14/site-packages (from aiohttp-&gt;fireworks-ai) (1.23.0)
-Downloading fireworks_ai-1.2.11-py3-none-any.whl (538 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 538.1/538.1 kB 35.3 MB/s  0:00:00
-Downloading pydantic-2.12.5-py3-none-any.whl (463 kB)
-Downloading pydantic_core-2.41.5-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 408.3 MB/s  0:00:00
-Downloading httpx_aiohttp-0.2.0-py3-none-any.whl (9.7 kB)
-Installing collected packages: pydantic-core, pydantic, httpx-aiohttp, fireworks-ai
+</pre></details><details class="step" open><summary>#8 <b>bash</b> <code>cd /home/daytona &amp;&amp; cat &gt; quickstart.py &lt;&lt; &#x27;EOF&#x27;
+import os
+from openai import OpenAI
 
-Successfully installed fireworks-ai-1.2.11 httpx-aiohttp-0.2.0 pydantic-2.12.5 pydantic-core-2.41.5
-
-[notice] A new release of pip is available: 26.0.1 -&gt; 26.2.1
-[notice] To update, run: pip install --upgrade pip
-</pre></details><details class="step" open><summary>#12 <b>write_file</b> <code>/home/daytona/quickstart_fireworks.py</code></summary><pre>wrote /home/daytona/quickstart_fireworks.py (288 bytes)</pre></details><details class="step" open><summary>#13 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 quickstart_fireworks.py</code></summary><pre>exit=1
-Traceback (most recent call last):
-  File &quot;/home/daytona/quickstart_fireworks.py&quot;, line 5, in &lt;module&gt;
-    response = client.chat.completions.create(
-        model=&quot;accounts/fireworks/models/deepseek-v3p1&quot;,
-    ...&lt;3 lines&gt;...
-        }],
-    )
-  File &quot;/home/daytona/.local/lib/python3.14/site-packages/fireworks/_utils/_utils.py&quot;, line 294, in wrapper
-    return func(*args, **kwargs)
-  File &quot;/home/daytona/.local/lib/python3.14/site-packages/fireworks/resources/chat/completions.py&quot;, line 1560, in create
-    return self._post(
-           ~~~~~~~~~~^
-        &quot;/v1/chat/completions&quot;
-        ^^^^^^^^^^^^^^^^^^^^^^
-    ...&lt;60 lines&gt;...
-        stream_cls=Stream[ChatCompletionChunk],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File &quot;/home/daytona/.local/lib/python3.14/site-packages/fireworks/_base_client.py&quot;, line 1284, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
-                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/home/daytona/.local/lib/python3.14/site-packages/fireworks/_base_client.py&quot;, line 1071, in request
-    raise self._make_status_error_from_response(err.response) from None
-fireworks.NotFoundError: Error code: 404 - {&#x27;error&#x27;: {&#x27;message&#x27;: &#x27;Model not found, inaccessible, and/or not deployed&#x27;, &#x27;param&#x27;: &#x27;model&#x27;, &#x27;code&#x27;: &#x27;NOT_FOUND&#x27;, &#x27;type&#x27;: &#x27;error&#x27;}, &#x27;request_id&#x27;: &#x27;chatcmpl-b93c2407eae04d4384b2402e3fca4aa0&#x27;}
-</pre></details><details class="step" open><summary>#14 <b>bash</b> <code>curl -s -H &quot;Authorization: Bearer $FIREWORKS_API_KEY&quot; https://api.fireworks.ai/inference/v1/models | python3 -c &quot;import sys,json; data=json.</code></summary><pre>exit=0
-accounts/fireworks/models/deepseek-v4-pro
-accounts/fireworks/models/qwen3p7-plus
-accounts/fireworks/models/qwen3-reranker-8b
-accounts/fireworks/models/qwen3-embedding-8b
-accounts/fireworks/models/deepseek-v4-flash-0731
-accounts/fireworks/models/qwen3p8-max
-accounts/fireworks/models/deepseek-v4-pro-0813
-accounts/fireworks/models/deepseek-v4-flash-vision-exp
-accounts/fireworks/models/deepseek-v4p1-flash
-accounts/fireworks/models/qwen3p8-2p4t-a95b
-</pre></details><details class="step" open><summary>#15 <b>bash</b> <code>curl -s https://api.fireworks.ai/inference/v1/chat/completions \
-  -H &quot;Content-Type: application/json&quot; \
-  -H &quot;Authorization: Bearer $FIREWO</code></summary><pre>exit=0
-{&quot;id&quot;:&quot;chatcmpl-e17fa18fd9cc495ab5d289e9b39c6a26&quot;,&quot;object&quot;:&quot;chat.completion&quot;,&quot;created&quot;:1789569558,&quot;model&quot;:&quot;accounts/fireworks/models/deepseek-v4-flash-0731&quot;,&quot;choices&quot;:[{&quot;index&quot;:0,&quot;message&quot;:{&quot;role&quot;:&quot;assistant&quot;,&quot;content&quot;:&quot;Hola! (pronounced *OH-lah*)&quot;,&quot;reasoning_content&quot;:&quot;1.  **Analyze the User&#x27;s Request**:\n    *   The user asks to \&quot;Say hello in Spanish\&quot;.\n    *   The target language is Spanish.\n    *   The phrase is a simple, direct request.\n\n2.  **Determine the Translation**:\n    *   The most common and standard translation for \&quot;hello\&quot; in Spanish is \&quot;Hola\&quot;.\n    *   Other options exist (Buenos días, Buenas tardes, Buenas noches, ¿Qué tal?), but \&quot;Hola\&quot; is the direct equivalent and most appropriate for a general \&quot;hello\&quot;.\n\n3.  **Formulate the Output**:\n    *   Provide the translation.\n    *   Include a slight explanation of pronunciation if helpful (since it&#x27;s a language request, clarity is good).\n    *   Keep it concise and friendly.\n\n    *Draft:* \&quot;Hola\&quot; (pronounced OH-lah).\n\n    *Refinement:* Just state \&quot;Hola\&quot;. Maybe add the pronunciation for clarity. Let&#x27;s provide a direct answer.&quot;,&quot;tools&quot;:null},&quot;finish_reason&quot;:&quot;stop&quot;}],&quot;usage&quot;:{&quot;prompt_tokens&quot;:8,&quot;total_tokens&quot;:230,&quot;completion_tokens&quot;:222,&quot;prompt_tokens_details&quot;:{&quot;cached_tokens&quot;:0},&quot;completion_tokens_details&quot;:{&quot;reasoning_tokens&quot;:209},&quot;output_tokens_details&quot;:{&quot;reasoning_tokens&quot;:209}}}</pre></details><details class="step" open><summary>#16 <b>write_file</b> <code>/home/daytona/quickstart.py</code></summary><pre>wrote /home/daytona/quickstart.py (401 bytes)</pre></details><details class="step" open><summary>#17 <b>bash</b> <code>cd /home/daytona &amp;&amp; python3 quickstart.py</code></summary><pre>exit=0
-**Hola** (pronounced *OH-lah*)
-
-That&#x27;s the most common and universal way to say &quot;hello&quot; in Spanish. 
-
-If you want to be more specific based on the time of day, you can also say:
-
-- **Buenos días** – Good morning
-- **Buenas tardes** – Good afternoon/evening
-- **Buenas noches** – Good night
-</pre></details><details class="step" open><summary>#18 <b>finish</b> <code></code></summary><pre>run finished</pre></details>
+client = OpenAI(
+    api_key = os.environ.get(&quot;FIREWOR</code></summary><pre>exit=0
+¡Hola!
+</pre></details><details class="step" open><summary>#9 <b>finish</b> <code></code></summary><pre>run finished</pre></details>
 </body></html>
