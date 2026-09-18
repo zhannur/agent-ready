@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-09-17T14:45:44Z",
+  "started": "2026-09-18T14:13:17Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
   "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 194.9,
+  "wall_seconds": 486.3,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "python3 -m venv /home/daytona/venv && source /home/daytona/venv/bin/activate && pip install daytona-sdk==0.214.0"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "from daytona import Daytona; print('Import OK')"
+      "evidence": "Version: 0.214.0"
     },
     "configured": {
       "passed": true,
-      "evidence": "Sandbox created: 8f396fb5-8527-4428-9c91-0d2b3ab09f3e"
+      "evidence": "DAYTONA_API_KEY=***REDACTED***"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created: 8f396fb5-8527-4428-9c91-0d2b3ab09f3e"
+      "evidence": "Sandbox created with ID: da2809a2-db2e-49bb-9243-917056e75d94\nSandbox state: SandboxState.STARTED"
     },
     "verified": {
       "passed": false,
-      "evidence": "urllib3.exceptions.ProtocolError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "evidence": "Attempt 1 failed: DaytonaConnectionError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by pe"
     }
   },
   "friction": [
     {
-      "where": "Python package version mismatch between daytona and daytona-sdk",
-      "detail": "ImportError: cannot import name 'PaginatedSandboxes' from 'daytona_api_client_async' ... Did you mean: 'PaginatedSnapshots'?"
+      "where": "SDK version drift (0.134.0 pre-installed vs 0.214.0 current)",
+      "detail": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     },
     {
-      "where": "System pip uninstall requires root permissions",
-      "detail": "PermissionError: [Errno 13] Permission denied: '/usr/local/lib/python3.14/site-packages/daytona-0.134.0.dist-info/'"
+      "where": "Toolbox proxy unreachable from within sandbox",
+      "detail": "000Failed"
     },
     {
-      "where": "Deprecated daytona_sdk package still suggested by old docs or muscle memory",
-      "detail": "DeprecationWarning: The 'daytona_sdk' package is deprecated and will eventually be discontinued. Please migrate to the 'daytona' package"
+      "where": "CLI commands fail with port already in use inside the sandbox",
+      "detail": "Error occurred error=\"listen tcp :22222: bind: address already in use\""
     },
     {
-      "where": "SDK API method name differs from quickstart snippet",
-      "detail": "AttributeError: 'Process' object has no attribute 'execute'"
+      "where": "Sandbox exec fails with repeated connection resets",
+      "detail": "Attempt 1 failed: DaytonaConnectionError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by pe"
     },
     {
-      "where": "Sandbox proxy endpoint unreachable due to TLS/connection reset",
-      "detail": "curl: (35) Recv failure: Connection reset by peer in connection to proxy.app.daytona.io:443"
+      "where": "Undocumented or incorrect direct API endpoint for exec",
+      "detail": "{\"path\":\"/api/sandbox/d509b173-047d-45b7-99d9-5f5b9b747b1a/exec\",\"timestamp\":\"2026-09-18T14:12:04.488Z\",\"statusCode\":404,\"error\":\"Not Found\",\"message\":\"Cannot POST /api/sandbox/d509b173-047d-45b7-99d9-5f5b9b747b1a/exec\"}"
     }
   ],
   "score": 70,
-  "braintrust_span": "bcf56ef0-35be-4108-92da-5273bffb9caa"
+  "braintrust_span": "674a0b2a-f532-466b-ab05-09c2732829ae"
 }
