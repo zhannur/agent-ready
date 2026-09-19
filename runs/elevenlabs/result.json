@@ -1,54 +1,58 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-09-18T14:15:01Z",
+  "started": "2026-09-19T13:44:37Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
-  "outcome": "verified",
-  "summary": "Successfully completed the ElevenLabs quickstart end-to-end. Installed the elevenlabs SDK and python-dotenv, created example.py with the quickstart code, and ran it. The script successfully called the ElevenLabs text-to-speech API and generated a valid MP3 audio file (output.mp3, 44765 bytes, confirmed as MPEG ADTS layer III 128 kbps 44.1 kHz).",
-  "deviations": "The quickstart example uses `play(audio)` to play audio through speakers. In this sandbox environment without audio output, I saved the audio to a file instead (`with open(\"output.mp3\", \"wb\") as f: for chunk in audio: f.write(chunk)`). This is a minor deviation for environment compatibility, but the core text-to-speech generation worked exactly as documented.",
-  "steps": 6,
-  "wall_seconds": 25.4,
+  "outcome": "stuck",
+  "summary": "run ended without finish()",
+  "deviations": "",
+  "steps": 40,
+  "wall_seconds": 196.5,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "pip install elevenlabs python-dotenv exited 0, showing Python and pip were available and functional."
+      "evidence": "pip install elevenlabs python-dotenv exited with code 0 and downloaded dependencies"
     },
     "installed": {
       "passed": true,
-      "evidence": "Downloading elevenlabs-2.68.0-py3-none-any.whl.metadata (15 kB) and exit=0 confirm the SDK was installed."
+      "evidence": "Downloading elevenlabs-2.68.0-py3-none-any.whl.metadata (15 kB) ... exit=0"
     },
     "configured": {
-      "passed": true,
-      "evidence": "python example.py exited 0 and produced audio, proving the ELEVENLABS_API_KEY loaded by os.getenv/load_dotenv was present and valid."
+      "passed": false,
+      "evidence": "ApiError: ... status_code: 401, body: {'detail': {'type': 'authentication_error', 'code': 'unauthorized', 'message': 'Invalid API key', 'status': 'invalid_api_key'}}"
     },
     "first_call": {
-      "passed": true,
-      "evidence": "Audio saved to output.mp3 was printed after running the script, indicating the text_to_speech.convert call succeeded."
+      "passed": false,
+      "evidence": "File \"/home/daytona/example.py\", line 19, in <module> play(audio) ... ApiError ... status_code: 401"
     },
     "verified": {
-      "passed": true,
-      "evidence": "file output.mp3 returned Audio file with ID3 version 2.4.0, contains: MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Monaural."
+      "passed": false,
+      "evidence": "No audio file was produced; final attempts ended with status_code: 401 and 'Invalid API key'"
     }
   },
   "friction": [
     {
-      "where": "Documentation page is mostly navigation noise rather than the quickstart body",
-      "detail": "ElevenAPI quickstart | ElevenLabs Documentation For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page. Search / Connect Blog Help Center API Pricing Sign up Overview ElevenCreative ElevenAgents ElevenAPI Reception.ai API reference Changelog Help Center Login Overview..."
+      "where": "Missing mpv binary prerequisite",
+      "detail": "which mpv ffmpeg returned 'mpv not found' while the quickstart example uses play(audio)"
     },
     {
-      "where": "Quickstart example assumes local audio playback",
-      "detail": "The quickstart example uses `play(audio)` to play audio through speakers. In this sandbox environmen"
+      "where": "System package installation blocked",
+      "detail": "apt-get update && apt-get install -y mpv failed with 'E: List directory /var/lib/apt/lists/partial is missing. - Acquire (13: Permission denied)'"
     },
     {
-      "where": "Agent had to modify example to persist output to disk",
-      "detail": "# Save audio to file instead of playing through"
+      "where": "API key validation",
+      "detail": "Every authenticated request returned 'message': 'Invalid API key', 'status': 'invalid_api_key' (e.g., request_id 'c913903a3c187c6cdc9f1ccf2c5a371a')"
     },
     {
-      "where": "Auth wiring step is missing from the visible transcript",
-      "detail": "api_key=os.getenv(\"ELEVENLABS_API_KEY\")"
+      "where": "Auth header format confusion",
+      "detail": "Agent spent multiple commands investigating why xi-api-key returned 401 while X-Api-Key returned 200: 'xi-api-key format: 401' vs 'X-Api-Key format: 200'"
+    },
+    {
+      "where": "Opaque SDK error traceback",
+      "detail": "Failure surfaced deep in elevenlabs/play.py instead of a clear auth message: 'File \"/home/daytona/.local/lib/python3.14/site-packages/elevenlabs/play.py\", line 19, in play'"
     }
   ],
-  "score": 100,
-  "braintrust_span": "c13f272e-5654-4a3b-a2f7-37f6ef7f41c2"
+  "score": 30,
+  "braintrust_span": "be6cff01-b48e-4263-afce-94e48628c9f3"
 }

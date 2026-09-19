@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-09-18T13:39:00Z",
+  "started": "2026-09-19T13:12:58Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I installed the Braintrust SDK, OpenAI, and autoevals successfully via pip, and wrote the movie-matcher eval script exactly as the quickstart specifies. However, when I ran the script it failed with a `ConnectionResetError` during the TLS handshake to `api.braintrust.dev`. I confirmed the sandbox itself blocks outbound HTTPS: `curl` to `https://www.braintrust.dev`, `https://www.google.com`, and even `https://1.1.1.1` all return \"Connection reset by peer,\" while `http://httpbin.org/get` explicitly returns \"Internet is restricted on Tier 1 and Tier 2.\" Because the sandbox cannot reach Braintrust's API, the eval run could not be executed and no scores were reported.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 147.9,
+  "wall_seconds": 162.3,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "Python 3.14.4 / pip 26.0.1 reported by `python3 --version && pip3 --version`"
     },
     "installed": {
       "passed": true,
-      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.41.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-9.0.0 sseclient-py-1.9.0 text-unidecode-1.3"
+      "evidence": "`pip install braintrust openai autoevals` exited 0 and downloaded `braintrust-0.41.0-py3-none-any.whl`"
     },
     "configured": {
       "passed": false,
-      "evidence": "OPENAI_API_KEY is set: "
+      "evidence": "Quickstart instructs `export OPENAI_API_KEY` but `env | grep -i openai` returned empty output"
     },
     "first_call": {
       "passed": false,
-      "evidence": "    self.do_handshake()"
+      "evidence": "`python3 movie_matcher.py` exited 1 with urllib3 `Connection reset by peer` traceback"
     },
     "verified": {
       "passed": false,
-      "evidence": "Traceback (most recent call last):"
+      "evidence": "Script failed with `exit=1`; no eval scores were produced or reported"
     }
   },
   "friction": [
     {
-      "where": "Missing AI provider API key prerequisite",
-      "detail": "The quickstart says `export OPENAI_API_KEY=\" \" # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc.` but the sandbox only had `BRAINTRUST_API_KEY` set (`OPENAI_API_KEY is set: `)."
+      "where": "Sandbox network policy",
+      "detail": "`curl -s http://httpbin.org/get` returned `Internet is restricted on Tier 1 and Tier 2.`"
     },
     {
-      "where": "Network/SSL connectivity to Braintrust fails in sandbox",
-      "detail": "`curl -s -o /dev/null -w \"%{http_code}\" https://gateway.braintrust.dev/v1/models` returned `000Connection failed` and the Python script crashed at `self.do_handshake()`."
+      "where": "Missing AI provider key prerequisite",
+      "detail": "Docs instruct `export OPENAI_API_KEY=\" \" # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc.` but environment had none"
     },
     {
-      "where": "Installed CLI tools not on PATH",
-      "detail": "`WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH.`"
+      "where": "Broken documentation link",
+      "detail": "`fetch_url` for `/docs/start/quickstart.md` returned `The requested page could not be found.`"
     },
     {
-      "where": "Python 3.14 compatibility / SDK verification issue",
-      "detail": "`import braintrust; print(braintrust.__version__)` raised `AttributeError: module 'braintrust' has no attribute '__version__'`"
+      "where": "Truncated install command in docs",
+      "detail": "The `run-in-code` page shows cut-off command `pnpm add braintrus`"
     },
     {
-      "where": "Confusing quickstart documentation navigation",
-      "detail": "Agent fetched multiple ambiguous URLs (`/docs/start/quickstart`, `/docs/evaluate/quickstart`, `/docs/start/quickstart/eval`) before locating the evaluation quickstart."
+      "where": "Misleading `braintrust.login()` return type",
+      "detail": "Agent initially wrote `braintrust.login().api_key` but SDK help shows `login(...) -> None`"
     }
   ],
   "score": 30,
-  "braintrust_span": "c81771b4-e31b-444e-bd1b-b7d26bb64cea"
+  "braintrust_span": "499c089c-3939-468f-b33e-bd5edf6eb9f2"
 }

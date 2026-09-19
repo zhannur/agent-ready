@@ -1,18 +1,18 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-09-18T14:13:17Z",
+  "started": "2026-09-19T13:40:00Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
   "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 486.3,
+  "wall_seconds": 246.8,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "Requirement already satisfied: httpx<0.29.0,>=0.28.0 in /usr/local/lib/python3.14/site-packages (from daytona) (0.28.1)"
     },
     "installed": {
       "passed": true,
@@ -20,39 +20,39 @@
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY=***REDACTED***"
+      "evidence": "DAYTONA_API_KEY is set: yes"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: da2809a2-db2e-49bb-9243-917056e75d94\nSandbox state: SandboxState.STARTED"
+      "evidence": "Sandbox created: 6208e795-045f-45ea-b49c-d19923e15981"
     },
     "verified": {
       "passed": false,
-      "evidence": "Attempt 1 failed: DaytonaConnectionError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by pe"
+      "evidence": "Error: DaytonaConnectionError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   },
   "friction": [
     {
-      "where": "SDK version drift (0.134.0 pre-installed vs 0.214.0 current)",
+      "where": "SDK version drift requires manual upgrade",
       "detail": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
     },
     {
-      "where": "Toolbox proxy unreachable from within sandbox",
-      "detail": "000Failed"
+      "where": "Sandbox process execution fails with connection reset",
+      "detail": "Error: DaytonaConnectionError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     },
     {
-      "where": "CLI commands fail with port already in use inside the sandbox",
-      "detail": "Error occurred error=\"listen tcp :22222: bind: address already in use\""
+      "where": "Direct API call to run code returns 404",
+      "detail": "HTTP Error: 404 - {\"path\":\"/api/sandbox/ea61010f-f1b6-4b97-aa40-90d3d80f7027/toolbox/process/exec\"..."
     },
     {
-      "where": "Sandbox exec fails with repeated connection resets",
-      "detail": "Attempt 1 failed: DaytonaConnectionError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by pe"
+      "where": "CLI binary starts local servers and crashes on used ports",
+      "detail": "Error occurred error=\"listen tcp :22220: bind: address already in use\""
     },
     {
-      "where": "Undocumented or incorrect direct API endpoint for exec",
-      "detail": "{\"path\":\"/api/sandbox/d509b173-047d-45b7-99d9-5f5b9b747b1a/exec\",\"timestamp\":\"2026-09-18T14:12:04.488Z\",\"statusCode\":404,\"error\":\"Not Found\",\"message\":\"Cannot POST /api/sandbox/d509b173-047d-45b7-99d9-5f5b9b747b1a/exec\"}"
+      "where": "Documentation link returns 404",
+      "detail": "404 \u00b7 Daytona ... The page you're looking for doesn't exist or has been moved."
     }
   ],
   "score": 70,
-  "braintrust_span": "674a0b2a-f532-466b-ab05-09c2732829ae"
+  "braintrust_span": "2e63bafd-14b6-4658-94c0-aa0996d7ae4d"
 }
