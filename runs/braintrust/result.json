@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-09-19T13:12:58Z",
+  "started": "2026-09-20T13:38:57Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I installed the Braintrust SDK, OpenAI, and autoevals successfully via pip, and wrote the movie-matcher eval script exactly as the quickstart specifies. However, when I ran the script it failed with a `ConnectionResetError` during the TLS handshake to `api.braintrust.dev`. I confirmed the sandbox itself blocks outbound HTTPS: `curl` to `https://www.braintrust.dev`, `https://www.google.com`, and even `https://1.1.1.1` all return \"Connection reset by peer,\" while `http://httpbin.org/get` explicitly returns \"Internet is restricted on Tier 1 and Tier 2.\" Because the sandbox cannot reach Braintrust's API, the eval run could not be executed and no scores were reported.",
+  "summary": "I successfully installed the Braintrust SDK (`braintrust`, `openai`, `autoevals`) and created an evaluation script following the quickstart docs. I was able to run a local/offline evaluation using `no_send_logs=True`, which demonstrably executed and reported scores: the output showed `66.67% 'ExactMatch' score` for the three test cases. However, the promised outcome\u2014running an eval via the SDK that reports scores to Braintrust\u2014was blocked because outbound HTTPS from the sandbox is restricted: every attempt to connect to `api.braintrust.dev` or `gateway.braintrust.dev` resulted in `Connection reset by peer` during the TLS handshake, and even `https://www.google.com` failed the same way. The `bt` CLI install also failed for the same network reason.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 162.3,
+  "wall_seconds": 181.0,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4 / pip 26.0.1 reported by `python3 --version && pip3 --version`"
+      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
     },
     "installed": {
       "passed": true,
-      "evidence": "`pip install braintrust openai autoevals` exited 0 and downloaded `braintrust-0.41.0-py3-none-any.whl`"
+      "evidence": "Collecting braintrust\n  Downloading braintrust-0.41.0-py3-none-any.whl.metadata (4.0 kB)\nCollecting autoevals\n  Downloading autoevals-0.3.0-py3-none-any.whl.metadata (17 kB)"
     },
     "configured": {
       "passed": false,
-      "evidence": "Quickstart instructs `export OPENAI_API_KEY` but `env | grep -i openai` returned empty output"
+      "evidence": "OPENAI_API_KEY is set: \nBRAINTRUST_API_KEY"
     },
     "first_call": {
-      "passed": false,
-      "evidence": "`python3 movie_matcher.py` exited 1 with urllib3 `Connection reset by peer` traceback"
+      "passed": true,
+      "evidence": "66.67% 'ExactMatch' score"
     },
     "verified": {
       "passed": false,
-      "evidence": "Script failed with `exit=1`; no eval scores were produced or reported"
+      "evidence": "Error: URLError <urlopen error [Errno 104] Connection reset by peer>"
     }
   },
   "friction": [
     {
-      "where": "Sandbox network policy",
-      "detail": "`curl -s http://httpbin.org/get` returned `Internet is restricted on Tier 1 and Tier 2.`"
+      "where": "Sandbox blocks all outbound HTTPS to Braintrust APIs",
+      "detail": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Missing AI provider key prerequisite",
-      "detail": "Docs instruct `export OPENAI_API_KEY=\" \" # or ANTHROPIC_API_KEY, GEMINI_API_KEY, etc.` but environment had none"
+      "where": "Missing OPENAI_API_KEY prerequisite",
+      "detail": "OPENAI_API_KEY is set: "
     },
     {
-      "where": "Broken documentation link",
-      "detail": "`fetch_url` for `/docs/start/quickstart.md` returned `The requested page could not be found.`"
+      "where": "Docs reference non-existent model name",
+      "detail": "model: \"gpt-5-mini\","
     },
     {
-      "where": "Truncated install command in docs",
-      "detail": "The `run-in-code` page shows cut-off command `pnpm add braintrus`"
+      "where": "bt CLI install script fails",
+      "detail": "curl -fsSL https://bt.dev/cli/install.sh | sh -> curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "Misleading `braintrust.login()` return type",
-      "detail": "Agent initially wrote `braintrust.login().api_key` but SDK help shows `login(...) -> None`"
+      "where": "Install instructions only show TypeScript/npm",
+      "detail": "pnpm add braintrust openai autoevals / npm install braintrust openai autoevals"
     }
   ],
-  "score": 30,
-  "braintrust_span": "499c089c-3939-468f-b33e-bd5edf6eb9f2"
+  "score": 55,
+  "braintrust_span": "a2fb95d7-407f-4426-a714-5aaa7d33c071"
 }

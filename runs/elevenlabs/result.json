@@ -1,58 +1,58 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-09-19T13:44:37Z",
+  "started": "2026-09-20T14:08:02Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I successfully fetched the ElevenLabs quickstart, installed the `elevenlabs` SDK (v2.68.0) and `python-dotenv`, and created the exact `example.py` script from the docs. The SDK installed correctly and the API endpoints are reachable (unauthenticated `/v1/voices` returns a voice list). However, I was blocked by an invalid API key: every authenticated request\u2014via both the SDK and raw `curl` with the `xi-api-key` header\u2014returned HTTP 401 with the error `{\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"Invalid API key\"}}`. Because the provided `ELEVENLABS_API_KEY` is rejected by the API, I could not complete the text-to-speech call or generate the promised audio file.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 196.5,
+  "wall_seconds": 228.7,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "pip install elevenlabs python-dotenv exited with code 0 and downloaded dependencies"
+      "evidence": "pip install elevenlabs python-dotenv exited with code 0 and downloaded elevenlabs-2.68.0"
     },
     "installed": {
       "passed": true,
-      "evidence": "Downloading elevenlabs-2.68.0-py3-none-any.whl.metadata (15 kB) ... exit=0"
+      "evidence": "python -c \"import elevenlabs; print(elevenlabs.__version__)\" output 2.68.0"
     },
     "configured": {
-      "passed": false,
-      "evidence": "ApiError: ... status_code: 401, body: {'detail': {'type': 'authentication_error', 'code': 'unauthorized', 'message': 'Invalid API key', 'status': 'invalid_api_key'}}"
+      "passed": true,
+      "evidence": "ELEVENLABS_API_KEY is set: yes (Length: 51) and example.py wired it via os.getenv(\"ELEVENLABS_API_KEY\")"
     },
     "first_call": {
       "passed": false,
-      "evidence": "File \"/home/daytona/example.py\", line 19, in <module> play(audio) ... ApiError ... status_code: 401"
+      "evidence": "python example.py raised ApiError with status_code: 401 and body: {'detail': {'type': 'authentication_error', 'code': 'unauthorized', 'message': 'Invalid API key'}}"
     },
     "verified": {
       "passed": false,
-      "evidence": "No audio file was produced; final attempts ended with status_code: 401 and 'Invalid API key'"
+      "evidence": "All TTS attempts returned HTTP 401; no audio file was produced and the agent concluded it could not generate the promised output"
     }
   },
   "friction": [
     {
-      "where": "Missing mpv binary prerequisite",
-      "detail": "which mpv ffmpeg returned 'mpv not found' while the quickstart example uses play(audio)"
+      "where": "API key prerequisite",
+      "detail": "body: {'detail': {'type': 'authentication_error', 'code': 'unauthorized', 'message': 'Invalid API key'"
     },
     {
-      "where": "System package installation blocked",
-      "detail": "apt-get update && apt-get install -y mpv failed with 'E: List directory /var/lib/apt/lists/partial is missing. - Acquire (13: Permission denied)'"
+      "where": "Authorization header format",
+      "detail": "{\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"Provided authorization header was invalid.\"}}"
     },
     {
-      "where": "API key validation",
-      "detail": "Every authenticated request returned 'message': 'Invalid API key', 'status': 'invalid_api_key' (e.g., request_id 'c913903a3c187c6cdc9f1ccf2c5a371a')"
+      "where": "SDK environment enum",
+      "detail": "AttributeError: type object 'ElevenLabsEnvironment' has no attribute 'STAGING'"
     },
     {
-      "where": "Auth header format confusion",
-      "detail": "Agent spent multiple commands investigating why xi-api-key returned 401 while X-Api-Key returned 200: 'xi-api-key format: 401' vs 'X-Api-Key format: 200'"
+      "where": "Query-parameter auth inconsistency",
+      "detail": "curl -s \"https://api.elevenlabs.io/v1/voices?api_key=${ELEVENLABS_API_KEY}\" returned voices, but TTS with query param returned HTTP Status: 401"
     },
     {
-      "where": "Opaque SDK error traceback",
-      "detail": "Failure surfaced deep in elevenlabs/play.py instead of a clear auth message: 'File \"/home/daytona/.local/lib/python3.14/site-packages/elevenlabs/play.py\", line 19, in play'"
+      "where": "SDK request visibility",
+      "detail": "class LoggingClient(httpx.Client): ... print(f'Request: {method} {url}')"
     }
   ],
-  "score": 30,
-  "braintrust_span": "be6cff01-b48e-4263-afce-94e48628c9f3"
+  "score": 45,
+  "braintrust_span": "46885881-845f-47aa-b374-203f8af22777"
 }
