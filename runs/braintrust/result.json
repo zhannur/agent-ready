@@ -1,14 +1,14 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-09-20T13:38:57Z",
+  "started": "2026-09-23T14:16:30Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully installed the Braintrust SDK (`braintrust`, `openai`, `autoevals`) and created an evaluation script following the quickstart docs. I was able to run a local/offline evaluation using `no_send_logs=True`, which demonstrably executed and reported scores: the output showed `66.67% 'ExactMatch' score` for the three test cases. However, the promised outcome\u2014running an eval via the SDK that reports scores to Braintrust\u2014was blocked because outbound HTTPS from the sandbox is restricted: every attempt to connect to `api.braintrust.dev` or `gateway.braintrust.dev` resulted in `Connection reset by peer` during the TLS handshake, and even `https://www.google.com` failed the same way. The `bt` CLI install also failed for the same network reason.",
+  "summary": "I installed the Braintrust Python SDK and dependencies successfully (`Successfully installed autoevals-0.3.0 braintrust-0.42.0...`), wrote an eval script using the `Eval()` API with a simple task and scorer, and attempted to run it. The script fails with a `ConnectionResetError: [Errno 104] Connection reset by peer` during the SSL handshake to Braintrust's API endpoint, which appears to be a network/infrastructure issue preventing any API communication from this sandbox. I did not deviate from the documented SDK usage; the blocker is that the sandbox cannot establish a connection to Braintrust's servers to authenticate or submit the eval.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 181.0,
+  "wall_seconds": 99.8,
   "checkpoints": {
     "env_ready": {
       "passed": true,
@@ -16,43 +16,43 @@
     },
     "installed": {
       "passed": true,
-      "evidence": "Collecting braintrust\n  Downloading braintrust-0.41.0-py3-none-any.whl.metadata (4.0 kB)\nCollecting autoevals\n  Downloading autoevals-0.3.0-py3-none-any.whl.metadata (17 kB)"
+      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.42.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-9.1.1 sseclient-py-1.9.0 text-unidecode-1.3"
     },
     "configured": {
-      "passed": false,
-      "evidence": "OPENAI_API_KEY is set: \nBRAINTRUST_API_KEY"
+      "passed": true,
+      "evidence": "BRAINTRUST_API_KEY"
     },
     "first_call": {
-      "passed": true,
-      "evidence": "66.67% 'ExactMatch' score"
+      "passed": false,
+      "evidence": "ConnectionResetError: [Errno 104] Connection reset by peer"
     },
     "verified": {
       "passed": false,
-      "evidence": "Error: URLError <urlopen error [Errno 104] Connection reset by peer>"
+      "evidence": "exit=1"
     }
   },
   "friction": [
     {
-      "where": "Sandbox blocks all outbound HTTPS to Braintrust APIs",
-      "detail": "curl: (35) Recv failure: Connection reset by peer"
+      "where": "Braintrust API connectivity",
+      "detail": "ConnectionResetError: [Errno 104] Connection reset by peer"
     },
     {
-      "where": "Missing OPENAI_API_KEY prerequisite",
-      "detail": "OPENAI_API_KEY is set: "
+      "where": "PATH after pip install",
+      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
     },
     {
-      "where": "Docs reference non-existent model name",
-      "detail": "model: \"gpt-5-mini\","
+      "where": "Python SDK quickstart setup",
+      "detail": "run the agent-assisted setup script: curl -fsSL https://braintrust.dev/wizard/setup.sh | sh -s -- --from docs_python_quickstart"
     },
     {
-      "where": "bt CLI install script fails",
-      "detail": "curl -fsSL https://bt.dev/cli/install.sh | sh -> curl: (35) Recv failure: Connection reset by peer"
+      "where": "Eval API documentation",
+      "detail": "Help on function Eval in module braintrust.framework: Eval(name: str, data: EvalData[Input, Expected]..."
     },
     {
-      "where": "Install instructions only show TypeScript/npm",
-      "detail": "pnpm add braintrust openai autoevals / npm install braintrust openai autoevals"
+      "where": "Quickstart URL navigation",
+      "detail": "Multiple empty/generic fetches required, e.g. [fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/start/quickstart\"}"
     }
   ],
-  "score": 55,
-  "braintrust_span": "a2fb95d7-407f-4426-a714-5aaa7d33c071"
+  "score": 45,
+  "braintrust_span": "96b9a48a-ca17-4e5b-9251-fd4ac1e006d9"
 }

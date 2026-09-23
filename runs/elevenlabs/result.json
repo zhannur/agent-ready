@@ -1,58 +1,58 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-09-20T14:08:02Z",
+  "started": "2026-09-23T14:49:14Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I successfully fetched the ElevenLabs quickstart, installed the `elevenlabs` SDK (v2.68.0) and `python-dotenv`, and created the exact `example.py` script from the docs. The SDK installed correctly and the API endpoints are reachable (unauthenticated `/v1/voices` returns a voice list). However, I was blocked by an invalid API key: every authenticated request\u2014via both the SDK and raw `curl` with the `xi-api-key` header\u2014returned HTTP 401 with the error `{\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"Invalid API key\"}}`. Because the provided `ELEVENLABS_API_KEY` is rejected by the API, I could not complete the text-to-speech call or generate the promised audio file.",
+  "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 228.7,
+  "wall_seconds": 229.6,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "pip install elevenlabs python-dotenv exited with code 0 and downloaded elevenlabs-2.68.0"
+      "evidence": "Defaulting to user installation because normal site-packages is not writeable"
     },
     "installed": {
       "passed": true,
-      "evidence": "python -c \"import elevenlabs; print(elevenlabs.__version__)\" output 2.68.0"
+      "evidence": "Collecting elevenlabs\n  Downloading elevenlabs-2.68.0-py3-none-any.whl.metadata (15 kB)"
     },
     "configured": {
       "passed": true,
-      "evidence": "ELEVENLABS_API_KEY is set: yes (Length: 51) and example.py wired it via os.getenv(\"ELEVENLABS_API_KEY\")"
+      "evidence": "API key exists: yes"
     },
     "first_call": {
       "passed": false,
-      "evidence": "python example.py raised ApiError with status_code: 401 and body: {'detail': {'type': 'authentication_error', 'code': 'unauthorized', 'message': 'Invalid API key'}}"
+      "evidence": "status_code: 401, body: {'detail': {'type': 'authentication_error', 'code': 'unauthorized', 'message': 'Invalid API key'"
     },
     "verified": {
       "passed": false,
-      "evidence": "All TTS attempts returned HTTP 401; no audio file was produced and the agent concluded it could not generate the promised output"
+      "evidence": "HTTP status: 401"
     }
   },
   "friction": [
     {
-      "where": "API key prerequisite",
-      "detail": "body: {'detail': {'type': 'authentication_error', 'code': 'unauthorized', 'message': 'Invalid API key'"
+      "where": "API key authentication fails despite being set in environment",
+      "detail": "Invalid API key"
     },
     {
-      "where": "Authorization header format",
-      "detail": "{\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"Provided authorization header was invalid.\"}}"
+      "where": "Missing .env file on disk even though example code uses python-dotenv",
+      "detail": "No .env file"
     },
     {
-      "where": "SDK environment enum",
-      "detail": "AttributeError: type object 'ElevenLabsEnvironment' has no attribute 'STAGING'"
+      "where": "No CLI is shipped with the pip package",
+      "detail": "No CLI available"
     },
     {
-      "where": "Query-parameter auth inconsistency",
-      "detail": "curl -s \"https://api.elevenlabs.io/v1/voices?api_key=${ELEVENLABS_API_KEY}\" returned voices, but TTS with query param returned HTTP Status: 401"
+      "where": "Docs likely assume local audio playback capability",
+      "detail": "Save audio to file instead of playing (no spe"
     },
     {
-      "where": "SDK request visibility",
-      "detail": "class LoggingClient(httpx.Client): ... print(f'Request: {method} {url}')"
+      "where": "Uncertainty about whether sk_ prefix is required",
+      "detail": "API key must start with 'sk_'."
     }
   ],
   "score": 45,
-  "braintrust_span": "46885881-845f-47aa-b374-203f8af22777"
+  "braintrust_span": "ea20dfad-60e9-47df-8d51-1d15bb073055"
 }

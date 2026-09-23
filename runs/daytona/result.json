@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-09-19T13:40:00Z",
+  "started": "2026-09-23T14:44:03Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
   "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 246.8,
+  "wall_seconds": 415.3,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Requirement already satisfied: httpx<0.29.0,>=0.28.0 in /usr/local/lib/python3.14/site-packages (from daytona) (0.28.1)"
+      "evidence": "ID: 91409219-686a-4f7b-8421-f27ad8047107"
     },
     "installed": {
       "passed": true,
-      "evidence": "Version: 0.214.0"
+      "evidence": "/usr/local/bin/daytona"
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY is set: yes"
+      "evidence": "DAYTONA_API_KEY=***REDACTED***"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created: 6208e795-045f-45ea-b49c-d19923e15981"
+      "evidence": "Sandbox created with ID: 8730c1e8-3b8f-42c7-9537-670594b588fa"
     },
     "verified": {
       "passed": false,
-      "evidence": "Error: DaytonaConnectionError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "evidence": "curl: (35) Recv failure: Connection reset by peer"
     }
   },
   "friction": [
     {
-      "where": "SDK version drift requires manual upgrade",
-      "detail": "Requirement already satisfied: daytona in /usr/local/lib/python3.14/site-packages (0.134.0)"
+      "where": "SDK Sandbox method name drift",
+      "detail": "AttributeError: 'Sandbox' object has no attribute 'remove'. Did you mean: 'recover'?"
     },
     {
-      "where": "Sandbox process execution fails with connection reset",
-      "detail": "Error: DaytonaConnectionError: Failed to execute command: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "where": "SDK listSandboxes endpoint removed",
+      "detail": "Failed to list sandboxes: The deprecated GET /sandbox/paginated endpoint has been removed. Use GET /sandbox (listSandboxes) instead."
     },
     {
-      "where": "Direct API call to run code returns 404",
-      "detail": "HTTP Error: 404 - {\"path\":\"/api/sandbox/ea61010f-f1b6-4b97-aa40-90d3d80f7027/toolbox/process/exec\"..."
+      "where": "Sandbox toolbox proxy TLS failure",
+      "detail": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "CLI binary starts local servers and crashes on used ports",
-      "detail": "Error occurred error=\"listen tcp :22220: bind: address already in use\""
+      "where": "CPU quota limit",
+      "detail": "Failed to create sandbox: Total CPU limit exceeded. Maximum allowed: 10."
     },
     {
-      "where": "Documentation link returns 404",
-      "detail": "404 \u00b7 Daytona ... The page you're looking for doesn't exist or has been moved."
+      "where": "CLI --version starts server and crashes",
+      "detail": "Error occurred error=\"listen tcp :2280: bind: address already in use\""
     }
   ],
   "score": 70,
-  "braintrust_span": "2e63bafd-14b6-4658-94c0-aa0996d7ae4d"
+  "braintrust_span": "8012a508-a955-450c-8891-0d721b595c0a"
 }
