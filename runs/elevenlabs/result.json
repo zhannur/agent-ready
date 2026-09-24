@@ -1,26 +1,26 @@
 {
   "name": "elevenlabs",
   "url": "https://elevenlabs.io/docs/quickstart",
-  "started": "2026-09-23T14:49:14Z",
+  "started": "2026-09-24T14:40:12Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I fetched the ElevenLabs quickstart, installed the SDK (`elevenlabs` and `python-dotenv`), and created `example.py` exactly as documented. The API key was present in the environment (51 characters, `sk_` prefix). However, running the quickstart's exact code with `model_id=\"eleven_v3\"` consistently failed with HTTP 401 \"Invalid API key\" from the ElevenLabs API. I verified this was not an env-loading issue by testing the key directly with curl and hardcoding it in scripts\u2014all returned the same 401 for `eleven_v3`. Notably, when I tested alternative models (`eleven_turbo_v2_5` and `eleven_multilingual_v2`) with the same key and voice, the API calls succeeded immediately (output showed `SUCCESS with eleven_turbo_v2_5` and `SUCCESS with eleven_multilingual_v2`), indicating the key is valid but the `eleven_v3` model specified in the quickstart is either not accessible with this key tier or the model ID in the docs is incorrect. I did not reach the point of saving or playing audio because the quickstart's exact code fails at the API call stage.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 229.6,
+  "wall_seconds": 247.1,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Defaulting to user installation because normal site-packages is not writeable"
+      "evidence": "Collecting elevenlabs Downloading elevenlabs-2.69.0-py3-none-any.whl.metadata (15 kB)"
     },
     "installed": {
       "passed": true,
-      "evidence": "Collecting elevenlabs\n  Downloading elevenlabs-2.68.0-py3-none-any.whl.metadata (15 kB)"
+      "evidence": "Downloading elevenlabs-2.69.0-py3-none-any.whl.metadata (15 kB)"
     },
     "configured": {
       "passed": true,
-      "evidence": "API key exists: yes"
+      "evidence": "API key present: yes"
     },
     "first_call": {
       "passed": false,
@@ -28,31 +28,27 @@
     },
     "verified": {
       "passed": false,
-      "evidence": "HTTP status: 401"
+      "evidence": "I did not reach the point of saving or playing audio because the quickstart's exact code fails at the API call stage"
     }
   },
   "friction": [
     {
-      "where": "API key authentication fails despite being set in environment",
-      "detail": "Invalid API key"
+      "where": "Quickstart model ID is incorrect or requires a different tier",
+      "detail": "model_id=\"eleven_v3\" fails with 401, but the agent later sees \"SUCCESS with eleven_turbo_v2_5\" using the same key"
     },
     {
-      "where": "Missing .env file on disk even though example code uses python-dotenv",
-      "detail": "No .env file"
+      "where": "API returns misleading authentication error for model access issue",
+      "detail": "'message': 'Invalid API key' ... 'status': 'invalid_api_key' even though the key is valid for other models"
     },
     {
-      "where": "No CLI is shipped with the pip package",
-      "detail": "No CLI available"
+      "where": "CLI quickstart path via npx does not run",
+      "detail": "npx elevenlabs@latest --help ... npm error could not determine executable to run"
     },
     {
-      "where": "Docs likely assume local audio playback capability",
-      "detail": "Save audio to file instead of playing (no spe"
-    },
-    {
-      "where": "Uncertainty about whether sk_ prefix is required",
-      "detail": "API key must start with 'sk_'."
+      "where": "Missing prerequisite about model/tier availability",
+      "detail": "Quickstart specifies model_id=\"eleven_v3\" without noting it may be restricted, causing extensive debugging"
     }
   ],
   "score": 45,
-  "braintrust_span": "ea20dfad-60e9-47df-8d51-1d15bb073055"
+  "braintrust_span": "e28ef3c2-58c3-4478-90fa-81f1ee1bd97a"
 }

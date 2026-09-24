@@ -1,58 +1,58 @@
 {
   "name": "braintrust",
   "url": "https://www.braintrust.dev/docs/start",
-  "started": "2026-09-23T14:16:30Z",
+  "started": "2026-09-24T14:16:36Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "I installed the Braintrust Python SDK and dependencies successfully (`Successfully installed autoevals-0.3.0 braintrust-0.42.0...`), wrote an eval script using the `Eval()` API with a simple task and scorer, and attempted to run it. The script fails with a `ConnectionResetError: [Errno 104] Connection reset by peer` during the SSL handshake to Braintrust's API endpoint, which appears to be a network/infrastructure issue preventing any API communication from this sandbox. I did not deviate from the documented SDK usage; the blocker is that the sandbox cannot establish a connection to Braintrust's servers to authenticate or submit the eval.",
+  "summary": "run ended without finish()",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 99.8,
+  "wall_seconds": 193.5,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "Python 3.14.4\npip 26.0.1 from /usr/local/lib/python3.14/site-packages/pip (python 3.14)"
+      "evidence": "Python 3.14.4"
     },
     "installed": {
       "passed": true,
-      "evidence": "Successfully installed autoevals-0.3.0 braintrust-0.42.0 chevron-0.14.0 polyleven-0.11.0 python-slugify-9.1.1 sseclient-py-1.9.0 text-unidecode-1.3"
+      "evidence": "Downloading braintrust-0.42.0-py3-none-any.whl.metadata (4.0 kB)"
     },
     "configured": {
-      "passed": true,
-      "evidence": "BRAINTRUST_API_KEY"
+      "passed": false,
+      "evidence": "OPENAI_API_KEY is set: no"
     },
     "first_call": {
       "passed": false,
-      "evidence": "ConnectionResetError: [Errno 104] Connection reset by peer"
+      "evidence": "OpenSSL SSL_connect: Connection reset by peer in connection to gateway.braintrust.dev:443"
     },
     "verified": {
       "passed": false,
-      "evidence": "exit=1"
+      "evidence": "project_url=None, experiment_url=None"
     }
   },
   "friction": [
     {
-      "where": "Braintrust API connectivity",
-      "detail": "ConnectionResetError: [Errno 104] Connection reset by peer"
+      "where": "bt CLI install step",
+      "detail": "curl -fsSL https://bt.dev/cli/install.sh | sh fails with curl: (35) Recv failure: Connection reset by peer"
     },
     {
-      "where": "PATH after pip install",
-      "detail": "WARNING: The script braintrust is installed in '/home/daytona/.local/bin' which is not on PATH."
+      "where": "AI provider key configuration",
+      "detail": "OPENAI_API_KEY is set: no despite the quickstart requiring it alongside BRAINTRUST_API_KEY"
     },
     {
-      "where": "Python SDK quickstart setup",
-      "detail": "run the agent-assisted setup script: curl -fsSL https://braintrust.dev/wizard/setup.sh | sh -s -- --from docs_python_quickstart"
+      "where": "Braintrust Gateway endpoint",
+      "detail": "OpenSSL SSL_connect: Connection reset by peer in connection to gateway.braintrust.dev:443 makes the docs' primary endpoint unreachable"
     },
     {
-      "where": "Eval API documentation",
-      "detail": "Help on function Eval in module braintrust.framework: Eval(name: str, data: EvalData[Input, Expected]..."
+      "where": "Python vs TypeScript quickstart docs",
+      "detail": "The quickstart and run-in-code pages lead with pnpm add braintrust openai autoevals ts-node and bt eval my_eval.eval.ts while Python instructions are truncated"
     },
     {
-      "where": "Quickstart URL navigation",
-      "detail": "Multiple empty/generic fetches required, e.g. [fetch_url] args={\"url\": \"https://www.braintrust.dev/docs/start/quickstart\"}"
+      "where": "CLI command name mismatch",
+      "detail": "After pip installing, the CLI is named braintrust, not bt as shown in the docs (bt not found vs braintrust --help)"
     }
   ],
-  "score": 45,
-  "braintrust_span": "96b9a48a-ca17-4e5b-9251-fd4ac1e006d9"
+  "score": 30,
+  "braintrust_span": "4b870617-3ba7-4668-ba96-43c1b64827b7"
 }

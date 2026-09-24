@@ -1,58 +1,58 @@
 {
   "name": "daytona",
   "url": "https://www.daytona.io/docs/getting-started/",
-  "started": "2026-09-23T14:44:03Z",
+  "started": "2026-09-24T14:34:35Z",
   "agent_model": "accounts/fireworks/models/kimi-k2p6",
   "judge_model": "accounts/fireworks/models/kimi-k2p6",
   "outcome": "stuck",
-  "summary": "run ended without finish()",
+  "summary": "I successfully installed the Daytona Python SDK and created sandboxes via the SDK\u2014creation demonstrably works, returning sandbox IDs like `0a46a97d-0dd9-45e3-bac1-92963fe874f6` with state `STARTED`. However, executing code inside the sandbox is blocked by a persistent network-level failure: both `sandbox.process.exec()` and `sandbox.process.code_run()` fail with `ConnectionResetError: [Errno 104] Connection reset by peer` when connecting to `https://proxy.app.daytona.io/toolbox`. I confirmed this is not an SDK bug by reproducing the same TLS handshake failure with `curl` to that endpoint. I also briefly hit a \"Total CPU limit exceeded\" error after creating multiple test sandboxes, which I resolved by deleting them via the REST API, but the proxy connection issue remains the blocking problem.",
   "deviations": "",
   "steps": 40,
-  "wall_seconds": 415.3,
+  "wall_seconds": 248.5,
   "checkpoints": {
     "env_ready": {
       "passed": true,
-      "evidence": "ID: 91409219-686a-4f7b-8421-f27ad8047107"
+      "evidence": "source venv/bin/activate && python3 create_sandbox.py"
     },
     "installed": {
       "passed": true,
-      "evidence": "/usr/local/bin/daytona"
+      "evidence": "from daytona import Daytona"
     },
     "configured": {
       "passed": true,
-      "evidence": "DAYTONA_API_KEY=***REDACTED***"
+      "evidence": "DAYTONA_API_KEY set: True"
     },
     "first_call": {
       "passed": true,
-      "evidence": "Sandbox created with ID: 8730c1e8-3b8f-42c7-9537-670594b588fa"
+      "evidence": "Sandbox created: 2ae8206e-c0c7-4e70-9618-e5bd6040563f"
     },
     "verified": {
       "passed": false,
-      "evidence": "curl: (35) Recv failure: Connection reset by peer"
+      "evidence": "Running code inside sandbox... Error: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   },
   "friction": [
     {
-      "where": "SDK Sandbox method name drift",
-      "detail": "AttributeError: 'Sandbox' object has no attribute 'remove'. Did you mean: 'recover'?"
+      "where": "Outbound TLS to proxy.app.daytona.io is blocked",
+      "detail": "curl: (35) Recv failure: Connection reset by peer in connection to proxy.app.daytona.io:443"
     },
     {
-      "where": "SDK listSandboxes endpoint removed",
-      "detail": "Failed to list sandboxes: The deprecated GET /sandbox/paginated endpoint has been removed. Use GET /sandbox (listSandboxes) instead."
+      "where": "The daytona binary inside the sandbox is a server, not a management CLI",
+      "detail": "listen tcp :22222: bind: address already in use"
     },
     {
-      "where": "Sandbox toolbox proxy TLS failure",
-      "detail": "curl: (35) Recv failure: Connection reset by peer"
+      "where": "SDK signals sandbox ready but proxy connection still fails",
+      "detail": "Sandbox is ready! ... Error: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     },
     {
-      "where": "CPU quota limit",
-      "detail": "Failed to create sandbox: Total CPU limit exceeded. Maximum allowed: 10."
+      "where": "Required DAYTONA_API_URL env var is missing but defaults silently",
+      "detail": "DAYTONA_API_URL: Required api URL ... DAYTONA_API_URL: NOT SET"
     },
     {
-      "where": "CLI --version starts server and crashes",
-      "detail": "Error occurred error=\"listen tcp :2280: bind: address already in use\""
+      "where": "Sandbox creations accumulate and require manual cleanup",
+      "detail": "Total sandboxes: 10"
     }
   ],
   "score": 70,
-  "braintrust_span": "8012a508-a955-450c-8891-0d721b595c0a"
+  "braintrust_span": "122de117-ed66-45e9-b9b1-cc2b373bb1b9"
 }
